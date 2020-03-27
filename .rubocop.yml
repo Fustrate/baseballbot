@@ -1,8 +1,6 @@
 require:
   - rubocop-performance
 
-inherit_from: .rubocop_todo.yml
-
 AllCops:
   TargetRubyVersion: 2.6
 
@@ -24,6 +22,16 @@ Layout/MultilineMethodCallBraceLayout:
 
 Style/EmptyMethod:
   EnforcedStyle: expanded
+
+#
+# Disabled Cops
+#
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
 
 # New Cops
 
