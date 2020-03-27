@@ -32,9 +32,9 @@ class CheckMessages
   end
 
   def process_message(message)
-    return unless message.subject =~ TITLE && message.body =~ LINK
+    post_id = extract_post_id(message)
 
-    post_id = Regexp.last_match[1]
+    return unless post_id
 
     submission = @bot.session.from_ids("t3_#{post_id}")&.first
 
@@ -47,6 +47,12 @@ class CheckMessages
     @bot.redis.hset gid, subreddit, post_id if gid
 
     message.mark_as_read
+  end
+
+  def extract_post_id(message)
+    return unless message.subject =~ TITLE && message.body =~ LINK
+
+    Regexp.last_match[1]
   end
 
   def gid_for_submission(submission, subreddit, post_id)

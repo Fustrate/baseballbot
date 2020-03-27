@@ -76,44 +76,70 @@ class Baseballbot
 
         protected
 
-        # rubocop:disable Metrics/MethodLength
         def parse_standings_row(row)
+          {
+            subreddit: subreddit(row['team']['abbreviation']),
+            team: row['team'],
+            **standard_information(row),
+            **team_records(row),
+            **division_stats(row),
+            **wildcard_standings(row)
+          }.tap do |info|
+            # Used for sorting teams in the standings. Lowest losing %, most
+            # wins, least losses, and then fall back to three letter code
+            info[:sort_order] = sort_order(row)
+          end
+        end
+
+        def standard_information(row)
+          {
+            losses: row['losses'],
+            percent: row['leagueRecord']['pct'].to_f,
+            run_diff: row['runDifferential'],
+            streak: row.dig('streak', 'streakCode') || '-',
+            wins: row['wins']
+          }
+        end
+
+        def division_stats(row)
+          {
+            division_champ: row['divisionChamp'],
+            division_lead: row['divisionLeader'],
+            elim: row['eliminationNumber'],
+            games_back: row['divisionGamesBack']
+          }
+        end
+
+        def team_records(row)
           records = row.dig('records', 'splitRecords')
             .map { |rec| [rec['type'], [rec['wins'], rec['losses']]] }
             .to_h
 
           {
-            division_champ: row['divisionChamp'],
-            division_lead: row['divisionLeader'],
-            elim_wildcard: row['wildCardEliminationNumber'].to_i,
-            elim: row['eliminationNumber'],
-            games_back: row['divisionGamesBack'],
             home_record: records['home'],
             last_ten: records['lastTen'],
-            losses: row['losses'],
-            percent: row['leagueRecord']['pct'].to_f,
-            road_record: records['away'],
-            run_diff: row['runDifferential'],
-            streak: row.dig('streak', 'streakCode') || '-',
-            subreddit: subreddit(row['team']['abbreviation']),
-            team: row['team'],
+            road_record: records['away']
+          }
+        end
+
+        def wildcard_standings(row)
+          {
+            elim_wildcard: row['wildCardEliminationNumber'].to_i,
             wildcard_champ: false,
             wildcard_gb: row['wildCardGamesBack'],
             wildcard_rank: row['wildCardRank'].to_i,
-            wildcard: row['hasWildcard'] && !row['divisionLeader'],
-            wins: row['wins']
-          }.tap do |info|
-            # Used for sorting teams in the standings. Lowest losing %, most
-            # wins, least losses, and then fall back to three letter code
-            info[:sort_order] = [
-              1.0 - info[:percent],
-              162 - info[:wins],
-              info[:losses],
-              info[:team]['abbreviation']
-            ]
-          end
+            wildcard: row['hasWildcard'] && !row['divisionLeader']
+          }
         end
-        # rubocop:enable Metrics/MethodLength
+
+        def sort_order(row)
+          [
+            1.0 - row[:percent],
+            162 - row[:wins],
+            row[:losses],
+            row[:team]['abbreviation']
+          ]
+        end
 
         # @!group Wildcards
 

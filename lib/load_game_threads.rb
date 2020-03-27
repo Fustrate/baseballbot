@@ -46,17 +46,19 @@ class GameThreadLoader
 
   def calculate_dates
     if ARGV.count > 2
-      raise 'Please pass 2 arguments: ruby load_schedule.rb ' \
-            '[6/2015 [mariners,dodgers]]'
+      raise ArgumentError,
+            'Please pass at most 2 arguments: ruby load_schedule.rb 6/2015 ' \
+            'mariners,dodgers'
     end
 
-    @date = if ARGV[0] =~ %r{\A(\d{1,2})/(\d{4})\z}
-              Date.new(Regexp.last_match[2].to_i, Regexp.last_match[1].to_i, 1)
-            else
-              Date.today
-            end
-
+    @date = date_from_args
     @names = (ARGV[1] || '').split(%r{[+/,]}).map(&:downcase)
+  end
+
+  def date_from_args
+    return Date.today unless ARGV[0] =~ %r{\A(\d{1,2})/(\d{4})\z}
+
+    Date.new(Regexp.last_match[2].to_i, Regexp.last_match[1].to_i, 1)
   end
 
   def load_game_threads

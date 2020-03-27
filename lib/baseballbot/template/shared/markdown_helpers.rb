@@ -31,9 +31,9 @@ module MarkdownHelpers
     headers = []
     alignment = []
 
-    columns.map do |column|
-      headers << column.is_a?(Array) ? column[0] : column.to_s
-      alignment << ALIGNMENT[Array(column)[1] || :left] || ALIGNMENT[:left]
+    columns.each do |column|
+      headers << header_for(column)
+      alignment << alignment_for(column)
     end
 
     <<~TABLE
@@ -41,6 +41,14 @@ module MarkdownHelpers
       #{alignment.join('|')}|
       #{data.map { |row| row.join('|') }.join("\n")}|
     TABLE
+  end
+
+  def header_for(column)
+    column.is_a?(Array) ? column[0] : column.to_s
+  end
+
+  def alignment_for(column)
+    ALIGNMENT[Array(column)[1] || :left] || ALIGNMENT[:left]
   end
 
   def link_to(text = '', options = {})

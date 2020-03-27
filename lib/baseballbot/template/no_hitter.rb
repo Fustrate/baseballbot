@@ -23,15 +23,17 @@ class Baseballbot
       protected
 
       def title_interpolations
-        pitcher_names = (@flag == 'home' ? home_pitchers : away_pitchers)
-          .map { |pitcher| player_name(pitcher) }
-          .join(', ')
-
         super.merge(
           pitcher_names: pitcher_names,
           pitching_team: @flag == 'home' ? home_team.name : away_team.name,
           batting_team: @flag == 'home' ? away_team.name : home_team.name
         )
+      end
+
+      def pitcher_names
+        (@flag == 'home' ? home_pitchers : away_pitchers)
+          .map { |pitcher| player_name(pitcher) }
+          .join(', ')
       end
     end
   end

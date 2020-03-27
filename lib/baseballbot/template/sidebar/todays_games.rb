@@ -55,17 +55,25 @@ class Baseballbot
         end
 
         def mark_winner_and_loser(data)
-          started = !PREGAME_STATUSES.match?(data[:raw_status])
+          return unless scores_differ?(data)
 
-          return unless started && data[:home][:score] != data[:away][:score]
-
-          home_team_winning = data[:home][:score] > data[:away][:score]
-          winner, loser = home_team_winning ? %i[home away] : %i[away home]
+          winner, loser = winner_loser_flags(data)
 
           over = POSTGAME_STATUSES.match?(data[:raw_status])
 
           data[winner][:score] = bold data[winner][:score]
           data[loser][:score] = italic data[loser][:score] if over
+        end
+
+        def scores_differ?(data)
+          !PREGAME_STATUSES.match?(data[:raw_status]) &&
+            data[:home][:score] != data[:away][:score]
+        end
+
+        def winner_loser_flags(data)
+          return %i[home away] if data[:home][:score] > data[:away][:score]
+
+          %i[away home]
         end
 
         def link_for_team(game:, team:)

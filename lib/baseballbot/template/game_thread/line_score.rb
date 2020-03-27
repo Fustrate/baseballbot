@@ -60,25 +60,50 @@ class Baseballbot
           @lines ||= begin
             return BLANK_LINES unless started? && linescore&.dig('innings')
 
-            innings = [9, linescore['innings'].count].max
-            lines = [[nil] * innings, [nil] * innings]
-
-            linescore['innings'].each do |inning|
-              lines[0][inning['num'] - 1] = inning['away']&.dig('runs')
-              lines[1][inning['num'] - 1] = inning['home']&.dig('runs')
-            end
-
-            lines
+            process_linescore_inning
           end
         end
 
-        def line_for_team(line_team)
-          code = line_team == :home ? home_team.code : away_team.code
-          line = line_team == :home ? lines[1] : lines[0]
-          rhe = line_team == :home ? home_rhe : away_rhe
+        def process_linescore_inning
+          lines = base_lines
 
-          "|[#{code}](/#{code})|#{line.join('|')}|" \
-            "#{bold rhe['runs']}|#{bold rhe['hits']}|#{bold rhe['errors']}"
+          linescore['innings'].each do |inning|
+            lines[0][inning['num'] - 1] = inning['away']&.dig('runs')
+            lines[1][inning['num'] - 1] = inning['home']&.dig('runs')
+          end
+
+          lines
+        end
+
+        def base_lines
+          innings = [9, linescore['innings'].count].max
+
+          [[nil] * innings, [nil] * innings]
+        end
+
+        def line_for_team(flag)
+          info = team_line_information(flag)
+
+          format(
+            '|[%<code>s](/%<code>s)|%<line>s|%<runs>s|%<hits>s|%<errors>s',
+            code: info[:code],
+            line: info[:line].join('|'),
+            runs: bold(info[:runs]),
+            hits: bold(info[:hits]),
+            errors: bold(info[:errors])
+          )
+        end
+
+        def team_line_information(flag)
+          rhe = flag == :home ? home_rhe : away_rhe
+
+          {
+            code: (flag == :home ? home_team : away_team).code,
+            line: flag == :home ? lines[1] : lines[0],
+            runs: rhe['runs'],
+            hits: rhe['hits'],
+            errors: rhe['errors']
+          }
         end
       end
     end

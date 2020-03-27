@@ -26,9 +26,13 @@ class Baseballbot
 
         info "[NEW] #{@submission.id} in /r/#{@subreddit.name} for #{@game_pk}"
 
-        @bot.redis.hset(@template.gid, @subreddit.name.downcase, @submission.id)
+        save_to_redis!
 
         @submission
+      end
+
+      def save_to_redis!
+        @bot.redis.hset(@template.gid, @subreddit.name.downcase, @submission.id)
       end
 
       def update!

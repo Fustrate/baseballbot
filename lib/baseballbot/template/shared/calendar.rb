@@ -8,16 +8,18 @@ class Baseballbot
     class Shared
       module Calendar
         def month_calendar(downcase: false)
-          start_date = Date.civil(Date.today.year, Date.today.month, 1)
-          end_date = Date.civil(Date.today.year, Date.today.month, -1)
-
-          dates = team_schedule.games_between(start_date, end_date)
-
-          cells = dates.map do |_, day|
+          cells = month_schedule.map do |_, day|
             cell(day[:date].day, day[:games], downcase: downcase)
           end
 
-          MarkdownCalendar.generate(cells, dates)
+          MarkdownCalendar.generate(cells, month_schedule)
+        end
+
+        def month_schedule
+          start_date = Date.civil(Date.today.year, Date.today.month, 1)
+          end_date = Date.civil(Date.today.year, Date.today.month, -1)
+
+          team_schedule.games_between(start_date, end_date)
         end
 
         def month_games
@@ -29,42 +31,43 @@ class Baseballbot
         end
 
         def previous_games(limit, team: nil)
-          team_id = team || @subreddit.team.id
-
           games = []
           start_date = Date.today - limit - 7
 
           # Go backwards an extra week to account for off days
-          team_schedule.games_between(start_date, Date.today, team: team_id)
-            .values
-            .reverse_each do |day|
-              next if day[:date] > Date.today
+          schedule_between(start_date, Date.today, team).reverse_each do |day|
+            next if day[:date] > Date.today
 
-              games.concat day[:games].keep_if(&:over?)
+            games.concat day[:games].keep_if(&:over?)
 
-              break if games.count >= limit
-            end
+            break if games.count >= limit
+          end
 
           games.first(limit)
         end
 
         def upcoming_games(limit, team: nil)
-          team_id = team || @subreddit.team.id
-
           games = []
           end_date = Date.today + limit + 7
 
           # Go forward an extra week to account for off days
-          team_schedule.games_between(Date.today, end_date, team: team_id)
-            .each_value do |day|
-              next if day[:date] < Date.today
+          schedule_between(Date.today, end_date, team).each do |day|
+            next if day[:date] < Date.today
 
-              games.concat day[:games].reject(&:over?)
+            games.concat day[:games].reject(&:over?)
 
-              break if games.count >= limit
-            end
+            break if games.count >= limit
+          end
 
           games.first(limit)
+        end
+
+        def schedule_between(start_date, end_date, team)
+          team_schedule.games_between(
+            start_date,
+            end_date,
+            team: team || @subreddit.team.id
+          ).values
         end
 
         def next_game_str(date_format: '%-m/%-d', team: nil)
@@ -72,13 +75,14 @@ class Baseballbot
 
           return '???' unless game
 
-          if game.home_team?
-            "#{game.date.strftime(date_format)} #{@subreddit.team.name} vs." \
-            " #{game.opponent.name} #{game.date.strftime('%-I:%M %p')}"
-          else
-            "#{game.date.strftime(date_format)} #{@subreddit.team.name} @ " \
-            "#{game.opponent.name} #{game.date.strftime('%-I:%M %p')}"
-          end
+          format(
+            '%<date>s %<team>s %<dir>s %<opponent>s %<time>s',
+            date: game.date.strftime(date_format),
+            team: @subreddit.team.name,
+            dir: game.home_team? ? 'vs.' : '@',
+            opponent: game.opponent.name,
+            time: game.date.strftime('%-I:%M %p')
+          )
         end
 
         def last_game_str(date_format: '%-m/%-d', team: nil)
@@ -86,8 +90,14 @@ class Baseballbot
 
           return '???' unless game
 
-          "#{game.date.strftime(date_format)} #{@subreddit.team.name} " \
-          "#{game.score[0]} #{game.opponent.name} #{game.score[1]}"
+          format(
+            '%<date>s %<team>s %<team_runs>s %<opponent>s %<opponent_runs>s',
+            date: game.date.strftime(date_format),
+            team: @subreddit.team.name,
+            team_runs: game.score[0],
+            opponent: game.opponent.name,
+            opponent_runs: game.score[1]
+          )
         end
 
         protected
@@ -106,19 +116,23 @@ class Baseballbot
 
           return num if games.empty?
 
-          # Let's hope nobody plays a doubleheader against two different teams
-          subreddit = subreddit games.first.opponent.code
-
-          # Spring training games sometimes are against colleges
-          subreddit = subreddit&.downcase if options[:downcase]
-
-          statuses = games.map(&:status)
-
-          link = link_to '', sub: subreddit, title: statuses.join(', ')
+          link = link_to(
+            '',
+            sub: cell_subreddit(games.first.opponent.code, options[:downcase]),
+            title: games.map(&:status).join(', ')
+          )
 
           return bold "#{num} #{link}" if games[0].home_team?
 
           italic "#{num} #{link}"
+        end
+
+        # Spring training games sometimes are against colleges, so sometimes
+        # the team sub is nil
+        def cell_subreddit(code, downcase)
+          team_sub = subreddit(code)
+
+          downcase ? team_sub&.downcase : team_sub
         end
       end
     end

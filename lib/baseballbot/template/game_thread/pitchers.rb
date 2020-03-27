@@ -52,15 +52,13 @@ class Baseballbot
         end
 
         def pitchers_table(stats: %i[ip h r er bb so p-s era])
-          headers = stats.map(&:to_s).map(&:upcase).join('|')
-
           rows = pitchers.map do |one, two|
             [pitcher_row(one, stats), pitcher_row(two, stats)].join('||')
           end
 
           <<~TABLE
-            **#{home_team.code}**|#{headers}||**#{away_team.code}**|#{headers}
-            -#{'|:-:' * stats.count}|-|-#{'|:-:' * stats.count}
+            #{table_header(home_team, stats)}||#{table_header(away_team, stats)}
+            #{'|:-:' * stats.count}|-|#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
         end
@@ -69,7 +67,7 @@ class Baseballbot
           rows = home_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
 
           <<~TABLE
-            **#{home_team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}
+            #{table_header(home_team, stats)}
             -#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
@@ -79,10 +77,14 @@ class Baseballbot
           rows = away_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
 
           <<~TABLE
-            **#{away_team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}
+            #{table_header(away_team, stats)}
             -#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
+        end
+
+        def table_header(team, stats)
+          "**#{team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}"
         end
 
         def pitcher_row(pitcher, stats = %i[ip h r er bb so p-s era])

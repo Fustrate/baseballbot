@@ -44,14 +44,12 @@ class Baseballbot
         end
 
         def batters_table(stats: %i[ab r h rbi bb so ba])
-          headers = stats.map(&:to_s).map(&:upcase).join('|')
-
           rows = batters.map do |one, two|
             [batter_row(one, stats), batter_row(two, stats)].join('||')
           end
 
           <<~TABLE
-            **#{home_team.code}**||#{headers}||**#{away_team.code}**||#{headers}
+            #{table_header(home_team, stats)}||#{table_header(away_team, stats)}
             -|-#{'|:-:' * stats.count}|-|-|-#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
@@ -61,7 +59,7 @@ class Baseballbot
           rows = home_batters.map { |batter| batter_row(batter, stats) }
 
           <<~TABLE
-            **#{home_team.code}**||#{stats.map(&:to_s).map(&:upcase).join('|')}
+            #{table_header(home_team, stats)}
             -|-#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
@@ -71,10 +69,14 @@ class Baseballbot
           rows = away_batters.map { |batter| batter_row(batter, stats) }
 
           <<~TABLE
-            **#{away_team.code}**||#{stats.map(&:to_s).map(&:upcase).join('|')}
+            #{table_header(away_team, stats)}
             -|-#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
+        end
+
+        def table_header(team, stats)
+          "**#{team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}"
         end
 
         def batter_row(batter, stats = %i[ab r h rbi bb so ba])
@@ -86,13 +88,17 @@ class Baseballbot
 
           position = bold(position) unless replacement
 
+          [
+            "#{spacer}#{position}",
+            "#{spacer}#{player_link(batter)}",
+            *batter_cells(batter)
+          ].join('|')
+        end
+
+        def batter_cells(batter)
           today = game_stats(batter)['batting']
 
-          cells = stats.map { |stat| BATTER_COLUMNS[stat].call(batter, today) }
-
-          ["#{spacer}#{position}", "#{spacer}#{player_link(batter)}"]
-            .concat(cells)
-            .join '|'
+          stats.map { |stat| BATTER_COLUMNS[stat].call(batter, today) }
         end
       end
     end
