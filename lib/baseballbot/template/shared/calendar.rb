@@ -16,10 +16,10 @@ class Baseballbot
         end
 
         def month_schedule
-          start_date = Date.civil(Date.today.year, Date.today.month, 1)
-          end_date = Date.civil(Date.today.year, Date.today.month, -1)
-
-          team_schedule.games_between(start_date, end_date)
+          team_schedule.games_between(
+            Date.civil(Date.today.year, Date.today.month, 1),
+            Date.civil(Date.today.year, Date.today.month, -1)
+          )
         end
 
         def month_games
@@ -111,7 +111,7 @@ class Baseballbot
           )
         end
 
-        def cell(date, games, options = {})
+        def cell(date, games, **options)
           num = "^#{date}"
 
           return num if games.empty?

@@ -31,10 +31,6 @@ class Baseballbot
         @submission
       end
 
-      def save_to_redis!
-        @bot.redis.hset(@template.gid, @subreddit.name.downcase, @submission.id)
-      end
-
       def update!
         @template = template_for("#{@type}_update")
         @submission = @subreddit.load_submission(id: @post_id)
@@ -69,6 +65,10 @@ class Baseballbot
         return postpone_game_thread! if @template.postponed?
 
         @template.final? ? end_game_thread! : change_status('Posted')
+      end
+
+      def save_to_redis!
+        @bot.redis.hset(@template.gid, @subreddit.name.downcase, @submission.id)
       end
 
       # @param status [String] status of the game thread

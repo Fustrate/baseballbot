@@ -5,13 +5,16 @@
 class Baseballbot
   module Template
     class NoHitter < GameThread
-      def initialize(title:, subreddit:, game_pk:, flag:)
+      TITLE_FORMAT = 'No-H****r Alert - %<pitcher_names>s ' \
+                     '(%<pitching_team>s) vs. %<batting_team>s'
+
+      def initialize(subreddit:, game_pk:, flag:)
         @flag = flag
 
         super(
           subreddit: subreddit,
           game_pk: game_pk,
-          title: title,
+          title: TITLE_FORMAT,
           type: 'no_hitter'
         )
       end

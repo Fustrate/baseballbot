@@ -43,7 +43,7 @@ class Baseballbot
       )
     end
 
-    def post_off_day_thread?
+    def off_today?
       @bot.api.schedule(
         sportId: 1,
         teamId: @team_id,
@@ -88,7 +88,7 @@ class Baseballbot
     # Update settings for the current subreddit
     #
     # @param new_settings [Hash] new settings to apply to the subreddit
-    def modify_settings(new_settings = {})
+    def modify_settings(**new_settings)
       if new_settings.key?(:description)
         raise 'Sidebar is blank.' if new_settings[:description].strip.empty?
       end

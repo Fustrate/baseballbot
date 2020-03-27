@@ -30,6 +30,9 @@ Style/EmptyMethod:
 Style/Documentation:
   Enabled: false
 
+Style/RescueStandardError:
+  Enabled: false
+
 # New Cops
 
 Style/HashEachMethods:

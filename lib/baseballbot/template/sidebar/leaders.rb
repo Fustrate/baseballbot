@@ -131,7 +131,7 @@ class Baseballbot
           players.is_a?(Hash) ? [players] : players
         end
 
-        def open_url(url, interpolations = {})
+        def open_url(url, **interpolations)
           interpolations[:team_id] = @subreddit.team.id
 
           URI.parse(format(url, interpolations)).open.read

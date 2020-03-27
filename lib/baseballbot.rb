@@ -41,7 +41,7 @@ class Baseballbot
     ::HTTP::TimeoutError
   ].freeze
 
-  def initialize(options = {})
+  def initialize(**options)
     @options = options
 
     configure_honeybadger

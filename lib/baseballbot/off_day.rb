@@ -34,7 +34,7 @@ class Baseballbot
 
       off_day_check_was_run!(subreddit)
 
-      return unless subreddit.post_off_day_thread?
+      return unless subreddit.off_today?
 
       Baseballbot::Posts::OffDay.new(subreddit: subreddit).create!
     rescue => e

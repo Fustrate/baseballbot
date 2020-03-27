@@ -51,7 +51,7 @@ module MarkdownHelpers
     ALIGNMENT[Array(column)[1] || :left] || ALIGNMENT[:left]
   end
 
-  def link_to(text = '', options = {})
+  def link_to(text = '', **options)
     title = %( "#{options[:title]}") if options[:title]
 
     return "[#{text}](/r/#{options[:sub]}#{title})" if options[:sub]

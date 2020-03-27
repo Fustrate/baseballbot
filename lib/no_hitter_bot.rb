@@ -5,8 +5,6 @@ require_relative 'default_bot'
 class NoHitterBot
   MIN_INNINGS = 6
   SUBREDDIT_NAME = 'baseball'
-  TITLE_FORMAT = 'No-H****r Alert - %<pitcher_names>s ' \
-                 '(%<pitching_team>s) vs. %<batting_team>s'
 
   # Depending on how far into a no-hit game we are, skip checks for a while
   WAIT_TIMES = [0, 3600, 1800, 900, 600, 300, 30].freeze
@@ -105,7 +103,6 @@ class NoHitterBot
 
   def no_hitter_template(game, flag)
     Baseballbot::Template::NoHitter.new(
-      title: TITLE_FORMAT,
       subreddit: subreddit,
       game_pk: game['gamePk'],
       flag: flag
