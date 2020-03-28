@@ -18,7 +18,7 @@ class Baseballbot
           load_template
 
           @submission = @subreddit.submit(
-            title: @template.title,
+            title: @template.formatted_title,
             text: @template.evaluated_body
           )
 
@@ -27,14 +27,11 @@ class Baseballbot
       end
 
       def load_template
-        @template = Template::GameThread.new(
+        @template = Template::PostGameThread.new(
           subreddit: @subreddit,
           game_pk: @game_pk,
           type: 'postgame'
         )
-
-        # The title uses the template to see who won
-        @template.title = postgame_title
       end
 
       def post_process
@@ -56,31 +53,6 @@ class Baseballbot
         return flairs['lost'] if @template.lost? && flairs['lost']
 
         flairs
-      end
-
-      def postgame_title
-        titles = @subreddit.options.dig('postgame', 'title')
-
-        return titles if titles.is_a?(String)
-
-        titles[title_key] || titles['default'] || titles.values.first
-
-        # # Spring training games can end in a tie.
-        # titles['tie'] || titles
-      end
-
-      def playoffs?
-        %w[F D L W].include? @template.game_data.dig('game', 'type')
-      end
-
-      def title_key
-        return 'won' if @template.won?
-
-        return 'lost' if @template.lost?
-
-        return 'playoffs' if playoffs?
-
-        'default'
       end
     end
   end

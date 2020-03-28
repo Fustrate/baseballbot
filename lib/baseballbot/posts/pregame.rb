@@ -18,7 +18,7 @@ class Baseballbot
           load_template
 
           @submission = @subreddit.submit(
-            title: @template.title,
+            title: @template.formatted_title,
             text: @template.evaluated_body
           )
 
@@ -27,24 +27,11 @@ class Baseballbot
       end
 
       def load_template
-        @template = Template::GameThread.new(
+        @template = Template::PreGameThread.new(
           subreddit: @subreddit,
           game_pk: @game_pk,
           type: 'pregame'
         )
-
-        # The title uses @template
-        @template.title = pregame_title
-      end
-
-      def pregame_title
-        titles = @subreddit.options.dig('pregame', 'title')
-
-        return titles if titles.is_a?(String)
-
-        playoffs = %w[F D L W].include? @template.game_data.dig('game', 'type')
-
-        titles[playoffs ? 'postseason' : 'default'] || titles.values.first
       end
 
       def post_process

@@ -5,22 +5,18 @@ class Baseballbot
     class General < Base
       using TemplateRefinements
 
-      attr_reader :title
-
       def initialize(body:, subreddit:, title: '')
         super(body: body, subreddit: subreddit)
 
-        @title = format_title title
+        @title = title
       end
 
       def inspect
         %(#<Baseballbot::Template::General>)
       end
 
-      protected
-
-      def format_title(title)
-        Time.now.strftime title
+      def formatted_title
+        @formatted_title ||= Time.now.strftime @title
       end
     end
   end

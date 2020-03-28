@@ -7,7 +7,7 @@ class Baseballbot
         @template = off_day_template
 
         @submission = @subreddit.submit(
-          title: @template.title,
+          title: @template.formatted_title,
           text: @template.evaluated_body
         )
 

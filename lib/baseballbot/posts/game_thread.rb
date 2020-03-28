@@ -10,15 +10,13 @@ class Baseballbot
         @game_pk = row['game_pk']
         @post_id = row['post_id']
         @type = row['type'] || 'game_thread'
+        @title = row['title']
       end
 
       def create!
         @template = template_for(@type)
 
         return change_status('Postponed') if @template.postponed?
-
-        # default_title uses @template
-        @template.title = (@title && !@title.empty? ? @title : default_title)
 
         create_game_thread_post!
 
@@ -43,8 +41,10 @@ class Baseballbot
       protected
 
       def create_game_thread_post!
-        @submission = @subreddit
-          .submit(title: @template.title, text: @template.evaluated_body)
+        @submission = @subreddit.submit(
+          title: @template.formatted_title,
+          text: @template.evaluated_body
+        )
 
         # Mark as posted right away so that it won't post again
         change_status 'Posted'
@@ -136,22 +136,13 @@ class Baseballbot
         @subreddit.options.dig('game_threads', 'flair', type)
       end
 
-      def default_title
-        titles = @subreddit.options.dig('game_threads', 'title')
-
-        return titles if titles.is_a?(String)
-
-        playoffs = %w[F D L W].include? @template.game_data.dig('game', 'type')
-
-        titles[playoffs ? 'postseason' : 'default'] || titles.values.first
-      end
-
       def template_for(type)
         Template::GameThread.new(
           subreddit: @subreddit,
           game_pk: @game_pk,
           post_id: @post_id,
-          type: type
+          type: type,
+          title: @title
         )
       end
     end
