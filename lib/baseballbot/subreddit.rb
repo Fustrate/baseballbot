@@ -15,7 +15,7 @@ class Baseballbot
       @submissions = {}
       @options = JSON.parse(row['options'])
 
-      @timezone = parse_timezone options['timezone']
+      @timezone = Baseballbot::Utility.parse_time_zone options['timezone']
     end
 
     def team
@@ -27,20 +27,8 @@ class Baseballbot
     end
 
     def now
-      @now ||= Baseballbot::Utility.parse_time(
-        Time.now.utc,
-        in_time_zone: @timezone
-      )
-    end
-
-    def log_action(action, note: '', data: {})
-      @bot.log_action(
-        subject_type: 'Subreddit',
-        subject_id: @id,
-        action: action,
-        note: note,
-        data: data
-      )
+      @now ||= Baseballbot::Utility
+        .parse_time(Time.now.utc, in_time_zone: @timezone)
     end
 
     def off_today?
@@ -158,10 +146,14 @@ class Baseballbot
       end
     end
 
-    def parse_timezone(name)
-      TZInfo::Timezone.get name
-    rescue TZInfo::InvalidTimezoneIdentifier
-      TZInfo::Timezone.get 'America/Los_Angeles'
+    def log_action(action, note: '', data: {})
+      @bot.log_action(
+        subject_type: 'Subreddit',
+        subject_id: @id,
+        action: action,
+        note: note,
+        data: data
+      )
     end
   end
 end

@@ -2,13 +2,19 @@
 
 class Baseballbot
   module Utility
+    def self.parse_time_zone(name)
+      TZInfo::Timezone.get name
+    rescue TZInfo::InvalidTimezoneIdentifier
+      TZInfo::Timezone.get 'America/Los_Angeles'
+    end
+
     def self.parse_time(utc, in_time_zone:)
       utc = Time.parse(utc).utc unless utc.is_a? Time
 
       time_zone = if in_time_zone.is_a?(TZInfo::DataTimezone)
                     in_time_zone
                   else
-                    TZInfo::Timezone.get(in_time_zone)
+                    parse_time_zone(in_time_zone)
                   end
 
       period = time_zone.period_for_utc(utc)
