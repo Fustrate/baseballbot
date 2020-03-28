@@ -4,15 +4,10 @@ class Baseballbot
   module Template
     class Sidebar
       module TodaysGames
-        PREGAME_STATUSES = /
-          Preview|Warmup|Pre-Game|Delayed Start|Scheduled
-        /x.freeze
-        POSTGAME_STATUSES = /Final|Game Over|Postponed|Completed Early/.freeze
-
         def todays_games(date)
           @date = date || @subreddit.now
 
-          load_game_threads
+          load_known_game_threads
 
           scheduled_games.map { |game| process_todays_game game }
         end
@@ -34,7 +29,7 @@ class Baseballbot
         def game_hash(game)
           status = game.dig('status', 'abstractGameState')
 
-          started = !PREGAME_STATUSES.match?(status)
+          started = !MLBStatsAPI::Games.pregame_status?(status)
 
           {
             home: team_data(game, 'home', started),
@@ -59,14 +54,14 @@ class Baseballbot
 
           winner, loser = winner_loser_flags(data)
 
-          over = POSTGAME_STATUSES.match?(data[:raw_status])
+          over = MLBStatsAPI::Games.postgame_status?(data[:raw_status])
 
           data[winner][:score] = bold data[winner][:score]
           data[loser][:score] = italic data[loser][:score] if over
         end
 
         def scores_differ?(data)
-          !PREGAME_STATUSES.match?(data[:raw_status]) &&
+          !MLBStatsAPI::Games.pregame_status?(data[:raw_status]) &&
             data[:home][:score] != data[:away][:score]
         end
 
@@ -110,7 +105,7 @@ class Baseballbot
         end
 
         def pre_or_post_game_status(game, status)
-          if POSTGAME_STATUSES.match?(status)
+          if MLBStatsAPI::Games.postgame_status?(status)
             innings = game.dig('linescore', 'currentInning')
 
             return innings == 9 ? 'F' : "F/#{innings}"
@@ -134,7 +129,7 @@ class Baseballbot
           link_to text, url: "https://www.mlb.com/gameday/#{game_pk}"
         end
 
-        def load_game_threads
+        def load_known_game_threads
           @game_threads = {}
 
           @bot.redis.keys(@date.strftime('%Y_%m_%d_*')).each do |key|

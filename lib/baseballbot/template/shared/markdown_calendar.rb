@@ -16,21 +16,19 @@ class Baseballbot
           protected
 
           def calendar_rows(cells, dates)
-            rows = separate_into_rows(cells, dates)
-
-            # Fill out the beginning and end of the table
-            rows[0] = "#{' |' * dates.values.first[:date].wday}#{rows[0]}"
-            rows[-1] = "#{rows[-1]}#{' |' * (6 - dates.values.last[:date].wday)}"
-
-            rows
+            [
+              *blank_start(dates.values.first[:date]),
+              cells,
+              *blank_end(dates.values.last[:date])
+            ].each_slice(7).map { |row| row.join('|') }
           end
 
-          # TODO: unshift/push blank cells before generating
-          def separate_into_rows(cells, dates)
-            rows = [cells.shift(7 - dates.values.first[:date].wday).join('|')]
-            rows << cells.shift(7).join('|') while cells.any?
+          def blank_start(date)
+            [' '] * ((7 - date.wday) % 7)
+          end
 
-            rows
+          def blank_end(date)
+            [' '] * (6 - date.wday)
           end
         end
       end

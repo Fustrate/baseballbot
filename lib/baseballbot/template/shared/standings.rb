@@ -76,71 +76,6 @@ class Baseballbot
 
         protected
 
-        def parse_standings_row(row)
-          {
-            subreddit: subreddit(row['team']['abbreviation']),
-            team: row['team'],
-            **standard_information(row),
-            **team_records(row),
-            **division_stats(row),
-            **wildcard_standings(row)
-          }.tap do |info|
-            # Used for sorting teams in the standings. Lowest losing %, most
-            # wins, least losses, and then fall back to three letter code
-            info[:sort_order] = sort_order(row)
-          end
-        end
-
-        def standard_information(row)
-          {
-            losses: row['losses'],
-            percent: row['leagueRecord']['pct'].to_f,
-            run_diff: row['runDifferential'],
-            streak: row.dig('streak', 'streakCode') || '-',
-            wins: row['wins']
-          }
-        end
-
-        def division_stats(row)
-          {
-            division_champ: row['divisionChamp'],
-            division_lead: row['divisionLeader'],
-            elim: row['eliminationNumber'],
-            games_back: row['divisionGamesBack']
-          }
-        end
-
-        def team_records(row)
-          records = row.dig('records', 'splitRecords')
-            .map { |rec| [rec['type'], [rec['wins'], rec['losses']]] }
-            .to_h
-
-          {
-            home_record: records['home'],
-            last_ten: records['lastTen'],
-            road_record: records['away']
-          }
-        end
-
-        def wildcard_standings(row)
-          {
-            elim_wildcard: row['wildCardEliminationNumber'].to_i,
-            wildcard_champ: false,
-            wildcard_gb: row['wildCardGamesBack'],
-            wildcard_rank: row['wildCardRank'].to_i,
-            wildcard: row['hasWildcard'] && !row['divisionLeader']
-          }
-        end
-
-        def sort_order(row)
-          [
-            1.0 - row[:percent],
-            162 - row[:wins],
-            row[:losses],
-            row[:team]['abbreviation']
-          ]
-        end
-
         # @!group Wildcards
 
         # Take the eligible teams, remove all teams who aren't at least tied
@@ -183,21 +118,91 @@ class Baseballbot
         # @!endgroup Wildcards
 
         def load_all_teams_standings
-          @all_teams = []
-
           data = @bot.api.load('standings_hydrate_team', expires: 300) do
             @bot.api.standings(leagues: %i[al nl], season: Date.today.year)
           end
 
-          data.dig('records').each do |division|
-            division['teamRecords'].each do |team|
-              @all_teams << parse_standings_row(team)
-            end
+          @all_teams = data.dig('records').flat_map do |division|
+            division['teamRecords'].map { |team| generate_standings_row(team) }
           end
 
           @all_teams.sort_by! { |team| team[:sort_order] }
         end
+
+        def generate_standings_row(row)
+          TeamStandingsData.call(row).merge(
+            subreddit: subreddit(row['team']['abbreviation'])
+          )
+        end
       end
+    end
+  end
+end
+
+module TeamStandingsData
+  class << self
+    def call(row)
+      {
+        team: row['team'],
+        **standard_information(row),
+        **team_records(row),
+        **division_stats(row),
+        **wildcard_standings(row)
+      }.tap do |info|
+        # Used for sorting teams in the standings. Lowest losing %, most
+        # wins, least losses, and then fall back to three letter code
+        info[:sort_order] = sort_order(row)
+      end
+    end
+
+    def standard_information(row)
+      {
+        losses: row['losses'],
+        percent: row['leagueRecord']['pct'].to_f,
+        run_diff: row['runDifferential'],
+        streak: row.dig('streak', 'streakCode') || '-',
+        wins: row['wins']
+      }
+    end
+
+    def division_stats(row)
+      {
+        division_champ: row['divisionChamp'],
+        division_lead: row['divisionLeader'],
+        elim: row['eliminationNumber'],
+        games_back: row['divisionGamesBack']
+      }
+    end
+
+    def team_records(row)
+      records = row.dig('records', 'splitRecords')
+        .map { |rec| [rec['type'], [rec['wins'], rec['losses']]] }
+        .to_h
+
+      {
+        home_record: records['home'],
+        last_ten: records['lastTen'],
+        road_record: records['away']
+      }
+    end
+
+    def wildcard_standings(row)
+      {
+        elim_wildcard: row['wildCardEliminationNumber'].to_i,
+        wildcard_champ: false,
+        wildcard_gb: row['wildCardGamesBack'],
+        wildcard_rank: row['wildCardRank'].to_i,
+        wildcard: row['hasWildcard'] && !row['divisionLeader']
+      }
+    end
+
+    def sort_order(row)
+      [
+        1.0 - row[:percent],
+        162 - row[:wins],
+        row[:losses],
+        row[:team]['abbreviation']
+      ]
     end
   end
 end
