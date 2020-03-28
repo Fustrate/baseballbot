@@ -22,13 +22,28 @@ class Baseballbot
     def update_sidebar!(subreddit)
       Honeybadger.context(subreddit: subreddit.name)
 
-      settings = { description: subreddit.generate_sidebar }
+      settings = { description: generate_sidebar(subreddit) }
 
       subreddit.modify_settings settings
     end
 
     def show_sidebar(name)
-      name_to_subreddit(name).generate_sidebar
+      generate_sidebar(name_to_subreddit(name))
+    end
+
+    protected
+
+    def generate_sidebar(subreddit)
+      raise Baseballbot::Error::NoSidebarText unless sidebar_present?(subreddit)
+
+      Template::Sidebar
+        .new(body: subreddit.template_for('sidebar'), subreddit: subreddit)
+        .replace_in CGI.unescapeHTML(subreddit.settings[:description])
+    end
+
+    def sidebar_present?(subreddit)
+      subreddit.settings[:description] &&
+        !subreddit.settings[:description].strip.empty?
     end
   end
 end

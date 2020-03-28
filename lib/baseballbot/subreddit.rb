@@ -61,18 +61,6 @@ class Baseballbot
       @options.dig('game_threads', 'sticky') != false
     end
 
-    def generate_sidebar
-      sidebar_template.replace_in current_sidebar
-    end
-
-    def current_sidebar
-      unless settings[:description] && !settings[:description].strip.empty?
-        raise Baseballbot::Error::NoSidebarText
-      end
-
-      CGI.unescapeHTML settings[:description]
-    end
-
     def subreddit
       @subreddit ||= @bot.session.subreddit(@name)
     end
@@ -151,10 +139,6 @@ class Baseballbot
       raise "/r/#{@name} does not have a #{type} template." if rows.count < 1
 
       rows[0]['body']
-    end
-
-    def sidebar_template
-      Template::Sidebar.new body: template_for('sidebar'), subreddit: self
     end
 
     # --------------------------------------------------------------------------
