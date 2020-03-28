@@ -56,14 +56,7 @@ class Baseballbot
     end
 
     def process_subreddit_row(row)
-      Subreddit.new(
-        bot: self,
-        id: row['id'].to_i,
-        name: row['name'],
-        team_id: row['team_id'],
-        account: accounts[row['account_id']],
-        options: JSON.parse(row['options'])
-      )
+      Subreddit.new(row, bot: self, account: accounts[row['account_id']])
     end
   end
 end

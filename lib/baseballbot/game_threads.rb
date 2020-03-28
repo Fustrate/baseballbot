@@ -48,14 +48,8 @@ class Baseballbot
     def build_game_thread(row)
       Honeybadger.context(subreddit: row['name'])
 
-      Baseballbot::Posts::GameThread.new(
-        id: row['id'],
-        game_pk: row['game_pk'],
-        post_id: row['post_id'],
-        title: row['title'],
-        subreddit: name_to_subreddit(row['name']),
-        type: row['type']
-      )
+      Baseballbot::Posts::GameThread
+        .new(row, subreddit: name_to_subreddit(row['name']))
     end
 
     # Every 10 minutes, update every game thread no matter what.
@@ -76,8 +70,9 @@ class Baseballbot
     def unposted_game_threads(names)
       names = names.map(&:downcase)
 
-      db.exec(UNPOSTED_GAME_THREADS_QUERY)
-        .select { |row| names.empty? || names.include?(row['name'].downcase) }
+      db.exec(UNPOSTED_GAME_THREADS_QUERY).select do |row|
+        names.empty? || names.include?(row['name'].downcase)
+      end
     end
 
     def posted_game_threads

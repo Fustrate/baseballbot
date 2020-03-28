@@ -92,12 +92,11 @@ class Baseballbot
       def title_interpolations
         {
           start_time: start_time_local.strftime('%-I:%M %p'),
-          start_time_et: start_time_et.strftime('%-I:%M %p ET')
-        }.merge(
+          start_time_et: start_time_et.strftime('%-I:%M %p ET'),
           **team_interpolations,
           **postseason_interpolations,
           **postgame_interpolations
-        )
+        }
       end
 
       def team_interpolations

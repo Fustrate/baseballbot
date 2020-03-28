@@ -5,16 +5,16 @@ class Baseballbot
     class Base
       attr_reader :submission, :template
 
-      def initialize(subreddit:, title: nil)
+      def initialize(row, subreddit:)
         @subreddit = subreddit
-        @bot = subreddit.bot
-        @title = title
+
+        @title = row['title']
       end
 
       def update_flair(flair)
         return unless flair
 
-        @bot.with_reddit_account(@subreddit.account.name) do
+        @subreddit.bot.with_reddit_account(@subreddit.account.name) do
           return update_flair_template(flair) if flair['flair_template_id']
 
           @subreddit.subreddit.set_flair(
@@ -34,7 +34,7 @@ class Baseballbot
       end
 
       def update_sticky(sticky = false)
-        @bot.with_reddit_account(@subreddit.account.name) do
+        @subreddit.bot.with_reddit_account(@subreddit.account.name) do
           if @submission.stickied
             @submission.remove_sticky if sticky == false
           elsif sticky
@@ -46,7 +46,7 @@ class Baseballbot
       def update_suggested_sort(sort = '')
         return if sort == ''
 
-        @bot.with_reddit_account(@subreddit.account.name) do
+        @subreddit.bot.with_reddit_account(@subreddit.account.name) do
           @submission.set_suggested_sort sort
         end
       end
@@ -54,7 +54,7 @@ class Baseballbot
       protected
 
       def info(message)
-        @bot.logger.info(message)
+        @subreddit.bot.logger.info(message)
       end
     end
   end

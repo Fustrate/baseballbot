@@ -4,16 +4,16 @@ class Baseballbot
   class Subreddit
     attr_reader :id, :account, :name, :timezone, :options, :bot
 
-    def initialize(bot:, id:, name:, team_id:, account:, options: {})
+    def initialize(row, bot:, account:)
       @bot = bot
 
-      @id = id
-      @name = name
-      @team_id = team_id
+      @id = row['id'].to_i
+      @name = row['name']
+      @team_id = row['team_id']
       @account = account
 
       @submissions = {}
-      @options = options
+      @options = JSON.parse(row['options'])
 
       @timezone = parse_timezone options['timezone']
     end

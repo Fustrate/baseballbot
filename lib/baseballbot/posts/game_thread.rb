@@ -3,15 +3,13 @@
 class Baseballbot
   module Posts
     class GameThread < Base
-      def initialize(
-        id:, game_pk:, subreddit:, title: nil, post_id: nil, type: nil
-      )
-        super(subreddit: subreddit, title: title)
+      def initialize(row, subreddit:)
+        super(row, subreddit: subreddit)
 
-        @id = id
-        @game_pk = game_pk
-        @post_id = post_id
-        @type = type || 'game_thread'
+        @id = row['id']
+        @game_pk = row['game_pk']
+        @post_id = row['post_id']
+        @type = row['type'] || 'game_thread'
       end
 
       def create!
