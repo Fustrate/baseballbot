@@ -25,6 +25,9 @@ gem 'redis'
 # Cron jobs
 gem 'whenever'
 
+# Time zones
+gem 'tzinfo'
+
 group :development do
   # Deploy with Capistrano
   gem 'capistrano', '~> 3.11', require: false

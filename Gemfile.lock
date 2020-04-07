@@ -91,6 +91,8 @@ GEM
     sshkit (1.21.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    tzinfo (2.0.2)
+      concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
@@ -113,6 +115,7 @@ DEPENDENCIES
   redis
   rubocop
   rubocop-performance
+  tzinfo
   whenever
 
 RUBY VERSION
