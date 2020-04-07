@@ -35,6 +35,12 @@ Style/RescueStandardError:
 
 # New Cops
 
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
 Style/HashEachMethods:
   Enabled: true
 

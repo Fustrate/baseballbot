@@ -17,7 +17,7 @@ gem 'mlb_stats_api', github: 'Fustrate/mlb_stats_api'
 gem 'pg'
 
 # Reddit Interaction
-gem 'redd' # , github: 'avinashbot/redd'
+gem 'redd', github: 'Fustrate/redd'
 
 # Caching
 gem 'redis'
