@@ -151,7 +151,7 @@ module TeamStandingsData
       }.tap do |info|
         # Used for sorting teams in the standings. Lowest losing %, most
         # wins, least losses, and then fall back to three letter code
-        info[:sort_order] = sort_order(row)
+        info[:sort_order] = sort_order(info)
       end
     end
 
