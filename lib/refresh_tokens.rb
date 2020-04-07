@@ -15,7 +15,7 @@ require_relative 'default_bot'
     puts "Refreshing #{account.name}"
 
     @bot.use_account account.name
-  rescue Redd::APIError => e
+  rescue Redd::Errors::APIError => e
     puts "\tError: #{e.class}"
   end
 

@@ -36,7 +36,7 @@ class Baseballbot
   include Subreddits
 
   IGNORED_EXCEPTIONS = [
-    ::Redd::ServerError,
+    ::Redd::Errors::ServerError,
     ::OpenURI::HTTPError,
     ::HTTP::TimeoutError
   ].freeze

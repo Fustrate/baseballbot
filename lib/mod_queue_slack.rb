@@ -58,7 +58,7 @@ class ModQueue
 
   def run!(retry_on_failure: true)
     @subreddit.modqueue(limit: 10).each { |item| process_item item }
-  rescue Redd::APIError
+  rescue Redd::Errors::APIError
     return unless retry_on_failure
 
     puts 'Service unavailable: waiting 30 seconds to retry.'
