@@ -2,7 +2,7 @@
 
 set :output, '/home/baseballbot/apps/baseballbot/shared/log/whenever.log'
 
-DIRECTORY = '/home/baseballbot/apps/baseballbot/current'
+DIRECTORY = '/home/baseballbot/apps/baseballbot/current/lib'
 BUNDLE_EXEC = 'bundle exec'
 
 def step_minutes_by(step, except: [])
