@@ -1,0 +1,14 @@
+inherit_from: ../.rubocop.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rspec
+
+Metrics/BlockLength:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false

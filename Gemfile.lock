@@ -104,6 +104,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     rubocop-performance (1.5.2)
       rubocop (>= 0.71.0)
+    rubocop-rspec (1.38.1)
+      rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     safe_yaml (1.0.5)
     sshkit (1.21.0)
@@ -138,6 +140,7 @@ DEPENDENCIES
   rspec (~> 3.8)
   rubocop
   rubocop-performance
+  rubocop-rspec
   tzinfo
   webmock (~> 3.4)
   whenever
