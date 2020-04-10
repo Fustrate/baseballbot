@@ -38,3 +38,8 @@ group :development do
   gem 'rubocop'
   gem 'rubocop-performance', require: false
 end
+
+group :test do
+  gem 'rspec', '~> 3.8'
+  gem 'webmock', '~> 3.4'
+end
