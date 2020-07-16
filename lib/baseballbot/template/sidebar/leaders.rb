@@ -5,11 +5,8 @@ class Baseballbot
     class Sidebar
       module Leaders
         BASE_URL = 'https://bdfed.stitch.mlbinfra.com/bdfed/stats/player?stitch_env=prod' \
-                   '&season=%<year>d&sportId=1&stats=season&gameType=%<type>s&limit=25&offset=0' \
+                   '&season=%<year>d&group=%<group>s&stats=season&gameType=%<type>s' \
                    '&playerPool=%<pool>s&teamId=%<team_id>d'
-
-        HITTER_URL  = "#{BASE_URL}&sortStat=battingAverage&group=hitting&order=desc"
-        PITCHER_URL = "#{BASE_URL}&sortStat=earnedRunAverage&group=pitching&order=asc"
 
         # The data source spells out some of the column names
         COLUMN_ALIASES = {
@@ -76,8 +73,8 @@ class Baseballbot
 
         def load_hitter_stats(year, type, count)
           stats = {}
-          all_hitters = hitters(year: year, type: type)
-          qualifying = hitters(year: year, type: type, pool: 'QUALIFIER')
+          all_hitters = load_stats(group: 'hitting', year: year, type: type)
+          qualifying = load_stats(group: 'hitting', year: year, type: type, pool: 'QUALIFIER')
 
           %w[h xbh hr rbi bb sb r].each do |key|
             stats[key] = list_of(key, all_hitters, :desc, count, :integer)
@@ -91,8 +88,8 @@ class Baseballbot
         end
 
         def load_pitcher_stats(year, type, count)
-          all_pitchers = pitchers(year: year, type: type)
-          qualifying = pitchers(year: year, type: type, pool: 'QUALIFIER')
+          all_pitchers = load_stats(group: 'pitching', year: year, type: type)
+          qualifying = load_stats(group: 'pitching', year: year, type: type, pool: 'QUALIFIER')
 
           stats = { 'ip' => list_of('ip', all_pitchers, :desc, count) }
 
@@ -128,18 +125,17 @@ class Baseballbot
           value
         end
 
-        def hitters(year:, type:, pool: 'ALL')
-          JSON.parse(open_url(HITTER_URL, year: year, pool: pool, type: type))['stats']
-        end
+        def load_stats(group:, year:, type:, pool: 'ALL')
+          url = format(
+            BASE_URL,
+            year: year,
+            pool: pool,
+            group: group,
+            type: type,
+            team_id: @subreddit.team.id
+          )
 
-        def pitchers(year:, type:, pool: 'ALL')
-          JSON.parse(open_url(PITCHER_URL, year: year, pool: pool, type: type))['stats']
-        end
-
-        def open_url(url, **interpolations)
-          interpolations[:team_id] = @subreddit.team.id
-
-          URI.parse(format(url, interpolations)).open.read
+          JSON.parse(URI.parse(url).open.read)['stats']
         end
       end
     end
