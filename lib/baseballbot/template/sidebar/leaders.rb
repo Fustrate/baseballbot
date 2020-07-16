@@ -36,7 +36,7 @@ class Baseballbot
 
         def hitter_stats_table(stats: [])
           rows = stats.map do |stat|
-            "#{stat.upcase}|#{hitter_stats[stat].first.values.join('|')}"
+            "#{stat.upcase}|#{hitter_stats[stat].first&.values&.join('|')}"
           end
 
           <<~TABLE
@@ -112,15 +112,15 @@ class Baseballbot
         end
 
         def hitters(year:, type:, pool: 'ALL')
-          parse_player_data(
-            open_url(HITTER_URL, year: year, pool: pool, type: type)
-          )
+          return []
+
+          parse_player_data open_url(HITTER_URL, year: year, pool: pool, type: type)
         end
 
         def pitchers(year:, type:, pool: 'ALL')
-          parse_player_data(
-            open_url(PITCHER_URL, year: year, pool: pool, type: type)
-          )
+          return []
+
+          parse_player_data open_url(PITCHER_URL, year: year, pool: pool, type: type)
         end
 
         def parse_player_data(data)
