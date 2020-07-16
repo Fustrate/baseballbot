@@ -24,7 +24,7 @@ class Baseballbot
           end
 
           def blank_start(date)
-            [' '] * ((7 - date.wday) % 7)
+            [' '] * date.wday
           end
 
           def blank_end(date)
