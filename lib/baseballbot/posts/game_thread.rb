@@ -49,9 +49,6 @@ class Baseballbot
         # Mark as posted right away so that it won't post again
         change_status 'Posted'
 
-        @submission.edit CGI.unescapeHTML(@submission.selftext)
-          .gsub('#ID#', @submission.id)
-
         update_sticky @subreddit.sticky_game_threads?
         update_suggested_sort 'new'
         # update_flair game_thread_flair('default')
