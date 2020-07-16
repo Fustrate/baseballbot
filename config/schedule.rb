@@ -23,7 +23,7 @@ every :minute do
 end
 
 every 1.hour do
-  # bundle_exec_ruby :sidebars, :update
+  bundle_exec_ruby :sidebars, :update
   bundle_exec_ruby :game_threads, :off_day
 end
 
