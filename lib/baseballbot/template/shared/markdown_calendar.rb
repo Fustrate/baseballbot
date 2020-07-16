@@ -18,7 +18,7 @@ class Baseballbot
           def calendar_rows(cells, dates)
             [
               *blank_start(dates.values.first[:date]),
-              cells,
+              *cells,
               *blank_end(dates.values.last[:date])
             ].each_slice(7).map { |row| row.join('|') }
           end
