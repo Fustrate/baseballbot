@@ -4,19 +4,32 @@ class Baseballbot
   module Template
     class Sidebar
       module Leaders
-        LEADERS_BASE_URL = 'http://mlb.mlb.com/pubajax/wf/flow/stats.splayer?' \
-                           'season=%<year>d&sort_order=\'desc\'' \
-                           '&page_type=SortablePlayer&team_id=%<team_id>d' \
-                           '&game_type=\'%<type>s\'&player_pool=%<pool>s' \
-                           '&season_type=ANY&sport_code=\'mlb\'&results=1000' \
-                           '&recSP=1&recPP=50'
+        BASE_URL = 'https://bdfed.stitch.mlbinfra.com/bdfed/stats/player?stitch_env=prod' \
+                   '&season=%<year>d&sportId=1&stats=season&gameType=%<type>s&limit=25&offset=0' \
+                   '&playerPool=%<pool>s&teamId=%<team_id>d'
 
-        HITTER_URL  = "#{LEADERS_BASE_URL}&sort_column='avg'&stat_type=hitting"
-        PITCHER_URL = "#{LEADERS_BASE_URL}&sort_column='era'&stat_type=pitching"
+        HITTER_URL  = "#{BASE_URL}&sortStat=battingAverage&group=hitting&order=desc"
+        PITCHER_URL = "#{BASE_URL}&sortStat=earnedRunAverage&group=pitching&order=asc"
+
+        # The data source spells out some of the column names
+        COLUMN_ALIASES = {
+          'bb' => 'baseOnBalls',
+          'h' => 'hits',
+          'hld' => 'holds',
+          'hr' => 'homeRuns',
+          'ip' => 'inningsPitched',
+          'r' => 'runs',
+          'sb' => 'stolenBases',
+          'so' => 'strikeOuts',
+          'sv' => 'saves',
+          'w' => 'wins',
+          'xbh' => 'extraBaseHits'
+        }.freeze
 
         def hitter_stats(year: nil, type: 'R', count: 1)
           year ||= Date.today.year
 
+          # TODO: I'm not sure this is really memoizing much of anything
           @hitter_stats ||= {}
 
           key = [year, type, count].join('-')
@@ -27,6 +40,7 @@ class Baseballbot
         def pitcher_stats(year: nil, type: 'R', count: 1)
           year ||= Date.today.year
 
+          # TODO: I'm not sure this is really memoizing much of anything
           @pitcher_stats ||= {}
 
           key = [year, type, count].join('-')
@@ -48,7 +62,7 @@ class Baseballbot
 
         def pitcher_stats_table(stats: [])
           rows = stats.map do |stat|
-            "#{stat.upcase}|#{pitcher_stats[stat].first.values.join('|')}"
+            "#{stat.upcase}|#{pitcher_stats[stat].first&.values&.join('|')}"
           end
 
           <<~TABLE
@@ -66,11 +80,11 @@ class Baseballbot
           qualifying = hitters(year: year, type: type, pool: 'QUALIFIER')
 
           %w[h xbh hr rbi bb sb r].each do |key|
-            stats[key] = list_of(key, all_hitters, 'high', count, :integer)
+            stats[key] = list_of(key, all_hitters, :desc, count, :integer)
           end
 
           %w[avg obp slg ops].each do |key|
-            stats[key] = list_of(key, qualifying, 'high', count, :float)
+            stats[key] = list_of(key, qualifying, :desc, count, :float)
           end
 
           stats
@@ -80,26 +94,29 @@ class Baseballbot
           all_pitchers = pitchers(year: year, type: type)
           qualifying = pitchers(year: year, type: type, pool: 'QUALIFIER')
 
-          stats = { 'ip' => list_of('ip', all_pitchers, 'high', count) }
+          stats = { 'ip' => list_of('ip', all_pitchers, :desc, count) }
 
           %w[w sv hld so].each do |key|
-            stats[key] = list_of(key, all_pitchers, 'high', count, :integer)
+            stats[key] = list_of(key, all_pitchers, :desc, count, :integer)
           end
 
           %w[whip era avg].each do |key|
-            stats[key] = list_of(key, qualifying, 'low', count, :float)
+            stats[key] = list_of(key, qualifying, :asc, count, :float)
           end
 
           stats
         end
 
         def list_of(key, players, direction, count, type = :noop)
-          return [{ name: '', value: 0 }] unless players
+          # Always return something that can be used in a template.
+          return [{ name: 'None Qualified', value: 0 }] unless players
+
+          source_key = COLUMN_ALIASES[key] || key
 
           players
-            .map { |player| player.values_at 'name_display_last_init', key }
+            .map { |player| player.values_at 'playerInitLastName', source_key }
             .sort_by { |player| player[1].to_f }
-            .send(direction == 'high' ? :reverse : :itself)
+            .send(direction == :desc ? :reverse : :itself)
             .first(count)
             .map { |s| { name: s[0], value: cast_value(s[1], type) } }
         end
@@ -112,23 +129,11 @@ class Baseballbot
         end
 
         def hitters(year:, type:, pool: 'ALL')
-          return []
-
-          parse_player_data open_url(HITTER_URL, year: year, pool: pool, type: type)
+          JSON.parse(open_url(HITTER_URL, year: year, pool: pool, type: type))['stats']
         end
 
         def pitchers(year:, type:, pool: 'ALL')
-          return []
-
-          parse_player_data open_url(PITCHER_URL, year: year, pool: pool, type: type)
-        end
-
-        def parse_player_data(data)
-          json = JSON.parse(data)
-          players = json.dig('stats_sortable_player', 'queryResults', 'row')
-
-          # Array(players) doesn't work because hashes have a #to_a method
-          players.is_a?(Hash) ? [players] : players
+          JSON.parse(open_url(PITCHER_URL, year: year, pool: pool, type: type))['stats']
         end
 
         def open_url(url, **interpolations)
