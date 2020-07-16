@@ -137,6 +137,22 @@ class Baseballbot
 
           JSON.parse(URI.parse(url).open.read)['stats']
         end
+
+        # Interestingly, this doesn't include the esoteric column "extraBaseHits", and I'd rather
+        # not have to add it up myself.
+        # def load_from_api(group:, year:, type:, pool:)
+        #   @bot.api.stats(
+        #     hydrate: 'person',
+        #     sportId: 1,
+        #     season: year,
+        #     group: group,
+        #     gameType: type,
+        #     playerPool: pool,
+        #     stats: 'season',
+        #     statFields: 'advanced,standard',
+        #     teamId: @subreddit.team.id
+        #   ).dig('stats', 0, 'splits')
+        # end
       end
     end
   end
