@@ -68,9 +68,7 @@ class Baseballbot
 
         return player['boxscoreName'] if player['boxscoreName']
 
-        if player['name'] && player['name']['boxscore']
-          return player['name']['boxscore']
-        end
+        return player['name']['boxscore'] if player['name'] && player['name']['boxscore']
 
         game_data.dig('players', "ID#{player['person']['id']}", 'boxscoreName')
       end

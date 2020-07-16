@@ -3,9 +3,7 @@
 namespace :bot do
   desc 'Chaos!'
   task :chaos, %i[teams] do |_, args|
-    if args[:teams].blank?
-      raise 'Please provide one or more wagons to light on fire.'
-    end
+    raise 'Please provide one or more wagons to light on fire.' if args[:teams].blank?
 
     on roles(:web) do
       within "#{release_path}/lib" do

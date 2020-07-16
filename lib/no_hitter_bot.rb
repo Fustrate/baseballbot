@@ -79,9 +79,7 @@ class NoHitterBot
   def away_team_being_no_hit?(game, inning, half)
     return unless game.dig('linescore', 'teams', 'away', 'hits').zero?
 
-    if inning > MIN_INNINGS || (inning == MIN_INNINGS && half != 'Top')
-      return true
-    end
+    return true if inning > MIN_INNINGS || (inning == MIN_INNINGS && half != 'Top')
 
     @next_check << Time.now + WAIT_TIMES.last(MIN_INNINGS + 1)[inning]
 
@@ -92,9 +90,7 @@ class NoHitterBot
   def home_team_being_no_hit?(game, inning, half)
     return unless game.dig('linescore', 'teams', 'home', 'hits').zero?
 
-    if inning > MIN_INNINGS || (inning == MIN_INNINGS && half == 'End')
-      return true
-    end
+    return true if inning > MIN_INNINGS || (inning == MIN_INNINGS && half == 'End')
 
     @next_check << Time.now + WAIT_TIMES.last(MIN_INNINGS + 1)[inning]
 

@@ -51,7 +51,7 @@ RSpec.describe Baseballbot::Utility do
 
     # The absolute time is tested in its own method - just make sure it's called
     it 'adjust with an absolute time' do
-      expect(described_class).to receive(:constant_time).exactly(2).times
+      expect(described_class).to receive(:constant_time).twice
 
       described_class.adjust_time_proc('7am')
       described_class.adjust_time_proc('6:45 AM')

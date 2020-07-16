@@ -44,9 +44,7 @@ class Baseballbot
       end
 
       def replace_in(text)
-        if text.is_a?(Redd::Models::Submission)
-          text = CGI.unescapeHTML(text.selftext)
-        end
+        text = CGI.unescapeHTML(text.selftext) if text.is_a?(Redd::Models::Submission)
 
         text.sub replace_regexp, "#{DELIMITER}\n#{evaluated_body}\n#{DELIMITER}"
       end

@@ -56,9 +56,7 @@ class Baseballbot
       config.env = 'bot'
 
       config.before_notify do |notice|
-        if IGNORED_EXCEPTIONS.any? { |klass| notice.exception.is_a?(klass) }
-          notice.halt!
-        end
+        notice.halt! if IGNORED_EXCEPTIONS.any? { |klass| notice.exception.is_a?(klass) }
       end
     end
   end
@@ -73,9 +71,7 @@ class Baseballbot
   end
 
   def client
-    unless @options[:user_agent]
-      raise 'Baseballbot was not initialized with :user_agent.'
-    end
+    raise 'Baseballbot was not initialized with :user_agent.' unless @options[:user_agent]
 
     @client ||= Redd::APIClient.new redd_auth_strategy, limit_time: 0
   end
@@ -105,9 +101,7 @@ class Baseballbot
   end
 
   def session
-    unless @options[:user_agent]
-      raise 'Baseballbot was not initialized with :user_agent.'
-    end
+    raise 'Baseballbot was not initialized with :user_agent.' unless @options[:user_agent]
 
     @session ||= Redd::Models::Session.new client
   end

@@ -24,7 +24,7 @@ class Baseballbot
     end
 
     def self.adjust_time_proc(post_at)
-      if post_at =~ /\A\-?\d{1,2}\z/
+      if post_at =~ /\A-?\d{1,2}\z/
         ->(time) { time - Regexp.last_match[0].to_i.abs * 3600 }
       elsif post_at =~ /(1[012]|\d)(:\d\d|) ?(am|pm)/i
         constant_time(Regexp.last_match)
