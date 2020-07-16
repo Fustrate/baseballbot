@@ -17,6 +17,9 @@ Layout/FirstHashElementIndentation:
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
+Layout/LineLength:
+  Max: 100
+
 Layout/MultilineMethodCallBraceLayout:
   EnforcedStyle: new_line
 
