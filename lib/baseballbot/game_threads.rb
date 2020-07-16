@@ -48,8 +48,7 @@ class Baseballbot
     def build_game_thread(row)
       Honeybadger.context(subreddit: row['name'])
 
-      Baseballbot::Posts::GameThread
-        .new(row, subreddit: name_to_subreddit(row['name']))
+      Baseballbot::Posts::GameThread.new(row, subreddit: name_to_subreddit(row['name']))
     end
 
     # Every 10 minutes, update every game thread no matter what.

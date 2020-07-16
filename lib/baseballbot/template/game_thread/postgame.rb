@@ -67,8 +67,10 @@ class Baseballbot
           loser = pitcher_decision(losing_pitcher, :record)
           save = pitcher_decision(save_pitcher, :saves)
 
-          "Winning Pitcher|Losing Pitcher|Save\n" \
-          ":-:|:-:|:-:\n#{winner}|#{loser}|#{save}"
+          <<~MARKDOWN
+            Winning Pitcher|Losing Pitcher|Save
+            :-:|:-:|:-:\n#{winner}|#{loser}|#{save}
+          MARKDOWN
         end
 
         def pitcher_decision(pitcher, info_key)

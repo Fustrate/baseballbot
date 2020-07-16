@@ -18,9 +18,8 @@ class Baseballbot
         end
 
         def game_graph_link
-          'http://www.fangraphs.com/livewins.aspx?' \
-          "date=#{date.strftime '%F'}&team=#{team.name}&" \
-          "dh=#{game_data.dig('game', 'gameNumber') - 1}&season=#{date.year}"
+          "http://www.fangraphs.com/livewins.aspx?date=#{date.strftime '%F'}&team=#{team.name}" \
+          "&dh=#{game_data.dig('game', 'gameNumber') - 1}&season=#{date.year}"
         end
 
         def strikezone_map_link
@@ -29,8 +28,7 @@ class Baseballbot
         end
 
         def game_notes_link(mlb_team)
-          'http://www.mlb.com/mlb/presspass/gamenotes.jsp?' \
-          "c_id=#{mlb_team.file_code}"
+          "http://www.mlb.com/mlb/presspass/gamenotes.jsp?c_id=#{mlb_team.file_code}"
         end
       end
     end

@@ -3,15 +3,13 @@
 RSpec.describe Baseballbot::Utility do
   describe '#parse_time_zone' do
     it 'recognizes a correct time zone' do
-      expect(
-        described_class.parse_time_zone('America/New_York').friendly_identifier
-      ).to eq 'America - New York'
+      expect(described_class.parse_time_zone('America/New_York').friendly_identifier)
+        .to eq 'America - New York'
     end
 
     it 'falls back to Los Angeles' do
-      expect(
-        described_class.parse_time_zone('America/Paris').friendly_identifier
-      ).to eq 'America - Los Angeles'
+      expect(described_class.parse_time_zone('America/Paris').friendly_identifier)
+        .to eq 'America - Los Angeles'
     end
   end
 
@@ -19,17 +17,15 @@ RSpec.describe Baseballbot::Utility do
     it 'parses a normal time with a string time zone' do
       tz = 'America/Los_Angeles'
 
-      expect(
-        described_class.parse_time('2020-04-09T15:00:00Z', in_time_zone: tz)
-      ).to eq Time.parse('2020-04-09T08:00:00 PDT')
+      expect(described_class.parse_time('2020-04-09T15:00:00Z', in_time_zone: tz))
+        .to eq Time.parse('2020-04-09T08:00:00 PDT')
     end
 
     it 'parses a normal time with a time zone object' do
       tz = TZInfo::Timezone.get 'America/Chicago'
 
-      expect(
-        described_class.parse_time('2019-11-09T15:00:00Z', in_time_zone: tz)
-      ).to eq Time.parse('2019-11-09T09:00:00 CST')
+      expect(described_class.parse_time('2019-11-09T15:00:00Z', in_time_zone: tz))
+        .to eq Time.parse('2019-11-09T09:00:00 CST')
     end
   end
 
@@ -44,8 +40,7 @@ RSpec.describe Baseballbot::Utility do
       }
 
       results.each do |offset, target|
-        expect(described_class.adjust_time_proc(offset).call(start))
-          .to eq Time.parse(target)
+        expect(described_class.adjust_time_proc(offset).call(start)).to eq Time.parse(target)
       end
     end
 
@@ -62,8 +57,7 @@ RSpec.describe Baseballbot::Utility do
       target = Time.parse('2019-04-09T09:00:00 PDT')
 
       ['', nil].each do |offset|
-        expect(described_class.adjust_time_proc(offset).call(start))
-          .to eq target
+        expect(described_class.adjust_time_proc(offset).call(start)).to eq target
       end
     end
   end
@@ -78,8 +72,7 @@ RSpec.describe Baseballbot::Utility do
       }
 
       results.each do |match_data, target|
-        expect(described_class.constant_time(match_data).call(start))
-          .to eq Time.parse(target)
+        expect(described_class.constant_time(match_data).call(start)).to eq Time.parse(target)
       end
     end
   end

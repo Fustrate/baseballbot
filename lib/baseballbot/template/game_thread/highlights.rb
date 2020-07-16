@@ -7,10 +7,7 @@ class Baseballbot
         def highlights
           return [] unless started?
 
-          @highlights ||= content.dig('highlights', 'highlights', 'items')
-            &.sort_by { |media| media['date'] }
-            &.map { |media| process_media(media) }
-            &.compact || []
+          @highlights ||= fetch_highlights || []
         end
 
         def highlights_list
@@ -35,19 +32,20 @@ class Baseballbot
             ].join('|')
           end
 
-          <<~HIGHLIGHTS
+          <<~MARKDOWN
             Description|Length|HD
             -|-|-
             #{lines.join("\n")}
-          HIGHLIGHTS
+          MARKDOWN
         end
 
         protected
 
-        def hd_playback_url(media)
-          media['playbacks']
-            .find { |video| video['name'] == 'mp4Avc' }
-            &.dig('url')
+        def fetch_highlights
+          content.dig('highlights', 'highlights', 'items')
+            &.sort_by { |media| media['date'] }
+            &.map { |media| process_media(media) }
+            &.compact
         end
 
         def process_media(media)
@@ -61,6 +59,12 @@ class Baseballbot
             # sd: playback(media, 'FLASH_1200K_640X360'),
             hd: hd_playback_url(media)
           }
+        end
+
+        def hd_playback_url(media)
+          media['playbacks']
+            .find { |video| video['name'] == 'mp4Avc' }
+            &.dig('url')
         end
 
         def media_team_code(media)

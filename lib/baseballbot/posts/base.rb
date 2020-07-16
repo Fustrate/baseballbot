@@ -17,11 +17,7 @@ class Baseballbot
         @subreddit.bot.with_reddit_account(@subreddit.account.name) do
           return update_flair_template(flair) if flair['flair_template_id']
 
-          @subreddit.subreddit.set_flair(
-            @submission,
-            flair['text'],
-            css_class: flair['class']
-          )
+          @subreddit.subreddit.set_flair(@submission, flair['text'], css_class: flair['class'])
         end
       end
 

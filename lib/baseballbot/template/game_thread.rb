@@ -4,9 +4,8 @@ class Baseballbot
   module Template
     class GameThread < Base
       # This is kept here because of inheritance
-      Dir.glob(
-        File.join(File.dirname(__FILE__), 'game_thread', '*.rb')
-      ).sort.each { |file| require file }
+      Dir.glob(File.join(File.dirname(__FILE__), 'game_thread', '*.rb'))
+        .sort.each { |file| require file }
 
       using TemplateRefinements
 

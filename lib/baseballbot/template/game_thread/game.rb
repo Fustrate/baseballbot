@@ -29,15 +29,11 @@ class Baseballbot
         end
 
         def start_time_et
-          Baseballbot::Utility.parse_time(
-            start_time_utc,
-            in_time_zone: TZInfo::Timezone.get('America/New_York')
-          )
+          Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: 'America/New_York')
         end
 
         def start_time_local
-          Baseballbot::Utility
-            .parse_time(start_time_utc, in_time_zone: @subreddit.timezone)
+          Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: @subreddit.timezone)
         end
 
         def gid
@@ -102,8 +98,7 @@ class Baseballbot
         def inning
           return game_data.dig('status', 'detailedState') unless live?
 
-          "#{linescore['inningState']} of the " \
-          "#{linescore['currentInningOrdinal']}"
+          "#{linescore['inningState']} of the #{linescore['currentInningOrdinal']}"
         end
 
         def outs

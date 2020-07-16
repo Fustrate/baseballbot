@@ -8,12 +8,12 @@ class Baseballbot
         BLANK_LINES = [[nil] * 9, [nil] * 9].freeze
 
         def line_score
-          [
-            "| |#{(1..(lines[0].count)).to_a.join('|')}|R|H|E",
-            "|:-:|#{(':-:|' * lines[0].count)}:-:|:-:|:-:",
-            line_for_team(:away),
-            line_for_team(:home)
-          ].join "\n"
+          <<~MARKDOWN
+            | |#{(1..(lines[0].count)).to_a.join('|')}|R|H|E
+            |:-:|#{(':-:|' * lines[0].count)}:-:|:-:|:-:
+            #{line_for_team(:away)}
+            #{line_for_team(:home)}
+          MARKDOWN
         end
 
         def line_score_status

@@ -70,8 +70,7 @@ class PostseasonGameLoader
       next unless subreddits
 
       subreddits.each do |row|
-        post_at = Baseballbot::Utility.adjust_time_proc(row['post_at'])
-          .call starts_at
+        post_at = Baseballbot::Utility.adjust_time_proc(row['post_at']).call starts_at
 
         insert_game game, starts_at, post_at, row['title'], row['id']
       end
@@ -94,7 +93,7 @@ class PostseasonGameLoader
     data = row_data(game, starts_at, post_at, title, subreddit_id)
 
     @bot.db.exec_params(
-      "INSERT INTO game_threads (#{data.keys.join(', ')})" \
+      "INSERT INTO game_threads (#{data.keys.join(', ')}) " \
       "VALUES (#{(1..data.size).map { |n| "$#{n}" }.join(', ')})",
       data.values
     )

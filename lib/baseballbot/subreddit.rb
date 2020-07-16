@@ -27,8 +27,7 @@ class Baseballbot
     end
 
     def now
-      @now ||= Baseballbot::Utility
-        .parse_time(Time.now.utc, in_time_zone: @timezone)
+      @now ||= Baseballbot::Utility.parse_time(Time.now.utc, in_time_zone: @timezone)
     end
 
     def off_today?

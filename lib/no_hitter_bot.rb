@@ -108,18 +108,13 @@ class NoHitterBot
   def post_thread!(game, flag)
     template = no_hitter_template(game, flag)
 
-    submission = subreddit
-      .submit title: template.formatted_title, text: template.evaluated_body
+    submission = subreddit.submit title: template.formatted_title, text: template.evaluated_body
 
     insert_game_thread!(submission, game)
 
     submission.set_suggested_sort 'new'
 
-    @bot.redis.hset(
-      "#{SUBREDDIT_NAME}_no_hitters_#{game['gamePk']}",
-      flag,
-      submission.id
-    )
+    @bot.redis.hset "#{SUBREDDIT_NAME}_no_hitters_#{game['gamePk']}", flag, submission.id
   end
 
   def already_posted?(game_pk, flag)

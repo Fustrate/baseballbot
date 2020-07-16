@@ -56,31 +56,31 @@ class Baseballbot
             [pitcher_row(one, stats), pitcher_row(two, stats)].join('||')
           end
 
-          <<~TABLE
+          <<~MARKDOWN
             #{table_header(home_team, stats)}||#{table_header(away_team, stats)}
             #{'|:-:' * stats.count}|-|#{'|:-:' * stats.count}
             #{rows.join("\n")}
-          TABLE
+          MARKDOWN
         end
 
         def home_pitchers_table(stats: %i[ip h r er bb so p-s era])
           rows = home_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
 
-          <<~TABLE
+          <<~MARKDOWN
             #{table_header(home_team, stats)}
             -#{'|:-:' * stats.count}
             #{rows.join("\n")}
-          TABLE
+          MARKDOWN
         end
 
         def away_pitchers_table(stats: %i[ip h r er bb so p-s era])
           rows = away_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
 
-          <<~TABLE
+          <<~MARKDOWN
             #{table_header(away_team, stats)}
             -#{'|:-:' * stats.count}
             #{rows.join("\n")}
-          TABLE
+          MARKDOWN
         end
 
         def table_header(team, stats)
@@ -92,12 +92,9 @@ class Baseballbot
 
           today = game_stats(pitcher)['pitching']
 
-          cells = stats
-            .map { |stat| PITCHER_COLUMNS[stat].call(pitcher, today) }
+          cells = stats.map { |stat| PITCHER_COLUMNS[stat].call(pitcher, today) }
 
-          [player_link(pitcher, title: 'Game Score: ???')]
-            .concat(cells)
-            .join '|'
+          [player_link(pitcher, title: 'Game Score: ???'), *cells].join '|'
         end
 
         def pitcher_line(pitcher)

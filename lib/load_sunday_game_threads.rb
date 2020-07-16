@@ -56,7 +56,7 @@ class SundayGameThreadLoader
     data = game_data(game, starts_at)
 
     @bot.db.exec_params(
-      "INSERT INTO game_threads (#{data.keys.join(', ')})" \
+      "INSERT INTO game_threads (#{data.keys.join(', ')}) " \
       "VALUES (#{(1..data.size).map { |n| "$#{n}" }.join(', ')})",
       data.values
     )

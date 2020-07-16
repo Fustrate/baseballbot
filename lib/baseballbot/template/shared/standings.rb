@@ -130,9 +130,7 @@ class Baseballbot
         end
 
         def generate_standings_row(row)
-          TeamStandingsData.call(row).merge(
-            subreddit: subreddit(row['team']['abbreviation'])
-          )
+          TeamStandingsData.call(row).merge subreddit: subreddit(row['team']['abbreviation'])
         end
       end
     end
