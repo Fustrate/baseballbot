@@ -203,7 +203,7 @@ class FlairEmoji
 
     return unless res[:next]
 
-    sleep 5
+    sleep 3
 
     load_flairs after: res[:next]
   end
@@ -223,4 +223,4 @@ class FlairEmoji
   end
 end
 
-ConsolidateFlairs.new.run
+FlairEmoji.new.run
