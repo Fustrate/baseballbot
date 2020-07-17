@@ -15,7 +15,7 @@ class FlairList < FlairBot
   def run(after: nil)
     super
 
-    CSV.open(File.expand_path('~/flair_list.csv'), 'w', headers: %w[Name CSS Text]) do |csv|
+    CSV.open(File.expand_path("~/flair_#{@name}.csv"), 'w', headers: %w[Name CSS Text]) do |csv|
       @users.each { |user| csv << user }
     end
   end

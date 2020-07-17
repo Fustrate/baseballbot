@@ -12,7 +12,7 @@ class FlairBot
   end
 
   def run(after: nil)
-    @bot.with_reddit_account(@subreddit.account.name) do
+    @bot.with_reddit_account(@bot.name_to_subreddit(@name).account.name) do
       load_flair_page(after: after)
     end
   end
