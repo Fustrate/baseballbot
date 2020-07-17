@@ -209,7 +209,7 @@ class FlairEmoji
   end
 
   def process_flair(flair)
-    new_text = CSS_CLASS_TO_TEXT[flair[:flair_css_class].downcase]
+    new_text = CSS_CLASS_TO_TEXT[flair[:flair_css_class]&.downcase]
 
     return unless new_text && new_text != flair[:flair_text]
 
