@@ -91,11 +91,11 @@ class Baseballbot
           [
             "#{spacer}#{position}",
             "#{spacer}#{player_link(batter)}",
-            *batter_cells(batter)
+            *batter_cells(batter, stats)
           ].join('|')
         end
 
-        def batter_cells(batter)
+        def batter_cells(batter, stats)
           today = game_stats(batter)['batting']
 
           stats.map { |stat| BATTER_COLUMNS[stat].call(batter, today) }

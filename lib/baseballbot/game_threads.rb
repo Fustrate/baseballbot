@@ -33,6 +33,8 @@ class Baseballbot
       unposted_game_threads(names).each do |row|
         build_game_thread(row).create!
       rescue => e
+        logger.info e.message
+
         Honeybadger.notify(e, context: row)
       end
     end
@@ -41,6 +43,8 @@ class Baseballbot
       game_threads_to_update(names).each do |row|
         build_game_thread(row).update!
       rescue => e
+        logger.info e.message
+
         Honeybadger.notify(e, context: row)
       end
     end
