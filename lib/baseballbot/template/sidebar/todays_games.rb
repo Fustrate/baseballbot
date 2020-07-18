@@ -72,7 +72,7 @@ class Baseballbot
         end
 
         def link_for_team(game:, team:)
-          code = team.dig('team', 'abbreviation')
+          abbreviation = team_abbreviation(game, team)
 
           # This is no longer included in the data - we might have to switch to
           # using game_pk instead.
@@ -83,11 +83,19 @@ class Baseballbot
             game['gameNumber']
           ].join('_')
 
-          post_id = @game_threads["#{gid}_#{subreddit(code)}".downcase]
+          post_id = @game_threads["#{gid}_#{subreddit(abbreviation)}".downcase]
 
-          return "[^★](/#{post_id} \"team-#{code.downcase}\")" if post_id
+          return "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" if post_id
 
-          "[][#{code}]"
+          "[][#{abbreviation}]"
+        end
+
+        def team_abbreviation(game, team)
+          if team.dig('team', 'name') == 'Intrasquad'
+            game.dig('teams', 'home', 'team', 'abbreviation')
+          else
+            team.dig('team', 'abbreviation')
+          end
         end
 
         def game_status(game)
