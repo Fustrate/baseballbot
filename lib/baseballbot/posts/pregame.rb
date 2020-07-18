@@ -14,7 +14,7 @@ class Baseballbot
       protected
 
       def post_thread!
-        @bot.with_reddit_account(@subreddit.account.name) do
+        bot.with_reddit_account(@subreddit.account.name) do
           load_template
 
           @submission = @subreddit.submit(
@@ -40,7 +40,7 @@ class Baseballbot
         update_sticky @subreddit.sticky_game_threads?
         update_flair @subreddit.options.dig('pregame', 'flair')
 
-        @bot.db.exec_params(
+        bot.db.exec_params(
           'UPDATE game_threads SET pre_game_post_id = $1 WHERE id = $2',
           [@submission.id, @id]
         )

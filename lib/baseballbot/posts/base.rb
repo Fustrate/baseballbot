@@ -11,6 +11,10 @@ class Baseballbot
         @title = row['title']
       end
 
+      def bot
+        @subreddit.bot
+      end
+
       def update_flair(flair)
         return unless flair
 

@@ -63,7 +63,7 @@ class Baseballbot
       end
 
       def save_to_redis!
-        @bot.redis.hset(@template.gid, @subreddit.name.downcase, @submission.id)
+        bot.redis.hset(@template.gid, @subreddit.name.downcase, @submission.id)
       end
 
       # @param status [String] status of the game thread
@@ -77,7 +77,7 @@ class Baseballbot
 
         fields = attrs.keys.map.with_index { |col, i| "#{col} = $#{i + 2}" }
 
-        @bot.db.exec_params(
+        bot.db.exec_params(
           "UPDATE game_threads SET #{fields.join(', ')} WHERE id = $1",
           [@id] + attrs.values
         )
