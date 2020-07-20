@@ -15,19 +15,17 @@ class Baseballbot
 
       def post_thread!
         bot.with_reddit_account(@subreddit.account.name) do
-          load_template
-
           @submission = @subreddit.submit(
-            title: @template.formatted_title,
-            text: @template.evaluated_body
+            title: template.formatted_title,
+            text: template.evaluated_body
           )
 
           post_process
         end
       end
 
-      def load_template
-        @template = Template::PreGameThread.new(
+      def template
+        @template ||= Template::PreGameThread.new(
           subreddit: @subreddit,
           game_pk: @game_pk,
           type: 'pregame'

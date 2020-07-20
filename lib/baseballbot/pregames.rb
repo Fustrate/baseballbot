@@ -26,19 +26,14 @@ class Baseballbot
       db.exec(UNPOSTED_PREGAMES_QUERY).each do |row|
         next unless names.empty? || names.include?(row['name'].downcase)
 
-        post_pregame_thread!(
-          id: row['id'],
-          name: row['name'],
-          game_pk: row['game_pk']
-        )
+        post_pregame_thread!(row)
       end
     end
 
-    def post_pregame_thread!(id:, name:, game_pk:)
-      Honeybadger.context(id: id, subreddit: name, game_pk: game_pk)
+    def post_pregame_thread!(row)
+      Honeybadger.context(row)
 
-      Baseballbot::Posts::Pregame.new(id: id, game_pk: game_pk, subreddit: name_to_subreddit(name))
-        .create!
+      Baseballbot::Posts::Pregame.new(row, subreddit: name_to_subreddit(row['name'])).create!
     rescue => e
       Honeybadger.notify(e)
     end

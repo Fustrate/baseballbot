@@ -22,19 +22,17 @@ class Baseballbot
 
       def post_thread!
         bot.with_reddit_account(@subreddit.account.name) do
-          load_template
-
           @submission = @subreddit.submit(
-            title: @template.formatted_title,
-            text: @template.evaluated_body
+            title: template.formatted_title,
+            text: template.evaluated_body
           )
 
           post_process
         end
       end
 
-      def load_template
-        @template = Template::PostGameThread.new(
+      def template
+        @template ||= Template::PostGameThread.new(
           subreddit: @subreddit,
           game_pk: @game_pk,
           type: 'postgame'
@@ -56,8 +54,8 @@ class Baseballbot
 
         return unless flairs
 
-        return flairs['won'] if @template.won? && flairs['won']
-        return flairs['lost'] if @template.lost? && flairs['lost']
+        return flairs['won'] if template.won? && flairs['won']
+        return flairs['lost'] if template.lost? && flairs['lost']
 
         flairs
       end
