@@ -6,6 +6,8 @@ class Baseballbot
       def initialize(row, subreddit:)
         super(row, subreddit: subreddit)
 
+        @row = row
+
         @id = row['id']
         @game_pk = row['game_pk']
         @post_id = row['post_id']
@@ -124,9 +126,7 @@ class Baseballbot
         # Only game threads get post game threads, right?
         return unless @type == 'game_thread'
 
-        Baseballbot::Posts::Postgame
-          .new(id: @id, game_pk: @game_pk, subreddit: @subreddit)
-          .create!
+        Baseballbot::Posts::Postgame.new(@row, subreddit: @subreddit).create!
       end
 
       def game_thread_flair(type)

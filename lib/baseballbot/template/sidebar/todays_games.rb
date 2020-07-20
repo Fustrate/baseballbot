@@ -66,9 +66,7 @@ class Baseballbot
         end
 
         def winner_loser_flags(data)
-          return %i[home away] if data[:home][:score] > data[:away][:score]
-
-          %i[away home]
+          data[:home][:score] > data[:away][:score] ? %i[home away] : %i[away home]
         end
 
         def link_for_team(game:, team:)

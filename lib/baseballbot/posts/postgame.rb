@@ -3,6 +3,13 @@
 class Baseballbot
   module Posts
     class Postgame < GameThread
+      def initialize(row, subreddit:)
+        @id = row['id']
+        @game_pk = row['game_pk']
+
+        @subreddit = subreddit
+      end
+
       def create!
         post_thread!
 

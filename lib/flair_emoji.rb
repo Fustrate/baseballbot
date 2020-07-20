@@ -180,19 +180,6 @@ CSS_CLASS_TO_TEXT = {
   'ymg2-npblogo' => 'Yomiuri Giants :ymg2:'
 }.freeze
 
-# Bump the timeouts up from 5 seconds
-module Redd
-  class Client
-    private
-
-    def connection
-      @connection ||= HTTP.persistent(@endpoint)
-        .headers('User-Agent' => @user_agent)
-        .timeout(write: 20, connect: 20, read: 20)
-    end
-  end
-end
-
 class FlairEmoji
   def initialize
     @bot = DefaultBot.create(purpose: 'Add Emoji to Flairs', account: 'BaseballBot')
