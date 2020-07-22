@@ -54,8 +54,8 @@ class Baseballbot
           {
             # code: media_team_code(media),
             headline: media['headline'].strip,
-            blurb: media['blurb'].strip.gsub(/^[A-Z@]+: /, ''),
-            duration: media['duration'].strip.gsub(/^00:0?/, ''),
+            blurb: media['blurb']&.strip&.gsub(/^[A-Z@]+: /, '') || '',
+            duration: media['duration']&.strip&.gsub(/^00:0?/, '') || '',
             # sd: playback(media, 'FLASH_1200K_640X360'),
             hd: hd_playback_url(media)
           }
