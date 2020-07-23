@@ -49,7 +49,7 @@ class Baseballbot
           end
 
           <<~TABLE
-            ||#{batters_table_header(home_team, stats)}||#{batters_table_header(away_team, stats)}
+            ||#{batters_table_header(home_team, stats)}|||#{batters_table_header(away_team, stats)}
             -|-#{'|:-:' * stats.count}|-|-|-#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
