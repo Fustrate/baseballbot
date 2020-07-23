@@ -56,10 +56,12 @@ class Baseballbot
             [pitcher_row(one, stats), pitcher_row(two, stats)].join('||')
           end
 
+          stat_alignment = ([':-:'] * stats.count).join('|')
+
           <<~MARKDOWN
             #{pitchers_table_header(home_team, stats)}||#{pitchers_table_header(away_team, stats)}
-            #{':-:|' * stats.count}-|#{':-:|' * stats.count}
-            #{rows.join("\n|")}
+            #{stat_alignment}|-|#{stat_alignment}
+            #{rows.join("\n")}
           MARKDOWN
         end
 
@@ -68,8 +70,8 @@ class Baseballbot
 
           <<~MARKDOWN
             #{pitchers_table_header(home_team, stats)}
-            -|#{':-:|' * stats.count}
-            #{rows.join("\n|")}
+            -|#{([':-:'] * stats.count).join('|')}
+            #{rows.join("\n")}
           MARKDOWN
         end
 
@@ -77,9 +79,9 @@ class Baseballbot
           rows = away_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
 
           <<~MARKDOWN
-            |#{pitchers_table_header(away_team, stats)}
-            |-#{'|:-:' * stats.count}
-            |#{rows.join("\n|")}
+            #{pitchers_table_header(away_team, stats)}
+            -|#{([':-:'] * stats.count).join('|')}
+            #{rows.join("\n")}
           MARKDOWN
         end
 
