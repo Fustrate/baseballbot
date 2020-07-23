@@ -57,9 +57,9 @@ class Baseballbot
           end
 
           <<~MARKDOWN
-            #{table_header(home_team, stats)}||#{table_header(away_team, stats)}
-            #{'|:-:' * stats.count}|-|#{'|:-:' * stats.count}
-            #{rows.join("\n")}
+            |#{pitchers_table_header(home_team, stats)}||#{pitchers_table_header(away_team, stats)}
+            |#{'|:-:' * stats.count}|-|#{'|:-:' * stats.count}
+            |#{rows.join("\n|")}
           MARKDOWN
         end
 
@@ -67,9 +67,9 @@ class Baseballbot
           rows = home_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
 
           <<~MARKDOWN
-            #{table_header(home_team, stats)}
-            -#{'|:-:' * stats.count}
-            #{rows.join("\n")}
+            |#{pitchers_table_header(home_team, stats)}
+            |-#{'|:-:' * stats.count}
+            |#{rows.join("\n|")}
           MARKDOWN
         end
 
@@ -77,13 +77,13 @@ class Baseballbot
           rows = away_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
 
           <<~MARKDOWN
-            #{table_header(away_team, stats)}
-            -#{'|:-:' * stats.count}
-            #{rows.join("\n")}
+            |#{pitchers_table_header(away_team, stats)}
+            |-#{'|:-:' * stats.count}
+            |#{rows.join("\n|")}
           MARKDOWN
         end
 
-        def table_header(team, stats)
+        def pitchers_table_header(team, stats)
           "**#{team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}"
         end
 
