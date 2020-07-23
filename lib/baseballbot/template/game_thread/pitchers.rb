@@ -57,8 +57,8 @@ class Baseballbot
           end
 
           <<~MARKDOWN
-            |#{pitchers_table_header(home_team, stats)}||#{pitchers_table_header(away_team, stats)}
-            #{'|:-:' * stats.count}|-|#{'|:-:' * stats.count}
+            #{pitchers_table_header(home_team, stats)}||#{pitchers_table_header(away_team, stats)}
+            #{':-:|' * stats.count}-|#{':-:|' * stats.count}
             #{rows.join("\n|")}
           MARKDOWN
         end
@@ -67,8 +67,8 @@ class Baseballbot
           rows = home_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
 
           <<~MARKDOWN
-            |#{pitchers_table_header(home_team, stats)}
-            -#{'|:-:' * stats.count}
+            #{pitchers_table_header(home_team, stats)}
+            -|#{':-:|' * stats.count}
             #{rows.join("\n|")}
           MARKDOWN
         end
