@@ -58,8 +58,8 @@ class Baseballbot
 
           <<~MARKDOWN
             |#{pitchers_table_header(home_team, stats)}||#{pitchers_table_header(away_team, stats)}
-            |#{'|:-:' * stats.count}|-|#{'|:-:' * stats.count}
-            |#{rows.join("\n|")}
+            #{'|:-:' * stats.count}|-|#{'|:-:' * stats.count}
+            #{rows.join("\n|")}
           MARKDOWN
         end
 
@@ -68,8 +68,8 @@ class Baseballbot
 
           <<~MARKDOWN
             |#{pitchers_table_header(home_team, stats)}
-            |-#{'|:-:' * stats.count}
-            |#{rows.join("\n|")}
+            -#{'|:-:' * stats.count}
+            #{rows.join("\n|")}
           MARKDOWN
         end
 

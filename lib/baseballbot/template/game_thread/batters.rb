@@ -49,7 +49,7 @@ class Baseballbot
           end
 
           <<~TABLE
-            #{batters_table_header(home_team, stats)}||#{batters_table_header(away_team, stats)}
+            |#{batters_table_header(home_team, stats)}||#{batters_table_header(away_team, stats)}
             -|-#{'|:-:' * stats.count}|-|-|-#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
@@ -59,7 +59,7 @@ class Baseballbot
           rows = home_batters.map { |batter| batter_row(batter, stats) }
 
           <<~TABLE
-            #{batters_table_header(home_team, stats)}
+            |#{batters_table_header(home_team, stats)}
             -|-#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
@@ -69,7 +69,7 @@ class Baseballbot
           rows = away_batters.map { |batter| batter_row(batter, stats) }
 
           <<~TABLE
-            #{batters_table_header(away_team, stats)}
+            |#{batters_table_header(away_team, stats)}
             -|-#{'|:-:' * stats.count}
             #{rows.join("\n")}
           TABLE
