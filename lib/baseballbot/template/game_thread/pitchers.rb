@@ -60,7 +60,7 @@ class Baseballbot
 
           <<~MARKDOWN
             #{pitchers_table_header(home_team, stats)}||#{pitchers_table_header(away_team, stats)}
-            #{stat_alignment}|-|#{stat_alignment}
+            -|#{stat_alignment}|-|-|#{stat_alignment}
             #{rows.join("\n")}
           MARKDOWN
         end
