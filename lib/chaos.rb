@@ -4,20 +4,16 @@ require_relative 'flair_bot'
 
 class Chaos < FlairBot
   def initialize
-    unless ARGV[0] && ARGV.count < 3
-      raise 'Pass 1-2 arguments: chaos.rb SFG-wagon,CHC-wagon [t2_123456]'
-    end
+    raise 'Pass 1-2 arguments: chaos.rb SFG,CHC [t2_123456]' unless ARGV[0] && ARGV.count < 3
 
-    @remove_flairs = ARGV[0].split(',')
-
-    raise 'Pass a flair class as an argument.' unless @remove_flairs&.any?
+    @remove_flairs = ARGV[0].split(',').map { |team| "#{team}-wagon" }
 
     super(purpose: 'Chaos Flairs', subreddit: 'baseball')
 
     @removed = Hash.new { |h, k| h[k] = 0 }
   end
 
-  def run(after: nil)
+  def run(after: ARGV[1])
     puts "Removing #{@remove_flairs.join(', ')}"
 
     super
@@ -36,12 +32,8 @@ class Chaos < FlairBot
 
     @removed[flair[:flair_css_class]] += 1
 
-    @subreddit.set_flair(
-      Redd::Models::User.new(nil, name: flair[:user]),
-      'Team Chaos',
-      css_class: 'CHAOS-wagon'
-    )
+    @updates << [flair[:user], 'Team Chaos', 'CHAOS-wagon']
   end
 end
 
-Chaos.new.run after: ARGV[1]
+Chaos.new.run

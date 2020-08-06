@@ -9,7 +9,7 @@ class DeleteFlairs < FlairBot
     @classes = ARGV[1].split(',')
   end
 
-  def run(after:)
+  def run(after: ARGV[2])
     return if @classes.none?
 
     super
@@ -20,11 +20,10 @@ class DeleteFlairs < FlairBot
   def process_flair(flair)
     return unless @classes.include? flair[:flair_css_class]
 
-    puts "\tDeleting #{flair[:user]}'s flair " \
-         "('#{flair[:flair_css_class]}', '#{flair[:flair_text]}')"
+    puts "\tDeleting #{flair[:user]}'s flair: '#{flair[:flair_css_class]}', '#{flair[:flair_text]}'"
 
-    @subreddit.delete_flair flair[:user]
+    @updates << [flair[:user], '', '']
   end
 end
 
-DeleteFlairs.new.run after: ARGV[2]
+DeleteFlairs.new.run

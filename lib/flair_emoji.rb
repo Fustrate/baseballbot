@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'default_bot'
+require_relative 'flair_bot'
 
 CSS_CLASS_TO_TEXT = {
   '42' => 'Jackie Robinson :42:',
@@ -180,37 +180,12 @@ CSS_CLASS_TO_TEXT = {
   'ymg2-npblogo' => 'Yomiuri Giants :ymg2:'
 }.freeze
 
-class FlairEmoji
+class FlairEmoji < FlairBot
   def initialize
-    @bot = DefaultBot.create(purpose: 'Add Emoji to Flairs', account: 'BaseballBot')
-    @subreddit = @bot.session.subreddit('baseball')
-
-    @updates = []
-  end
-
-  def run
-    load_flairs after: ARGV[0]
+    super(purpose: 'Add Emoji to Flairs', subreddit: 'baseball')
   end
 
   protected
-
-  def load_flairs(after: nil)
-    puts "Loading flairs#{after ? " after #{after}" : ''}"
-
-    res = @subreddit.client
-      .get('/r/baseball/api/flairlist', after: after, limit: 1000)
-      .body
-
-    res[:users].each { |flair| process_flair(flair) }
-
-    send_batch if @updates.any?
-
-    return unless res[:next]
-
-    sleep 5
-
-    load_flairs after: res[:next]
-  end
 
   def process_flair(flair)
     new_text = CSS_CLASS_TO_TEXT[flair[:flair_css_class]&.downcase]
@@ -220,16 +195,6 @@ class FlairEmoji
     puts "\tChanging #{flair[:user]} from '#{flair[:flair_text]}' to '#{new_text}'"
 
     @updates << [flair[:user], new_text, flair[:flair_css_class]]
-
-    send_batch if @updates.length > 90
-  end
-
-  def send_batch
-    csv = @updates.map { |user| user.join(',') }.join("\n")
-
-    @subreddit.client.post('/r/baseball/api/flaircsv', flair_csv: csv)
-
-    @updates = []
   end
 end
 
