@@ -110,7 +110,7 @@ class Baseballbot
 
           divisions = teams.group_by { |team| team.dig(:team, 'league', 'id') }
 
-          divisions.each do |division|
+          divisions.each_value do |division|
             division_leaders_2020(division).each do |team|
               team[:wildcard_position] = 1
             end
