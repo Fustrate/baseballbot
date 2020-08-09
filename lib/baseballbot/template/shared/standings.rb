@@ -83,7 +83,7 @@ class Baseballbot
         # split between teams ahead of the second spot
         #
         # This might put two teams tied for second instead of tied for first
-        def mark_league_wildcards(league)
+        def mark_normal_season_wildcards(league)
           teams = teams_in_league(league)
 
           division_leaders = teams.count { |team| team[:division_lead] }
@@ -100,6 +100,45 @@ class Baseballbot
           return unless teams_in_first_wc < allowed_wildcards
 
           mark_wildcards teams, ranked[1], 2
+        end
+
+        # Welcome to Wacky Races: 2020 Edition!
+        # Top two teams from each division make the playoffs,
+        # and then the 2 next best records in the league.
+        def mark_league_wildcards(league)
+          teams = teams_in_league(league)
+
+          divisions = teams.group_by { |team| team.dig(:team, 'league', 'id') }
+
+          divisions.each do |division|
+            division_leaders_2020(division).each do |team|
+              team[:wildcard_position] = 1
+            end
+          end
+
+          flagged, unflagged = teams.partition { |team| team[:wildcard_position] }
+
+          mark_2020_second_place_teams(unflagged, 8 - flagged.count)
+        end
+
+        def mark_2020_second_place_teams(teams, remaining_spots)
+          return if remaining_spots < 1
+
+          sorted_teams = teams.sort_by { |team| team[:sort_order] }
+
+          wildcard_pct = sorted_teams[remaining_spots - 1][:percent]
+
+          sorted_teams
+            .select { |team| team[:percent] >= wildcard_pct }
+            .each { |team| team[:wildcard_position] = 2 }
+        end
+
+        def division_leaders_2020(division)
+          sorted_teams = division.sort_by { |team| team[:sort_order] }
+
+          second_place_pct = sorted_teams[1][:percent]
+
+          sorted_teams.select { |team| team[:percent] >= second_place_pct }
         end
 
         def ranked_wildcard_teams(teams)
@@ -122,7 +161,7 @@ class Baseballbot
             @bot.api.standings(leagues: %i[al nl], season: Date.today.year)
           end
 
-          @all_teams = data.dig('records').flat_map do |division|
+          @all_teams = data['records'].flat_map do |division|
             division['teamRecords'].map { |team| generate_standings_row(team) }
           end
 
