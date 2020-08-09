@@ -108,20 +108,22 @@ class Baseballbot
         def mark_league_wildcards(league)
           teams = teams_in_league(league)
 
-          divisions = teams.group_by { |team| team.dig(:team, 'league', 'id') }
-
-          divisions.each_value do |division|
-            division_leaders_2020(division).each do |team|
-              team[:wildcard_position] = 1
-            end
-          end
+          teams
+            .group_by { |team| team.dig(:team, 'division', 'id') }
+            .each_value { |division| mark_2020_division_leaders(division) }
 
           flagged, unflagged = teams.partition { |team| team[:wildcard_position] }
 
-          mark_2020_second_place_teams(unflagged, 8 - flagged.count)
+          mark_2020_wildcard_teams(unflagged, 8 - flagged.count)
         end
 
-        def mark_2020_second_place_teams(teams, remaining_spots)
+        def mark_2020_division_leaders(division)
+          division_leaders_2020(division).each do |team|
+            team[:wildcard_position] = 1
+          end
+        end
+
+        def mark_2020_wildcard_teams(teams, remaining_spots)
           return if remaining_spots < 1
 
           sorted_teams = teams.sort_by { |team| team[:sort_order] }
