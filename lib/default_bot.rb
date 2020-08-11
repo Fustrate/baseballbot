@@ -29,7 +29,7 @@ module DefaultBot
   end
 
   def self.log_location
-    return STDOUT if ARGV.any? { |arg| arg.match?(/\Alog=(?:1|stdout)\z/i) }
+    return $stdout if ARGV.any? { |arg| arg.match?(/\Alog=(?:1|stdout)\z/i) }
 
     File.expand_path '../log/baseballbot.log', __dir__
   end
