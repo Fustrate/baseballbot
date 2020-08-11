@@ -22,6 +22,7 @@ class Baseballbot
                 [team.dig('team', 'id'), team.values_at('wins', 'losses').join('-')]
               end
             end
+            .to_h
         end
 
         def home_team
