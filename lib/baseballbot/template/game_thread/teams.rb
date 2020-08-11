@@ -5,15 +5,23 @@ class Baseballbot
     class GameThread
       module Teams
         def away_record
-          game_data.dig('teams', 'away', 'record')
-            &.values_at('wins', 'losses')
-            &.join('-')
+          team_records[game_data.dig('teams', 'away', 'id')] || '0-0'
         end
 
         def home_record
-          game_data.dig('teams', 'home', 'record')
-            &.values_at('wins', 'losses')
-            &.join('-')
+          team_records[game_data.dig('teams', 'home', 'id')] || '0-0'
+        end
+
+        # The game endpoint is returning stale data, so let's try grabbing them from the standings
+        # endpoint instead.
+        def team_records
+          @team_records ||= @bot.api
+            .standings(leagues: %i[al nl], season: Date.today.year)['records']
+            .flat_map do |division|
+              division['teamRecords'].map do |team|
+                [team.dig('team', 'id'), team.values_at('wins', 'losses').join('-')]
+              end
+            end
         end
 
         def home_team

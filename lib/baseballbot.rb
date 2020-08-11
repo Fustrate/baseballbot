@@ -85,7 +85,7 @@ class Baseballbot
   end
 
   def logger
-    @logger ||= @options[:logger] || Logger.new(STDOUT)
+    @logger ||= @options[:logger] || Logger.new($stdout)
   end
 
   def log_action(subject_type:, subject_id:, action:, note: nil, data: {})

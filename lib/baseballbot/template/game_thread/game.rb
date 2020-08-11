@@ -61,7 +61,7 @@ class Baseballbot
         end
 
         def weather
-          data = game_data.dig('weather') || {}
+          data = game_data['weather'] || {}
 
           "#{data['temp']}°F, #{data['condition']}" if data['condition']
         end
