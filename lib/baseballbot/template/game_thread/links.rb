@@ -19,7 +19,7 @@ class Baseballbot
             '#game_state=preview,lock_state=preview',
             away: game_data.dig('teams', 'away', 'teamName').downcase.tr(' ', '-'),
             home: game_data.dig('teams', 'home', 'teamName').downcase.tr(' ', '-'),
-            date: date.strftime('%m/%d/%Y'),
+            date: date.strftime('%Y/%m/%d'),
             game_pk: game_pk
           )
         end
