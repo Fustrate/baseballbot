@@ -14,14 +14,7 @@ class Baseballbot
         end
 
         def gameday_link
-          format(
-            'https://www.mlb.com/gameday/%<away>s-vs-%<home>s/%<date>s/%<game_pk>d' \
-            '#game_state=preview,lock_state=preview',
-            away: game_data.dig('teams', 'away', 'teamName').downcase.tr(' ', '-'),
-            home: game_data.dig('teams', 'home', 'teamName').downcase.tr(' ', '-'),
-            date: date.strftime('%Y/%m/%d'),
-            game_pk: game_pk
-          )
+          "https://www.mlb.com/gameday/#{game_pk}"
         end
 
         def game_graph_link
