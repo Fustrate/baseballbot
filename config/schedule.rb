@@ -5,16 +5,12 @@ set :output, '/home/baseballbot/apps/baseballbot/shared/log/whenever.log'
 DIRECTORY = '/home/baseballbot/apps/baseballbot/current/lib'
 BUNDLE_EXEC = 'bundle exec'
 
-def step_minutes_by(step, except: [])
-  every "#{(0.step(59, step).to_a - Array(except)).join(',')} * * * *" do
-    yield
-  end
+def step_minutes_by(step, except: [], &block)
+  every "#{(0.step(59, step).to_a - Array(except)).join(',')} * * * *", &block
 end
 
 def bundle_exec_ruby(name, *arguments)
-  command(
-    "cd #{DIRECTORY} && #{BUNDLE_EXEC} ruby #{name}.rb #{arguments.join(' ')}"
-  )
+  command "cd #{DIRECTORY} && #{BUNDLE_EXEC} ruby #{name}.rb #{arguments.join(' ')}"
 end
 
 every :minute do
@@ -51,7 +47,7 @@ end
 
 every :saturday do
   bundle_exec_ruby :load_game_threads
-  # bundle_exec_ruby :load_sunday_game_threads
+  bundle_exec_ruby :load_sunday_game_threads
 end
 
 # This is off by an hour. Investigate 5 years from now.
