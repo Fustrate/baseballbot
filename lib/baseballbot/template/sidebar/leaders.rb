@@ -74,7 +74,7 @@ class Baseballbot
         def load_hitter_stats(year, type, count)
           stats = {}
           all_hitters = load_stats(group: 'hitting', year: year, type: type)
-          qualifying = load_stats(group: 'hitting', year: year, type: type, pool: 'QUALIFIER')
+          qualifying = load_stats(group: 'hitting', year: year, type: type, pool: 'QUALIFIED')
 
           %w[h xbh hr rbi bb sb r].each do |key|
             stats[key] = list_of(key, all_hitters, :desc, count, :integer)
@@ -89,7 +89,7 @@ class Baseballbot
 
         def load_pitcher_stats(year, type, count)
           all_pitchers = load_stats(group: 'pitching', year: year, type: type)
-          qualifying = load_stats(group: 'pitching', year: year, type: type, pool: 'QUALIFIER')
+          qualifying = load_stats(group: 'pitching', year: year, type: type, pool: 'QUALIFIED')
 
           stats = { 'ip' => list_of('ip', all_pitchers, :desc, count) }
 
