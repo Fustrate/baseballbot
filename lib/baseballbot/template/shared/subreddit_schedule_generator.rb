@@ -77,7 +77,7 @@ class SubredditSchedule
       eventTypes: 'primary',
       scheduleTypes: 'games',
       hydrate: SCHEDULE_HYDRATION
-    ).dig('dates')
+    )['dates']
   end
 
   def team_calendar_game(data:, date:)

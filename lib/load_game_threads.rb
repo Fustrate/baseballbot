@@ -78,7 +78,7 @@ class GameThreadLoader
       scheduleTypes: 'games,events,xref'
     )
 
-    process_games data.dig('dates'), subreddit_id, post_at
+    process_games data['dates'], subreddit_id, post_at
   end
 
   def process_games(dates, subreddit_id, adjusted_time)

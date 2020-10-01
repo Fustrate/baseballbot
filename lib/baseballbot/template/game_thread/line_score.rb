@@ -38,19 +38,15 @@ class Baseballbot
 
         def home_lob
           boxscore.dig('teams', 'home', 'info')
-            .find { |info| info['title'] == 'BATTING' }
-            .dig('fieldList')
-            .find { |stat| stat['label'] == 'Team LOB' }
-            .dig('value')
+            .find { |info| info['title'] == 'BATTING' }['fieldList']
+            .find { |stat| stat['label'] == 'Team LOB' }['value']
             .to_i
         end
 
         def away_lob
           boxscore.dig('teams', 'away', 'info')
-            .find { |info| info['title'] == 'BATTING' }
-            .dig('fieldList')
-            .find { |stat| stat['label'] == 'Team LOB' }
-            .dig('value')
+            .find { |info| info['title'] == 'BATTING' }['fieldList']
+            .find { |stat| stat['label'] == 'Team LOB' }['value']
             .to_i
         end
 

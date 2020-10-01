@@ -33,7 +33,7 @@ class Baseballbot
         )
       end
 
-      def update_sticky(sticky = false)
+      def update_sticky(sticky:)
         @subreddit.bot.with_reddit_account(@subreddit.account.name) do
           if @submission.stickied?
             @submission.remove_sticky if sticky == false

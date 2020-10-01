@@ -4,6 +4,9 @@ class Baseballbot
   module Template
     class GameThread
       module Media
+        HOME_FEED_TYPES = %w[HOME NATIONAL].freeze
+        AWAY_FEED_TYPES = %w[AWAY NATIONAL].freeze
+
         def free_game?
           content.dig('media', 'freeGame')
         end
@@ -14,21 +17,21 @@ class Baseballbot
 
         def away_tv
           tv_feeds
-            .select { |item| %w[AWAY NATIONAL].include?(item['mediaFeedType']) }
+            .select { |item| AWAY_FEED_TYPES.include?(item['mediaFeedType']) }
             .map { |item| item['callLetters'] }
             .join(', ')
         end
 
         def home_tv
           tv_feeds
-            .select { |item| %w[HOME NATIONAL].include?(item['mediaFeedType']) }
+            .select { |item| HOME_FEED_TYPES.include?(item['mediaFeedType']) }
             .map { |item| item['callLetters'] }
             .join(', ')
         end
 
         def away_radio
           radio_feeds
-            .select { |item| %w[AWAY NATIONAL].include?(item['type']) }
+            .select { |item| AWAY_FEED_TYPES.include?(item['type']) }
             .sort_by { |item| item['language'] == 'en' ? 0 : 1 }
             .map { |item| radio_name(item) }
             .join(', ')
@@ -36,7 +39,7 @@ class Baseballbot
 
         def home_radio
           radio_feeds
-            .select { |item| %w[HOME NATIONAL].include?(item['type']) }
+            .select { |item| HOME_FEED_TYPES.include?(item['type']) }
             .sort_by { |item| item['language'] == 'en' ? 0 : 1 }
             .map { |item| radio_name(item) }
             .join(', ')

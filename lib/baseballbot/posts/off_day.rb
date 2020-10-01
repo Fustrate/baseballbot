@@ -11,7 +11,7 @@ class Baseballbot
           text: @template.evaluated_body
         )
 
-        update_sticky @subreddit.options.dig('off_day', 'sticky') != false
+        update_sticky(sticky: @subreddit.options.dig('off_day', 'sticky') != false)
         update_flair @subreddit.options.dig('off_day', 'flair')
 
         info "[OFF] Submitted off day thread #{@submission.id} in /r/#{@name}"
