@@ -53,4 +53,5 @@ end
 # This is off by an hour. Investigate 5 years from now.
 every 1.day, at: '4:30 am' do
   bundle_exec_ruby :around_the_horn
+  bundle_exec_ruby :load_postseason_game_threads
 end
