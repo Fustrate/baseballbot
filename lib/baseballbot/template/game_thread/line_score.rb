@@ -10,7 +10,7 @@ class Baseballbot
         def line_score
           <<~MARKDOWN
             | |#{(1..(lines[0].count)).to_a.join('|')}|R|H|E
-            |:-:|#{(':-:|' * lines[0].count)}:-:|:-:|:-:
+            |:-:|#{':-:|' * lines[0].count}:-:|:-:|:-:
             #{line_for_team(:away)}
             #{line_for_team(:home)}
           MARKDOWN
@@ -53,11 +53,7 @@ class Baseballbot
         protected
 
         def lines
-          @lines ||= begin
-            return BLANK_LINES unless started? && linescore&.dig('innings')
-
-            process_linescore_inning
-          end
+          @lines ||= started? && linescore&.dig('innings') ? process_linescore_inning : BLANK_LINES
         end
 
         def process_linescore_inning

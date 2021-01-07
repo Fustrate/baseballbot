@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '2.6.6'
+ruby '2.7.2'
 
 # Date Parsing
 gem 'chronic'
@@ -30,7 +30,7 @@ gem 'tzinfo'
 
 group :development do
   # Deploy with Capistrano
-  gem 'capistrano', '~> 3.11', require: false
+  gem 'capistrano', '~> 3.15', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rbenv', '~> 2.1', require: false
 
