@@ -83,7 +83,7 @@ class Baseballbot
         # split between teams ahead of the second spot
         #
         # This might put two teams tied for second instead of tied for first
-        def mark_normal_season_wildcards(league)
+        def mark_league_wildcards(league)
           teams = teams_in_league(league)
 
           division_leaders = teams.count { |team| team[:division_lead] }
@@ -100,47 +100,6 @@ class Baseballbot
           return unless teams_in_first_wc < allowed_wildcards
 
           mark_wildcards teams, ranked[1], 2
-        end
-
-        # Welcome to Wacky Races: 2020 Edition!
-        # Top two teams from each division make the playoffs,
-        # and then the 2 next best records in the league.
-        def mark_league_wildcards(league)
-          teams = teams_in_league(league)
-
-          teams
-            .group_by { |team| team.dig(:team, 'division', 'id') }
-            .each_value { |division| mark_2020_division_leaders(division) }
-
-          flagged, unflagged = teams.partition { |team| team[:wildcard_position] }
-
-          mark_2020_wildcard_teams(unflagged, 8 - flagged.count)
-        end
-
-        def mark_2020_division_leaders(division)
-          division_leaders_2020(division).each do |team|
-            team[:wildcard_position] = 1
-          end
-        end
-
-        def mark_2020_wildcard_teams(teams, remaining_spots)
-          return if remaining_spots < 1
-
-          sorted_teams = teams.sort_by { |team| team[:sort_order] }
-
-          wildcard_pct = sorted_teams[remaining_spots - 1][:percent]
-
-          sorted_teams
-            .select { |team| team[:percent] >= wildcard_pct }
-            .each { |team| team[:wildcard_position] = 2 }
-        end
-
-        def division_leaders_2020(division)
-          sorted_teams = division.sort_by { |team| team[:sort_order] }
-
-          second_place_pct = sorted_teams[1][:percent]
-
-          sorted_teams.select { |team| team[:percent] >= second_place_pct }
         end
 
         def ranked_wildcard_teams(teams)
