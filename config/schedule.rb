@@ -18,19 +18,19 @@ every :minute do
   bundle_exec_ruby :mod_queue_slack
 end
 
-# every 1.hour do
-#   bundle_exec_ruby :sidebars, :update
-#   bundle_exec_ruby :game_threads, :off_day
-# end
+every 1.hour do
+  bundle_exec_ruby :sidebars, :update
+  bundle_exec_ruby :game_threads, :off_day
+end
 
 # every 15.minutes do
 #   bundle_exec_ruby :check_messages
 #   bundle_exec_ruby :game_threads, :pregame
 # end
 
-# every 5.minutes do
-#   bundle_exec_ruby :game_threads, :post
-# end
+every 5.minutes do
+  bundle_exec_ruby :game_threads, :post
+end
 
 # # So we don't run twice on the hour
 # step_minutes_by(5, except: 0) do
@@ -45,10 +45,10 @@ end
 #   bundle_exec_ruby :game_threads, :update, :posted
 # end
 
-# every :saturday do
-#   bundle_exec_ruby :load_game_threads
-#   bundle_exec_ruby :load_sunday_game_threads
-# end
+every :saturday do
+  bundle_exec_ruby :load_game_threads
+  bundle_exec_ruby :load_sunday_game_threads
+end
 
 # This is off by an hour. Investigate 5 years from now.
 every 1.day, at: '4:30 am' do
