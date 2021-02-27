@@ -4,10 +4,10 @@ require_relative 'default_bot'
 
 @bot = DefaultBot.create(purpose: 'Refresh Tokens')
 
-@names = ARGV[0]&.split(',') || []
+@names = ARGV[0]&.downcase&.split(',') || []
 
 @bot.accounts.each_value do |account|
-  next if @names.any? && !@names.include?(account.name)
+  next if @names.any? && !@names.include?(account.name.downcase)
 
   unless account.access.expired?
     puts "Skipping #{account.name}"
