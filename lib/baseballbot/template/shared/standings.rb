@@ -68,10 +68,9 @@ class Baseballbot
             .sort_by! { |team| team[:wildcard_gb].to_i }
         end
 
+        # The API returns an empty set if Spring Training hasn't started yet
         def team_stats
-          @team_stats ||= all_teams.find do |team|
-            team[:team]['id'] == @subreddit.team.id
-          end
+          @team_stats ||= all_teams.find { |team| team[:team]['id'] == @subreddit.team.id } || {}
         end
 
         protected

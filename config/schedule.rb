@@ -37,13 +37,13 @@ end
 #   bundle_exec_ruby :sidebars, :update, :baseball
 # end
 
-# step_minutes_by(2, except: [0, 30]) do
-#   bundle_exec_ruby :game_threads, :update
-# end
+step_minutes_by(2, except: [0, 30]) do
+  bundle_exec_ruby :game_threads, :update
+end
 
-# step_minutes_by(30) do
-#   bundle_exec_ruby :game_threads, :update, :posted
-# end
+step_minutes_by(30) do
+  bundle_exec_ruby :game_threads, :update, :posted
+end
 
 every :saturday do
   bundle_exec_ruby :load_game_threads
