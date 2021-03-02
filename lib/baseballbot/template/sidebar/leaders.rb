@@ -23,6 +23,8 @@ class Baseballbot
           'xbh' => 'extraBaseHits'
         }.freeze
 
+        NO_QUALIFIED_PLAYERS = [{ name: 'None Qualified', value: 0 }].freeze
+
         def hitter_stats(year: nil, type: 'R', count: 1)
           year ||= Date.today.year
 
@@ -106,7 +108,7 @@ class Baseballbot
 
         def list_of(key, players, direction, count, type = :noop)
           # Always return something that can be used in a template.
-          return [{ name: 'None Qualified', value: 0 }] unless players
+          return NO_QUALIFIED_PLAYERS unless players&.any?
 
           source_key = COLUMN_ALIASES[key] || key
 
