@@ -25,7 +25,7 @@ end
 
 every 15.minutes do
   bundle_exec_ruby :check_messages
-  # bundle_exec_ruby :game_threads, :pregame
+  bundle_exec_ruby :game_threads, :pregame
 end
 
 every 5.minutes do

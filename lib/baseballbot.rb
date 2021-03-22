@@ -56,7 +56,7 @@ class Baseballbot
       config.env = 'bot'
 
       config.before_notify do |notice|
-        notice.halt! if IGNORED_EXCEPTIONS.any? { |klass| notice.exception.is_a?(klass) }
+        notice.halt! if IGNORED_EXCEPTIONS.any?(notice.exception)
       end
     end
   end
