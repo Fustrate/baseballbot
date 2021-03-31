@@ -73,7 +73,9 @@ class Baseballbot
   def client
     raise 'Baseballbot was not initialized with :user_agent.' unless @options[:user_agent]
 
-    @client ||= Redd::APIClient.new redd_auth_strategy, limit_time: 0
+    # The rate limit is set to a ridiculous 30 seconds. Hopefully this gets fixed promptly.
+    # https://redd.it/mg077m
+    @client ||= Redd::APIClient.new redd_auth_strategy, limit_time: 30
   end
 
   def db
