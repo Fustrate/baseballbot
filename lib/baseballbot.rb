@@ -91,11 +91,10 @@ class Baseballbot
   end
 
   def log_action(subject_type:, subject_id:, action:, note: nil, data: {})
-    db.exec_params(
-      'INSERT INTO bot_actions (subject_type, subject_id, action, note, data)
-      VALUES ($1, $2, $3, $4, $5)',
-      [subject_type, subject_id, action, note, data]
-    )
+    db.exec_params(<<~SQL.squish, [subject_type, subject_id, action, note, data])
+      INSERT INTO bot_actions (subject_type, subject_id, action, note, data)
+      VALUES ($1, $2, $3, $4, $5)
+    SQL
   end
 
   def redis
