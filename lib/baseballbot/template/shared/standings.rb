@@ -118,7 +118,7 @@ class Baseballbot
 
         def load_all_teams_standings
           data = @bot.api.load('standings_hydrate_team', expires: 300) do
-            @bot.api.standings(leagues: %i[al nl], season: 2020)
+            @bot.api.standings(leagues: %i[al nl], season: Date.today.year)
           end
 
           @all_teams = data['records'].flat_map do |division|
