@@ -117,7 +117,7 @@ class Baseballbot
     end
 
     def template_for(type)
-      rows = @bot.db.exec_params(<<~SQL.squish, [@id, type])
+      rows = @bot.db.exec_params(<<~SQL, [@id, type])
         SELECT body
         FROM templates
         WHERE subreddit_id = $1 AND type = $2
