@@ -37,8 +37,7 @@ step_minutes_by(5, except: 0) do
   bundle_exec_ruby :sidebars, :update, :baseball
 end
 
-# Until the rate limiting gets fixed
-step_minutes_by(10, except: [0, 30]) do
+step_minutes_by(2, except: [0, 30]) do
   bundle_exec_ruby :game_threads, :update
 end
 
