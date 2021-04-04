@@ -110,10 +110,8 @@ class Baseballbot
           # Always return something that can be used in a template.
           return NO_QUALIFIED_PLAYERS unless players&.any?
 
-          source_key = COLUMN_ALIASES[key] || key
-
           players
-            .map { |player| player.values_at 'playerInitLastName', source_key }
+            .map { |player| player.values_at 'playerInitLastName', (COLUMN_ALIASES[key] || key) }
             .sort_by { |player| player[1].to_f }
             .send(direction == :desc ? :reverse : :itself)
             .first(count)

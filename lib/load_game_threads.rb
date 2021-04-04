@@ -45,9 +45,7 @@ class GameThreadLoader
   protected
 
   def calculate_dates
-    if ARGV.count > 2
-      raise ArgumentError, 'Please pass at most 2 arguments: ruby load_schedule.rb 6/2015 reds,mets'
-    end
+    raise ArgumentError, 'Please pass at most 2 arguments: ruby load_schedule.rb 6/2015 reds,mets' if ARGV.count > 2
 
     @date = date_from_args
     @names = (ARGV[1] || '').split(%r{[+/,]}).map(&:downcase)

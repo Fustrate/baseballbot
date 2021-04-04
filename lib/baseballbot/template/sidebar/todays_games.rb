@@ -4,6 +4,8 @@ class Baseballbot
   module Template
     class Sidebar
       module TodaysGames
+        TODAYS_GAMES_HYDRATE = 'game(content(summary)),linescore,flags,team'
+
         def todays_games(date)
           @date = date || @subreddit.now
 
@@ -15,11 +17,8 @@ class Baseballbot
         protected
 
         def scheduled_games
-          @bot.api.schedule(
-            sportId: 1,
-            date: @date.strftime('%m/%d/%Y'),
-            hydrate: 'game(content(summary)),linescore,flags,team'
-          ).dig('dates', 0, 'games') || []
+          @bot.api.schedule(sportId: 1, date: @date.strftime('%m/%d/%Y'), hydrate: TODAYS_GAMES_HYDRATE)
+            .dig('dates', 0, 'games') || []
         end
 
         def process_todays_game(game)
@@ -54,15 +53,12 @@ class Baseballbot
 
           winner, loser = winner_loser_flags(data)
 
-          over = MLBStatsAPI::Games.postgame_status?(data[:raw_status])
-
           data[winner][:score] = bold data[winner][:score]
-          data[loser][:score] = italic data[loser][:score] if over
+          data[loser][:score] = italic data[loser][:score] if MLBStatsAPI::Games.postgame_status?(data[:raw_status])
         end
 
         def scores_differ?(data)
-          !MLBStatsAPI::Games.pregame_status?(data[:raw_status]) &&
-            data[:home][:score] != data[:away][:score]
+          !MLBStatsAPI::Games.pregame_status?(data[:raw_status]) && data[:home][:score] != data[:away][:score]
         end
 
         def winner_loser_flags(data)
@@ -89,22 +85,20 @@ class Baseballbot
         end
 
         def team_abbreviation(game, team)
-          if team.dig('team', 'name') == 'Intrasquad'
-            game.dig('teams', 'home', 'team', 'abbreviation')
-          else
-            team.dig('team', 'abbreviation')
-          end
+          return team.dig('team', 'abbreviation') unless team.dig('team', 'name') == 'Intrasquad'
+
+          game.dig('teams', 'home', 'team', 'abbreviation')
         end
 
         def game_status(game)
           status = game.dig('status', 'detailedState')
 
           case status
-          when 'In Progress' then game_inning game
-          when 'Postponed' then italic 'PPD'
+          when 'In Progress'   then game_inning game
+          when 'Postponed'     then italic 'PPD'
           when 'Delayed Start' then delay_type game
-          when 'Delayed' then "#{delay_type game} #{game_inning game}"
-          when 'Warmup' then 'Warmup'
+          when 'Delayed'       then "#{delay_type game} #{game_inning game}"
+          when 'Warmup'        then 'Warmup'
           else
             pre_or_post_game_status(game, status)
           end
@@ -127,8 +121,7 @@ class Baseballbot
         end
 
         def game_inning(game)
-          (game.dig('linescore', 'isTopInning') ? '▲' : '▼') +
-            bold(game.dig('linescore', 'currentInning'))
+          (game.dig('linescore', 'isTopInning') ? '▲' : '▼') + bold(game.dig('linescore', 'currentInning'))
         end
 
         def gameday_link(text, game_pk)

@@ -64,9 +64,7 @@ class Baseballbot
     #
     # @param new_settings [Hash] new settings to apply to the subreddit
     def modify_settings(**new_settings)
-      if new_settings.key?(:description) && new_settings[:description].strip.empty?
-        raise 'Sidebar is blank.'
-      end
+      raise 'Sidebar is blank.' if new_settings.key?(:description) && new_settings[:description].strip.empty?
 
       @bot.with_reddit_account(@account.name) do
         response = subreddit.modify_settings(new_settings)
