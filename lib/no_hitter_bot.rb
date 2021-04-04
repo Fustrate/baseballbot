@@ -2,6 +2,8 @@
 
 require_relative 'default_bot'
 
+# Known bug: if there are dueling no hitters, only the home team will get a post since the database has a uniqueness
+# constraint on subreddit/game_pk/type.
 class NoHitterBot
   MIN_INNINGS = 6
   SUBREDDIT_NAME = 'baseball'
@@ -56,13 +58,13 @@ class NoHitterBot
   end
 
   def post_home_thread?(game, inning, half)
-    return false if already_posted?(game['gamePk'], 'home')
+    return false if already_posted?(game['gamePk'])
 
     away_team_being_no_hit?(game, inning, half)
   end
 
   def post_away_thread?(game, inning, half)
-    return false if already_posted?(game['gamePk'], 'away')
+    return false if already_posted?(game['gamePk'])
 
     home_team_being_no_hit?(game, inning, half)
   end
@@ -98,11 +100,7 @@ class NoHitterBot
   end
 
   def no_hitter_template(game, flag)
-    Baseballbot::Template::NoHitter.new(
-      subreddit: subreddit,
-      game_pk: game['gamePk'],
-      flag: flag
-    )
+    Baseballbot::Template::NoHitter.new(subreddit: subreddit, game_pk: game['gamePk'], flag: flag)
   end
 
   def post_thread!(game, flag)
@@ -113,12 +111,12 @@ class NoHitterBot
     insert_game_thread!(submission, game)
 
     submission.set_suggested_sort 'new'
-
-    @bot.redis.hset "#{SUBREDDIT_NAME}_no_hitters_#{game['gamePk']}", flag, submission.id
   end
 
-  def already_posted?(game_pk, flag)
-    @bot.redis.hget("#{SUBREDDIT_NAME}_no_hitters_#{game_pk}", flag)
+  def already_posted?(game_pk)
+    @bot.db.exec_params(<<~SQL, [subreddit.id, game_pk, 'no_hitter']).any?
+      SELECT 1 FROM game_threads WHERE subreddit_id = $1 AND game_pk = $2 AND type = $3
+    SQL
   end
 
   def insert_game_thread!(submission, game)
@@ -131,9 +129,7 @@ class NoHitterBot
     ]
 
     @bot.db.exec_params(<<~SQL, data)
-      INSERT INTO game_threads (
-        post_at, starts_at, subreddit_id, game_pk, post_id, title, status, type
-      )
+      INSERT INTO game_threads (post_at, starts_at, subreddit_id, game_pk, post_id, title, status, type)
       VALUES ($1, $1, $2, $3, $4, $5, 'Posted', 'no_hitter')
     SQL
   end
