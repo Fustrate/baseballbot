@@ -114,26 +114,20 @@ class ModQueue
   end
 
   def send_to_slack(message)
-    req = Net::HTTP::Post.new(@uri.path, 'Content-Type' => 'application/json')
-    req.body = message.to_json
+    request = Net::HTTP::Post.new(@uri.path, 'Content-Type' => 'application/json')
+    request.body = message.to_json
 
-    res = @https.request(req)
+    response = @https.request(request)
 
-    return if res.code.to_i == 200
-
-    raise 'Uh oh!'
+    raise 'Uh oh!' unless response.code.to_i == 200
   end
 
   def item_body(item)
-    return item.selftext[0..255] if item.is_a? Redd::Models::Submission
-
-    item.body
+    item.is_a?(Redd::Models::Submission) ? item.selftext[0..255] : item.body
   end
 
   def item_title(item)
-    return item.title if item.is_a? Redd::Models::Submission
-
-    item.link_title
+    item.is_a?(Redd::Models::Submission) ? item.title: item.link_title
   end
 end
 

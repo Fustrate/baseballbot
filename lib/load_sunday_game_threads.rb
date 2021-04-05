@@ -29,9 +29,7 @@ class SundayGameThreadLoader
 
       starts_at = Time.parse(game['gameDate']) + @utc_offset
 
-      next if starts_at < Time.now
-
-      insert_game game, starts_at
+      insert_game game, starts_at if starts_at > Time.now
     end
   end
 
@@ -55,11 +53,10 @@ class SundayGameThreadLoader
 
     data = game_data(game, starts_at)
 
-    @bot.db.exec_params(
-      "INSERT INTO game_threads (#{data.keys.join(', ')}) " \
-      "VALUES (#{(1..data.size).map { |n| "$#{n}" }.join(', ')})",
-      data.values
-    )
+    @bot.db.exec_params(<<~SQL, data.values)
+      INSERT INTO game_threads (#{data.keys.join(', ')})
+      VALUES (#{(1..data.size).map { |n| "$#{n}" }.join(', ')})
+    SQL
 
     puts "+ #{game['gamePk']}"
   rescue PG::UniqueViolation

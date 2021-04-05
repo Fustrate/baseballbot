@@ -50,20 +50,15 @@ class CheckMessages
   end
 
   def extract_post_id(message)
-    return unless message.subject =~ TITLE && message.body =~ LINK
-
-    Regexp.last_match[1]
+    Regexp.last_match[1] if message.subject =~ TITLE && message.body =~ LINK
   end
 
   def gid_for_submission(submission, subreddit, post_id)
-    return Regexp.last_match[1] if submission.selftext =~ GID
-
-    find_possible_game(subreddit, post_id)
+    submission.selftext =~ GID ? Regexp.last_match[1] : find_possible_game(subreddit, post_id)
   end
 
   def subreddit_to_code(name)
-    Baseballbot::Subreddits::DEFAULT_SUBREDDITS
-      .find { |_, subreddit| subreddit.casecmp(name).zero? }[0]
+    Baseballbot::Subreddits::DEFAULT_SUBREDDITS.find { |_, subreddit| subreddit.casecmp(name).zero? }[0]
   end
 
   def find_possible_game(subreddit, post_id)

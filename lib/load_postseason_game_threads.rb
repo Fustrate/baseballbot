@@ -78,13 +78,10 @@ class PostseasonGameLoader
   end
 
   def add_game_to_schedule?(game)
-    return false if game.dig('status', 'startTimeTBD')
-
     # If the team is undetermined, their division will be blank
-    return false unless game.dig('teams', 'away', 'team', 'division')
-    return false unless game.dig('teams', 'home', 'team', 'division')
-
-    true
+    !game.dig('status', 'startTimeTBD') &&
+      game.dig('teams', 'away', 'team', 'division') &&
+      game.dig('teams', 'home', 'team', 'division')
   end
 
   def insert_game(game, starts_at, post_at, title, subreddit_id)
@@ -92,11 +89,10 @@ class PostseasonGameLoader
 
     data = row_data(game, starts_at, post_at, title, subreddit_id)
 
-    @bot.db.exec_params(
-      "INSERT INTO game_threads (#{data.keys.join(', ')}) " \
-      "VALUES (#{(1..data.size).map { |n| "$#{n}" }.join(', ')})",
-      data.values
-    )
+    @bot.db.exec_params(<<~SQL, data.values)
+      INSERT INTO game_threads (#{data.keys.join(', ')})
+      VALUES (#{(1..data.size).map { |n| "$#{n}" }.join(', ')})
+    SQL
   rescue PG::UniqueViolation
     @failures += 1
   end
