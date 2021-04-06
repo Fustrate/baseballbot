@@ -127,7 +127,7 @@ class ModQueue
   end
 
   def item_title(item)
-    item.is_a?(Redd::Models::Submission) ? item.title: item.link_title
+    item.is_a?(Redd::Models::Submission) ? item.title : item.link_title
   end
 end
 

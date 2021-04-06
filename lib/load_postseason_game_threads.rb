@@ -2,8 +2,7 @@
 
 require_relative 'baseballbot'
 
-# Load all postseason game threads for /r/baseball - team subs will load
-# normally via load_game_threads.rb
+# Load all postseason game threads for /r/baseball - team subs will load normally via load_game_threads.rb
 class PostseasonGameLoader
   R_BASEBALL = 15
 
@@ -19,20 +18,14 @@ class PostseasonGameLoader
   end
 
   def run
-    load_schedule
+    @bot.api.schedule(:postseason, hydrate: 'team,metadata,seriesStatus')['dates'].each do |date|
+      date['games'].each { |game| process_game(game) }
+    end
 
     puts "Added #{@attempts - @failures} of #{@attempts}"
   end
 
   protected
-
-  def load_schedule
-    data = @bot.api.schedule(:postseason, hydrate: 'team,metadata,seriesStatus')
-
-    data['dates'].each do |date|
-      date['games'].each { |game| process_game(game) }
-    end
-  end
 
   def process_game(game)
     return unless add_game_to_schedule?(game)
@@ -53,10 +46,7 @@ class PostseasonGameLoader
   def team_subreddits_data
     @bot.db.exec(<<~SQL)
       SELECT id, team_id, options#>>'{game_threads,post_at}' AS post_at,
-        COALESCE(
-          options#>>'{game_threads,title,postseason}',
-          options#>>'{game_threads,title,default}'
-        ) AS title
+        COALESCE(options#>>'{game_threads,title,postseason}', options#>>'{game_threads,title,default}') AS title
       FROM subreddits
       WHERE (options#>>'{game_threads,enabled}')::boolean IS TRUE
         AND team_id IS NOT NULL
@@ -109,9 +99,7 @@ class PostseasonGameLoader
   end
 
   def post_title(game)
-    return baseball_subreddit_titles['wildcard'] if game['gameType'] == 'F'
-
-    baseball_subreddit_titles['postseason']
+    game['gameType'] == 'F' ? baseball_subreddit_titles['wildcard'] : baseball_subreddit_titles['postseason']
   end
 
   def baseball_subreddit_titles

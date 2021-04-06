@@ -3,28 +3,22 @@
 RSpec.describe Baseballbot::Utility do
   describe '#parse_time_zone' do
     it 'recognizes a correct time zone' do
-      expect(described_class.parse_time_zone('America/New_York').friendly_identifier)
-        .to eq 'America - New York'
+      expect(described_class.parse_time_zone('America/New_York').friendly_identifier).to eq 'America - New York'
     end
 
     it 'falls back to Los Angeles' do
-      expect(described_class.parse_time_zone('America/Paris').friendly_identifier)
-        .to eq 'America - Los Angeles'
+      expect(described_class.parse_time_zone('America/Paris').friendly_identifier).to eq 'America - Los Angeles'
     end
   end
 
   describe '#parse_time' do
     it 'parses a normal time with a string time zone' do
-      tz = 'America/Los_Angeles'
-
-      expect(described_class.parse_time('2020-04-09T15:00:00Z', in_time_zone: tz))
+      expect(described_class.parse_time('2020-04-09T15:00:00Z', in_time_zone: 'America/Los_Angeles'))
         .to eq Time.parse('2020-04-09T08:00:00 PDT')
     end
 
     it 'parses a normal time with a time zone object' do
-      tz = TZInfo::Timezone.get 'America/Chicago'
-
-      expect(described_class.parse_time('2019-11-09T15:00:00Z', in_time_zone: tz))
+      expect(described_class.parse_time('2019-11-09T15:00:00Z', in_time_zone: TZInfo::Timezone.get('America/Chicago')))
         .to eq Time.parse('2019-11-09T09:00:00 CST')
     end
   end

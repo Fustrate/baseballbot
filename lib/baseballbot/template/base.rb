@@ -4,8 +4,7 @@ class Baseballbot
   module Template
     class Base
       # This is kept here because of inheritance
-      Dir.glob(File.join(File.dirname(__FILE__), 'shared', '*.rb'))
-        .each { |file| require_relative file }
+      Dir.glob(File.join(File.dirname(__FILE__), 'shared', '*.rb')).each { |file| require_relative file }
 
       include MarkdownHelpers
       using TemplateRefinements

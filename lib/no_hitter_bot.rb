@@ -58,23 +58,17 @@ class NoHitterBot
   end
 
   def post_home_thread?(game, inning, half)
-    return false if already_posted?(game['gamePk'])
-
-    away_team_being_no_hit?(game, inning, half)
+    !already_posted?(game['gamePk']) && away_team_being_no_hit?(game, inning, half)
   end
 
   def post_away_thread?(game, inning, half)
-    return false if already_posted?(game['gamePk'])
-
-    home_team_being_no_hit?(game, inning, half)
+    !already_posted?(game['gamePk']) && home_team_being_no_hit?(game, inning, half)
   end
 
   # Checking for a perfect game is likely redundant
   def no_hitter?(game)
     # The flag doesn't get set until 6 innings are done
-    return true if MIN_INNINGS < 6
-
-    game.dig('flags', 'noHitter') || game.dig('flags', 'perfectGame')
+    MIN_INNINGS < 6 || game.dig('flags', 'noHitter') || game.dig('flags', 'perfectGame')
   end
 
   # Check the away team if it's after the top of the target inning or later

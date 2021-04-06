@@ -4,9 +4,8 @@ class Baseballbot
   module Template
     class Sidebar
       module Leaders
-        BASE_URL = 'https://bdfed.stitch.mlbinfra.com/bdfed/stats/player?stitch_env=prod' \
-                   '&season=%<year>d&group=%<group>s&stats=season&gameType=%<type>s' \
-                   '&playerPool=%<pool>s&teamId=%<team_id>d'
+        BASE_URL = 'https://bdfed.stitch.mlbinfra.com/bdfed/stats/player?stitch_env=prod&season=%<year>d' \
+                   '&group=%<group>s&stats=season&gameType=%<type>s&playerPool=%<pool>s&teamId=%<team_id>d'
 
         # The data source spells out some of the column names
         COLUMN_ALIASES = {

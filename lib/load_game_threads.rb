@@ -11,9 +11,10 @@ class GameThreadLoader
   UPDATE_GAME_THREAD = <<~SQL
     UPDATE game_threads
     SET post_at = $1, starts_at = $2, updated_at = $3
-    WHERE subreddit_id = $4 AND game_pk = $5 AND (
-      starts_at != $2 OR post_at != $1
-    ) AND date_trunc('day', starts_at) = date_trunc('day', $2)
+    WHERE subreddit_id = $4
+      AND game_pk = $5
+      AND (starts_at != $2 OR post_at != $1)
+      AND date_trunc('day', starts_at) = date_trunc('day', $2)
   SQL
 
   ENABLED_SUBREDDITS = <<~SQL
@@ -58,9 +59,7 @@ class GameThreadLoader
     @bot.db.exec(ENABLED_SUBREDDITS).each do |row|
       next unless @names.empty? || @names.include?(row['name'].downcase)
 
-      post_at = Baseballbot::Utility.adjust_time_proc row['post_at']
-
-      load_schedule row['id'], row['team_id'], post_at
+      load_schedule row['id'], row['team_id'], Baseballbot::Utility.adjust_time_proc(row['post_at'])
     end
   end
 
@@ -93,10 +92,7 @@ class GameThreadLoader
   def insert_game(subreddit_id, game, post_at, starts_at)
     data = row_data(game, starts_at, post_at, subreddit_id)
 
-    @bot.db.exec_params(
-      INSERT_GAME_THREAD,
-      data.values_at(:post_at, :starts_at, :subreddit_id, :game_pk)
-    )
+    @bot.db.exec_params INSERT_GAME_THREAD, data.values_at(:post_at, :starts_at, :subreddit_id, :game_pk)
 
     @created += 1
   rescue PG::UniqueViolation
@@ -114,12 +110,9 @@ class GameThreadLoader
   end
 
   def update_game(data)
-    result = @bot.db.exec_params(
-      UPDATE_GAME_THREAD,
-      data.values_at(:post_at, :starts_at, :updated_at, :subreddit_id, :game_pk)
-    )
-
-    @updated += result.cmd_tuples
+    @updated += @bot.db
+      .exec_params(UPDATE_GAME_THREAD, data.values_at(:post_at, :starts_at, :updated_at, :subreddit_id, :game_pk))
+      .cmd_tuples
   end
 end
 

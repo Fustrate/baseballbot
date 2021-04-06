@@ -13,9 +13,7 @@ class Baseballbot
       end
 
       def updated_with_link
-        timestamp = @subreddit.now.strftime '%-m/%-d at %-I:%M %p %Z'
-
-        "[Updated](/r/baseballbot) #{timestamp}"
+        "[Updated](/r/baseballbot) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
       end
 
       protected

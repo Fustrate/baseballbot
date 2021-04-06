@@ -4,8 +4,7 @@ module WebmockHelpers
   def stubbed_get_response(request)
     query = request.uri.query&.gsub(/[?&]?t=\d+/, '')&.gsub(/\W/, '_') || ''
 
-    path = [request.uri.path.gsub(%r{/?api/v[\d.]+/?}, ''), query]
-      .reject(&:empty?)
+    path = [request.uri.path.gsub(%r{/?api/v[\d.]+/?}, ''), query].reject(&:empty?)
 
     data_file = File.expand_path "../data/#{path.join('/')}.json", __dir__
 
@@ -18,16 +17,12 @@ module WebmockHelpers
   end
 
   def a_get_request(endpoint, query = {})
-    a_request(:get, %r{/api/#{endpoint}\?})
-      .with(query: query.merge(t: Time.now.to_i.to_s))
+    a_request(:get, %r{/api/#{endpoint}\?}).with(query: query.merge(t: Time.now.to_i.to_s))
   end
 
   def stub_requests!(with_response: false)
-    if with_response
-      WebMock.stub_request(:any, /mlb\.com/)
-        .to_return { |request| stubbed_get_response(request) }
-    else
-      WebMock.stub_request(:any, /mlb\.com/)
-    end
+    return WebMock.stub_request(:any, /mlb\.com/) unless with_response
+
+    WebMock.stub_request(:any, /mlb\.com/).to_return { |request| stubbed_get_response(request) }
   end
 end

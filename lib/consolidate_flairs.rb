@@ -37,8 +37,7 @@ class ConsolidateFlairs
   def process_flair(flair)
     return unless CHANGES[flair[:flair_css_class]]
 
-    puts "\tChanging #{flair[:user]} from #{flair[:flair_css_class]} " \
-         "to #{CHANGES[flair[:flair_css_class]]}"
+    puts "\tChanging #{flair[:user]} from #{flair[:flair_css_class]} to #{CHANGES[flair[:flair_css_class]]}"
 
     @subreddit.set_flair(
       Redd::Models::User.new(nil, name: flair[:user]),
