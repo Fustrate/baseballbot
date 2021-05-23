@@ -22,9 +22,7 @@ class Baseballbot
     def update_sidebar!(subreddit)
       Honeybadger.context(subreddit: subreddit.name)
 
-      settings = { description: generate_sidebar(subreddit) }
-
-      subreddit.modify_settings settings
+      subreddit.modify_settings description: generate_sidebar(subreddit)
     end
 
     def show_sidebar(name)
