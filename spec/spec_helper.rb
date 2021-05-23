@@ -35,6 +35,6 @@ RSpec.configure do |config|
   end
 end
 
-# We never want to actually hit the API. All data should be stored in the data
-# directory, and new data can be grabbed manually.
+# We never want to actually hit the outside world. All data should be stored in the data directory, and new data can be
+# grabbed manually.
 WebMock.disable_net_connect!

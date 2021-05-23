@@ -11,6 +11,8 @@ require 'redd'
 require 'redis'
 require 'tzinfo'
 
+require_relative 'redd_patch'
+
 require_relative 'baseballbot/error'
 require_relative 'baseballbot/subreddit'
 require_relative 'baseballbot/account'
