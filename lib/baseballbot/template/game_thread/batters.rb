@@ -82,17 +82,14 @@ class Baseballbot
         def batter_row(batter, stats = %i[ab r h rbi bb so ba])
           return " |#{'|' * stats.count}" unless batter
 
+          # Batting order shows as [1-9]00 for the starter, and adds 1 for each substitution (e.g. 400 -> 401 -> 402)
           replacement = (batting_order(batter) % 100).positive?
-          spacer = '[](/spacer)' if replacement
           position = batter['position']['abbreviation']
 
+          spacer = '[](/spacer)' if replacement
           position = bold(position) unless replacement
 
-          [
-            "#{spacer}#{position}",
-            "#{spacer}#{player_link(batter)}",
-            *batter_cells(batter, stats)
-          ].join('|')
+          "#{spacer}#{position}|#{spacer}#{player_link(batter)}|#{batter_cells(batter, stats).join('|')}"
         end
 
         def batter_cells(batter, stats)

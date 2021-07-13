@@ -8,8 +8,8 @@ class Baseballbot
       LEFT JOIN accounts ON (account_id = accounts.id)
     SQL
 
-    # The default subreddits for each team, as used by /r/baseball. These can
-    # be overridden on a team-by-team basis in their templates.
+    # The default subreddits for each team, as used by /r/baseball. These can be overridden on a team-by-team basis
+    # in their templates.
     DEFAULT_SUBREDDITS = {
       'ARI' => 'azdiamondbacks',
       'ATL' => 'Braves',

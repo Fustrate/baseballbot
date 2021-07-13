@@ -47,12 +47,7 @@ class Baseballbot
         def umpires
           feed
             .dig('liveData', 'boxscore', 'officials')
-            .map do |umpire|
-              [
-                UMPIRE_POSITIONS[umpire['officialType']],
-                umpire['official']['fullName']
-              ]
-            end
+            .map { |umpire| [UMPIRE_POSITIONS[umpire['officialType']], umpire['official']['fullName']] }
             .to_h
         end
 

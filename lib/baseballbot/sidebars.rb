@@ -40,8 +40,7 @@ class Baseballbot
     end
 
     def sidebar_present?(subreddit)
-      subreddit.settings[:description] &&
-        !subreddit.settings[:description].strip.empty?
+      subreddit.settings[:description] && !subreddit.settings[:description].strip.empty?
     end
   end
 end

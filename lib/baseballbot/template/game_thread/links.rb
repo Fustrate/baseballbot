@@ -19,12 +19,12 @@ class Baseballbot
 
         def game_graph_link
           "http://www.fangraphs.com/livewins.aspx?date=#{start_time_et.strftime '%F'}&team=#{team.name}" \
-          "&dh=#{game_data.dig('game', 'gameNumber') - 1}&season=#{date.year}"
+            "&dh=#{game_data.dig('game', 'gameNumber') - 1}&season=#{date.year}"
         end
 
         def strikezone_map_link
           'http://www.brooksbaseball.net/pfxVB/zoneTrack.php?' \
-          "#{start_time_et.strftime 'month=%m&day=%d&year=%Y'}&game=gid_#{gid}%2F"
+            "#{start_time_et.strftime 'month=%m&day=%d&year=%Y'}&game=gid_#{gid}%2F"
         end
 
         def game_notes_link(mlb_team)

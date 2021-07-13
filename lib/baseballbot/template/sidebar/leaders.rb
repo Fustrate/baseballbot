@@ -30,9 +30,7 @@ class Baseballbot
           # TODO: I'm not sure this is really memoizing much of anything
           @hitter_stats ||= {}
 
-          key = [year, type, count].join('-')
-
-          @hitter_stats[key] ||= load_hitter_stats(year, type, count)
+          @hitter_stats["#{year}-#{type}-#{count}"] ||= load_hitter_stats(year, type, count)
         end
 
         def pitcher_stats(year: nil, type: 'R', count: 1)
@@ -41,15 +39,11 @@ class Baseballbot
           # TODO: I'm not sure this is really memoizing much of anything
           @pitcher_stats ||= {}
 
-          key = [year, type, count].join('-')
-
-          @pitcher_stats[key] ||= load_pitcher_stats(year, type, count)
+          @pitcher_stats["#{year}-#{type}-#{count}"] ||= load_pitcher_stats(year, type, count)
         end
 
         def hitter_stats_table(stats: [])
-          rows = stats.map do |stat|
-            "#{stat.upcase}|#{hitter_stats[stat].first&.values&.join('|')}"
-          end
+          rows = stats.map { |stat| "#{stat.upcase}|#{hitter_stats[stat].first&.values&.join('|')}" }
 
           <<~TABLE
             Stat|Player|Total
@@ -59,9 +53,7 @@ class Baseballbot
         end
 
         def pitcher_stats_table(stats: [])
-          rows = stats.map do |stat|
-            "#{stat.upcase}|#{pitcher_stats[stat].first&.values&.join('|')}"
-          end
+          rows = stats.map { |stat| "#{stat.upcase}|#{pitcher_stats[stat].first&.values&.join('|')}" }
 
           <<~TABLE
             Stat|Player|Total
@@ -125,20 +117,13 @@ class Baseballbot
         end
 
         def load_stats(group:, year:, type:, pool: 'ALL')
-          url = format(
-            BASE_URL,
-            year: year,
-            pool: pool,
-            group: group,
-            type: type,
-            team_id: @subreddit.team.id
-          )
+          url = format BASE_URL, year: year, pool: pool, group: group, type: type, team_id: @subreddit.team.id
 
           JSON.parse(URI.parse(url).open.read)['stats']
         end
 
-        # Interestingly, this doesn't include the esoteric column "extraBaseHits", and I'd rather
-        # not have to add it up myself.
+        # Interestingly, this doesn't include the esoteric column "extraBaseHits", and I'd rather not have to add it up
+        # myself.
         # def load_from_api(group:, year:, type:, pool:)
         #   @bot.api.stats(
         #     hydrate: 'person',
