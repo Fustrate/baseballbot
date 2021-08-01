@@ -77,10 +77,7 @@ class Baseballbot
 
         fields = attrs.keys.map.with_index { |col, i| "#{col} = $#{i + 2}" }
 
-        bot.db.exec_params(
-          "UPDATE game_threads SET #{fields.join(', ')} WHERE id = $1",
-          [@id] + attrs.values
-        )
+        bot.db.exec_params "UPDATE game_threads SET #{fields.join(', ')} WHERE id = $1", [@id] + attrs.values
       end
 
       # Mark the game thread as complete, and make any last updates

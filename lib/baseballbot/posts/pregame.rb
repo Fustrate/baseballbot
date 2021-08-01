@@ -38,10 +38,7 @@ class Baseballbot
         update_sticky @subreddit.sticky_game_threads?
         update_flair @subreddit.options.dig('pregame', 'flair')
 
-        bot.db.exec_params(
-          'UPDATE game_threads SET pre_game_post_id = $1 WHERE id = $2',
-          [@submission.id, @id]
-        )
+        bot.db.exec_params 'UPDATE game_threads SET pre_game_post_id = $1 WHERE id = $2', [@submission.id, @id]
       end
     end
   end

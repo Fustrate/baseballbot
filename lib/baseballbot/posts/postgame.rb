@@ -40,10 +40,7 @@ class Baseballbot
         update_sticky @subreddit.sticky_game_threads?
         update_flair postgame_flair
 
-        bot.db.exec_params(
-          'UPDATE game_threads SET post_game_post_id = $1 WHERE id = $2',
-          [@submission.id, @id]
-        )
+        bot.db.exec_params 'UPDATE game_threads SET post_game_post_id = $1 WHERE id = $2', [@submission.id, @id]
       end
 
       def postgame_flair
@@ -51,8 +48,8 @@ class Baseballbot
 
         return unless flairs
 
-        return flairs['won'] if template.won? && flairs['won']
-        return flairs['lost'] if template.lost? && flairs['lost']
+        return flairs['won'] if flairs['won'] && template.won?
+        return flairs['lost'] if flairs['lost'] && template.lost?
 
         flairs
       end
