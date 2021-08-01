@@ -36,8 +36,6 @@ class Baseballbot
         update_game_thread_post!
 
         info "[UPD] #{@submission.id} in /r/#{@subreddit.name} for #{@game_pk}"
-
-        @template.final?
       end
 
       protected
