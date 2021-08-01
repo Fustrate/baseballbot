@@ -33,6 +33,8 @@ class Baseballbot
         @template = template_for("#{@type}_update")
         @submission = @subreddit.load_submission(id: @post_id)
 
+        return reddit_submission_removed! unless @submission.banned_by.nil?
+
         update_game_thread_post!
 
         info "[UPD] #{@submission.id} in /r/#{@subreddit.name} for #{@game_pk}"
@@ -91,6 +93,12 @@ class Baseballbot
         post_postgame!
 
         set_postgame_flair!
+      end
+
+      def reddit_submission_removed!
+        change_status 'Removed'
+
+        info "[REM] #{@submission.id} in /r/#{@subreddit.name} for #{@game_pk}"
       end
 
       # If this subreddit has flair settings, apply them at the end of the game
