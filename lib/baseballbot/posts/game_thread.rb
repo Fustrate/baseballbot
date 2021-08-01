@@ -51,7 +51,7 @@ class Baseballbot
         # Mark as posted right away so that it won't post again
         change_status 'Posted'
 
-        update_sticky sticky: @subreddit.sticky_game_threads?
+        update_sticky @subreddit.sticky_game_threads?
         update_suggested_sort 'new'
         # update_flair game_thread_flair('default')
       end
@@ -89,7 +89,7 @@ class Baseballbot
       def end_game_thread!
         change_status 'Over'
 
-        update_sticky(sticky: false) if @subreddit.sticky_game_threads?
+        update_sticky(false) if @subreddit.sticky_game_threads?
 
         info "[END] #{@submission.id} in /r/#{@subreddit.name} for #{@game_pk}"
 

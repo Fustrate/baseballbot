@@ -37,7 +37,7 @@ class Baseballbot
       end
 
       def post_process
-        update_sticky(sticky: @subreddit.sticky_game_threads?)
+        update_sticky @subreddit.sticky_game_threads?
         update_flair postgame_flair
 
         bot.db.exec_params(
