@@ -84,7 +84,7 @@ class GameThreadLoader
 
         post_at = adjusted_time.call(starts_at)
 
-        insert_game subreddit_id, game, post_at, starts_at if post_at > Time.now
+        insert_game subreddit_id, game, post_at, starts_at
       end
     end
   end

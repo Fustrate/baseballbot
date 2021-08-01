@@ -45,8 +45,11 @@ step_minutes_by(30) do
   bundle_exec_ruby :game_threads, :update, :posted
 end
 
-every :saturday do
+every :day do
   bundle_exec_ruby :load_game_threads
+end
+
+every :saturday do
   bundle_exec_ruby :load_sunday_game_threads
 end
 
