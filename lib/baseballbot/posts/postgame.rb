@@ -54,7 +54,6 @@ class Baseballbot
 
         flair['default']
       end
-      end
     end
   end
 end
