@@ -49,6 +49,8 @@ class Baseballbot
       def flair_id
         flair = @subreddit.options.dig('postgame', 'flair_id')
 
+        return unless flair
+
         return flair['won'] if flair['won'] && template.won?
         return flair['lost'] if flair['lost'] && template.won?
 
