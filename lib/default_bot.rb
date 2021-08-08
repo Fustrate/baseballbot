@@ -3,19 +3,6 @@
 # The bare basics of most files in /lib/
 require_relative 'baseballbot'
 
-# Bump the timeouts up from 5 seconds
-module Redd
-  class Client
-    private
-
-    def connection
-      @connection ||= HTTP.persistent(@endpoint)
-        .headers('User-Agent' => @user_agent)
-        .timeout(write: 20, connect: 20, read: 20)
-    end
-  end
-end
-
 module DefaultBot
   def self.create(purpose: nil, account: nil)
     bot = Baseballbot.new(
