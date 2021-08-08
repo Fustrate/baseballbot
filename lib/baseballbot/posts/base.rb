@@ -16,7 +16,7 @@ class Baseballbot
       end
 
       def update_flair(flair)
-        return unless flair
+        return if flair&.none?
 
         @subreddit.bot.with_reddit_account(@subreddit.account.name) do
           return update_flair_template(flair) if flair['flair_template_id']
@@ -26,11 +26,7 @@ class Baseballbot
       end
 
       def update_flair_template(flair)
-        @subreddit.subreddit.set_flair_template(
-          @submission,
-          flair['flair_template_id'],
-          text: flair['text']
-        )
+        @subreddit.subreddit.set_flair_template(@submission, flair['flair_template_id'])
       end
 
       def update_sticky(sticky)

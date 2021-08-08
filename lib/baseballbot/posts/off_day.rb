@@ -8,11 +8,12 @@ class Baseballbot
 
         @submission = @subreddit.submit(
           title: @template.formatted_title,
-          text: @template.evaluated_body
+          text: @template.evaluated_body,
+          flair_id: flair['flair_template_id']
         )
 
         update_sticky(@subreddit.options.dig('off_day', 'sticky') != false)
-        update_flair @subreddit.options.dig('off_day', 'flair')
+        update_flair flair unless flair['flair_template_id']
 
         info "[OFF] Submitted off day thread #{@submission.id} in /r/#{@name}"
 
@@ -27,6 +28,10 @@ class Baseballbot
           subreddit: @subreddit,
           title: @subreddit.options.dig('off_day', 'title')
         )
+      end
+
+      def flair
+        @flair ||= @subreddit.options.dig('off_day', 'flair') || {}
       end
     end
   end

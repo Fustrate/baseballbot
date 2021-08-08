@@ -79,13 +79,14 @@ class Baseballbot
     #
     # @param title [String] the title of the submission to create
     # @param text [String] the markdown body of the submission to create
+    # @param flair_id [String] the UUID of the flair template to use
     #
     # @return [Redd::Models::Submission] the successfully created submission
     #
     # @todo Restore ability to pass captcha
-    def submit(title:, text:)
+    def submit(title:, text:, flair_id: nil)
       @bot.with_reddit_account(@account.name) do
-        subreddit.submit title, text: text, sendreplies: false
+        subreddit.submit title, text: text, sendreplies: false, flair_id: flair_id
       end
     end
 
