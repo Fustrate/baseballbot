@@ -28,6 +28,9 @@ gem 'whenever'
 # Time zones
 gem 'tzinfo'
 
+# Fancy command line colors
+gem 'paint'
+
 group :development do
   # Deploy with Capistrano
   gem 'capistrano', '~> 3.15', require: false
