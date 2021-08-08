@@ -43,12 +43,10 @@ class Baseballbot
       protected
 
       def create_game_thread_post!
-        flair = game_thread_flair('default')
-
         @submission = @subreddit.submit(
           title: @template.formatted_title,
           text: @template.evaluated_body,
-          flair_id: flair['flair_template_id']
+          flair_id: game_thread_flair('default')
         )
 
         # Mark as posted right away so that it won't post again
@@ -56,7 +54,6 @@ class Baseballbot
 
         update_sticky @subreddit.sticky_game_threads?
         update_suggested_sort 'new'
-        update_flair flair unless flair['flair_template_id']
       end
 
       def update_game_thread_post!
@@ -136,7 +133,7 @@ class Baseballbot
       end
 
       def game_thread_flair(type)
-        @subreddit.options.dig('game_threads', 'flair', type) || {}
+        @subreddit.options.dig('game_threads', 'flair_id', type)
       end
 
       def template_for(type)

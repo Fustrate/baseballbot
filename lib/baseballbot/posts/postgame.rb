@@ -25,7 +25,7 @@ class Baseballbot
           @submission = @subreddit.submit(
             title: template.formatted_title,
             text: template.evaluated_body,
-            flair_id: flair['flair_template_id']
+            flair_id: flair_id
           )
 
           post_process
@@ -42,21 +42,18 @@ class Baseballbot
 
       def post_process
         update_sticky @subreddit.sticky_game_threads?
-        update_flair flair unless flair['flair_template_id']
 
         bot.db.exec_params 'UPDATE game_threads SET post_game_post_id = $1 WHERE id = $2', [@submission.id, @id]
       end
 
-      def flair
-        @flair ||= @subreddit.options.dig('postgame', 'flair', flair_flag) || {}
+      def flair_id
+        flair = @subreddit.options.dig('postgame', 'flair_id')
+
+        return flair['won'] if flair['won'] && template.won?
+        return flair['lost'] if flair['lost'] && template.won?
+
+        flair['default']
       end
-
-      def flair_flag
-        return 'won' if template.won?
-
-        return 'lost' if template.lost?
-
-        '?'
       end
     end
   end
