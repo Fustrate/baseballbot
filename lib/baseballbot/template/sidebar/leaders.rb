@@ -65,16 +65,17 @@ class Baseballbot
         protected
 
         def load_hitter_stats(year, type, count)
-          stats = {}
           all_hitters = load_stats(group: 'hitting', year: year, type: type)
           qualifying = load_stats(group: 'hitting', year: year, type: type, pool: 'QUALIFIED')
 
+          stats = {}
+
           %w[h xbh hr rbi bb sb r].each do |key|
-            stats[key] = list_of(key, all_hitters, :desc, count, :integer)
+            stats[key] = list_of(key, all_hitters, count, :reverse, &:to_i)
           end
 
           %w[avg obp slg ops].each do |key|
-            stats[key] = list_of(key, qualifying, :desc, count, :float)
+            stats[key] = list_of(key, qualifying, count, :reverse) { |value| pct(value) }
           end
 
           stats
@@ -84,36 +85,32 @@ class Baseballbot
           all_pitchers = load_stats(group: 'pitching', year: year, type: type)
           qualifying = load_stats(group: 'pitching', year: year, type: type, pool: 'QUALIFIED')
 
-          stats = { 'ip' => list_of('ip', all_pitchers, :desc, count) }
+          stats = { 'ip' => list_of('ip', all_pitchers, count, :reverse) }
 
           %w[w sv hld so].each do |key|
-            stats[key] = list_of(key, all_pitchers, :desc, count, :integer)
+            stats[key] = list_of(key, all_pitchers, count, :reverse, &:to_i)
           end
 
           %w[whip era avg].each do |key|
-            stats[key] = list_of(key, qualifying, :asc, count, :float)
+            stats[key] = list_of(key, qualifying, count, :itself) { |value| pct(value) }
           end
 
           stats
         end
 
-        def list_of(key, players, direction, count, type = :noop)
+        def list_of(key, players, count, modifier)
           # Always return something that can be used in a template.
           return NO_QUALIFIED_PLAYERS unless players&.any?
 
-          players
-            .map { |player| player.values_at 'playerInitLastName', (COLUMN_ALIASES[key] || key) }
-            .sort_by { |player| player[1].to_f }
-            .send(direction == :desc ? :reverse : :itself)
+          values_for_players(players, key)
+            .sort_by { |(_name, value)| value.to_f }
+            .send(modifier)
             .first(count)
-            .map { |s| { name: s[0], value: cast_value(s[1], type) } }
+            .map { |(name, value)| { name: name, value: block_given? ? yield(value) : value } }
         end
 
-        def cast_value(value, type)
-          return value.to_i if type == :integer
-          return pct(value) if type == :float
-
-          value
+        def values_for_players(players, key)
+          players.map { |player| player.values_at('playerInitLastName', COLUMN_ALIASES[key] || key) }
         end
 
         def load_stats(group:, year:, type:, pool: 'ALL')
