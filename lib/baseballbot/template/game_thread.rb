@@ -70,6 +70,9 @@ class Baseballbot
 
         game_data.dig('players', "ID#{player['person']['id']}", 'boxscoreName')
       end
+
+      def postponed?
+      end
     end
   end
 end
