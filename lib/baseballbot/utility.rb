@@ -25,12 +25,12 @@ class Baseballbot
 
     def self.adjust_time_proc(post_at)
       if post_at =~ /\A-?\d{1,2}\z/
-        ->(time) { time - Regexp.last_match[0].to_i.abs * 3600 }
+        ->(time) { time - (Regexp.last_match[0].to_i.abs * 3600) }
       elsif post_at =~ /(1[012]|\d)(:\d\d|) ?(am|pm)/i
         constant_time(Regexp.last_match)
       else
         # Default to 3 hours before game time
-        ->(time) { time - 3 * 3600 }
+        ->(time) { time - (3 * 3600) }
       end
     end
 

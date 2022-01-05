@@ -22,11 +22,7 @@ class Baseballbot
 
       def post_thread!
         bot.with_reddit_account(@subreddit.account.name) do
-          @submission = @subreddit.submit(
-            title: template.formatted_title,
-            text: template.evaluated_body,
-            flair_id: flair_id
-          )
+          @submission = @subreddit.submit(title: template.formatted_title, text: template.evaluated_body, flair_id:)
 
           post_process
         end

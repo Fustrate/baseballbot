@@ -9,7 +9,7 @@ class Baseballbot
       module Calendar
         def month_calendar(downcase: false)
           cells = month_schedule.map do |_, day|
-            cell(day[:date].day, day[:games], downcase: downcase)
+            cell(day[:date].day, day[:games], downcase:)
           end
 
           MarkdownCalendar.generate(cells, month_schedule)
@@ -71,7 +71,7 @@ class Baseballbot
         end
 
         def next_game_str(date_format: '%-m/%-d', team: nil)
-          game = upcoming_games(1, team: team).first
+          game = upcoming_games(1, team:).first
 
           return '???' unless game
 
@@ -86,7 +86,7 @@ class Baseballbot
         end
 
         def last_game_str(date_format: '%-m/%-d', team: nil)
-          game = previous_games(1, team: team).first
+          game = previous_games(1, team:).first
 
           return '???' unless game
 

@@ -172,9 +172,7 @@ module TeamStandingsData
     end
 
     def team_records(row)
-      records = row.dig('records', 'splitRecords')
-        .map { |rec| [rec['type'], [rec['wins'], rec['losses']]] }
-        .to_h
+      records = row.dig('records', 'splitRecords').to_h { |rec| [rec['type'], [rec['wins'], rec['losses']]] }
 
       {
         home_record: records['home'],

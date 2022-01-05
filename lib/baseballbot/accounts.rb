@@ -53,14 +53,10 @@ class Baseballbot
     end
 
     def load_accounts
-      db.exec('SELECT * FROM accounts')
-        .map { |row| [row['id'], process_account_row(row)] }
-        .to_h
+      db.exec('SELECT * FROM accounts').to_h { |row| [row['id'], process_account_row(row)] }
     end
 
-    def process_account_row(row)
-      Account.new bot: self, name: row['name'], access: account_access(row)
-    end
+    def process_account_row(row) = Account.new(bot: self, name: row['name'], access: account_access(row))
 
     def account_access(row)
       expires_at = Chronic.parse row['expires_at']

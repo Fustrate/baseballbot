@@ -28,13 +28,9 @@ class Baseballbot
           @start_time_utc ||= Time.parse game_data.dig('datetime', 'dateTime')
         end
 
-        def start_time_et
-          Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: 'America/New_York')
-        end
+        def start_time_et() = Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: 'America/New_York')
 
-        def start_time_local
-          Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: @subreddit.timezone)
-        end
+        def start_time_local() = Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: @subreddit.timezone)
 
         def gid
           @gid ||= game_data.dig('game', 'id').gsub(/[^a-z0-9]/, '_')
@@ -47,13 +43,10 @@ class Baseballbot
         def umpires
           feed
             .dig('liveData', 'boxscore', 'officials')
-            .map { |umpire| [UMPIRE_POSITIONS[umpire['officialType']], umpire['official']['fullName']] }
-            .to_h
+            .to_h { |umpire| [UMPIRE_POSITIONS[umpire['officialType']], umpire['official']['fullName']] }
         end
 
-        def venue_name
-          game_data.dig('venue', 'name')
-        end
+        def venue_name() = game_data.dig('venue', 'name')
 
         def weather
           data = game_data['weather'] || {}
@@ -61,34 +54,21 @@ class Baseballbot
           "#{data['temp']}°F, #{data['condition']}" if data['condition']
         end
 
-        def wind
-          game_data.dig('weather', 'wind')
-        end
+        def wind() = game_data.dig('weather', 'wind')
 
-        def attendance
-          nil
-        end
+        def attendance() = nil
 
-        def preview?
-          game_data.dig('status', 'abstractGameState') == 'Preview'
-        end
+        def preview?() = (game_data.dig('status', 'abstractGameState') == 'Preview')
 
-        def final?
-          game_data.dig('status', 'abstractGameState') == 'Final'
-        end
+        def final?() = (game_data.dig('status', 'abstractGameState') == 'Final')
+
         alias over? final?
 
-        def postponed?
-          game_data.dig('status', 'detailedState') == 'Postponed'
-        end
+        def postponed?() = (game_data.dig('status', 'detailedState') == 'Postponed')
 
-        def live?
-          !(preview? || final?)
-        end
+        def live?() = !(preview? || final?)
 
-        def started?
-          !preview?
-        end
+        def started?() = !preview?
 
         def inning
           return game_data.dig('status', 'detailedState') unless live?
@@ -96,9 +76,7 @@ class Baseballbot
           "#{linescore['inningState']} of the #{linescore['currentInningOrdinal']}"
         end
 
-        def outs
-          linescore['outs'] if live? && linescore
-        end
+        def outs() = (linescore['outs'] if live? && linescore)
 
         def runners
           return '' unless live? && linescore&.dig('offense')
@@ -111,16 +89,13 @@ class Baseballbot
           BASERUNNERS[bitmap]
         end
 
-        def game_stats(player)
-          player['gameStats'] || player['stats'] || {}
-        end
+        def game_stats(player) = (player['gameStats'] || player['stats'] || {})
 
-        # If the first array isn't at least as big as the second, it gets
-        # truncated during a normal zip operation
+        # If the first array isn't at least as big as the second, it gets truncated during a normal zip operation
         def full_zip(one, two)
           return one.zip(two) unless one.length < two.length
 
-          (one + [nil] * (two.length - one.length)).zip(two)
+          (one + ([nil] * (two.length - one.length))).zip(two)
         end
       end
     end

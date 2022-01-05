@@ -77,7 +77,7 @@ class NoHitterBot
 
     return true if inning > MIN_INNINGS || (inning == MIN_INNINGS && half != 'Top')
 
-    @next_check << Time.now + WAIT_TIMES.last(MIN_INNINGS + 1)[inning]
+    @next_check << (Time.now + WAIT_TIMES.last(MIN_INNINGS + 1)[inning])
 
     false
   end
@@ -88,13 +88,13 @@ class NoHitterBot
 
     return true if inning > MIN_INNINGS || (inning == MIN_INNINGS && half == 'End')
 
-    @next_check << Time.now + WAIT_TIMES.last(MIN_INNINGS + 1)[inning]
+    @next_check << (Time.now + WAIT_TIMES.last(MIN_INNINGS + 1)[inning])
 
     false
   end
 
   def no_hitter_template(game, flag)
-    Baseballbot::Template::NoHitter.new(subreddit: subreddit, game_pk: game['gamePk'], flag: flag)
+    Baseballbot::Template::NoHitter.new(subreddit:, game_pk: game['gamePk'], flag:)
   end
 
   def post_thread!(game, flag)

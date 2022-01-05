@@ -43,7 +43,7 @@ class Baseballbot
           team = game.dig('teams', flag)
 
           {
-            team: link_for_team(game: game, team: team),
+            team: link_for_team(game:, team:),
             score: (started && team['score'] ? team['score'].to_i : '')
           }
         end

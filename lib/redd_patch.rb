@@ -25,11 +25,7 @@ module Redd
 
       # Allow options other than just sendreplies and resubmit
       def submit(title, **options)
-        params = options.merge(
-          title: title,
-          sr: read_attribute(:display_name),
-          kind: options[:url] ? 'link' : 'self'
-        )
+        params = options.merge(title:, sr: read_attribute(:display_name), kind: options[:url] ? 'link' : 'self')
 
         Submission.new(client, client.post('/api/submit', params).body[:json][:data])
       end

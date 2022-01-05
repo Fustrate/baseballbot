@@ -6,7 +6,7 @@ class Baseballbot
       using TemplateRefinements
 
       def initialize(body:, subreddit:, title: '')
-        super(body: body, subreddit: subreddit)
+        super(body:, subreddit:)
 
         @title = title
       end

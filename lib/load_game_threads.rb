@@ -104,7 +104,7 @@ class GameThreadLoader
       post_at: post_at.strftime('%F %T'),
       starts_at: starts_at.strftime('%F %T'),
       updated_at: Time.now.strftime('%F %T'),
-      subreddit_id: subreddit_id,
+      subreddit_id:,
       game_pk: game['gamePk'].to_i
     }
   end

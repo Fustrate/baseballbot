@@ -36,7 +36,7 @@ class Baseballbot
 
       return unless subreddit.off_today?
 
-      Baseballbot::Posts::OffDay.new(subreddit: subreddit).create!
+      Baseballbot::Posts::OffDay.new(subreddit:).create!
     rescue => e
       Honeybadger.notify(e)
     end

@@ -23,7 +23,7 @@ class Baseballbot
       attr_reader :post_id, :game_pk
 
       def initialize(type:, subreddit:, game_pk:, title: nil, post_id: nil)
-        super(body: subreddit.template_for(type), subreddit: subreddit)
+        super(body: subreddit.template_for(type), subreddit:)
 
         @game_pk = game_pk
         @title = title
@@ -53,7 +53,7 @@ class Baseballbot
 
       def schedule_data(hydrate: 'probablePitcher(note)')
         @bot.api.load("schedule_data_#{gid}_#{hydrate}", expires: 300) do
-          @bot.api.schedule(gamePk: @game_pk, hydrate: hydrate)
+          @bot.api.schedule(gamePk: @game_pk, hydrate:)
         end
       end
 

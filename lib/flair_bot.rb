@@ -5,7 +5,7 @@ require_relative 'default_bot'
 # A bot to iterate over pages of flairs
 class FlairBot
   def initialize(purpose:, subreddit:)
-    @bot = DefaultBot.create(purpose: purpose)
+    @bot = DefaultBot.create(purpose:)
 
     @name = subreddit
     @subreddit = @bot.session.subreddit(@name)
@@ -15,7 +15,7 @@ class FlairBot
 
   def run(after: ARGV[0])
     @bot.with_reddit_account(@bot.name_to_subreddit(@name).account.name) do
-      load_flair_page(after: after)
+      load_flair_page(after:)
 
       send_batch if @updates.any?
     end
@@ -26,7 +26,7 @@ class FlairBot
   def load_flair_page(after:)
     puts "Loading flairs#{after ? " after #{after}" : ''}"
 
-    response = @subreddit.client.get("/r/#{@name}/api/flairlist", after: after, limit: 1000).body
+    response = @subreddit.client.get("/r/#{@name}/api/flairlist", after:, limit: 1000).body
 
     response[:users].each do |flair|
       process_flair(flair)
@@ -47,9 +47,9 @@ class FlairBot
 
   def send_batch
     # Assuming there are no commas, quotes, or newlines in the data...
-    csv = @updates.map { |user| user.join(',') }.join("\n")
+    flair_csv = @updates.map { |user| user.join(',') }.join("\n")
 
-    @subreddit.client.post("/r/#{@name}/api/flaircsv", flair_csv: csv)
+    @subreddit.client.post("/r/#{@name}/api/flaircsv", flair_csv:)
 
     @updates = []
   end

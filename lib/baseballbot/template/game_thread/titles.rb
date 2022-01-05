@@ -32,11 +32,11 @@ class Baseballbot
             away_full_name: away_team.full_name,
             away_name: away_team.name,
             away_pitcher: player_name(probable_away_starter),
-            away_record: away_record,
+            away_record:,
             home_full_name: home_team.full_name,
             home_name: home_team.name,
             home_pitcher: player_name(probable_home_starter),
-            home_record: home_record
+            home_record:
           }
         end
 

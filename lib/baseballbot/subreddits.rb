@@ -43,20 +43,14 @@ class Baseballbot
       'WSH' => 'Nationals'
     }.freeze
 
-    def name_to_subreddit(name)
-      name.is_a?(Subreddit) ? name : subreddits[name.downcase]
-    end
+    def name_to_subreddit(name) = (name.is_a?(Subreddit) ? name : subreddits[name.downcase])
 
     protected
 
     def load_subreddits
-      db.exec(BOT_SUBREDDITS_QUERY)
-        .map { |row| [row['name'].downcase, process_subreddit_row(row)] }
-        .to_h
+      db.exec(BOT_SUBREDDITS_QUERY).to_h { |row| [row['name'].downcase, process_subreddit_row(row)] }
     end
 
-    def process_subreddit_row(row)
-      Subreddit.new(row, bot: self, account: accounts[row['account_id']])
-    end
+    def process_subreddit_row(row) = Subreddit.new(row, bot: self, account: accounts[row['account_id']])
   end
 end

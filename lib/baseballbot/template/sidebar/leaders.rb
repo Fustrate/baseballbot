@@ -65,56 +65,59 @@ class Baseballbot
         protected
 
         def load_hitter_stats(year, type, count)
-          all_hitters = load_stats(group: 'hitting', year: year, type: type)
-          qualifying = load_stats(group: 'hitting', year: year, type: type, pool: 'QUALIFIED')
-
           stats = {}
+          all_hitters = load_stats(group: 'hitting', year:, type:)
+          qualifying = load_stats(group: 'hitting', year:, type:, pool: 'QUALIFIED')
 
           %w[h xbh hr rbi bb sb r].each do |key|
-            stats[key] = list_of(key, all_hitters, count, :reverse, &:to_i)
+            stats[key] = list_of(key, all_hitters, :desc, count, :integer)
           end
 
           %w[avg obp slg ops].each do |key|
-            stats[key] = list_of(key, qualifying, count, :reverse) { |value| pct(value) }
+            stats[key] = list_of(key, qualifying, :desc, count, :float)
           end
 
           stats
         end
 
         def load_pitcher_stats(year, type, count)
-          all_pitchers = load_stats(group: 'pitching', year: year, type: type)
-          qualifying = load_stats(group: 'pitching', year: year, type: type, pool: 'QUALIFIED')
+          all_pitchers = load_stats(group: 'pitching', year:, type:)
+          qualifying = load_stats(group: 'pitching', year:, type:, pool: 'QUALIFIED')
 
-          stats = { 'ip' => list_of('ip', all_pitchers, count, :reverse) }
+          stats = { 'ip' => list_of('ip', all_pitchers, :desc, count) }
 
           %w[w sv hld so].each do |key|
-            stats[key] = list_of(key, all_pitchers, count, :reverse, &:to_i)
+            stats[key] = list_of(key, all_pitchers, :desc, count, :integer)
           end
 
           %w[whip era avg].each do |key|
-            stats[key] = list_of(key, qualifying, count, :itself) { |value| pct(value) }
+            stats[key] = list_of(key, qualifying, :asc, count, :float)
           end
 
           stats
         end
 
-        def list_of(key, players, count, modifier)
+        def list_of(key, players, direction, count, type = :noop)
           # Always return something that can be used in a template.
           return NO_QUALIFIED_PLAYERS unless players&.any?
 
-          values_for_players(players, key)
-            .sort_by { |(_name, value)| value.to_f }
-            .send(modifier)
+          players
+            .map { |player| player.values_at 'playerInitLastName', (COLUMN_ALIASES[key] || key) }
+            .sort_by { |player| player[1].to_f }
+            .send(direction == :desc ? :reverse : :itself)
             .first(count)
-            .map { |(name, value)| { name: name, value: block_given? ? yield(value) : value } }
+            .map { |s| { name: s[0], value: cast_value(s[1], type) } }
         end
 
-        def values_for_players(players, key)
-          players.map { |player| player.values_at('playerInitLastName', COLUMN_ALIASES[key] || key) }
+        def cast_value(value, type)
+          return value.to_i if type == :integer
+          return pct(value) if type == :float
+
+          value
         end
 
         def load_stats(group:, year:, type:, pool: 'ALL')
-          url = format BASE_URL, year: year, pool: pool, group: group, type: type, team_id: @subreddit.team.id
+          url = format BASE_URL, year:, pool:, group:, type:, team_id: @subreddit.team.id
 
           JSON.parse(URI.parse(url).open.read)['stats']
         end
@@ -126,7 +129,7 @@ class Baseballbot
         #     hydrate: 'person',
         #     sportId: 1,
         #     season: year,
-        #     group: group,
+        #     group:,
         #     gameType: type,
         #     playerPool: pool,
         #     stats: 'season',

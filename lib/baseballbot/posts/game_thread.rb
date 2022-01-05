@@ -4,7 +4,7 @@ class Baseballbot
   module Posts
     class GameThread < Base
       def initialize(row, subreddit:)
-        super(row, subreddit: subreddit)
+        super(row, subreddit:)
 
         @row = row
 
@@ -70,7 +70,7 @@ class Baseballbot
 
       # @param status [String] status of the game thread
       def change_status(status)
-        attrs = { status: status, updated_at: Time.now }
+        attrs = { status:, updated_at: Time.now }
 
         if status == 'Posted'
           attrs[:post_id] = @submission.id
@@ -132,16 +132,14 @@ class Baseballbot
         Baseballbot::Posts::Postgame.new(@row, subreddit: @subreddit).create!
       end
 
-      def game_thread_flair(type)
-        @subreddit.options.dig('game_threads', 'flair_id', type)
-      end
+      def game_thread_flair(type) = @subreddit.options.dig('game_threads', 'flair_id', type)
 
       def template_for(type)
         Template::GameThread.new(
           subreddit: @subreddit,
           game_pk: @game_pk,
           post_id: @post_id,
-          type: type,
+          type:,
           title: @title
         )
       end

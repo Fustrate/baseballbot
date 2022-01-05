@@ -92,9 +92,9 @@ class PostseasonGameLoader
       game_pk: game['gamePk'],
       post_at: post_at.strftime('%F %T'),
       starts_at: starts_at.strftime('%F %T'),
-      subreddit_id: subreddit_id,
+      subreddit_id:,
       status: 'Future',
-      title: title
+      title:
     }
   end
 

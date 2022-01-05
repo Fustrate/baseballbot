@@ -58,7 +58,7 @@ class Baseballbot
   end
 
   def api
-    @api ||= MLBStatsAPI::Client.new logger: logger, cache: redis
+    @api ||= MLBStatsAPI::Client.new logger:, cache: redis
   end
 
   # Returns one of 'postseason', 'regular_season', 'offseason', 'preseason'

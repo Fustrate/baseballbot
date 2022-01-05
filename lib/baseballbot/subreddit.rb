@@ -86,13 +86,13 @@ class Baseballbot
     # @todo Restore ability to pass captcha
     def submit(title:, text:, flair_id: nil)
       @bot.with_reddit_account(@account.name) do
-        subreddit.submit title, text: text, sendreplies: false, flair_id: flair_id
+        subreddit.submit title, text:, flair_id:, sendreplies: false
       end
     end
 
     def edit(id:, body: nil)
       @bot.with_reddit_account(@account.name) do
-        load_submission(id: id).edit(body)
+        load_submission(id:).edit(body)
       end
     end
 
@@ -135,7 +135,7 @@ class Baseballbot
       return unless errors&.count&.positive?
 
       errors.each do |error|
-        log_action 'Sidebar update error', data: { error: error }
+        log_action 'Sidebar update error', data: { error: }
 
         # if error[0] == 'TOO_LONG' && error[1] =~ /max: \d+/
         #   # TODO: Message the moderators of the subreddit to tell them their
@@ -148,9 +148,9 @@ class Baseballbot
       @bot.log_action(
         subject_type: 'Subreddit',
         subject_id: @id,
-        action: action,
-        note: note,
-        data: data
+        action:,
+        note:,
+        data:
       )
     end
   end

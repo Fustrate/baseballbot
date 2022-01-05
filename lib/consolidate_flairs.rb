@@ -21,9 +21,7 @@ class ConsolidateFlairs
   def load_flairs(after: nil)
     puts "Loading flairs#{after ? " after #{after}" : ''}"
 
-    res = @subreddit.client
-      .get('/r/baseball/api/flairlist', after: after, limit: 1000)
-      .body
+    res = @subreddit.client.get('/r/baseball/api/flairlist', after:, limit: 1000).body
 
     res[:users].each { |flair| process_flair(flair) }
 

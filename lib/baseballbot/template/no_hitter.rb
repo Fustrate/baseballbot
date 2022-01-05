@@ -11,8 +11,8 @@ class Baseballbot
         @flag = flag
 
         super(
-          subreddit: subreddit,
-          game_pk: game_pk,
+          subreddit:,
+          game_pk:,
           title: TITLE_FORMAT,
           type: 'no_hitter'
         )
@@ -26,7 +26,7 @@ class Baseballbot
 
       def title_interpolations
         super.merge(
-          pitcher_names: pitcher_names,
+          pitcher_names:,
           pitching_team: @flag == 'home' ? home_team.name : away_team.name,
           batting_team: @flag == 'home' ? away_team.name : home_team.name
         )
