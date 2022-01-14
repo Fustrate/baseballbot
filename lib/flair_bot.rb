@@ -47,7 +47,10 @@ class FlairBot
 
   def send_batch
     # Assuming there are no commas, quotes, or newlines in the data...
-    flair_csv = @updates.map { |user| user.join(',') }.join("\n")
+    flair_csv = @updates.map { |user| user.map(&:inspect).join(',') }.join("\n")
+
+    puts "Committing #{@updates.count} changes..."
+    puts flair_csv
 
     @subreddit.client.post("/r/#{@name}/api/flaircsv", flair_csv:)
 
