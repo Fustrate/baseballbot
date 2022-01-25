@@ -8,7 +8,7 @@ class Baseballbot
       JOIN subreddits ON (subreddits.id = subreddit_id)
       WHERE status IN ('Pregame', 'Future')
         AND post_at <= NOW()
-        AND (options#>>'{game_threads,enabled}')::boolean IS TRUE
+        AND options['game_threads']['enabled']::boolean IS TRUE
       ORDER BY post_at ASC, game_pk ASC
     SQL
 

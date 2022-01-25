@@ -48,7 +48,7 @@ class PostseasonGameLoader
       SELECT id, team_id, options#>>'{game_threads,post_at}' AS post_at,
         COALESCE(options#>>'{game_threads,title,postseason}', options#>>'{game_threads,title,default}') AS title
       FROM subreddits
-      WHERE (options#>>'{game_threads,enabled}')::boolean IS TRUE
+      WHERE options['game_threads']['enabled']::boolean IS TRUE
         AND team_id IS NOT NULL
     SQL
   end

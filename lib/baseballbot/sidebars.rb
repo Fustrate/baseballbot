@@ -5,7 +5,7 @@ class Baseballbot
     SUBREDDITS_WITH_SIDEBARS_QUERY = <<~SQL
       SELECT name
       FROM subreddits
-      WHERE (options#>>'{sidebar,enabled}')::boolean IS TRUE
+      WHERE options['sidebar']['enabled']::boolean IS TRUE
       ORDER BY id ASC
     SQL
 

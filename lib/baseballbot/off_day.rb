@@ -5,7 +5,7 @@ class Baseballbot
     UNPOSTED_OFF_DAY_QUERY = <<~SQL
       SELECT name
       FROM subreddits
-      WHERE (options#>>'{off_day,enabled}')::boolean IS TRUE
+      WHERE options['off_day']['enabled']::boolean IS TRUE
       AND (
         (options#>>'{off_day,last_run_at}') IS NULL OR
         DATE((options#>>'{off_day,last_run_at}')) < DATE(NOW())

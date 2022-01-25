@@ -21,7 +21,7 @@ class GameThreadLoader
     SELECT id, name, team_id, options#>>'{game_threads,post_at}' AS post_at
     FROM subreddits
     WHERE team_id IS NOT NULL
-    AND (options#>>'{game_threads,enabled}')::boolean IS TRUE
+    AND options['game_threads']['enabled']::boolean IS TRUE
   SQL
 
   def initialize
