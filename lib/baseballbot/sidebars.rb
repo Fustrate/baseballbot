@@ -25,9 +25,7 @@ class Baseballbot
       subreddit.modify_settings description: generate_sidebar(subreddit)
     end
 
-    def show_sidebar(name)
-      generate_sidebar(name_to_subreddit(name))
-    end
+    def show_sidebar(name) = generate_sidebar(name_to_subreddit(name))
 
     protected
 

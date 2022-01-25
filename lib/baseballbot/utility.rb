@@ -11,11 +11,7 @@ class Baseballbot
     def self.parse_time(utc, in_time_zone:)
       utc = Time.parse(utc).utc unless utc.is_a? Time
 
-      time_zone = if in_time_zone.is_a?(TZInfo::DataTimezone)
-                    in_time_zone
-                  else
-                    parse_time_zone(in_time_zone)
-                  end
+      time_zone = in_time_zone.is_a?(TZInfo::DataTimezone) ? in_time_zone : parse_time_zone(in_time_zone)
 
       period = time_zone.period_for_utc(utc)
       with_offset = utc + period.utc_total_offset

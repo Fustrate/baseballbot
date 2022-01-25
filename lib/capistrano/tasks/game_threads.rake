@@ -9,12 +9,7 @@ namespace :bot do
 
     on roles(:web) do
       within "#{release_path}/lib" do
-        execute(
-          :bundle, :exec, :ruby,
-          'game_threads.rb',
-          args[:action],
-          *subreddits
-        )
+        execute(:bundle, :exec, :ruby, 'game_threads.rb', args[:action], *subreddits)
       end
     end
   end

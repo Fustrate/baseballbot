@@ -101,9 +101,7 @@ class Baseballbot
     @session ||= Redd::Models::Session.new client
   end
 
-  def inspect
-    %(#<Baseballbot>)
-  end
+  def inspect() = %(#<Baseballbot>)
 
   def accounts
     @accounts ||= load_accounts
