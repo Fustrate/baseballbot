@@ -9,13 +9,9 @@ class Baseballbot
           link_to player_name(player), url:, title:
         end
 
-        def player_url(id)
-          "http://mlb.mlb.com/team/player.jsp?player_id=#{id}"
-        end
+        def player_url(id) = "http://mlb.mlb.com/team/player.jsp?player_id=#{id}"
 
-        def gameday_link
-          "https://www.mlb.com/gameday/#{game_pk}"
-        end
+        def gameday_link = "https://www.mlb.com/gameday/#{game_pk}"
 
         def game_graph_link
           "http://www.fangraphs.com/livewins.aspx?date=#{start_time_et.strftime '%F'}&team=#{team.name}" \
@@ -27,9 +23,7 @@ class Baseballbot
             "#{start_time_et.strftime 'month=%m&day=%d&year=%Y'}&game=gid_#{gid}%2F"
         end
 
-        def game_notes_link(mlb_team)
-          "http://www.mlb.com/mlb/presspass/gamenotes.jsp?c_id=#{mlb_team.file_code}"
-        end
+        def game_notes_link(mlb_team) = "http://www.mlb.com/mlb/presspass/gamenotes.jsp?c_id=#{mlb_team.file_code}"
       end
     end
   end

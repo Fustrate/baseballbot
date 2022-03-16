@@ -27,9 +27,7 @@ class CheckMessages
 
   protected
 
-  def unread_messages
-    @bot.session.my_messages(category: 'unread', mark: false, limit: 10) || []
-  end
+  def unread_messages = @bot.session.my_messages(category: 'unread', mark: false, limit: 10) || []
 
   def process_message(message)
     post_id = extract_post_id(message)
@@ -49,9 +47,7 @@ class CheckMessages
     message.mark_as_read
   end
 
-  def extract_post_id(message)
-    Regexp.last_match[1] if message.subject =~ TITLE && message.body =~ LINK
-  end
+  def extract_post_id(message) = (Regexp.last_match[1] if message.subject =~ TITLE && message.body =~ LINK)
 
   def gid_for_submission(submission, subreddit, post_id)
     submission.selftext =~ GID ? Regexp.last_match[1] : find_possible_game(subreddit, post_id)

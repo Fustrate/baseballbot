@@ -29,9 +29,7 @@ module Redd
         Time.now.to_i > @attributes[:created_at] + (@attributes[:expires_in] - grace_period)
       end
 
-      def permanent?
-        !@attributes[:refresh_token].nil?
-      end
+      def permanent? = !@attributes[:refresh_token].nil?
 
       private
 

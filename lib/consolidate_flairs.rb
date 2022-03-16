@@ -12,9 +12,7 @@ class ConsolidateFlairs
     @subreddit = @bot.session.subreddit('baseball')
   end
 
-  def run
-    load_flairs after: ARGV[0]
-  end
+  def run = load_flairs after: ARGV[0]
 
   protected
 

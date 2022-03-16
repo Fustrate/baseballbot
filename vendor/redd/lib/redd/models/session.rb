@@ -88,23 +88,23 @@ module Redd
 
       # @return [Array<User>] the logged-in user's friends
       def friends
-        @client.get('/api/v1/me/friends').body[:data][:children].map do |h|
-          User.new(@client, name: h[:name], id: h[:id].sub('t2_', ''), since: h[:date])
-        end
+        @client.get('/api/v1/me/friends')
+          .body[:data][:children]
+          .map { User.new(@client, name: _1[:name], id: _1[:id].sub('t2_', ''), since: _1[:date]) }
       end
 
       # @return [Array<User>] users blocked by the logged-in user
       def blocked
-        @client.get('/prefs/blocked').body[:data][:children].map do |h|
-          User.new(@client, name: h[:name], id: h[:id].sub('t2_', ''), since: h[:date])
-        end
+        @client.get('/prefs/blocked')
+          .body[:data][:children]
+          .map { User.new(@client, name: _1[:name], id: _1[:id].sub('t2_', ''), since: _1[:date]) }
       end
 
       # @return [Array<User>] users blocked by the logged-in user
       def trusted
-        @client.get('/prefs/trusted').body[:data][:children].map do |h|
-          User.new(@client, name: h[:name], id: h[:id].sub('t2_', ''), since: h[:date])
-        end
+        @client.get('/prefs/trusted')
+          .body[:data][:children]
+          .map { User.new(@client, name: _1[:name], id: _1[:id].sub('t2_', ''), since: _1[:date]) }
       end
 
       # @return [Array<String>] a list of categories the user's items are saved in

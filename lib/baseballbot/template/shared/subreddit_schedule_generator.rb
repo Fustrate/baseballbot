@@ -150,10 +150,7 @@ class TeamCalendarGame
     score[0] > score[1] ? 'W' : 'L'
   end
 
-  def visible?
-    current_team_game? && @data['ifNecessary'] != 'Y' &&
-      !@data['rescheduleDate']
-  end
+  def visible? = current_team_game? && @data['ifNecessary'] != 'Y' && !@data['rescheduleDate']
 
   protected
 

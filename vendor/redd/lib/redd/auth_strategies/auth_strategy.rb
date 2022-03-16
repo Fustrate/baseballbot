@@ -21,22 +21,16 @@ module Redd
 
       # @abstract Perform authentication and return the resulting access object
       # @return [Access] the access token object
-      def authenticate(*)
-        raise 'abstract method: this strategy cannot authenticate with reddit'
-      end
+      def authenticate(*) = raise 'abstract method: this strategy cannot authenticate with reddit'
 
       # @abstract Refresh the authentication and return the refreshed access
       # @param _access [Access, String] the access to refresh
       # @return [Access] the new access
-      def refresh(_access)
-        raise 'abstract method: this strategy cannot refresh access'
-      end
+      def refresh(_access) = raise 'abstract method: this strategy cannot refresh access'
 
       # Revoke the access token, making it invalid for future requests.
       # @param access [Access, String] the access to revoke
-      def revoke(access)
-        post('/api/v1/revoke_token', token: access_token(access))
-      end
+      def revoke(access) = post('/api/v1/revoke_token', token: access_token(access))
 
       private
 

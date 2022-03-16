@@ -7,13 +7,9 @@ class Baseballbot
         HOME_FEED_TYPES = %w[HOME NATIONAL].freeze
         AWAY_FEED_TYPES = %w[AWAY NATIONAL].freeze
 
-        def free_game?
-          content.dig('media', 'freeGame')
-        end
+        def free_game? = content.dig('media', 'freeGame')
 
-        def enhanced_game?
-          content.dig('media', 'enhancedGame')
-        end
+        def enhanced_game? = content.dig('media', 'enhancedGame')
 
         def away_tv
           tv_feeds
@@ -45,13 +41,9 @@ class Baseballbot
             .join(', ')
         end
 
-        def home_pitcher_notes
-          schedule_data.dig('dates', 0, 'games', 0, 'teams', 'home', 'probablePitcher', 'note')
-        end
+        def home_pitcher_notes = schedule_data.dig('dates', 0, 'games', 0, 'teams', 'home', 'probablePitcher', 'note')
 
-        def away_pitcher_notes
-          schedule_data.dig('dates', 0, 'games', 0, 'teams', 'away', 'probablePitcher', 'note')
-        end
+        def away_pitcher_notes = schedule_data.dig('dates', 0, 'games', 0, 'teams', 'away', 'probablePitcher', 'note')
 
         protected
 

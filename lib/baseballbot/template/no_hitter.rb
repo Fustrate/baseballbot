@@ -18,9 +18,7 @@ class Baseballbot
         )
       end
 
-      def inspect
-        %(#<Baseballbot::Template::NoHitter @game_pk="#{@game_pk}">)
-      end
+      def inspect = %(#<Baseballbot::Template::NoHitter @game_pk="#{@game_pk}" @flag="#{@flag}">)
 
       protected
 

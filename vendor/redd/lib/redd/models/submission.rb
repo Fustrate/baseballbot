@@ -51,9 +51,7 @@ module Redd
       # @option params [Integer] :count (0) the number of items already seen in the listing
       # @option params [1..100] :limit (25) the maximum number of things to return
       # @return [Listing<Submission>]
-      def duplicates(**params)
-        @client.unmarshal(@client.get("/duplicates/#{get_attribute(:id)}", params).body[1])
-      end
+      def duplicates(**params) = @client.unmarshal(@client.get("/duplicates/#{get_attribute(:id)}", params).body[1])
 
       # Mark the link as "Not Suitable For Work".
       def mark_as_nsfw

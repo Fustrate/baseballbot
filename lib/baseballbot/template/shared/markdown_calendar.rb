@@ -23,13 +23,9 @@ class Baseballbot
             ].each_slice(7).map { _1.join('|') }
           end
 
-          def blank_start(date)
-            [' '] * date.wday
-          end
+          def blank_start(date) = [' '] * date.wday
 
-          def blank_end(date)
-            [' '] * (6 - date.wday)
-          end
+          def blank_end(date) = [' '] * (6 - date.wday)
         end
       end
     end

@@ -42,9 +42,7 @@ module Redd
         @attributes[:subreddit] = Subreddit.from_id(@client, @attributes.fetch(:subreddit))
       end
 
-      def default_loader
-        @attributes.key?(:link_id) ? load_with_comments : load_without_comments
-      end
+      def default_loader = @attributes.key?(:link_id) ? load_with_comments : load_without_comments
 
       def load_with_comments
         id = @attributes.fetch(:id) { @attributes.fetch(:name).sub('t1_', '') }

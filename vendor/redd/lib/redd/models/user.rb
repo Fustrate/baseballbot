@@ -95,15 +95,11 @@ module Redd
 
       # Gift a redditor reddit gold.
       # @param months [Integer] the number of months of gold to gift
-      def gift_gold(months: 1)
-        @client.post("/api/v1/gold/give/#{get_attribute(:name)}", months:)
-      end
+      def gift_gold(months: 1) = @client.post("/api/v1/gold/give/#{get_attribute(:name)}", months:)
 
       private
 
-      def default_loader
-        @client.get("/user/#{@attributes.fetch(:name)}/about").body[:data]
-      end
+      def default_loader = @client.get("/user/#{@attributes.fetch(:name)}/about").body[:data]
     end
   end
 end

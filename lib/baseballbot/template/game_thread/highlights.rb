@@ -61,13 +61,9 @@ class Baseballbot
           }
         end
 
-        def media_blurb(media)
-          media['blurb']&.strip&.gsub(/^[A-Z@]+: /, '') || ''
-        end
+        def media_blurb(media) = media['blurb']&.strip&.gsub(/^[A-Z@]+: /, '') || ''
 
-        def media_duration(media)
-          media['duration']&.strip&.gsub(/^00:0?/, '') || ''
-        end
+        def media_duration(media) = media['duration']&.strip&.gsub(/^00:0?/, '') || ''
 
         def hd_playback_url(media)
           media['playbacks']
@@ -75,9 +71,7 @@ class Baseballbot
             &.dig('url')
         end
 
-        def media_team_code(media)
-          media.dig('image', 'title')&.match(/^\d+([a-z]+)/i)&.captures&.first
-        end
+        def media_team_code(media) = media.dig('image', 'title')&.match(/^\d+([a-z]+)/i)&.captures&.first
       end
     end
   end

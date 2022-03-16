@@ -44,9 +44,7 @@ module Redd
       # @param method_name [Symbol] the method name or attribute to check
       # @param include_private [Boolean] whether to also include private methods
       # @return [Boolean] whether the method is handled by method_missing
-      def respond_to_missing?(method_name, include_private = false)
-        @definitely_fully_loaded ? super : true
-      end
+      def respond_to_missing?(method_name, include_private = false) = (@definitely_fully_loaded ? super : true)
 
       # Return an attribute or raise a NoMethodError if it doesn't exist.
       # @param method_name [Symbol] the name of the attribute
@@ -60,14 +58,10 @@ module Redd
       private
 
       # @abstract A lazy loader to use when one is not provided.
-      def default_loader
-        {}
-      end
+      def default_loader = {}
 
       # Make sure the model is loaded at least once.
-      def ensure_fully_loaded
-        force_load unless @definitely_fully_loaded
-      end
+      def ensure_fully_loaded = (force_load unless @definitely_fully_loaded)
 
       # Gets the attribute and loads it if it may be available from the response.
       def get_attribute(name)

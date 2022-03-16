@@ -14,9 +14,7 @@ class Baseballbot
           @all_teams
         end
 
-        def standings
-          teams_in_division(@subreddit.team.division_id)
-        end
+        def standings = teams_in_division(@subreddit.team.division_id)
 
         def full_standings
           @full_standings ||= {
@@ -39,27 +37,15 @@ class Baseballbot
         end
 
         def teams_in_league(league)
-          league_id = if league.is_a?(Integer)
-                        league
-                      else
-                        MLBStatsAPI::Leagues::LEAGUES[league]
-                      end
+          league_id = league.is_a?(Integer) ? league : MLBStatsAPI::Leagues::LEAGUES[league]
 
-          all_teams.select do |team|
-            team.dig(:team, 'league', 'id') == league_id
-          end
+          all_teams.select { _1.dig(:team, 'league', 'id') == league_id }
         end
 
         def teams_in_division(division)
-          division_id = if division.is_a?(Integer)
-                          division
-                        else
-                          MLBStatsAPI::Divisions::DIVISIONS[division]
-                        end
+          division_id = division.is_a?(Integer) ? division : MLBStatsAPI::Divisions::DIVISIONS[division]
 
-          all_teams.select do |team|
-            team.dig(:team, 'division', 'id') == division_id
-          end
+          all_teams.select { _1.dig(:team, 'division', 'id') == division_id }
         end
 
         def wildcards_in_league(league)

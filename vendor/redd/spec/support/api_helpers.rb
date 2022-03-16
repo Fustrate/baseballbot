@@ -3,9 +3,7 @@
 require_relative 'stub_client'
 
 module APIHelpers
-  def client
-    StubClient.new
-  end
+  def client = StubClient.new
 
   def stub_api(verb, path, params = {}, &)
     if params.empty?

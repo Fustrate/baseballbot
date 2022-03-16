@@ -51,9 +51,7 @@ module Redd
       end
 
       # Deal with an error signalled by the HTTP response code.
-      def other_http_error(res)
-        HTTP_ERRORS[res.code].new(res) if HTTP_ERRORS.key?(res.code)
-      end
+      def other_http_error(res) = (HTTP_ERRORS[res.code].new(res) if HTTP_ERRORS.key?(res.code))
 
       # Deal with those annoying errors that come with perfect 200 status codes.
       def api_error(res)

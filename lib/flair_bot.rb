@@ -41,9 +41,7 @@ class FlairBot
     load_flair_page after: response[:next]
   end
 
-  def process_flair(_flair)
-    raise NotImplementedError
-  end
+  def process_flair(_flair) = raise NotImplementedError
 
   def send_batch
     # Assuming there are no commas, quotes, or newlines in the data...

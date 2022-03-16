@@ -56,11 +56,7 @@ module Redd
 
       # Loop forever, yielding the elements from the loader
       # @yield [element] an element from the listings returned by the loader
-      def stream(&)
-        loop do
-          next_request(&)
-        end
-      end
+      def stream(&) = loop { next_request(&) }
     end
   end
 end

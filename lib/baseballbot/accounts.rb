@@ -52,9 +52,7 @@ class Baseballbot
       )
     end
 
-    def load_accounts
-      db.exec('SELECT * FROM accounts').to_h { [_1['id'], process_account_row(_1)] }
-    end
+    def load_accounts = db.exec('SELECT * FROM accounts').to_h { [_1['id'], process_account_row(_1)] }
 
     def process_account_row(row) = Account.new(bot: self, name: row['name'], access: account_access(row))
 

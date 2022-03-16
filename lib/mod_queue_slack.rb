@@ -122,13 +122,9 @@ class ModQueue
     raise 'Uh oh!' unless response.code.to_i == 200
   end
 
-  def item_body(item)
-    item.is_a?(Redd::Models::Submission) ? item.selftext[0..255] : item.body
-  end
+  def item_body(item) = item.is_a?(Redd::Models::Submission) ? item.selftext[0..255] : item.body
 
-  def item_title(item)
-    item.is_a?(Redd::Models::Submission) ? item.title : item.link_title
-  end
+  def item_title(item) = item.is_a?(Redd::Models::Submission) ? item.title : item.link_title
 end
 
 ModQueue.new.run!

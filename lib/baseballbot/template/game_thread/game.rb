@@ -28,9 +28,9 @@ class Baseballbot
           @start_time_utc ||= Time.parse game_data.dig('datetime', 'dateTime')
         end
 
-        def start_time_et() = Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: 'America/New_York')
+        def start_time_et = Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: 'America/New_York')
 
-        def start_time_local() = Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: @subreddit.timezone)
+        def start_time_local = Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: @subreddit.timezone)
 
         def gid
           @gid ||= game_data.dig('game', 'id').gsub(/[^a-z0-9]/, '_')
@@ -46,7 +46,7 @@ class Baseballbot
             .to_h { [UMPIRE_POSITIONS[_1['officialType']], _1['official']['fullName']] }
         end
 
-        def venue_name() = game_data.dig('venue', 'name')
+        def venue_name = game_data.dig('venue', 'name')
 
         def weather
           data = game_data['weather'] || {}
@@ -54,21 +54,21 @@ class Baseballbot
           "#{data['temp']}°F, #{data['condition']}" if data['condition']
         end
 
-        def wind() = game_data.dig('weather', 'wind')
+        def wind = game_data.dig('weather', 'wind')
 
-        def attendance() = nil
+        def attendance = nil
 
-        def preview?() = (game_data.dig('status', 'abstractGameState') == 'Preview')
+        def preview? = (game_data.dig('status', 'abstractGameState') == 'Preview')
 
-        def final?() = (game_data.dig('status', 'abstractGameState') == 'Final')
+        def final? = (game_data.dig('status', 'abstractGameState') == 'Final')
 
         alias over? final?
 
-        def postponed?() = (game_data.dig('status', 'detailedState') == 'Postponed')
+        def postponed? = (game_data.dig('status', 'detailedState') == 'Postponed')
 
-        def live?() = !(preview? || final?)
+        def live? = !(preview? || final?)
 
-        def started?() = !preview?
+        def started? = !preview?
 
         def inning
           return game_data.dig('status', 'detailedState') unless live?
@@ -76,7 +76,7 @@ class Baseballbot
           "#{linescore['inningState']} of the #{linescore['currentInningOrdinal']}"
         end
 
-        def outs() = (linescore['outs'] if live? && linescore)
+        def outs = (linescore['outs'] if live? && linescore)
 
         def runners
           return '' unless live? && linescore&.dig('offense')

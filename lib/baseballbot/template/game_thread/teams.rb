@@ -4,13 +4,9 @@ class Baseballbot
   module Template
     class GameThread
       module Teams
-        def away_record
-          standings_by_team_id[game_data.dig('teams', 'away', 'id')] || '0-0'
-        end
+        def away_record = standings_by_team_id[game_data.dig('teams', 'away', 'id')] || '0-0'
 
-        def home_record
-          standings_by_team_id[game_data.dig('teams', 'home', 'id')] || '0-0'
-        end
+        def home_record = standings_by_team_id[game_data.dig('teams', 'home', 'id')] || '0-0'
 
         # The game endpoint is returning stale data, so let's try grabbing them from the standings
         # endpoint instead.
@@ -18,9 +14,7 @@ class Baseballbot
           @standings_by_team_id ||= @bot.api
             .standings(leagues: %i[al nl], season: Date.today.year)['records']
             .flat_map do |division|
-              division['teamRecords'].map do |team|
-                [team.dig('team', 'id'), team.values_at('wins', 'losses').join('-')]
-              end
+              division['teamRecords'].map { [_1.dig('team', 'id'), _1.values_at('wins', 'losses').join('-')] }
             end
             .to_h
         end
@@ -33,29 +27,15 @@ class Baseballbot
           @away_team ||= @bot.api.team game_data.dig('teams', 'away', 'id')
         end
 
-        def opponent
-          return home_team if @subreddit.team&.id == away_team.id
+        def opponent = @subreddit.team&.id == away_team.id ? home_team : away_team
 
-          away_team
-        end
+        def team = @subreddit.team || home_team
 
-        def team
-          @subreddit.team || home_team
-        end
+        def home? = @subreddit.team ? home_team.id == @subreddit.team.id : true
 
-        def home?
-          return true unless @subreddit.team
+        def won? = (home? == (home_rhe['runs'] > away_rhe['runs']) if final?)
 
-          @home = home_team.id == @subreddit.team.id
-        end
-
-        def won?
-          home? == (home_rhe['runs'] > away_rhe['runs']) if final?
-        end
-
-        def lost?
-          home? == (home_rhe['runs'] < away_rhe['runs']) if final?
-        end
+        def lost? = (home? == (home_rhe['runs'] < away_rhe['runs']) if final?)
       end
     end
   end

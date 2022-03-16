@@ -39,9 +39,7 @@ class Baseballbot
             .sort_by { batting_order(_1) }
         end
 
-        def batters
-          full_zip home_batters, away_batters
-        end
+        def batters = full_zip(home_batters, away_batters)
 
         def batters_table(stats: %i[ab r h rbi bb so ba])
           rows = batters.map do |one, two|
@@ -75,9 +73,7 @@ class Baseballbot
           TABLE
         end
 
-        def batters_table_header(team, stats)
-          "**#{team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}"
-        end
+        def batters_table_header(team, stats) = "**#{team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}"
 
         def batter_row(batter, stats = %i[ab r h rbi bb so ba])
           return " |#{'|' * stats.count}" unless batter

@@ -39,17 +39,11 @@ class Baseballbot
         @feed ||= @bot.api.live_feed @game_pk
       end
 
-      def linescore
-        feed.linescore
-      end
+      def linescore = feed.linescore
 
-      def boxscore
-        feed.boxscore
-      end
+      def boxscore = feed.boxscore
 
-      def game_data
-        feed['gameData']
-      end
+      def game_data = feed['gameData']
 
       def schedule_data(hydrate: 'probablePitcher(note)')
         @bot.api.load("schedule_data_#{gid}_#{hydrate}", expires: 300) do
@@ -57,9 +51,7 @@ class Baseballbot
         end
       end
 
-      def inspect
-        %(#<Baseballbot::Template::GameThread @game_pk="#{@game_pk}">)
-      end
+      def inspect = %(#<Baseballbot::Template::GameThread @game_pk="#{@game_pk}">)
 
       def player_name(player)
         return 'TBA' unless player
@@ -71,8 +63,7 @@ class Baseballbot
         game_data.dig('players', "ID#{player['person']['id']}", 'boxscoreName')
       end
 
-      def postponed?
-      end
+      def postponed? = nil
     end
   end
 end

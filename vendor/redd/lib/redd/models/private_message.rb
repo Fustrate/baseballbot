@@ -12,19 +12,13 @@ module Redd
       include Replyable
 
       # Delete the message from the user's inbox.
-      def delete
-        @client.post('/api/del_msg', id: get_attribute(:name))
-      end
+      def delete = @client.post('/api/del_msg', id: get_attribute(:name))
 
       # Mute the author of the message.
-      def mute_author
-        @client.post('/api/mute_message_author', id: get_attribute(:name))
-      end
+      def mute_author = @client.post('/api/mute_message_author', id: get_attribute(:name))
 
       # Unmute the author of the message.
-      def unmute_author
-        @client.post('/api/unmute_message_author', id: get_attribute(:name))
-      end
+      def unmute_author = @client.post('/api/unmute_message_author', id: get_attribute(:name))
 
       private
 

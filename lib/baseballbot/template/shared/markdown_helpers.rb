@@ -7,25 +7,15 @@ module MarkdownHelpers
     right: '-:'
   }.freeze
 
-  def bold(text)
-    "**#{text}**"
-  end
+  def bold(text) = "**#{text}**"
 
-  def italic(text)
-    "*#{text}*"
-  end
+  def italic(text) = "*#{text}*"
 
-  def sup(text)
-    "^(#{text})"
-  end
+  def sup(text) = "^(#{text})"
 
-  def pct(percent)
-    format('%0.3<percent>f', percent:).sub(/\A0+/, '')
-  end
+  def pct(percent) = format('%0.3<percent>f', percent:).sub(/\A0+/, '')
 
-  def gb(games_back)
-    games_back.gsub(/\.0$/, '')
-  end
+  def gb(games_back) = games_back.gsub(/\.0$/, '')
 
   def table(columns: [], data: [])
     headers = []
@@ -43,13 +33,9 @@ module MarkdownHelpers
     TABLE
   end
 
-  def header_for(column)
-    column.is_a?(Array) ? column[0] : column.to_s
-  end
+  def header_for(column) = column.is_a?(Array) ? column[0] : column.to_s
 
-  def alignment_for(column)
-    ALIGNMENT[Array(column)[1] || :left] || ALIGNMENT[:left]
-  end
+  def alignment_for(column) = ALIGNMENT[Array(column)[1] || :left] || ALIGNMENT[:left]
 
   def link_to(text = '', **options)
     title = %( "#{options[:title]}") if options[:title]

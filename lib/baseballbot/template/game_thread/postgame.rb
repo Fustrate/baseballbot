@@ -4,13 +4,9 @@ class Baseballbot
   module Template
     class GameThread
       module Postgame
-        def winner_flag
-          home_rhe['runs'] > away_rhe['runs'] ? 'home' : 'away'
-        end
+        def winner_flag = home_rhe['runs'] > away_rhe['runs'] ? 'home' : 'away'
 
-        def loser_flag
-          home_rhe['runs'] > away_rhe['runs'] ? 'away' : 'home'
-        end
+        def loser_flag = home_rhe['runs'] > away_rhe['runs'] ? 'away' : 'home'
 
         def winning_pitcher
           return unless final?

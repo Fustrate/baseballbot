@@ -2,9 +2,7 @@
 
 module TemplateRefinements
   refine Numeric do
-    def ordinalize
-      "#{self}#{ordinal}"
-    end
+    def ordinalize = "#{self}#{ordinal}"
 
     def ordinal
       abs_number = to_i.abs

@@ -21,9 +21,7 @@ class Baseballbot
             .dig('dates', 0, 'games') || []
         end
 
-        def process_todays_game(game)
-          game_hash(game).tap { mark_winner_and_loser(_1) }
-        end
+        def process_todays_game(game) = game_hash(game).tap { mark_winner_and_loser(_1) }
 
         def game_hash(game)
           status = game.dig('status', 'abstractGameState')
@@ -61,9 +59,7 @@ class Baseballbot
           !MLBStatsAPI::Games.pregame_status?(data[:raw_status]) && data[:home][:score] != data[:away][:score]
         end
 
-        def winner_loser_flags(data)
-          data[:home][:score] > data[:away][:score] ? %i[home away] : %i[away home]
-        end
+        def winner_loser_flags(data) = data[:home][:score] > data[:away][:score] ? %i[home away] : %i[away home]
 
         def link_for_team(game:, team:)
           abbreviation = team_abbreviation(game, team)
@@ -116,17 +112,13 @@ class Baseballbot
             .strftime('%-I:%M')
         end
 
-        def delay_type(game)
-          game.dig('status', 'reason') == 'Rain' ? '☂' : 'Delay'
-        end
+        def delay_type(game) = game.dig('status', 'reason') == 'Rain' ? '☂' : 'Delay'
 
         def game_inning(game)
           (game.dig('linescore', 'isTopInning') ? '▲' : '▼') + bold(game.dig('linescore', 'currentInning'))
         end
 
-        def gameday_link(text, game_pk)
-          link_to text, url: "https://www.mlb.com/gameday/#{game_pk}"
-        end
+        def gameday_link(text, game_pk) = link_to(text, url: "https://www.mlb.com/gameday/#{game_pk}")
 
         def load_known_game_threads
           @game_threads = {}

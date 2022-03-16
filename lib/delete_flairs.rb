@@ -9,9 +9,7 @@ class DeleteFlairs < FlairBot
     @classes = ARGV[1].split(',')
   end
 
-  def run(after: ARGV[2])
-    super if @classes.any?
-  end
+  def run(after: ARGV[2]) = (super if @classes.any?)
 
   protected
 

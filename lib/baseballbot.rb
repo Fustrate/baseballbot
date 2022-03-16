@@ -49,9 +49,7 @@ class Baseballbot
       config.breadcrumbs.enabled = true
       config.env = 'bot'
 
-      config.before_notify do |notice|
-        notice.halt! if IGNORED_EXCEPTIONS.any?(notice.exception)
-      end
+      config.before_notify { _1.halt! if IGNORED_EXCEPTIONS.any?(_1.exception) }
     end
   end
 
@@ -99,7 +97,7 @@ class Baseballbot
     @session ||= Redd::Models::Session.new client
   end
 
-  def inspect() = %(#<Baseballbot>)
+  def inspect = %(#<Baseballbot>)
 
   def accounts
     @accounts ||= load_accounts

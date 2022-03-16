@@ -22,9 +22,7 @@ class Baseballbot
       @team ||= @bot.api.team(@team_id) if @team_id
     end
 
-    def code
-      team&.abbreviation
-    end
+    def code = team&.abbreviation
 
     def now
       @now ||= Baseballbot::Utility.parse_time(Time.now.utc, in_time_zone: @timezone)
@@ -44,9 +42,7 @@ class Baseballbot
     # Miscellaneous
     # --------------------------------------------------------------------------
 
-    def sticky_game_threads?
-      @options.dig('game_threads', 'sticky') != false
-    end
+    def sticky_game_threads? = @options.dig('game_threads', 'sticky') != false
 
     def subreddit
       @subreddit ||= @bot.session.subreddit(@name)

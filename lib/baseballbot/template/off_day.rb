@@ -11,9 +11,7 @@ class Baseballbot
         @title = title
       end
 
-      def inspect
-        %(#<Baseballbot::Template::General>)
-      end
+      def inspect = %(#<Baseballbot::Template::General>)
 
       def formatted_title
         @formatted_title ||= Time.now.strftime @title

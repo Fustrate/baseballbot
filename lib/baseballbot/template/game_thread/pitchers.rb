@@ -34,22 +34,16 @@ class Baseballbot
         def home_pitchers
           return [] unless started? && boxscore
 
-          boxscore.dig('teams', 'home', 'pitchers').map do |id|
-            boxscore.dig('teams', 'home', 'players', "ID#{id}")
-          end
+          boxscore.dig('teams', 'home', 'pitchers').map { boxscore.dig('teams', 'home', 'players', "ID#{_1}") }
         end
 
         def away_pitchers
           return [] unless started? && boxscore
 
-          boxscore.dig('teams', 'away', 'pitchers').map do |id|
-            boxscore.dig('teams', 'away', 'players', "ID#{id}")
-          end
+          boxscore.dig('teams', 'away', 'pitchers').map { boxscore.dig('teams', 'away', 'players', "ID#{_1}") }
         end
 
-        def pitchers
-          full_zip home_pitchers, away_pitchers
-        end
+        def pitchers = full_zip(home_pitchers, away_pitchers)
 
         def pitchers_table(stats: %i[ip h r er bb so p-s era])
           rows = pitchers.map do |one, two|
@@ -85,9 +79,7 @@ class Baseballbot
           MARKDOWN
         end
 
-        def pitchers_table_header(team, stats)
-          "**#{team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}"
-        end
+        def pitchers_table_header(team, stats) = "**#{team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}"
 
         def pitcher_row(pitcher, stats = %i[ip h r er bb so p-s era])
           return " #{'|' * stats.count}" unless pitcher

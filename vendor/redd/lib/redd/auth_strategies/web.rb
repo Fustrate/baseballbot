@@ -15,9 +15,7 @@ module Redd
       # Authenticate with a code using the "web" flow.
       # @param code [String] the code returned by reddit
       # @return [Access]
-      def authenticate(code)
-        request_access('authorization_code', code:, redirect_uri: @redirect_uri)
-      end
+      def authenticate(code) = request_access('authorization_code', code:, redirect_uri: @redirect_uri)
 
       # Refresh the authentication and return a new refreshed access
       # @return [Access] the new access

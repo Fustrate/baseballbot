@@ -39,18 +39,10 @@ module Redd
       def update(body) = @client.post("/api/live/#{id}/update", body:)
 
       # @return [Array<User>] the contributors to this thread
-      def contributors
-        @client.get("/live/#{id}/contributors").body[0][:data].map do |user|
-          User.new(@client, user)
-        end
-      end
+      def contributors = @client.get("/live/#{id}/contributors").body[0][:data].map { User.new(@client, _1) }
 
       # @return [Array<User>] users invited to contribute to this thread
-      def invited_contributors
-        @client.get("/live/#{id}/contributors").body[1][:data].map do |user|
-          User.new(@client, user)
-        end
-      end
+      def invited_contributors = @client.get("/live/#{id}/contributors").body[1][:data].map { User.new(@client, _1) }
 
       # Returns all discussions that link to this live thread.
       # @param params [Hash] a list of params to send with the request

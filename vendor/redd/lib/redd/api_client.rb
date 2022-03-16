@@ -54,9 +54,7 @@ module Redd
       @access = nil
     end
 
-    def unmarshal(object)
-      @unmarshaller.unmarshal(object)
-    end
+    def unmarshal(object) = @unmarshaller.unmarshal(object)
 
     def model(verb, path, options = {})
       # XXX: make unmarshal explicit in methods?
@@ -116,8 +114,6 @@ module Redd
       response
     end
 
-    def connection
-      super.auth("Bearer #{@access.access_token}")
-    end
+    def connection = super.auth("Bearer #{@access.access_token}")
   end
 end

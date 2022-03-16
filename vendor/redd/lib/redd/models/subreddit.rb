@@ -30,21 +30,15 @@ module Redd
       # @param client [APIClient] the api client to initialize the object with
       # @param id [String] the subreddit name
       # @return [Subreddit]
-      def self.from_id(client, display_name)
-        new(client, display_name:)
-      end
+      def self.from_id(client, display_name) = new(client, display_name:)
 
       # @return [Array<String>] the subreddit's wiki pages
-      def wiki_pages
-        @client.get("/r/#{get_attribute(:display_name)}/wiki/pages").body[:data]
-      end
+      def wiki_pages = @client.get("/r/#{get_attribute(:display_name)}/wiki/pages").body[:data]
 
       # Get a wiki page by its title.
       # @param title [String] the page's title
       # @return [WikiPage]
-      def wiki_page(title)
-        WikiPage.new(@client, title:, subreddit: self)
-      end
+      def wiki_page(title) = WikiPage.new(@client, title:, subreddit: self)
 
       # Search a subreddit.
       # @param query [String] the search query
@@ -325,9 +319,7 @@ module Redd
       end
 
       # @return [Hash] the subreddit's settings
-      def settings
-        @client.get("/r/#{get_attribute(:display_name)}/about/edit").body[:data]
-      end
+      def settings = @client.get("/r/#{get_attribute(:display_name)}/about/edit").body[:data]
 
       # Modify the subreddit's settings.
       # @param params [Hash] the settings to change
@@ -349,9 +341,7 @@ module Redd
       # @option params [String] :type filter events to a specific type
       #
       # @return [Listing<ModAction>]
-      def mod_log(**params)
-        @client.model(:get, "/r/#{get_attribute(:display_name)}/about/log", params)
-      end
+      def mod_log(**params) = @client.model(:get, "/r/#{get_attribute(:display_name)}/about/log", params)
 
       # Invite a user to moderate this subreddit.
       # @param user [User] the user to invite
@@ -362,42 +352,28 @@ module Redd
 
       # Take back a moderator request.
       # @param user [User] the requested user
-      def uninvite_moderator(user)
-        remove_relationship(type: 'moderator_invite', name: user.name)
-      end
+      def uninvite_moderator(user) = remove_relationship(type: 'moderator_invite', name: user.name)
 
       # Accept an invite to become a moderator of this subreddit.
-      def accept_moderator_invite
-        @client.post("/r/#{get_attribute(:display_name)}/api/accept_moderator_invite")
-      end
+      def accept_moderator_invite = @client.post("/r/#{get_attribute(:display_name)}/api/accept_moderator_invite")
 
       # Dethrone a moderator.
       # @param user [User] the user to remove
-      def remove_moderator(user)
-        remove_relationship(type: 'moderator', name: user.name)
-      end
+      def remove_moderator(user) = remove_relationship(type: 'moderator', name: user.name)
 
       # Leave from being a moderator on a subreddit.
-      def leave_moderator
-        @client.post('/api/leavemoderator', id: get_attribute(:name))
-      end
+      def leave_moderator = @client.post('/api/leavemoderator', id: get_attribute(:name))
 
       # Add a contributor to the subreddit.
       # @param user [User] the user to add
-      def add_contributor(user)
-        add_relationship(type: 'contributor', name: user.name)
-      end
+      def add_contributor(user) = add_relationship(type: 'contributor', name: user.name)
 
       # Remove a contributor from the subreddit.
       # @param user [User] the user to remove
-      def remove_contributor(user)
-        remove_relationship(type: 'contributor', name: user.name)
-      end
+      def remove_contributor(user) = remove_relationship(type: 'contributor', name: user.name)
 
       # Leave from being a contributor on a subreddit.
-      def leave_contributor
-        @client.post('/api/leavecontributor', id: get_attribute(:name))
-      end
+      def leave_contributor = @client.post('/api/leavecontributor', id: get_attribute(:name))
 
       # Ban a user from a subreddit.
       # @param user [User] the user to ban
@@ -406,27 +382,19 @@ module Redd
       # @option params [String] :ban_message a message sent to the banned user
       # @option params [String] :note a note that only moderators can see
       # @option params [Integer] :duration the number of days to ban the user (if temporary)
-      def ban(user, **params)
-        add_relationship(type: 'banned', name: user.name, **params)
-      end
+      def ban(user, **params) = add_relationship(type: 'banned', name: user.name, **params)
 
       # Remove a ban on a user.
       # @param user [User] the user to unban
-      def unban(user)
-        remove_relationship(type: 'banned', name: user.name)
-      end
+      def unban(user) = remove_relationship(type: 'banned', name: user.name)
 
       # Allow a user to contribute to the wiki.
       # @param user [User] the user to add
-      def add_wiki_contributor(user)
-        add_relationship(type: 'wikicontributor', name: user.name)
-      end
+      def add_wiki_contributor(user) = add_relationship(type: 'wikicontributor', name: user.name)
 
       # No longer allow a user to contribute to the wiki.
       # @param user [User] the user to remove
-      def remove_wiki_contributor(user)
-        remove_relationship(type: 'wikicontributor', name: user.name)
-      end
+      def remove_wiki_contributor(user) = remove_relationship(type: 'wikicontributor', name: user.name)
 
       # Ban a user from contributing to the wiki.
       # @param user [User] the user to ban
@@ -434,15 +402,11 @@ module Redd
       # @option params [String] :ban_reason the reason for the ban (not sure this matters)
       # @option params [String] :note a note that only moderators can see
       # @option params [Integer] :duration the number of days to ban the user (if temporary)
-      def ban_wiki_contributor(user, **params)
-        add_relationship(type: 'wikibanned', name: user.name, **params)
-      end
+      def ban_wiki_contributor(user, **params) = add_relationship(type: 'wikibanned', name: user.name, **params)
 
       # No longer ban a user from contributing to the wiki.
       # @param user [User] the user to unban
-      def unban_wiki_contributor(user)
-        remove_relationship(type: 'wikibanned', name: user.name)
-      end
+      def unban_wiki_contributor(user) = remove_relationship(type: 'wikibanned', name: user.name)
 
       # Upload a subreddit-specific image.
       # @param file [String, IO] the image file to upload
@@ -463,17 +427,11 @@ module Redd
 
       private
 
-      def default_loader
-        @client.get("/r/#{@attributes.fetch(:display_name)}/about").body[:data]
-      end
+      def default_loader = @client.get("/r/#{@attributes.fetch(:display_name)}/about").body[:data]
 
-      def add_relationship(**params)
-        @client.post("/r/#{get_attribute(:display_name)}/api/friend", params)
-      end
+      def add_relationship(**params) = @client.post("/r/#{get_attribute(:display_name)}/api/friend", params)
 
-      def remove_relationship(**params)
-        @client.post("/r/#{get_attribute(:display_name)}/api/unfriend", params)
-      end
+      def remove_relationship(**params) = @client.post("/r/#{get_attribute(:display_name)}/api/unfriend", params)
     end
   end
 end

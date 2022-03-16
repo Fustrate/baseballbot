@@ -54,11 +54,7 @@ module Redd
 
       private
 
-      def after_initialize
-        @attributes[:subreddits].map! do |subreddit|
-          Subreddit.new(client, display_name: subreddit[:name])
-        end
-      end
+      def after_initialize = @attributes[:subreddits].map! { Subreddit.new(client, display_name: _1[:name]) }
 
       def default_loader = @client.get("/api/multi#{@attributes.fetch(:path)}").body[:data]
     end
