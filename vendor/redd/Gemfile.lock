@@ -1,14 +1,5 @@
-GIT
-  remote: https://github.com/Fustrate/mlb_stats_api.git
-  revision: 868902c0b2da538d89de6cabcb6e13c77ec9c742
-  specs:
-    mlb_stats_api (0.3.0)
-      hana (~> 1.3)
-      httparty (~> 0.18)
-      moneta (~> 1.3)
-
 PATH
-  remote: vendor/redd
+  remote: .
   specs:
     redd (0.8.8)
       http (~> 5.0)
@@ -18,33 +9,19 @@ GEM
   specs:
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    airbrussh (1.4.0)
-      sshkit (>= 1.6.1, != 1.7.0)
     ast (2.4.2)
-    capistrano (3.17.0)
-      airbrussh (>= 1.0.0)
-      i18n
-      rake (>= 10.0.0)
-      sshkit (>= 1.9.0)
-    capistrano-bundler (2.0.1)
-      capistrano (~> 3.1)
-    capistrano-rbenv (2.2.0)
-      capistrano (~> 3.1)
-      sshkit (~> 1.3)
-    chronic (0.10.2)
-    concurrent-ruby (1.1.9)
+    coderay (1.1.3)
     crack (0.4.5)
       rexml
     diff-lcs (1.5.0)
+    docile (1.4.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    hana (1.3.7)
     hashdiff (1.0.1)
-    honeybadger (4.11.0)
     http (5.0.4)
       addressable (~> 2.8)
       http-cookie (~> 1.0)
@@ -53,31 +30,19 @@ GEM
     http-cookie (1.0.4)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
-    httparty (0.20.0)
-      mime-types (~> 3.0)
-      multi_xml (>= 0.5.2)
-    i18n (1.10.0)
-      concurrent-ruby (~> 1.0)
     llhttp-ffi (0.4.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
-    mime-types (3.4.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2022.0105)
-    moneta (1.4.2)
-    multi_xml (0.6.0)
-    net-scp (3.0.0)
-      net-ssh (>= 2.6.5, < 7.0.0)
-    net-ssh (6.1.0)
-    paint (2.2.1)
+    method_source (1.0.0)
     parallel (1.21.0)
     parser (3.1.1.0)
       ast (~> 2.4.1)
-    pg (1.3.4)
+    pry (0.14.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     public_suffix (4.0.6)
     rainbow (3.1.1)
     rake (13.0.6)
-    redis (4.6.0)
     regexp_parser (2.2.1)
     rexml (3.2.5)
     rspec (3.11.0)
@@ -110,46 +75,37 @@ GEM
     rubocop-rspec (2.9.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
-    sshkit (1.21.2)
-      net-scp (>= 1.1.2)
-      net-ssh (>= 2.8.0)
-    tzinfo (2.0.4)
-      concurrent-ruby (~> 1.0)
+    simplecov (0.21.2)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.1)
     unicode-display_width (2.1.0)
+    vcr (6.1.0)
     webmock (3.14.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    whenever (1.0.0)
-      chronic (>= 0.6.3)
 
 PLATFORMS
-  ruby
+  arm64-darwin-21
 
 DEPENDENCIES
-  capistrano (~> 3.15)
-  capistrano-bundler
-  capistrano-rbenv (~> 2.1)
-  chronic
-  honeybadger (~> 4.0)
-  mlb_stats_api!
-  paint
-  pg
+  bundler (~> 2.3)
+  pry (~> 0.10)
+  rake (~> 13.0)
   redd!
-  redis
-  rspec (~> 3.8)
-  rubocop
-  rubocop-performance
-  rubocop-rspec
-  tzinfo
-  webmock (~> 3.4)
-  whenever
-
-RUBY VERSION
-   ruby 3.1.0p0
+  rspec (~> 3.5)
+  rubocop (~> 1.25)
+  rubocop-performance (~> 1.13)
+  rubocop-rspec (~> 2.9)
+  simplecov (~> 0.13)
+  vcr (~> 6.0)
+  webmock (~> 3.14)
 
 BUNDLED WITH
-   2.3.3
+   2.3.6
