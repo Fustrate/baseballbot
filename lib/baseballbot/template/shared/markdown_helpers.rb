@@ -39,7 +39,7 @@ module MarkdownHelpers
     <<~TABLE
       #{headers.join('|')}|
       #{alignment.join('|')}|
-      #{data.map { |row| row.join('|') }.join("\n")}|
+      #{data.map { _1.join('|') }.join("\n")}|
     TABLE
   end
 

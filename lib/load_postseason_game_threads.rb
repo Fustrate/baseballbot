@@ -19,7 +19,7 @@ class PostseasonGameLoader
 
   def run
     @bot.api.schedule(:postseason, hydrate: 'team,metadata,seriesStatus')['dates'].each do |date|
-      date['games'].each { |game| process_game(game) }
+      date['games'].each { process_game(_1) }
     end
 
     puts "Added #{@attempts - @failures} of #{@attempts}"
@@ -40,7 +40,7 @@ class PostseasonGameLoader
   end
 
   def team_subreddits
-    @team_subreddits ||= team_subreddits_data.group_by { |row| row['team_id'] }
+    @team_subreddits ||= team_subreddits_data.group_by { _1['team_id'] }
   end
 
   def team_subreddits_data
@@ -81,7 +81,7 @@ class PostseasonGameLoader
 
     @bot.db.exec_params(<<~SQL, data.values)
       INSERT INTO game_threads (#{data.keys.join(', ')})
-      VALUES (#{(1..data.size).map { |n| "$#{n}" }.join(', ')})
+      VALUES (#{(1..data.size).map { "$#{_1}" }.join(', ')})
     SQL
   rescue PG::UniqueViolation
     @failures += 1

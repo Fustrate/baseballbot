@@ -15,7 +15,7 @@ class SundayGameThreadLoader
   end
 
   def run
-    (0..4).each { |n| load_espn_game Chronic.parse("#{n} weeks from Sunday") }
+    (0..4).each { load_espn_game Chronic.parse("#{_1} weeks from Sunday") }
 
     puts "Added #{@attempts - @failures} of #{@attempts}"
   end
@@ -43,9 +43,9 @@ class SundayGameThreadLoader
 
   def espn_game?(game)
     game.dig('content', 'media', 'epg')
-      .find { |content| content['title'] == 'MLBTV' }
+      .find { _1['title'] == 'MLBTV' }
       &.dig('items')
-      &.any? { |station| station['callLetters'] == 'ESPN' }
+      &.any? { _1['callLetters'] == 'ESPN' }
   end
 
   def insert_game(game, starts_at)
@@ -55,7 +55,7 @@ class SundayGameThreadLoader
 
     @bot.db.exec_params(<<~SQL, data.values)
       INSERT INTO game_threads (#{data.keys.join(', ')})
-      VALUES (#{(1..data.size).map { |n| "$#{n}" }.join(', ')})
+      VALUES (#{(1..data.size).map { "$#{_1}" }.join(', ')})
     SQL
 
     puts "+ #{game['gamePk']}"

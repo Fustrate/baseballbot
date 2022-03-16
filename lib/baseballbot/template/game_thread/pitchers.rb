@@ -66,7 +66,7 @@ class Baseballbot
         end
 
         def home_pitchers_table(stats: %i[ip h r er bb so p-s era])
-          rows = home_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
+          rows = home_pitchers.map { pitcher_row(_1, stats) }
 
           <<~MARKDOWN
             #{pitchers_table_header(home_team, stats)}
@@ -76,7 +76,7 @@ class Baseballbot
         end
 
         def away_pitchers_table(stats: %i[ip h r er bb so p-s era])
-          rows = away_pitchers.map { |pitcher| pitcher_row(pitcher, stats) }
+          rows = away_pitchers.map { pitcher_row(_1, stats) }
 
           <<~MARKDOWN
             #{pitchers_table_header(away_team, stats)}
@@ -94,7 +94,7 @@ class Baseballbot
 
           today = game_stats(pitcher)['pitching']
 
-          cells = stats.map { |stat| PITCHER_COLUMNS[stat].call(pitcher, today) }
+          cells = stats.map { PITCHER_COLUMNS[_1].call(pitcher, today) }
 
           [player_link(pitcher, title: 'Game Score: ???'), *cells].join '|'
         end

@@ -23,6 +23,6 @@ module WebmockHelpers
   def stub_requests!(with_response: false)
     return WebMock.stub_request(:any, /mlb\.com/) unless with_response
 
-    WebMock.stub_request(:any, /mlb\.com/).to_return { |request| stubbed_get_response(request) }
+    WebMock.stub_request(:any, /mlb\.com/).to_return { stubbed_get_response(_1) }
   end
 end

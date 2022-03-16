@@ -27,7 +27,7 @@ class NoHitterBot
       sportId: 1
     )
 
-    schedule.dig('dates', 0, 'games').each { |game| process_game(game) }
+    schedule.dig('dates', 0, 'games').each { process_game(_1) }
 
     @bot.redis.set 'next_no_hitter_check', @next_check.min.strftime('%F %T')
   end

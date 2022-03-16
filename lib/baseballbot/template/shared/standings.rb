@@ -9,7 +9,7 @@ class Baseballbot
 
           load_all_teams_standings
 
-          %i[al nl].each { |league| mark_league_wildcards(league) }
+          %i[al nl].each { mark_league_wildcards(_1) }
 
           @all_teams
         end
@@ -34,7 +34,7 @@ class Baseballbot
 
         def draft_order
           @draft_order ||= all_teams
-            .sort_by! { |team| team[:sort_order] }
+            .sort_by! { _1[:sort_order] }
             .reverse
         end
 
@@ -64,13 +64,13 @@ class Baseballbot
 
         def wildcards_in_league(league)
           teams_in_league(league)
-            .reject { |team| team[:games_back] == '-' }
-            .sort_by! { |team| team[:wildcard_gb].to_i }
+            .reject { _1[:games_back] == '-' }
+            .sort_by! { _1[:wildcard_gb].to_i }
         end
 
         # The API returns an empty set if Spring Training hasn't started yet
         def team_stats
-          @team_stats ||= all_teams.find { |team| team[:team]['id'] == @subreddit.team.id } || {}
+          @team_stats ||= all_teams.find { _1[:team]['id'] == @subreddit.team.id } || {}
         end
 
         protected
@@ -85,7 +85,7 @@ class Baseballbot
         def mark_league_wildcards(league)
           teams = teams_in_league(league)
 
-          division_leaders = teams.count { |team| team[:division_lead] }
+          division_leaders = teams.count { _1[:division_lead] }
 
           # 5 or more division leaders means no wildcards
           return if division_leaders >= 5
@@ -103,14 +103,14 @@ class Baseballbot
 
         def ranked_wildcard_teams(teams)
           teams
-            .reject { |team| team[:division_lead] }
-            .sort_by { |team| team[:wildcard_rank] }
+            .reject { _1[:division_lead] }
+            .sort_by { _1[:wildcard_rank] }
         end
 
         def mark_wildcards(teams, target, position)
           teams
-            .select { |team| team[:wildcard_rank] == target[:wildcard_rank] }
-            .each { |team| team[:wildcard_position] = position }
+            .select { _1[:wildcard_rank] == target[:wildcard_rank] }
+            .each { _1[:wildcard_position] = position }
             .count
         end
 
@@ -122,10 +122,10 @@ class Baseballbot
           end
 
           @all_teams = data['records'].flat_map do |division|
-            division['teamRecords'].map { |team| generate_standings_row(team) }
+            division['teamRecords'].map { generate_standings_row(_1) }
           end
 
-          @all_teams.sort_by! { |team| team[:sort_order] }
+          @all_teams.sort_by! { _1[:sort_order] }
         end
 
         def generate_standings_row(row)
@@ -172,7 +172,7 @@ module TeamStandingsData
     end
 
     def team_records(row)
-      records = row.dig('records', 'splitRecords').to_h { |rec| [rec['type'], [rec['wins'], rec['losses']]] }
+      records = row.dig('records', 'splitRecords').to_h { [_1['type'], [_1['wins'], _1['losses']]] }
 
       {
         home_record: records['home'],

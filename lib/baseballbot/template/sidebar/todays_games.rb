@@ -11,7 +11,7 @@ class Baseballbot
 
           load_known_game_threads
 
-          scheduled_games.map { |game| process_todays_game game }
+          scheduled_games.map { process_todays_game(_1) }
         end
 
         protected
@@ -22,7 +22,7 @@ class Baseballbot
         end
 
         def process_todays_game(game)
-          game_hash(game).tap { |data| mark_winner_and_loser(data) }
+          game_hash(game).tap { mark_winner_and_loser(_1) }
         end
 
         def game_hash(game)

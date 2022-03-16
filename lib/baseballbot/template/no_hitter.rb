@@ -34,7 +34,7 @@ class Baseballbot
 
       def pitcher_names
         (@flag == 'home' ? home_pitchers : away_pitchers)
-          .map { |pitcher| player_name(pitcher) }
+          .map { player_name(_1) }
           .join(', ')
       end
     end

@@ -26,8 +26,8 @@ class Baseballbot
 
           @home_batters ||= boxscore['teams']['home']['players']
             .values
-            .select { |batter| batting_order(batter).positive? }
-            .sort_by { |batter| batting_order batter }
+            .select { batting_order(_1).positive? }
+            .sort_by { batting_order(_1) }
         end
 
         def away_batters
@@ -35,8 +35,8 @@ class Baseballbot
 
           @away_batters ||= boxscore['teams']['away']['players']
             .values
-            .select { |batter| batting_order(batter).positive? }
-            .sort_by { |batter| batting_order batter }
+            .select { batting_order(_1).positive? }
+            .sort_by { batting_order(_1) }
         end
 
         def batters
@@ -56,7 +56,7 @@ class Baseballbot
         end
 
         def home_batters_table(stats: %i[ab r h rbi bb so ba])
-          rows = home_batters.map { |batter| batter_row(batter, stats) }
+          rows = home_batters.map { batter_row(_1, stats) }
 
           <<~TABLE
             ||#{batters_table_header(home_team, stats)}
@@ -66,7 +66,7 @@ class Baseballbot
         end
 
         def away_batters_table(stats: %i[ab r h rbi bb so ba])
-          rows = away_batters.map { |batter| batter_row(batter, stats) }
+          rows = away_batters.map { batter_row(_1, stats) }
 
           <<~TABLE
             ||#{batters_table_header(away_team, stats)}
@@ -95,7 +95,7 @@ class Baseballbot
         def batter_cells(batter, stats)
           today = game_stats(batter)['batting']
 
-          stats.map { |stat| BATTER_COLUMNS[stat].call(batter, today) }
+          stats.map { BATTER_COLUMNS[_1].call(batter, today) }
         end
       end
     end

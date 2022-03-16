@@ -19,7 +19,7 @@ class Baseballbot
 
     def use_account(name)
       unless @current_account&.name == name
-        @current_account = accounts.values.find { |acct| acct.name == name }
+        @current_account = accounts.values.find { _1.name == name }
 
         client.access = @current_account.access
       end
@@ -53,7 +53,7 @@ class Baseballbot
     end
 
     def load_accounts
-      db.exec('SELECT * FROM accounts').to_h { |row| [row['id'], process_account_row(row)] }
+      db.exec('SELECT * FROM accounts').to_h { [_1['id'], process_account_row(_1)] }
     end
 
     def process_account_row(row) = Account.new(bot: self, name: row['name'], access: account_access(row))

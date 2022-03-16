@@ -48,7 +48,7 @@ class Baseballbot
     protected
 
     def load_subreddits
-      db.exec(BOT_SUBREDDITS_QUERY).to_h { |row| [row['name'].downcase, process_subreddit_row(row)] }
+      db.exec(BOT_SUBREDDITS_QUERY).to_h { [_1['name'].downcase, process_subreddit_row(_1)] }
     end
 
     def process_subreddit_row(row) = Subreddit.new(row, bot: self, account: accounts[row['account_id']])

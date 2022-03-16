@@ -12,7 +12,7 @@ class CheckMessages
   end
 
   def run!(retry_on_failure: true)
-    unread_messages.each { |message| process_message message }
+    unread_messages.each { process_message(_1) }
   rescue Redd::Errors::APIError
     return unless retry_on_failure
 

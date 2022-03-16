@@ -20,7 +20,7 @@ class Baseballbot
               *blank_start(dates.values.first[:date]),
               *cells,
               *blank_end(dates.values.last[:date])
-            ].each_slice(7).map { |row| row.join('|') }
+            ].each_slice(7).map { _1.join('|') }
           end
 
           def blank_start(date)

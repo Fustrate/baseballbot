@@ -138,10 +138,7 @@ class TeamCalendarGame
     return '' unless @data['broadcasts']
 
     @tv_stations ||= @data['broadcasts']
-      .select { |broadcast| broadcast['type'] == 'TV' }
-      .select { |broadcast| broadcast['language'] == 'en' }
-      .select { |broadcast| broadcast['homeAway'] == flag }
-      .map { |broadcast| broadcast['callSign'] }
+      .filter_map { _1['callSign'] if _1['type'] == 'TV' && _1['language'] == 'en' && _1['homeAway'] == flag }
       .join(', ')
   end
 

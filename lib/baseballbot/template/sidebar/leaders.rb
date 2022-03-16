@@ -43,7 +43,7 @@ class Baseballbot
         end
 
         def hitter_stats_table(stats: [])
-          rows = stats.map { |stat| "#{stat.upcase}|#{hitter_stats[stat].first&.values&.join('|')}" }
+          rows = stats.map { "#{_1.upcase}|#{hitter_stats[_1].first&.values&.join('|')}" }
 
           <<~TABLE
             Stat|Player|Total
@@ -53,7 +53,7 @@ class Baseballbot
         end
 
         def pitcher_stats_table(stats: [])
-          rows = stats.map { |stat| "#{stat.upcase}|#{pitcher_stats[stat].first&.values&.join('|')}" }
+          rows = stats.map { "#{_1.upcase}|#{pitcher_stats[_1].first&.values&.join('|')}" }
 
           <<~TABLE
             Stat|Player|Total
@@ -102,11 +102,11 @@ class Baseballbot
           return NO_QUALIFIED_PLAYERS unless players&.any?
 
           players
-            .map { |player| player.values_at 'playerInitLastName', (COLUMN_ALIASES[key] || key) }
-            .sort_by { |player| player[1].to_f }
+            .map { _1.values_at('playerInitLastName', COLUMN_ALIASES[key] || key) }
+            .sort_by { _1[1].to_f }
             .send(direction == :desc ? :reverse : :itself)
             .first(count)
-            .map { |s| { name: s[0], value: cast_value(s[1], type) } }
+            .map { |(name, value)| { name:, value: cast_value(value, type) } }
         end
 
         def cast_value(value, type)

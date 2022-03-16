@@ -17,31 +17,31 @@ class Baseballbot
 
         def away_tv
           tv_feeds
-            .select { |item| AWAY_FEED_TYPES.include?(item['mediaFeedType']) }
-            .map { |item| item['callLetters'] }
+            .select { AWAY_FEED_TYPES.include?(_1['mediaFeedType']) }
+            .map { _1['callLetters'] }
             .join(', ')
         end
 
         def home_tv
           tv_feeds
-            .select { |item| HOME_FEED_TYPES.include?(item['mediaFeedType']) }
-            .map { |item| item['callLetters'] }
+            .select { HOME_FEED_TYPES.include?(_1['mediaFeedType']) }
+            .map { _1['callLetters'] }
             .join(', ')
         end
 
         def away_radio
           radio_feeds
-            .select { |item| AWAY_FEED_TYPES.include?(item['type']) }
-            .sort_by { |item| item['language'] == 'en' ? 0 : 1 }
-            .map { |item| radio_name(item) }
+            .select { AWAY_FEED_TYPES.include?(_1['type']) }
+            .sort_by { _1['language'] == 'en' ? 0 : 1 }
+            .map { radio_name(_1) }
             .join(', ')
         end
 
         def home_radio
           radio_feeds
-            .select { |item| HOME_FEED_TYPES.include?(item['type']) }
-            .sort_by { |item| item['language'] == 'en' ? 0 : 1 }
-            .map { |item| radio_name(item) }
+            .select { HOME_FEED_TYPES.include?(_1['type']) }
+            .sort_by { _1['language'] == 'en' ? 0 : 1 }
+            .map { radio_name(_1) }
             .join(', ')
         end
 
@@ -65,7 +65,7 @@ class Baseballbot
 
         def media_with_title(title)
           content.dig('media', 'epg')
-            &.detect { |media| media['title'] == title }
+            &.detect { _1['title'] == title }
             &.fetch('items') || []
         end
 

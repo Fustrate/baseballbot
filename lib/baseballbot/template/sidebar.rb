@@ -3,7 +3,7 @@
 class Baseballbot
   module Template
     class Sidebar < Base
-      Dir.glob(File.join(File.dirname(__FILE__), 'sidebar', '*.rb')).each { |file| require file }
+      Dir.glob(File.join(File.dirname(__FILE__), 'sidebar', '*.rb')).each { require _1 }
 
       include Template::Sidebar::Leaders
       include Template::Sidebar::TodaysGames

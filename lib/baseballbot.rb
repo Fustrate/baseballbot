@@ -23,7 +23,7 @@ require_relative 'baseballbot/pregames'
 require_relative 'baseballbot/sidebars'
 require_relative 'baseballbot/subreddits'
 
-Dir.glob(File.join(File.dirname(__FILE__), 'baseballbot/{template,posts}/*.rb')).each { |file| require_relative file }
+Dir.glob(File.join(File.dirname(__FILE__), 'baseballbot/{template,posts}/*.rb')).each { require_relative _1 }
 
 class Baseballbot
   include Accounts

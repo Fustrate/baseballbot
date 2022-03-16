@@ -6,7 +6,7 @@ class Chaos < FlairBot
   def initialize
     raise 'Pass 1-2 arguments: chaos.rb SFG,CHC [t2_123456]' unless ARGV[0] && ARGV.count < 3
 
-    @remove_flairs = ARGV[0].split(',').map { |team| "#{team}-wagon" }
+    @remove_flairs = ARGV[0].split(',').map { "#{_1}-wagon" }
 
     super(purpose: 'Chaos Flairs', subreddit: 'baseball')
 

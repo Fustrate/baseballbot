@@ -16,7 +16,7 @@ class FlairList < FlairBot
     super
 
     CSV.open(File.expand_path("~/flair_#{@name}.csv"), 'w', headers: %w[Name CSS Text]) do |csv|
-      @users.each { |user| csv << user }
+      @users.each { csv << _1 }
     end
   end
 

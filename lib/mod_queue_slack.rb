@@ -57,7 +57,7 @@ class ModQueue
   end
 
   def run!(retry_on_failure: true)
-    @subreddit.modqueue(limit: 10).each { |item| process_item item }
+    @subreddit.modqueue(limit: 10).each { process_item(_1) }
   rescue Redd::Errors::APIError
     return unless retry_on_failure
 

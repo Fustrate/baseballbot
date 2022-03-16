@@ -23,7 +23,7 @@ class ConsolidateFlairs
 
     res = @subreddit.client.get('/r/baseball/api/flairlist', after:, limit: 1000).body
 
-    res[:users].each { |flair| process_flair(flair) }
+    res[:users].each { process_flair(_1) }
 
     return unless res[:next]
 

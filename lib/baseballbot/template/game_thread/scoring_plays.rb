@@ -9,7 +9,7 @@ class Baseballbot
 
           feed.plays['allPlays']
             .values_at(*feed.plays['scoringPlays'])
-            .map { |play| format_play(play) }
+            .map { format_play(_1) }
         end
 
         def scoring_plays_table

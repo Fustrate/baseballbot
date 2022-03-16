@@ -43,8 +43,8 @@ class Baseballbot
 
         def fetch_highlights
           content.dig('highlights', 'highlights', 'items')
-            &.sort_by { |media| media['date'] }
-            &.map { |media| process_media(media) }
+            &.sort_by { _1['date'] }
+            &.map { process_media(_1) }
             &.compact
         end
 
@@ -71,7 +71,7 @@ class Baseballbot
 
         def hd_playback_url(media)
           media['playbacks']
-            .find { |video| video['name'] == 'mp4Avc' }
+            .find { _1['name'] == 'mp4Avc' }
             &.dig('url')
         end
 
