@@ -1,85 +1,38 @@
 # frozen_string_literal: true
 
-require_relative 'basic_model'
-require_relative '../utilities/stream'
+require_relative 'model'
 
 module Redd
   module Models
     # The front page.
     # FIXME: deal with serious code duplication from Subreddit
-    class FrontPage < BasicModel
+    class FrontPage < Model
       # @return [Array<String>] reddit's base wiki pages
-      def wiki_pages = @client.get('/wiki/pages').body[:data]
+      def wiki_pages = client.get('/wiki/pages').body[:data]
 
       # Get a wiki page by its title.
       # @param title [String] the page's title
       # @return [WikiPage]
-      def wiki_page(title) = WikiPage.new(@client, title:)
+      def wiki_page(title) = WikiPage.new(client, title:)
 
       # Get the appropriate listing.
       # @param sort [:hot, :new, :top, :controversial, :comments, :rising, :gilded] the type of
       #   listing
-      # @param params [Hash] a list of params to send with the request
-      # @option params [String] :after return results after the given fullname
-      # @option params [String] :before return results before the given fullname
-      # @option params [Integer] :count the number of items already seen in the listing
-      # @option params [1..100] :limit the maximum number of things to return
-      # @option params [:hour, :day, :week, :month, :year, :all] :time the time period to consider
+      # @param options [Hash] a list of options to send with the request
+      # @option options [String] :after return results after the given fullname
+      # @option options [String] :before return results before the given fullname
+      # @option options [Integer, nil] :limit maximum number of items to return (nil for no limit)
+      # @option options [:hour, :day, :week, :month, :year, :all] :time the time period to consider
       #   when sorting.
       #
       # @note The option :time only applies to the top and controversial sorts.
-      # @return [Listing<Submission>]
-      def listing(sort, **params)
-        params[:t] = params.delete(:time) if params.key?(:time)
+      # @return [PaginatedListing<Submission>]
+      def listing(sort, **options)
+        options[:t] = options.delete(:time) if options.key?(:time)
 
-        @client.model(:get, "/#{sort}", params)
-      end
-
-      # @see #listing
-      def hot(**params) = listing(:hot, **params)
-
-      # @see #listing
-      def new(**params) = listing(:new, **params)
-
-      # @see #listing
-      def top(**params) = listing(:top, **params)
-
-      # @see #listing
-      def controversial(**params) = listing(:controversial, **params)
-
-      # @see #listing
-      def comments(**params) = listing(:comments, **params)
-
-      # @see #listing
-      def rising(**params) = listing(:rising, **params)
-
-      # @see #listing
-      def gilded(**params) = listing(:gilded, **params)
-
-      # Stream newly submitted posts.
-      def post_stream(**params, &)
-        params[:limit] ||= 100
-
-        stream = Utilities::Stream.new do |previous|
-          before = previous ? previous.first.name : nil
-
-          listing(:new, params.merge(before:))
+        PaginatedListing.new(client, options) do |**req_options|
+          client.model(:get, "/#{sort}", options.merge(req_options))
         end
-
-        block_given? ? stream.stream(&) : stream.enum_for(:stream)
-      end
-
-      # Stream newly submitted comments.
-      def comment_stream(**params, &)
-        params[:limit] ||= 100
-
-        stream = Utilities::Stream.new do |previous|
-          before = previous ? previous.first.name : nil
-
-          listing(:comments, params.merge(before:))
-        end
-
-        block_given? ? stream.stream(&) : stream.enum_for(:stream)
       end
     end
   end

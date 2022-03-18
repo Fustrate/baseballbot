@@ -17,15 +17,17 @@ module Redd
       # @return [Access]
       def authenticate(code) = request_access('authorization_code', code:, redirect_uri: @redirect_uri)
 
+      # @return [Boolean] whether the access has a refresh token
+      def refreshable?(access) = access.permanent?
+
       # Refresh the authentication and return a new refreshed access
       # @return [Access] the new access
       def refresh(access)
-        token = access.is_a?(String) ? refresh_token : access.refresh_token
-
-        response = post('/api/v1/access_token', grant_type: 'refresh_token', refresh_token: token)
+        refresh_token = access.is_a?(String) ? access : access.refresh_token
+        response = post('/api/v1/access_token', grant_type: 'refresh_token', refresh_token:)
 
         # When refreshed, the response doesn't include an access token, so we have to add it.
-        Models::Access.new(self, response.body.merge(refresh_token: token))
+        Models::Access.new(response.body.merge(refresh_token:))
       end
     end
   end

@@ -18,7 +18,7 @@ module Redd
           from_sr: from&.display_name
         }.compact
 
-        @client.post('/api/compose', params)
+        client.post('/api/compose', params)
       end
     end
   end

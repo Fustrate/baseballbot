@@ -103,7 +103,7 @@ module Redd
       message = 'invalid_state' if @request.GET['state'] != @request.session[:redd_state]
       message = @request.GET['error'] if @request.GET['error']
 
-      raise Redd::TokenRetrievalError, message if message
+      raise Errors::TokenRetrievalError, message if message
     end
 
     # Store the access token and other details in the user's browser, assigning any errors to
@@ -111,15 +111,18 @@ module Redd
     def create_session!
       # Skip authorizing if there was an error from the authorization.
       handle_token_error
+
       # Try to get a code (the rescue block will also prevent crazy crashes)
       access = @strategy.authenticate(@request.GET['code'])
       @request.session[:redd_session] = access.to_h
-    rescue Redd::TokenRetrievalError, Redd::ResponseError => e
+    rescue Errors::TokenRetrievalError, Errors::ResponseError => e
       @request.env['redd.error'] = e
     end
 
     # Return a {Redd::Models::Session} based on the hash saved into the browser's session.
     def parse_session
+      parsed_session = @request.session[:redd_session].transform_keys(&:to_sym)
+
       client = Redd::APIClient.new(
         @strategy,
         user_agent: @user_agent,
@@ -127,7 +130,7 @@ module Redd
         auto_refresh: @auto_refresh
       )
 
-      client.access = Redd::Models::Access.new(@strategy, @request.session[:redd_session])
+      client.access = Redd::Models::Access.new(@strategy, parsed_session)
 
       Redd::Models::Session.new(client)
     end

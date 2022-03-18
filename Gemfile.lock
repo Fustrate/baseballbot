@@ -10,7 +10,7 @@ GIT
 PATH
   remote: vendor/redd
   specs:
-    redd (0.8.8)
+    redd (0.9.0.pre.3)
       http (~> 5.0)
 
 GEM

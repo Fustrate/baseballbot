@@ -15,6 +15,7 @@ module Redd
       # @param user_agent [String] the user agent to send with requests
       def initialize(client_id:, secret:, endpoint: AUTH_ENDPOINT, user_agent: USER_AGENT)
         super(endpoint:, user_agent:)
+
         @client_id = client_id
         @secret = secret
       end
@@ -22,6 +23,9 @@ module Redd
       # @abstract Perform authentication and return the resulting access object
       # @return [Access] the access token object
       def authenticate(*) = raise 'abstract method: this strategy cannot authenticate with reddit'
+
+      # @return [Boolean] whether the access object can be refreshed
+      def refreshable?(_access) = false
 
       # @abstract Refresh the authentication and return the refreshed access
       # @param _access [Access, String] the access to refresh
@@ -47,9 +51,9 @@ module Redd
       def request_access(grant_type, **options)
         response = post('/api/v1/access_token', { grant_type: }.merge(options))
 
-        raise AuthenticationError, response if response.body.key?(:error)
+        raise Errors::AuthenticationError, response if response.body.key?(:error)
 
-        Models::Access.new(self, response.body)
+        Models::Access.new(response.body)
       end
     end
   end

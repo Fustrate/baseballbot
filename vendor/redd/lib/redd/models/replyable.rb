@@ -7,7 +7,7 @@ module Redd
       # Add a comment to a link, reply to a comment or reply to a message.
       # @param text [String] the text to comment
       # @return [Comment, PrivateMessage] The created reply.
-      def reply(text) = @client.model(:post, '/api/comment', text:, thing_id: get_attribute(:name)).first
+      def reply(text) = client.model(:post, '/api/comment', text:, thing_id: read_attribute(:name)).first
     end
   end
 end

@@ -2,14 +2,14 @@
 
 require 'uri'
 
-# Redd Version
 require_relative 'redd/version'
-# Models
+
 Dir[File.join(__dir__, 'redd', 'models', '*.rb')].each { require _1 }
-# Authentication Clients
-Dir[File.join(__dir__, 'redd', 'auth_strategies', '*.rb')].each { require _1 }
-# Regular Client
+
+require_relative 'redd/errors'
 require_relative 'redd/api_client'
+
+Dir[File.join(__dir__, 'redd', 'auth_strategies', '*.rb')].each { require _1 }
 
 # Redd is a simple and intuitive API wrapper.
 module Redd

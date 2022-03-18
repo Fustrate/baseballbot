@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'client'
-require_relative 'error'
 require_relative 'utilities/error_handler'
 require_relative 'utilities/rate_limiter'
 require_relative 'utilities/unmarshaller'
@@ -16,6 +15,7 @@ module Redd
     attr_accessor :access
 
     # Create a new API client with an auth strategy.
+    # TODO: Give user option to pass through all retryable errors.
     # @param auth [AuthStrategies::AuthStrategy] the auth strategy to use
     # @param endpoint [String] the API endpoint
     # @param user_agent [String] the user agent to send
@@ -57,7 +57,6 @@ module Redd
     def unmarshal(object) = @unmarshaller.unmarshal(object)
 
     def model(verb, path, options = {})
-      # XXX: make unmarshal explicit in methods?
       unmarshal(send(verb, path, options).body)
     end
 
@@ -96,22 +95,38 @@ module Redd
       raise 'client access is nil, try calling #authenticate' if @access.nil?
 
       # Refresh access if auto_refresh is enabled
-      refresh if @auto_refresh && @access.permanent? && @access.expired?
+      refresh if @access.expired? && @auto_refresh && @auth && @auth.refreshable?(@access)
     end
 
     def handle_retryable_errors
       response = yield
-    rescue Redd::ServerError, HTTP::TimeoutError => e
+    rescue Errors::ServerError, HTTP::TimeoutError => e
       # FIXME: maybe only retry GET requests, for obvious reasons?
-      @failures += 1
+      handle_server_error(e)
 
-      raise e if @failures > @max_retries
+      retry
+    rescue Errors::RateLimitError => e
+      handle_rate_limit_error(e)
 
-      warn "Redd got a #{e.class.name} error (#{e.message}), retrying..."
       retry
     else
       @failures = 0
+
       response
+    end
+
+    def handle_server_error(exception)
+      @failures += 1
+
+      raise exception if @failures > @max_retries
+
+      warn "Redd got a #{exception.class.name} error (#{exception.message}), retrying..."
+    end
+
+    def handle_rate_limit_error(exception)
+      warn "Redd was rate limited for #{exception.duration} seconds, waiting..."
+
+      sleep exception.duration
     end
 
     def connection = super.auth("Bearer #{@access.access_token}")
