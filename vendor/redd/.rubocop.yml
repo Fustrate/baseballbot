@@ -1,9 +1,0 @@
-require:
-  - rubocop-performance
-
-AllCops:
-  TargetRubyVersion: 3.1
-  NewCops: enable
-
-Naming/VariableNumber:
-  AllowedIdentifiers: [over_18, profile_over_18, icon_40, icon_70]

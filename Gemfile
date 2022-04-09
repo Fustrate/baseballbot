@@ -17,8 +17,7 @@ gem 'mlb_stats_api', github: 'Fustrate/mlb_stats_api'
 gem 'pg'
 
 # Reddit Interaction - this needs to be replaced
-gem 'redd', path: 'vendor/redd'
-gem 'lazy_lazer'
+gem 'redd', github: 'Fustrate/redd'
 
 # Caching
 gem 'redis'

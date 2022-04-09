@@ -7,11 +7,13 @@ GIT
       httparty (~> 0.20)
       moneta (~> 1.4)
 
-PATH
-  remote: vendor/redd
+GIT
+  remote: https://github.com/Fustrate/redd.git
+  revision: 3b1519a2d121efd18de59b935da6e652757eee90
   specs:
     redd (0.9.0.pre.3)
-      http (~> 5.0)
+      http (~> 2.2)
+      lazy_lazer (~> 0.8.1)
 
 GEM
   remote: https://rubygems.org/
@@ -38,30 +40,24 @@ GEM
     diff-lcs (1.5.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    ffi (1.15.5)
-    ffi-compiler (1.0.1)
-      ffi (>= 1.0.0)
-      rake
     hana (1.3.7)
     hashdiff (1.0.1)
     honeybadger (4.12.1)
-    http (5.0.4)
-      addressable (~> 2.8)
+    http (2.2.2)
+      addressable (~> 2.3)
       http-cookie (~> 1.0)
-      http-form_data (~> 2.2)
-      llhttp-ffi (~> 0.4.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
-    http-form_data (2.3.0)
+    http-form_data (1.0.3)
+    http_parser.rb (0.6.0)
     httparty (0.20.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     lazy_lazer (0.8.1)
-    llhttp-ffi (0.4.0)
-      ffi-compiler (~> 1.0)
-      rake (~> 13.0)
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
@@ -136,7 +132,6 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.1)
   chronic
   honeybadger (~> 4.0)
-  lazy_lazer
   mlb_stats_api!
   paint
   pg
