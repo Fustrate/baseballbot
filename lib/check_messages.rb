@@ -52,8 +52,8 @@ class CheckMessages
   def game_thread_data(game_pk, submission, subreddit_id, post_id)
     {
       subreddit_id:,
-      post_at: Time.zone.now,
-      starts_at: Time.zone.now,
+      post_at: Time.now,
+      starts_at: Time.now,
       title: submission.title,
       game_pk:,
       status: 'Foreign',
