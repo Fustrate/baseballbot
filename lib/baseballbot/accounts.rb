@@ -10,7 +10,7 @@ class Baseballbot
       use_account(name)
 
       yield
-    rescue Redd::InvalidAccess
+    rescue Redd::Errors::InvalidAccess
       @bot.refresh_access!
 
       # We *should* only get an invalid access error once, but let's be safe.
