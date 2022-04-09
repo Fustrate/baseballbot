@@ -9,9 +9,9 @@ GIT
 
 GIT
   remote: https://github.com/Fustrate/redd.git
-  revision: 3b1519a2d121efd18de59b935da6e652757eee90
+  revision: c7716ba65b4dcfc427244f6777ccbda11624bee4
   specs:
-    redd (0.9.0.pre.3)
+    redd (0.8.8)
       http (~> 2.2)
       lazy_lazer (~> 0.8.1)
 
