@@ -33,8 +33,30 @@ class Baseballbot
             away: team_data(game, 'away', started),
             raw_status: status,
             status: gameday_link(game_status(game), game['gamePk']),
-            free: game.dig('content', 'media', 'freeGame')
+            free: game.dig('content', 'media', 'freeGame'),
+            national: national_status(game)
           }
+        end
+
+        def national_status(game)
+          return 'FREE' if game.dig('content', 'media', 'freeGame')
+
+          national_channels = national_feeds(game)
+
+          return 'TV+' if national_channels.include?('Apple TV+')
+
+          national_channels.first
+        end
+
+        def national_feeds(game)
+          # Postponed games won't have media
+          return [] unless game.dig('content', 'media')
+
+          game
+            .dig('content', 'media', 'epg')
+            .find { _1['title'] == 'MLBTV' }['items']
+            .select { _1['mediaFeedType'] == 'NATIONAL' }
+            .map { _1['callLetters'] }
         end
 
         def team_data(game, flag, started)
