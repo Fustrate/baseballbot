@@ -8,6 +8,7 @@ module Redd
     # Represents a conversation in the new modmail.
     class ModmailConversation < Model
       # Add a reply to the ongoing conversation.
+      #
       # @param body [String] the message body (probably markdown)
       # @param hidden [Boolean] whether the message is hidden
       # @param internal [Boolean] whether the message is internal
@@ -132,6 +133,7 @@ module Redd
       end
 
       # Perform an action on a conversation.
+      #
       # @param method [:post, :delete] the method to use
       # @param action [String] the name of the action
       def perform_action(method, action) = client.send(method, "/api/mod/conversations/#{id}/#{action}")

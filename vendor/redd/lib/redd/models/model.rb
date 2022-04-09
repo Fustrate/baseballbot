@@ -12,10 +12,12 @@ module Redd
       attr_reader :client
 
       # Create a new Model.
+      #
       # @param client [Client] the model's client
       # @param attributes [Hash] the model's attributes
       def initialize(client, attributes = {})
         super(attributes)
+
         @client = client
       end
     end

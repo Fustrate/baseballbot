@@ -11,19 +11,19 @@ module Redd
       def wiki_pages = client.get('/wiki/pages').body[:data]
 
       # Get a wiki page by its title.
+      #
       # @param title [String] the page's title
       # @return [WikiPage]
       def wiki_page(title) = WikiPage.new(client, title:)
 
       # Get the appropriate listing.
-      # @param sort [:hot, :new, :top, :controversial, :comments, :rising, :gilded] the type of
-      #   listing
+      #
+      # @param sort [:hot, :new, :top, :controversial, :comments, :rising, :gilded] the type of listing
       # @param options [Hash] a list of options to send with the request
       # @option options [String] :after return results after the given fullname
       # @option options [String] :before return results before the given fullname
       # @option options [Integer, nil] :limit maximum number of items to return (nil for no limit)
-      # @option options [:hour, :day, :week, :month, :year, :all] :time the time period to consider
-      #   when sorting.
+      # @option options [:hour, :day, :week, :month, :year, :all] :time the time period to consider when sorting.
       #
       # @note The option :time only applies to the top and controversial sorts.
       # @return [PaginatedListing<Submission>]

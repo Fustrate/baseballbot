@@ -8,11 +8,10 @@ class Baseballbot
       WHERE options['off_day']['enabled']::boolean IS TRUE
       AND (
         (options#>>'{off_day,last_run_at}') IS NULL OR
-        DATE((options#>>'{off_day,last_run_at}')) < DATE(NOW())
+          DATE((options#>>'{off_day,last_run_at}')) < DATE(NOW())
       )
       AND (
-        (DATE(NOW()) + (options#>>'{off_day,post_at}')::interval) <
-          NOW() AT TIME ZONE (options->>'timezone')
+        (DATE(NOW()) + (options#>>'{off_day,post_at}')::interval) < NOW() AT TIME ZONE (options->>'timezone')
       )
       ORDER BY name ASC
     SQL
@@ -44,10 +43,7 @@ class Baseballbot
     def off_day_check_was_run!(subreddit)
       subreddit.options['off_day']['last_run_at'] = Time.now.strftime('%F %T')
 
-      db.exec_params(
-        'UPDATE subreddits SET options = $1 WHERE id = $2',
-        [JSON.dump(subreddit.options), subreddit.id]
-      )
+      db.exec_params 'UPDATE subreddits SET options = $1 WHERE id = $2', [JSON.dump(subreddit.options), subreddit.id]
     end
   end
 end

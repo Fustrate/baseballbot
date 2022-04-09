@@ -17,6 +17,7 @@ module Redd
     end
 
     # Create a new client.
+    #
     # @param endpoint [String] the base endpoint to make all requests from
     # @param user_agent [String] a user agent string
     def initialize(endpoint:, user_agent: USER_AGENT)
@@ -25,6 +26,7 @@ module Redd
     end
 
     # Make an HTTP request.
+    #
     # @param verb [:get, :post, :put, :patch, :delete] the HTTP verb to use
     # @param path [String] the path relative to the endpoint
     # @param options [Hash] the request parameters
@@ -39,44 +41,39 @@ module Redd
     end
 
     # Make a GET request.
+    #
     # @param path [String] the path relative to the endpoint
     # @param options [Hash] the parameters to supply
     # @return [Response] the response
-    def get(path, options = {})
-      request(:get, path, params: options)
-    end
+    def get(path, options = {}) = request(:get, path, params: options)
 
     # Make a POST request.
+    #
     # @param path [String] the path relative to the endpoint
     # @param options [Hash] the parameters to supply
     # @return [Response] the response
-    def post(path, options = {})
-      request(:post, path, form: options)
-    end
+    def post(path, options = {}) = request(:post, path, form: options)
 
     # Make a PUT request.
+    #
     # @param path [String] the path relative to the endpoint
     # @param options [Hash] the parameters to supply
     # @return [Response] the response
-    def put(path, options = {})
-      request(:put, path, form: options)
-    end
+    def put(path, options = {}) = request(:put, path, form: options)
 
     # Make a PATCH request.
+    #
     # @param path [String] the path relative to the endpoint
     # @param options [Hash] the parameters to supply
     # @return [Response] the response
-    def patch(path, options = {})
-      request(:patch, path, form: options)
-    end
+    def patch(path, options = {}) = request(:patch, path, form: options)
 
     # Make a DELETE request.
+    #
     # @param path [String] the path relative to the endpoint
     # @param options [Hash] the parameters to supply
     # @return [Response] the response
-    def delete(path, options = {})
-      request(:delete, path, form: options)
-    end
+    def delete(path, options = {}) = request(:delete, path, form: options)
 
     private
 

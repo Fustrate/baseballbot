@@ -49,8 +49,7 @@ module Redd
 
       # @!attribute [r] replies
       #   @return [Listing<Comment>] the comment replies
-      property :replies,
-               with: ->(r) { r.is_a?(Hash) ? Listing.new(client, r[:data]) : Listing.empty(client) }
+      property :replies, with: ->(r) { r.is_a?(Hash) ? Listing.new(client, r[:data]) : Listing.empty(client) }
 
       # @!attribute [r] user_reports
       #   @return [Array<String>] user reports
@@ -65,8 +64,7 @@ module Redd
       property :id
 
       # @!attribute [r] title
-      #   @return ["comment reply", "post reply", "username mention"] the comment "title" (only
-      #     visible in messages)
+      #   @return ["comment reply", "post reply", "username mention"] the comment "title" (only visible in messages)
       property :title, :nil
 
       # @!attribute [r] banned_at
@@ -109,9 +107,7 @@ module Redd
 
       # @!attribute [r] parent
       #   @return [Comment, Submission] the comment parent
-      property :parent,
-               from: :parent_id,
-               with: ->(id) { Session.new(client).from_fullnames(id).first }
+      property :parent, from: :parent_id, with: ->(id) { Session.new(client).from_fullnames(id).first }
 
       # @!attribute [r] score
       #   @return [Integer] the comment score

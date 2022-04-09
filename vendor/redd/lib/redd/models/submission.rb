@@ -24,6 +24,7 @@ module Redd
       def sort_order = (exists_locally?(:sort_order) ? read_attribute(:sort_order) : nil)
 
       # Set the sort order of the comments and reload the comments.
+      #
       # @param new_order [:confidence, :top, :controversial, :old, :qa] the sort order
       def update_sort_order(new_order)
         return self if new_order == read_attribute(:sort_order)
@@ -34,6 +35,7 @@ module Redd
       end
 
       # Get all submissions for the same url.
+      #
       # @param params [Hash] A list of optional params to send with the request.
       # @option params [String] :after return results after the given fullname
       # @option params [String] :before return results before the given fullname
@@ -61,6 +63,7 @@ module Redd
       def disable_contest_mode = client.post('/api/set_contest_mode', id: read_attribute(:name), state: false)
 
       # Set the submission as the sticky post of the subreddit.
+      #
       # @param slot [1, 2] which "slot" to place the sticky on
       def make_sticky(slot: nil)
         client.post('/api/set_subreddit_sticky', id: read_attribute(:name), num: slot, state: true)
@@ -76,8 +79,8 @@ module Redd
       def unlock = client.post('/api/unlock', id: read_attribute(:name))
 
       # Set the suggested sort order for comments for all users.
-      # @param suggested ['blank', 'confidence', 'top', 'new', 'controversial', 'old', 'random',
-      #   'qa', 'live'] the sort type
+      #
+      # @param sort ['blank', 'confidence', 'top', 'new', 'controversial', 'old', 'random', 'qa', 'live'] the sort type
       def change_suggested_sort(sort) = client.post('/api/set_suggested_sort', id: read_attribute(:name), sort:)
 
       # @!attribute [r] sort_order

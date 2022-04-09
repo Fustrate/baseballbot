@@ -10,6 +10,7 @@ module Redd
       include Messageable
 
       # Get the appropriate listing.
+      #
       # @param type [:overview, :submitted, :comments, :liked, :disliked, :hidden, :saved, :gilded]
       #   the type of listing to request
       # @param options [Hash] a list of options to send with the request
@@ -18,8 +19,7 @@ module Redd
       # @option options [String] :before return results before the given fullname
       # @option options [Integer] :count the number of items already seen in the listing
       # @option options [1..100] :limit the maximum number of things to return
-      # @option options [:hour, :day, :week, :month, :year, :all] :time the time period to consider
-      #   when sorting
+      # @option options [:hour, :day, :week, :month, :year, :all] :time the time period to consider when sorting
       # @option options [:given] :show whether to show the gildings given
       #
       # @note The option :time only applies to the top and controversial sorts.
@@ -61,6 +61,7 @@ module Redd
       end
 
       # Add the user as a friend.
+      #
       # @param note [String] a note for the friend
       def friend(note = nil)
         name = read_attribute(:name)
@@ -76,6 +77,7 @@ module Redd
       end
 
       # Gift a redditor reddit gold.
+      #
       # @param months [Integer] the number of months of gold to gift
       def gift_gold(months: 1) = client.post("/api/v1/gold/give/#{read_attribute(:name)}", months:)
 
@@ -133,8 +135,7 @@ module Redd
 
       # @!attribute [r] suspension_expiration
       #   @return [Time, nil] the time when the user's suspension expires
-      property :suspension_expiration, from: :suspension_expiration_utc,
-                                       with: ->(epoch) { Time.at(epoch) if epoch }
+      property :suspension_expiration, from: :suspension_expiration_utc, with: ->(epoch) { Time.at(epoch) if epoch }
 
       # @!attribute [r] verified?
       #   @return [Boolean] whether the user is verified (?)

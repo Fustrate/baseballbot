@@ -20,6 +20,7 @@ module Redd
       end
 
       # Whether the access has expired.
+      #
       # @param grace_period [Integer] the grace period where the model expires early
       # @return [Boolean] whether the access has expired
       def expired?(grace_period = 60)

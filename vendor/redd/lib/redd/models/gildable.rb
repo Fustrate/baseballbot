@@ -5,9 +5,7 @@ module Redd
     # A model that can be gilded.
     module Gildable
       # Gift a user one month of reddit gold for their link or comment.
-      def gild
-        client.post("/api/v1/gold/gild/#{read_attribute(:name)}")
-      end
+      def gild = client.post("/api/v1/gold/gild/#{read_attribute(:name)}")
     end
   end
 end

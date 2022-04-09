@@ -5,6 +5,7 @@ module Redd
     # Methods for user-submitted content, i.e. Submissions and Comments.
     module Postable
       # Edit a thing.
+      #
       # @param text [String] The new text.
       # @return [self] the edited thing
       def edit(text)
@@ -20,6 +21,7 @@ module Redd
       def deleted? = read_attribute(:author).name == '[deleted]'
 
       # Save a link or comment to the user's account.
+      #
       # @param category [String] a category to save to
       def save(category = nil) = client.post('/api/save', { id: read_attribute(:name), category: }.compact)
 
@@ -50,6 +52,7 @@ module Redd
       private
 
       # Send a vote.
+      #
       # @param direction [-1, 0, 1] the direction to vote in
       def vote(direction) = client.post('/api/vote', id: read_attribute(:name), dir: direction)
     end

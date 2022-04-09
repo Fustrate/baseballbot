@@ -134,8 +134,7 @@ class Baseballbot
         log_action 'Sidebar update error', data: { error: }
 
         # if error[0] == 'TOO_LONG' && error[1] =~ /max: \d+/
-        #   # TODO: Message the moderators of the subreddit to tell them their
-        #   # sidebar is X characters too long.
+        #   # TODO: Message the moderators of the subreddit to tell them their sidebar is X characters too long.
         # end
       end
     end

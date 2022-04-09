@@ -7,15 +7,14 @@ module Redd
     # A multi.
     class Multireddit < Model
       # Get the appropriate listing.
-      # @param sort [:hot, :new, :top, :controversial, :comments, :rising, :gilded] the type of
-      #   listing
+      #
+      # @param sort [:hot, :new, :top, :controversial, :comments, :rising, :gilded] the type of listing
       # @param params [Hash] a list of params to send with the request
       # @option params [String] :after return results after the given fullname
       # @option params [String] :before return results before the given fullname
       # @option params [Integer] :count the number of items already seen in the listing
       # @option params [1..100] :limit the maximum number of things to return
-      # @option params [:hour, :day, :week, :month, :year, :all] :time the time period to consider
-      #   when sorting.
+      # @option params [:hour, :day, :week, :month, :year, :all] :time the time period to consider when sorting.
       #
       # @note The option :time only applies to the top and controversial sorts.
       # @return [Listing<Submission>]
@@ -55,8 +54,7 @@ module Redd
 
       # @!attribute [r] subreddits
       #   @return [Array<Subreddit>] the subreddits in this multi
-      property :subreddits,
-               with: ->(a) { a.map { Subreddit.new(client, display_name: _1.fetch(:name)) } }
+      property :subreddits, with: ->(a) { a.map { Subreddit.new(client, display_name: _1.fetch(:name)) } }
 
       # @!attribute [r] created_at
       #   @return [Time] the creation time

@@ -21,14 +21,13 @@ module Redd
       }.freeze
 
       # Get the appropriate listing.
-      # @param sort [:hot, :new, :top, :controversial, :comments, :rising, :gilded] the type of
-      #   listing
+      #
+      # @param sort [:hot, :new, :top, :controversial, :comments, :rising, :gilded] the type of listing
       # @param options [Hash] a list of options to send with the request
       # @option options [String] :after return results after the given fullname
       # @option options [String] :before return results before the given fullname
       # @option options [Integer, nil] :limit maximum number of items to return (nil for no limit)
-      # @option options [:hour, :day, :week, :month, :year, :all] :time the time period to consider
-      #   when sorting
+      # @option options [:hour, :day, :week, :month, :year, :all] :time the time period to consider when sorting
       #
       # @note The option :time only applies to the top and controversial sorts.
       # @return [Listing<Submission, Comment>]
@@ -43,6 +42,7 @@ module Redd
       end
 
       # Get the appropriate moderator listing.
+      #
       # @param type [:reports, :spam, :modqueue, :unmoderated, :edited] the type of listing
       # @param params [Hash] a list of params to send with the request
       # @option params [String] :after return results after the given fullname
@@ -57,6 +57,7 @@ module Redd
       end
 
       # Get the appropriate relationship listing.
+      #
       # @param type [:banned, :muted, :wikibanned, :contributors, :wikicontributors, :moderators]
       #   the type of listing
       # @param params [Hash] a list of params to send with the request
@@ -78,11 +79,13 @@ module Redd
       def wiki_pages = client.get("/r/#{read_attribute(:display_name)}/wiki/pages").body[:data]
 
       # Get a wiki page by its title.
+      #
       # @param title [String] the page's title
       # @return [WikiPage]
       def wiki_page(title) = WikiPage.new(client, title:, subreddit: self)
 
       # Search a subreddit.
+      #
       # @param query [String] the search query
       # @param params [Hash] refer to {Searchable} to see search parameters
       # @see Searchable#search
@@ -93,6 +96,7 @@ module Redd
       end
 
       # Submit a link or a text post to the subreddit.
+      #
       # @note If both text and url are provided, url takes precedence.
       #
       # @param title [String] the title of the submission
@@ -136,6 +140,7 @@ module Redd
       end
 
       # Get a listing of all user flairs.
+      #
       # @param params [Hash] a list of params to send with the request
       # @option params [String] :after return results after the given fullname
       # @option params [String] :before return results before the given fullname
@@ -151,6 +156,7 @@ module Redd
       end
 
       # Get the user's flair data.
+      #
       # @param user [User] the user whose flair to fetch
       # @return [Hash, nil]
       def get_flair(user)
@@ -161,6 +167,7 @@ module Redd
       end
 
       # Remove the flair from a user
+      #
       # @param thing [User, String] a User from which to remove flair
       def delete_flair(user)
         name = user.is_a?(User) ? user.name : user
@@ -169,6 +176,7 @@ module Redd
       end
 
       # Set a Submission's or User's flair based on a flair template id.
+      #
       # @param thing [User, Submission] an object to assign a template to
       # @param template_id [String] the UUID of the flair template to assign
       # @param text [String] optional text for the flair
@@ -205,6 +213,7 @@ module Redd
       end
 
       # Edit the subreddit's stylesheet.
+      #
       # @param text [String] the updated CSS
       # @param reason [String] the reason for modifying the stylesheet
       def update_stylesheet(stylesheet_contents, reason: nil)
@@ -221,6 +230,7 @@ module Redd
       def settings = client.get("/r/#{read_attribute(:display_name)}/about/edit").body[:data]
 
       # Modify the subreddit's settings.
+      #
       # @param params [Hash] the settings to change
       # @see https://www.reddit.com/dev/api#POST_api_site_admin
       def modify_settings(...)
@@ -232,6 +242,7 @@ module Redd
       end
 
       # Get the moderation log.
+      #
       # @param params [Hash] a list of params to send with the request
       # @option params [String] :after return results after the given fullname
       # @option params [String] :before return results before the given fullname
@@ -243,6 +254,7 @@ module Redd
       def mod_log(**params) = client.model(:get, "/r/#{read_attribute(:display_name)}/about/log", params)
 
       # Invite a user to moderate this subreddit.
+      #
       # @param user [User] the user to invite
       # @param permissions [String] the permission string to invite the user with
       def invite_moderator(user, permissions: '+all')
@@ -250,6 +262,7 @@ module Redd
       end
 
       # Take back a moderator request.
+      #
       # @param user [User] the requested user
       def uninvite_moderator(user) = remove_relationship(type: 'moderator_invite', name: user.name)
 
@@ -257,6 +270,7 @@ module Redd
       def accept_moderator_invite = client.post("/r/#{read_attribute(:display_name)}/api/accept_moderator_invite")
 
       # Dethrone a moderator.
+      #
       # @param user [User] the user to remove
       def remove_moderator(user) = remove_relationship(type: 'moderator', name: user.name)
 
@@ -264,10 +278,12 @@ module Redd
       def leave_moderator = client.post('/api/leavemoderator', id: read_attribute(:name))
 
       # Add a contributor to the subreddit.
+      #
       # @param user [User] the user to add
       def add_contributor(user) = add_relationship(type: 'contributor', name: user.name)
 
       # Remove a contributor from the subreddit.
+      #
       # @param user [User] the user to remove
       def remove_contributor(user) = remove_relationship(type: 'contributor', name: user.name)
 
@@ -275,6 +291,7 @@ module Redd
       def leave_contributor = client.post('/api/leavecontributor', id: read_attribute(:name))
 
       # Ban a user from a subreddit.
+      #
       # @param user [User] the user to ban
       # @param params [Hash] additional options to supply with the request
       # @option params [String] :ban_reason the reason for the ban
@@ -284,18 +301,22 @@ module Redd
       def ban(user, **params) = add_relationship(type: 'banned', name: user.name, **params)
 
       # Remove a ban on a user.
+      #
       # @param user [User] the user to unban
       def unban(user) = remove_relationship(type: 'banned', name: user.name)
 
       # Allow a user to contribute to the wiki.
+      #
       # @param user [User] the user to add
       def add_wiki_contributor(user) = add_relationship(type: 'wikicontributor', name: user.name)
 
       # No longer allow a user to contribute to the wiki.
+      #
       # @param user [User] the user to remove
       def remove_wiki_contributor(user) = remove_relationship(type: 'wikicontributor', name: user.name)
 
       # Ban a user from contributing to the wiki.
+      #
       # @param user [User] the user to ban
       # @param params [Hash] additional options to supply with the request
       # @option params [String] :ban_reason the reason for the ban (not sure this matters)
@@ -304,10 +325,12 @@ module Redd
       def ban_wiki_contributor(user, **params) = add_relationship(type: 'wikibanned', name: user.name, **params)
 
       # No longer ban a user from contributing to the wiki.
+      #
       # @param user [User] the user to unban
       def unban_wiki_contributor(user) = remove_relationship(type: 'wikibanned', name: user.name)
 
       # Upload a subreddit-specific image.
+      #
       # @param file [String, IO] the image file to upload
       # @param image_type ['jpg', 'png'] the image type
       # @param upload_type ['img', 'header', 'icon', 'banner'] where to upload the image
@@ -325,6 +348,7 @@ module Redd
       end
 
       # Delete a subreddit-specific image.
+      #
       # @param upload_type ['img', 'header', 'icon', 'banner'] the image to delete
       # @param image_name [String] the image name (if upload_type is 'img')
       def delete_image(upload_type:, image_name: nil)

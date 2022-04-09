@@ -9,6 +9,7 @@ module Redd
       def id = read_attribute(:id)
 
       # Get the updates from the thread.
+      #
       # @param params [Hash] a list of params to send with the request
       # @option params [String] :after return results after the given fullname
       # @option params [String] :before return results before the given fullname
@@ -18,6 +19,7 @@ module Redd
       def updates(**params) = client.model(:get, "/live/#{id}", params)
 
       # Configure the settings of this live thread
+      #
       # @param params [Hash] a list of params to send with the request
       # @option params [String] :description the new description
       # @option params [Boolean] :nsfw whether the thread is for users 18 and above
@@ -26,32 +28,28 @@ module Redd
       def configure(**params) = client.post("/api/live/#{id}/edit", params)
 
       # Add an update to this live event.
+      #
       # @param body [String] the update text
       def update(body) = client.post("/api/live/#{id}/update", body:)
 
       # Strike out a live thread update.
+      #
       # @param live_update [LiveUpdate] the update to strike out
-      def strike_update(live_update)
-        client.post("/api/live/#{id}/strike_update", id: live_update.name)
-      end
+      def strike_update(live_update) = client.post("/api/live/#{id}/strike_update", id: live_update.name)
 
       # Delete a live thread update.
+      #
       # @param live_update [LiveUpdate] the update to strike out
-      def delete_update(live_update)
-        client.post("/api/live/#{id}/delete_update", id: live_update.name)
-      end
+      def delete_update(live_update) = client.post("/api/live/#{id}/delete_update", id: live_update.name)
 
       # @return [Array<User>] the contributors to this thread
-      def contributors
-        client.get("/live/#{id}/contributors").body[0][:data].map { User.new(client, _1) }
-      end
+      def contributors = client.get("/live/#{id}/contributors").body[0][:data].map { User.new(client, _1) }
 
       # @return [Array<User>] users invited to contribute to this thread
-      def invited_contributors
-        client.get("/live/#{id}/contributors").body[1][:data].map { User.new(client, _1) }
-      end
+      def invited_contributors = client.get("/live/#{id}/contributors").body[1][:data].map { User.new(client, _1) }
 
       # Returns all discussions that link to this live thread.
+      #
       # @param params [Hash] a list of params to send with the request
       # @option params [String] :after return results after the given fullname
       # @option params [String] :before return results before the given fullname
@@ -59,9 +57,7 @@ module Redd
       # @option params [1..100] :limit the maximum number of things to return
       #
       # @return [Listing<Submission>]
-      def discussions(**params)
-        client.model(:get, "/live/#{id}/discussions", params)
-      end
+      def discussions(**params) = client.model(:get, "/live/#{id}/discussions", params)
 
       # @!attribute [r] id
       #   @return [String] the thread id

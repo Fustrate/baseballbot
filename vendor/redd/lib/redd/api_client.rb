@@ -16,6 +16,7 @@ module Redd
 
     # Create a new API client with an auth strategy.
     # TODO: Give user option to pass through all retryable errors.
+    #
     # @param auth [AuthStrategies::AuthStrategy] the auth strategy to use
     # @param endpoint [String] the API endpoint
     # @param user_agent [String] the user agent to send
@@ -61,6 +62,7 @@ module Redd
     end
 
     # Makes a request, ensuring not to break the rate limit by sleeping.
+    #
     # @see Client#request
     def request(verb, path, raw: false, params: {}, **options)
       # Make sure @access is populated by a valid access

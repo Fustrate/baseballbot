@@ -10,11 +10,13 @@ module Redd
       include Enumerable
 
       # Create an empty listing with a client.
+      #
       # @param client [APIClient] the client to create the listing with
       # @return [Listing] the empty listing
       def self.empty(client) = Listing.new(client, children: [])
 
       # Create a fully initialized listing.
+      #
       # @param client [APIClient] the api client
       # @param attributes [Hash] the attribute hash
       def initialize(client, attributes = {})

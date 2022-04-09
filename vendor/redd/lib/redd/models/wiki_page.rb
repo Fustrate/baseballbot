@@ -7,6 +7,7 @@ module Redd
     # A reddit user.
     class WikiPage < Model
       # Edit the wiki page.
+      #
       # @param content [String] the new wiki page contents
       # @param reason [String, nil] an optional reason for editing the page
       def edit(content, reason: nil)

@@ -31,16 +31,19 @@ module Redd
       def karma_breakdown = client.get('/api/v1/me/karma').body[:data]
 
       # Get a (lazily loaded) reddit user by their name.
+      #
       # @param name [String] the username
       # @return [User]
       def user(name) = User.new(client, name:)
 
       # Returns whether a username is available.
+      #
       # @param username [String] the username to check
       # @return [Boolean] whether the username is available
       def username_available?(username) = client.get('/api/username_available', user: username).body
 
       # Get a (lazily loaded) subreddit by its name.
+      #
       # @param display_name [String] the subreddit's display name
       # @return [Subreddit]
       def subreddit(display_name) = Subreddit.new(client, display_name:)
@@ -49,17 +52,20 @@ module Redd
       def my_multis = client.get('/api/multi/mine').body.map { client.unmarshal(_1) }
 
       # Get a (lazily loaded) multi by its path.
+      #
       # @param path [String] the multi's path, surrounded by a leading and trailing /
       # @return [Multireddit]
       def multi(path) = Multireddit.new(client, path:)
 
       # Get submissions or comments by their fullnames.
+      #
       # @param fullnames [String, Array<String>] one or an array of fullnames (e.g. t3_abc1234)
       # @return [Listing<Submission, Comment>]
       # @deprecated Try the lazier {#from_fullnames} instead.
       def from_ids(*fullnames) = client.model(:get, '/api/info', id: fullnames.join(','))
 
       # Create lazily-loaded objects from their fullnames (e.g. t1_abc123).
+      #
       # @param fullnames [String] fullname for a submission, comment, or subreddit.
       # @return [Array<Submission, Comment, User, Subreddit>]
       def from_fullnames(*fullnames) = fullnames.map { object_from_fullname(_1) }
@@ -75,14 +81,15 @@ module Redd
       end
 
       # Get submissions or comments by their fullnames.
+      #
       # @param url [String] the object's url
       # @return [Submission, Comment, nil] the object, or nil if not found
       def from_url(url) = client.model(:get, '/api/info', url:).first
 
       # Return a listing of the user's inbox (including comment replies and private messages).
       #
-      # @param category ['inbox', 'unread', 'sent', 'moderator', 'messages', 'comments',
-      #   'selfreply', 'mentions'] the category of messages to view
+      # @param category ['inbox', 'unread', 'sent', 'moderator', 'messages', 'comments', 'selfreply', 'mentions']
+      #   the category of messages to view
       # @param mark [Boolean] whether to remove the orangered from the user's inbox
       # @param params [Hash] a list of optional params to send with the request
       # @option params [String] :after return results after the given fullname
@@ -101,6 +108,7 @@ module Redd
       def my_preferences = client.get('/api/v1/me/prefs').body
 
       # Edit the user's preferences.
+      #
       # @param new_prefs [Hash] the changed preferences
       # @return [Hash] the new preferences
       # @see #my_preferences
@@ -152,6 +160,7 @@ module Redd
       end
 
       # Return trending subreddits.
+      #
       # @return [Hash]
       # @example
       #   session.trending_subreddits

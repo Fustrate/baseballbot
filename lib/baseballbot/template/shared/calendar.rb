@@ -102,8 +102,7 @@ class Baseballbot
 
         protected
 
-        # This is the schedule generator for this subreddit, not necessarily
-        # this subreddit's team.
+        # This is the schedule generator for this subreddit, not necessarily this subreddit's team.
         def team_schedule
           @team_schedule ||= SubredditScheduleGenerator.new(api: @bot.api, subreddit: @subreddit)
         end

@@ -8,10 +8,12 @@ module Redd
       def approve = client.post('/api/approve', id: read_attribute(:name))
 
       # Remove a submission.
+      #
       # @param spam [Boolean] whether or not this item is removed due to it being spam
       def remove(spam: false) = client.post('/api/remove', id: read_attribute(:name), spam:)
 
       # Distinguish a link or comment with a sigil to show that it has been created by a moderator.
+      #
       # @param how [:yes, :no, :admin, :special, :sticky] how to distinguish the thing
       # @note :sticky is for comments. see {Submission#make_sticky} for posts.
       def distinguish(how = :yes)

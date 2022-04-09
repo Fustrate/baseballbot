@@ -14,8 +14,7 @@ module Redd
       # @option params [String] :before return results before the given fullname
       # @option params [Integer] :count the number of items already seen in the listing
       # @option params [1..100] :limit the maximum number of things to return
-      # @option params [:hour, :day, :week, :month, :year, :all] :time the time period to restrict
-      #   search results by
+      # @option params [:hour, :day, :week, :month, :year, :all] :time the time period to restrict search results by
       # @option params [:relevance, :hot, :top, :new, :comments] :sort the sort order of results
       # @option params [String] :restrict_to restrict by subreddit (prefer {Subreddit#search})
       # @return [Listing<Comment, Submission>] the search results

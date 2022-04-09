@@ -18,6 +18,7 @@ module Redd
       end
 
       # Get the conversations
+      #
       # @param subreddits [Subreddit, Array<Subreddit>] the subreddits to limit to
       # @param params [Hash] additional request parameters
       # @option params [String] :after base36 modmail conversation id
@@ -36,6 +37,7 @@ module Redd
       end
 
       # Create a new conversation.
+      #
       # @param from [Subreddit] the subreddit to send the conversation from
       # @param to [User] the person to send the message to
       # @param subject [String] the message subject
@@ -53,6 +55,7 @@ module Redd
       end
 
       # Get a conversation from its base36 id.
+      #
       # @param id [String] the conversation's id
       # @return [ModmailConversation]
       def get(id) = ModmailConversation.new(client, id:)

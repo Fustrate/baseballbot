@@ -64,20 +64,20 @@ class Baseballbot
         def link_for_team(game:, team:)
           abbreviation = team_abbreviation(game, team)
 
-          # This is no longer included in the data - we might have to switch to
-          # using game_pk instead.
-          gid = [
-            @date.strftime('%Y_%m_%d'),
-            "#{game.dig('teams', 'away', 'team', 'teamCode')}mlb",
-            "#{game.dig('teams', 'home', 'team', 'teamCode')}mlb",
-            game['gameNumber']
-          ].join('_')
+          post_id = @game_threads["#{gid(game)}_#{subreddit(abbreviation)}".downcase]
 
-          post_id = @game_threads["#{gid}_#{subreddit(abbreviation)}".downcase]
+          post_id ? "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" : "[][#{abbreviation}]"
+        end
 
-          return "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" if post_id
-
-          "[][#{abbreviation}]"
+        # This is no longer included in the data - we might have to switch to using game_pk instead.
+        def gid(game)
+          format(
+            '%<date>s_%<away>smlb_%<home>smlb_%<number>d',
+            date: @date.strftime('%Y_%m_%d'),
+            away: game.dig('teams', 'away', 'team', 'teamCode'),
+            home: game.dig('teams', 'home', 'team', 'teamCode'),
+            number: game['gameNumber'].to_i
+          )
         end
 
         def team_abbreviation(game, team)
@@ -107,9 +107,7 @@ class Baseballbot
             return innings == 9 ? 'F' : "F/#{innings}"
           end
 
-          Baseballbot::Utility
-            .parse_time(game['gameDate'], in_time_zone: @subreddit.timezone)
-            .strftime('%-I:%M')
+          Baseballbot::Utility.parse_time(game['gameDate'], in_time_zone: @subreddit.timezone).strftime('%-I:%M')
         end
 
         def delay_type(game) = game.dig('status', 'reason') == 'Rain' ? '☂' : 'Delay'

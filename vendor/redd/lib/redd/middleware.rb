@@ -16,12 +16,10 @@ module Redd
     # @option opts [String] :redirect_uri the provided redirect URI
     # @option opts [String] :secret ('') the app secret (for the web type)
     # @option opts [Array<String>] :scope (['identity']) a list of scopes to request
-    # @option opts ['temporary', 'permanent'] :duration ('permanent') the duration to request the
-    #   code for.
+    # @option opts ['temporary', 'permanent'] :duration ('permanent') the duration to request the code for.
     # @option opts [Boolean] :auto_refresh (true) allow refreshing a permanent access automatically
     #   (only if duration is 'permanent')
-    # @option opts [String] :via ('/auth/reddit') the relative path in the application that
-    #   redirects a user to reddit
+    # @option opts [String] :via ('/auth/reddit') the relative path in the application that redirects a user to reddit
     def initialize(app, opts = {})
       @app = app
       strategy_opts = opts.select { STRATEGY_OPTS.include?(_1) }
@@ -36,11 +34,8 @@ module Redd
       @via          = opts.fetch(:via, '/auth/reddit')
     end
 
-    def call(env)
-      # This is done for thread safety so that each thread has its own copy
-      # of the middleware logic.
-      dup._call(env)
-    end
+    # This is done for thread safety so that each thread has its own copy of the middleware logic.
+    def call(env) = dup._call(env)
 
     protected
 

@@ -6,8 +6,8 @@ module Redd
   module Models
     # An enumerable type that covers listings and expands forwards.
     #
-    # If you want to use the #[] operator, you'll need to convert the object to an Array. This can
-    # be done with either {Enumerable#first} or {Enumerable#to_a}.
+    # If you want to use the #[] operator, you'll need to convert the object to an Array. This can be done with either
+    #   {Enumerable#first} or {Enumerable#to_a}.
     class PaginatedListing
       include Enumerable
 
@@ -29,6 +29,7 @@ module Redd
       end
 
       # Create an expandable listing.
+      #
       # @param client [APIClient] the caller to use for streams
       # @param options [Hash]
       # @option options [String] :before the listing's before parameter
@@ -48,30 +49,29 @@ module Redd
       end
 
       # Go forward through the listing.
+      #
       # @yield [Model] the object returned in the listings
       # @return [Enumerator] if a block wasn't provided
       def each(&)
-        return _each(&) if block_given?
+        loop do
+          return if @limit.zero?
 
-        enum_for(:_each)
+          remaining = fetch_next_listing
+
+          return if remaining.children.empty? # if the fetched listing is empty
+
+          remaining.each(&)
+
+          return if remaining.after.nil? # if there's no link to the next item
+        end
       end
 
       # Stream through the listing.
-      # @note If you iterate through the stream, you'll loop forever.
-      #   This may or may not be desirable.
+      #
+      # @note If you iterate through the stream, you'll loop forever. This may or may not be desirable.
       # @yield [Model] the object returned in the listings
       # @return [Enumerator] if a block wasn't provided
-      def stream(&)
-        return _stream(&) if block_given?
-
-        enum_for(:_stream)
-      end
-
-      private
-
-      # Go backward through the listing.
-      # @yield [Object] the object returned in the listings
-      def _stream
+      def stream
         buffer = RingBuffer.new(100)
         remaining = @limit.positive? ? reverse_each.to_a : []
 
@@ -90,21 +90,7 @@ module Redd
         end
       end
 
-      # Go forward through the listing.
-      # @yield [Object] the object returned in the listings
-      def _each(&)
-        loop do
-          return if @limit.zero?
-
-          remaining = fetch_next_listing
-
-          return if remaining.children.empty? # if the fetched listing is empty
-
-          remaining.each(&)
-
-          return if remaining.after.nil? # if there's no link to the next item
-        end
-      end
+      private
 
       # Fetch the next listing with @caller and update @after and @limit.
       def fetch_next_listing

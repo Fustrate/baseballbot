@@ -7,6 +7,7 @@ module Redd
     # An object that represents a bunch of comments that need to be expanded.
     class MoreComments < Model
       # Expand the object's children into a listing of Comments and MoreComments.
+      #
       # @param link [Submission] the submission the object belongs to
       # @return [Listing<Comment, MoreComments>] the expanded children
       def expand(link:) = expand_recursive(link:, lookup: {})
@@ -43,6 +44,7 @@ module Redd
       protected
 
       # Keep expanding until all top-level MoreComments are converted to comments.
+      #
       # @param link [Submission] the object's submission
       # @param lookup [Hash] a hash of comments to add future replies to
       # @return [Array<Comment, MoreComments>] the expanded comments or self if past depth
@@ -89,6 +91,7 @@ module Redd
       end
 
       # Expand the object's children into a listing of Comments and MoreComments.
+      #
       # @param link [Submission] the submission the object belongs to
       # @return [Listing<Comment, MoreComments>] the expanded children
       def expand_one(link:)

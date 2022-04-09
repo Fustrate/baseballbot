@@ -13,6 +13,7 @@ module Redd
       end
 
       # Authenticate with a code using the "web" flow.
+      #
       # @param code [String] the code returned by reddit
       # @return [Access]
       def authenticate(code) = request_access('authorization_code', code:, redirect_uri: @redirect_uri)
@@ -21,6 +22,7 @@ module Redd
       def refreshable?(access) = access.permanent?
 
       # Refresh the authentication and return a new refreshed access
+      #
       # @return [Access] the new access
       def refresh(access)
         refresh_token = access.is_a?(String) ? access : access.refresh_token
