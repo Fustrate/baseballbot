@@ -66,8 +66,6 @@ class Baseballbot
         @template.final? ? end_game_thread! : change_status('Posted')
       end
 
-      def save_to_redis! = bot.redis.hset(@template.gid, subreddit.name.downcase, submission.id)
-
       # @param status [String] status of the game thread
       def change_status(status)
         attrs = updated_attributes(status)

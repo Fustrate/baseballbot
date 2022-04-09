@@ -18,10 +18,7 @@ class Baseballbot
             "&dh=#{game_data.dig('game', 'gameNumber') - 1}&season=#{date.year}"
         end
 
-        def strikezone_map_link
-          'http://www.brooksbaseball.net/pfxVB/zoneTrack.php?' \
-            "#{start_time_et.strftime 'month=%m&day=%d&year=%Y'}&game=gid_#{gid}%2F"
-        end
+        def savant_feed_link = "https://baseballsavant.mlb.com/gamefeed?gamePk=#{game_pk}"
 
         def game_notes_link(mlb_team) = "http://www.mlb.com/mlb/presspass/gamenotes.jsp?c_id=#{mlb_team.file_code}"
       end

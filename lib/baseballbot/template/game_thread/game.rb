@@ -32,10 +32,6 @@ class Baseballbot
 
         def start_time_local = Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: @subreddit.timezone)
 
-        def gid
-          @gid ||= game_data.dig('game', 'id').gsub(/[^a-z0-9]/, '_')
-        end
-
         def date
           @date ||= Date.parse game_data.dig('datetime', 'dateTime')
         end
