@@ -19,7 +19,8 @@ RSpec.describe Baseballbot::Template::Sidebar::Leaders do
     it 'loads stuff' do
       bot = Baseballbot.new(user_agent: 'Baseballbot Tests')
       account = Baseballbot::Account.new bot:, name: 'RSpecTestBot', access: ''
-      subreddit = Baseballbot::Subreddit.new({ name: 'dodgers', team_code: 'LAD', team_id: 119 }, bot:, account:)
+      subreddit_row = { 'name' => 'dodgers', 'team_code' => 'LAD', 'team_id' => 119, 'options' => '{}' }
+      subreddit = Baseballbot::Subreddit.new(subreddit_row, bot:, account:)
       thing = Subject.new(subreddit:)
 
       thing.hitter_stats

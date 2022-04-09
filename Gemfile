@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.1.0'
+ruby '3.1.1'
 
 # Date Parsing
 gem 'chronic'
@@ -16,8 +16,9 @@ gem 'mlb_stats_api', github: 'Fustrate/mlb_stats_api'
 # Postgres Database
 gem 'pg'
 
-# Reddit Interaction
+# Reddit Interaction - this needs to be replaced
 gem 'redd', path: 'vendor/redd'
+gem 'lazy_lazer'
 
 # Caching
 gem 'redis'
