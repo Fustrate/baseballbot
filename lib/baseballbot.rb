@@ -33,7 +33,7 @@ class Baseballbot
   include Sidebars
   include Subreddits
 
-  IGNORED_EXCEPTIONS = [::Redd::ServerError, ::OpenURI::HTTPError, ::HTTP::TimeoutError].freeze
+  IGNORED_EXCEPTIONS = [::Redd::Errors::ServerError, ::OpenURI::HTTPError, ::HTTP::TimeoutError].freeze
 
   def initialize(**options)
     @options = options
