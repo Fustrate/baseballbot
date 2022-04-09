@@ -6,6 +6,13 @@ class Baseballbot
       module TodaysGames
         TODAYS_GAMES_HYDRATE = 'game(content(summary)),linescore,flags,team'
 
+        TODAYS_GAMES_SQL = <<~SQL
+          SELECT post_id, game_pk, name
+          FROM game_threads
+          INNER JOIN subreddits ON (subreddits.id = subreddit_id)
+          WHERE starts_at::date = $1
+        SQL
+
         def todays_games(date)
           @date = date || @subreddit.now
 
@@ -38,15 +45,8 @@ class Baseballbot
           }
         end
 
-        def national_status(game)
-          return 'FREE' if game.dig('content', 'media', 'freeGame')
-
-          national_channels = national_feeds(game)
-
-          return 'TV+' if national_channels.include?('Apple TV+')
-
-          national_channels.first
-        end
+        # The Apple logo doesn't appear correctly on Windows, so just show the text for everything.
+        def national_status(game) = game.dig('content', 'media', 'freeGame') ? 'FREE' : national_feeds(game).first
 
         def national_feeds(game)
           # Postponed games won't have media
@@ -86,20 +86,9 @@ class Baseballbot
         def link_for_team(game:, team:)
           abbreviation = team_abbreviation(game, team)
 
-          post_id = @game_threads["#{gid(game)}_#{subreddit(abbreviation)}".downcase]
+          post_id = @game_threads[game['gamePk'].to_i][subreddit(abbreviation).downcase]
 
           post_id ? "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" : "[][#{abbreviation}]"
-        end
-
-        # This is no longer included in the data - we might have to switch to using game_pk instead.
-        def gid(game)
-          format(
-            '%<date>s_%<away>smlb_%<home>smlb_%<number>d',
-            date: @date.strftime('%Y_%m_%d'),
-            away: game.dig('teams', 'away', 'team', 'teamCode'),
-            home: game.dig('teams', 'home', 'team', 'teamCode'),
-            number: game['gameNumber'].to_i
-          )
         end
 
         def team_abbreviation(game, team)
@@ -141,15 +130,10 @@ class Baseballbot
         def gameday_link(text, game_pk) = link_to(text, url: "https://www.mlb.com/gameday/#{game_pk}")
 
         def load_known_game_threads
-          @game_threads = {}
+          @game_threads = Hash.new { |h, k| h[k] = {} }
 
-          @bot.redis.keys(@date.strftime('%Y_%m_%d_*')).each do |key|
-            # _, game_pk = key.split('_').last
-
-            @bot.redis.hgetall(key).each do |subreddit, link_id|
-              # @game_threads["#{game_pk}_#{subreddit}".downcase] = link_id
-              @game_threads["#{key}_#{subreddit}".downcase] = link_id
-            end
+          @bot.db.exec_params(TODAYS_GAMES_SQL, [@date.strftime('%F')]).each do |row|
+            @game_threads[row['game_pk'].to_i][row['name']] = row['post_id']
           end
         end
       end
