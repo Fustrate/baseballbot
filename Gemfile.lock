@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/Fustrate/redd.git
-  revision: a228bf2312a2c56a36420848f004d04caf8d8d10
+  revision: a3e300d251c623ae308b0f18c4408bd2d33f4a31
   specs:
     redd (0.9.0.pre.3)
       http (~> 5.0)
