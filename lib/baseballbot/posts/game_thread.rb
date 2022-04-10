@@ -26,8 +26,6 @@ class Baseballbot
 
         info "[NEW] #{submission.id} in /r/#{subreddit.name} for #{game_pk}"
 
-        save_to_redis!
-
         submission
       end
 
