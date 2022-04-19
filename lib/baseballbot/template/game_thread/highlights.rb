@@ -28,12 +28,12 @@ class Baseballbot
               # link_to('', url: "/#{highlight[:code]}"),
               highlight[:blurb],
               highlight[:duration],
-              link_to('HD', url: highlight[:hd])
+              link_to('Video', url: highlight[:hd])
             ].join('|')
           end
 
           <<~MARKDOWN
-            Description|Length|HD
+            Description|Length|Video
             -|-|-
             #{lines.join("\n")}
           MARKDOWN
