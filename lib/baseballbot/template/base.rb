@@ -35,16 +35,16 @@ class Baseballbot
           Baseballbot::Subreddits::DEFAULT_SUBREDDITS[code.upcase]
       end
 
-      def replace_regexp
-        delimiter = Regexp.escape DELIMITER
+      def replace_regexp(delimiter: DELIMITER)
+        escaped_delimiter = Regexp.escape delimiter
 
-        Regexp.new "#{delimiter}(.*)#{delimiter}", Regexp::MULTILINE
+        Regexp.new "#{escaped_delimiter}(.*)#{escaped_delimiter}", Regexp::MULTILINE
       end
 
-      def replace_in(text)
+      def replace_in(text, delimiter: DELIMITER)
         text = CGI.unescapeHTML(text.selftext) if text.is_a?(Redd::Models::Submission)
 
-        text.sub replace_regexp, "#{DELIMITER}\n#{evaluated_body}\n#{DELIMITER}"
+        text.sub replace_regexp(delimiter:), "#{delimiter}\n#{evaluated_body}\n#{delimiter}"
       end
 
       def timestamp(action = nil)
