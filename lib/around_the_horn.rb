@@ -6,10 +6,10 @@ class AroundTheHorn
   TODAYS_GAMES = <<~'ERB'
     ## <%= (@subreddit.now - 10_800).strftime('%A') %>'s Games
 
-    Away Team|@|Home Team|Status|National
-    -|-|-|:-:|-
+    Away|Score|Home|Score|Status|National
+    -|:-:|-|:-:|:-:|-
     <% todays_games(@subreddit.now - 10_800).each do |game| %>
-    [<%= game[:away][:name] %><%= game[:away][:post_id] ? ' ^(★)' : '' %>](<%= game[:away][:post_id] ? "/#{game[:away][:post_id]} \"team-#{game[:away][:abbreviation].downcase}\"" : "/r/#{game[:away][:subreddit]}" %>)|@|[<%= game[:home][:name] %><%= game[:home][:post_id] ? ' ^(★)' : '' %>](<%= game[:home][:post_id] ? "/#{game[:home][:post_id]} \"team-#{game[:home][:abbreviation].downcase}\"" : "/r/#{game[:home][:subreddit]}" %>)|<%= game[:status] %>|<%= game[:national] if game[:national] %>
+    [<%= game[:away][:abbreviation] %><%= game[:away][:post_id] ? ' ^(★)' : '' %>](<%= game[:away][:post_id] ? "/#{game[:away][:post_id]} \"team-#{game[:away][:abbreviation].downcase}\"" : "/r/#{game[:away][:subreddit]}" %>)|<%= game[:away][:score] %>|[<%= game[:home][:abbreviation] %><%= game[:home][:post_id] ? ' ^(★)' : '' %>](<%= game[:home][:post_id] ? "/#{game[:home][:post_id]} \"team-#{game[:home][:abbreviation].downcase}\"" : "/r/#{game[:home][:subreddit]}" %>)|<%= game[:home][:score] %>|<%= game[:status] %>|<%= game[:national] if game[:national] %>
     <% end %>
 
 
