@@ -96,7 +96,7 @@ class Baseballbot
             post_id:,
             abbreviation:,
             subreddit: team_subreddit,
-            name: team_name(game:, team:),
+            name: team_name(game, team),
             # TODO: Change `team` to `link` in /r/baseball's sidebar
             team: link
           }
