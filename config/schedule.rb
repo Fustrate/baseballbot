@@ -30,6 +30,7 @@ end
 
 every 5.minutes do
   bundle_exec_ruby :game_threads, :post
+  bundle_exec_ruby :around_the_horn, :update
 end
 
 # So we don't run twice on the hour
