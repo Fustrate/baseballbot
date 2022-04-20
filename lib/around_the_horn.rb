@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
-# require_relative 'default_bot'
+require_relative 'default_bot'
 
 class AroundTheHorn
   TODAYS_GAMES = <<~'ERB'
     ## <%= (@subreddit.now - 10_800).strftime('%A') %>'s Games
 
-    &nbsp;| | | | | |
-    -|:-:|:-:|-|:-:|:-:
-    <% todays_games(@subreddit.now - 10_800).each_slice(2) do |game1, game2| %>
-    <%= game1[:away][:team] %>|<%= game1[:away][:score] %>|<%= game1[:status] %>|<%= game2[:away][:team] if game2 %>|<%= game2[:away][:score] if game2 %>|<%= game2[:status] if game2 %>
-
-    <%= game1[:home][:team] %>|<%= game1[:home][:score] %>|<%= "^(#{game1[:national]})" if game1[:national] %>|<%= game2[:home][:team] if game2 %>|<%= game2[:home][:score] if game2 %>|<%= "^(#{game2[:national]})" if game2 && game2[:national] %>
-
+    Away|@|Home|Status|National
+    -|-|-|:-:|-
+    <% todays_games(@subreddit.now - 10_800).each do |game| %>
+    [<%= game[:away][:name] %><%= game[:away][:post_id] ? ' ^(★)' : '' %>](<%= game[:away][:post_id] ? "/#{post_id} \"team-#{abbreviation.downcase}\"" : "/r/#{game[:away][:subreddit]}" %>)|@|[<%= game[:home][:name] %><%= game[:home][:post_id] ? ' ^(★)' : '' %>](<%= game[:home][:post_id] ? "/#{post_id} \"team-#{abbreviation.downcase}\"" : "/r/#{game[:home][:subreddit]}" %>)|<%= game[:status] %>|<%= "^(#{game[:national]})" if game[:national] %>
     <% end %>
 
 
@@ -23,7 +20,7 @@ class AroundTheHorn
 
   def initialize
     @bot = DefaultBot.create(purpose: 'Around the Horn', account: 'BaseballBot')
-    @subreddit = @bot.session.subreddit('baseball')
+    @subreddit = @bot.name_to_subreddit('baseball')
 
     @date = @subreddit.now - 10_800
   end
@@ -41,7 +38,7 @@ class AroundTheHorn
   def post!
     return if todays_submission_id
 
-    submission = @subreddit.submit(post_title, text: update_todays_games_in(initial_body), sendreplies: false)
+    submission = @subreddit.submit(title: post_title, text: update_todays_games_in(initial_body))
 
     submission.make_sticky(slot: 1)
     submission.set_suggested_sort 'new'
@@ -55,10 +52,12 @@ class AroundTheHorn
 
   def post_title = @date.strftime('[General Discussion] Around the Horn - %-m/%-d/%y')
 
-  def initial_body = @subreddit.wiki_page('ath').content_md.split(/\r?\n-{3,}\r?\n/)[1].strip
+  def initial_body = @subreddit.subreddit.wiki_page('ath').content_md.split(/\r?\n-{3,}\r?\n/)[1].strip
 
   def update_todays_games_in(text)
-    Template::Sidebar.new(body: TODAYS_GAMES, subreddit: @subreddit).replace_in(text, delimiter: '[](/todays_games)')
+    Baseballbot::Template::Sidebar
+      .new(body: TODAYS_GAMES, subreddit: @subreddit)
+      .replace_in(text, delimiter: '[](/todays_games)')
   end
 end
 

@@ -46,7 +46,7 @@ class Baseballbot
         end
 
         # The Apple logo doesn't appear correctly on Windows, so just show the text for everything.
-        def national_status(game) = game.dig('content', 'media', 'freeGame') ? 'FREE' : national_feeds(game).first
+        def national_status(game) = game.dig('content', 'media', 'freeGame') ? 'MLB.tv' : national_feeds(game).first
 
         def national_feeds(game)
           # Postponed games won't have media
@@ -63,7 +63,7 @@ class Baseballbot
           team = game.dig('teams', flag)
 
           {
-            team: link_for_team(game:, team:),
+            **team_info(game:, team:),
             score: (started && team['score'] ? team['score'].to_i : '')
           }
         end
@@ -83,18 +83,35 @@ class Baseballbot
 
         def winner_loser_flags(data) = data[:home][:score] > data[:away][:score] ? %i[home away] : %i[away home]
 
-        def link_for_team(game:, team:)
+        def team_info(game:, team:)
           abbreviation = team_abbreviation(game, team)
+          team_subreddit = subreddit(abbreviation)
 
-          post_id = @game_threads[game['gamePk'].to_i][subreddit(abbreviation).downcase]
+          post_id = @game_threads[game['gamePk'].to_i][team_subreddit.downcase]
 
-          post_id ? "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" : "[][#{abbreviation}]"
+          link = post_id ? "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" : "[][#{abbreviation}]"
+
+          {
+            link:,
+            post_id:,
+            abbreviation:,
+            subreddit: team_subreddit,
+            name: team_name(game:, team:),
+            # TODO: Change `team` to `link` in /r/baseball's sidebar
+            team: link
+          }
         end
 
         def team_abbreviation(game, team)
           return team.dig('team', 'abbreviation') unless team.dig('team', 'name') == 'Intrasquad'
 
           game.dig('teams', 'home', 'team', 'abbreviation')
+        end
+
+        def team_name(game, team)
+          return team.dig('team', 'clubName') unless team.dig('team', 'name') == 'Intrasquad'
+
+          game.dig('teams', 'home', 'team', 'clubName')
         end
 
         def game_status(game)
