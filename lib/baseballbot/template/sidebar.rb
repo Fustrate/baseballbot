@@ -10,7 +10,7 @@ class Baseballbot
 
       def inspect = %(#<Baseballbot::Template::Sidebar @subreddit="#{@subreddit.name}">)
 
-      def updated_with_link = "[Updated](/r/baseballbot) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
+      def updated_with_link = "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
 
       protected
 
