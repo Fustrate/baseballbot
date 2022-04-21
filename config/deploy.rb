@@ -7,7 +7,7 @@ set :user, 'baseballbot'
 set :deploy_to, "/home/#{fetch :user}/apps/#{fetch :application}"
 
 set :repo_url, 'git@github.com:Fustrate/baseballbot.git'
-set :branch, ENV['REVISION'] || :master
+set :branch, ENV.fetch('REVISION', 'master')
 
 append :linked_dirs, 'log'
 append :linked_files, 'config/honeybadger.yml'

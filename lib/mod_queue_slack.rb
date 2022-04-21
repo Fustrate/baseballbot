@@ -7,7 +7,7 @@ require 'net/http'
 require 'net/https'
 require 'json'
 
-SLACK_HOOK_ID = ENV['DODGERS_SLACK_HOOK_ID']
+SLACK_HOOK_ID = ENV.fetch('DODGERS_SLACK_HOOK_ID')
 
 class ModQueue
   ACTIONS = [

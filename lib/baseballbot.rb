@@ -44,7 +44,7 @@ class Baseballbot
   def configure_honeybadger
     Honeybadger.configure do |config|
       # For some reason, this isn't getting pulled from ENV. Do some research.
-      config.api_key = ENV['HONEYBADGER_API_KEY']
+      config.api_key = ENV.fetch('HONEYBADGER_API_KEY')
 
       config.breadcrumbs.enabled = true
       config.env = 'bot'
@@ -70,9 +70,9 @@ class Baseballbot
 
   def db
     @db ||= PG::Connection.new(
-      user: ENV['BASEBALLBOT_PG_USERNAME'],
-      dbname: ENV['BASEBALLBOT_PG_DATABASE'],
-      password: ENV['BASEBALLBOT_PG_PASSWORD']
+      user: ENV.fetch('BASEBALLBOT_PG_USERNAME'),
+      dbname: ENV.fetch('BASEBALLBOT_PG_DATABASE'),
+      password: ENV.fetch('BASEBALLBOT_PG_PASSWORD')
     )
   end
 
@@ -111,9 +111,9 @@ class Baseballbot
 
   def redd_auth_strategy
     Redd::AuthStrategies::Web.new(
-      client_id: ENV['REDDIT_CLIENT_ID'],
-      secret: ENV['REDDIT_SECRET'],
-      redirect_uri: ENV['REDDIT_REDIRECT_URI'],
+      client_id: ENV.fetch('REDDIT_CLIENT_ID'),
+      secret: ENV.fetch('REDDIT_SECRET'),
+      redirect_uri: ENV.fetch('REDDIT_REDIRECT_URI'),
       user_agent: @options[:user_agent] || 'Baseballbot'
     )
   end
