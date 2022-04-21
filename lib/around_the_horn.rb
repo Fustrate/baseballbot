@@ -3,18 +3,50 @@
 require_relative 'default_bot'
 
 class AroundTheHorn
-  TODAYS_GAMES = <<~'ERB'
-    ## <%= (@subreddit.now - 10_800).strftime('%A') %>'s Games
+  class Template < Baseballbot::Template::Sidebar
+    TODAYS_GAMES = <<~'ERB'
+      # <%= (@subreddit.now - 10_800).strftime('%A') %>'s Games
 
-    Away|Score|Home|Score|Status|National
-    -|:-:|-|:-:|:-:|-
-    <% todays_games(@subreddit.now - 10_800).each do |game| %>
-    [<%= game[:away][:abbreviation] %><%= game[:away][:post_id] ? ' ^(★)' : '' %>](<%= game[:away][:post_id] ? "/#{game[:away][:post_id]} \"team-#{game[:away][:abbreviation].downcase}\"" : "/r/#{game[:away][:subreddit]}" %>)|<%= game[:away][:score] %>|[<%= game[:home][:abbreviation] %><%= game[:home][:post_id] ? ' ^(★)' : '' %>](<%= game[:home][:post_id] ? "/#{game[:home][:post_id]} \"team-#{game[:home][:abbreviation].downcase}\"" : "/r/#{game[:home][:subreddit]}" %>)|<%= game[:home][:score] %>|<%= game[:status] %>|<%= game[:national] if game[:national] %>
-    <% end %>
+      Away|Score|Home|Score|Status|National
+      -|:-:|-|:-:|:-:|-
+      <% todays_games(@subreddit.now - 10_800).each do |game| %>
+      <%= todays_games_row(game) %>
+
+      <% end %>
 
 
-    ^(★)Game Thread. All game times are Eastern. <%= updated_with_link %>
-  ERB
+      ^(★)Game Thread. All game times are Eastern. <%= updated_with_link %> <%= yesterday_link %>
+    ERB
+
+    def initialize(subreddit:)
+      super(body: TODAYS_GAMES, subreddit:)
+    end
+
+    def yesterday_link
+      yesterday_id = @bot.redis.hget('around_the_horn', (@subreddit.now - (3_600 * 27)).strftime('%F'))
+
+      yesterday_id ? "[Yesterday's ATH](/#{yesterday_id})" : ''
+    end
+
+    def todays_games_row(game)
+      [
+        team_game_thread_link(game[:away]),
+        game[:away][:score],
+        team_game_thread_link(game[:home]),
+        game[:home][:score],
+        game[:status],
+        game[:national]
+      ].join('|')
+    end
+
+    def team_game_thread_link(team)
+      text = team[:post_id] ? "#{team[:abbreviation]} ^(★)" : team[:abbreviation]
+
+      link = team[:post_id] ? %(/#{team[:post_id]} "team-#{team[:abbreviation].downcase}") : "/r/#{team[:subreddit]}"
+
+      "[#{text}](#{link})"
+    end
+  end
 
   def initialize
     @bot = DefaultBot.create(purpose: 'Around the Horn', account: 'BaseballBot')
@@ -53,9 +85,7 @@ class AroundTheHorn
   def initial_body = @subreddit.subreddit.wiki_page('ath').content_md.split(/\r?\n-{3,}\r?\n/)[1].strip
 
   def update_todays_games_in(text)
-    Baseballbot::Template::Sidebar
-      .new(body: TODAYS_GAMES, subreddit: @subreddit)
-      .replace_in(text, delimiter: '[](/todays_games)')
+    AroundTheHorn::Template.new(subreddit: @subreddit).replace_in(text, delimiter: '[](/todays_games)')
   end
 end
 
