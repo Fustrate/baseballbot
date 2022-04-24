@@ -138,9 +138,9 @@ class Baseballbot
       # When there are lots of threads running at the same time, the updates may take so long that it's still running
       # when the next update triggers. Make sure there hasn't been a postgame thread ID set since we loaded this round.
       def postgame_posted?
-        result = bot.db.exec_params 'SELECT post_game_post_id FROM game_threads WHERE id = $1', [@id]
+        result = bot.db.exec_params('SELECT post_game_post_id FROM game_threads WHERE id = $1', [@id])[0]
 
-        !result.dig(0, 'post_game_post_id').nil?
+        !result['post_game_post_id'].nil?
       end
     end
   end
