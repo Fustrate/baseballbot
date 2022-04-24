@@ -126,10 +126,7 @@ class Baseballbot
       #
       # @return [Redd::Models::Submission] the postgame thread
       def post_postgame!
-        return unless subreddit.options.dig('postgame', 'enabled')
-
-        # Only game threads get post game threads, right?
-        return unless @type == 'game_thread'
+        return unless subreddit.options.dig('postgame', 'enabled') && @type == 'game_thread' && !postgame_posted?
 
         Baseballbot::Posts::Postgame.new(@row, subreddit:).create!
       end
@@ -137,6 +134,14 @@ class Baseballbot
       def game_thread_flair(type) = subreddit.options.dig('game_threads', 'flair_id', type)
 
       def template_for(type) = Template::GameThread.new(subreddit:, game_pk:, post_id: @post_id, type:, title:)
+
+      # When there are lots of threads running at the same time, the updates may take so long that it's still running
+      # when the next update triggers. Make sure there hasn't been a postgame thread ID set since we loaded this round.
+      def postgame_posted?
+        result = bot.db.exec_params 'SELECT post_game_post_id FROM game_threads WHERE id = $1', [@id]
+
+        !result.dig(0, 'post_game_post_id').nil?
+      end
     end
   end
 end
