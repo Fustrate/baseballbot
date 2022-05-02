@@ -67,7 +67,6 @@ class Baseballbot
 
         # @!group Wildcards
 
-        # This might put two teams tied for second instead of tied for first
         def mark_league_wildcards(league)
           teams_in_playoffs = 3 + WILDCARDS
 
