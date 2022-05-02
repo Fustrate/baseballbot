@@ -4,6 +4,10 @@ class Baseballbot
   module Template
     class Shared
       module Standings
+        # I guess I should make this a constant so that I can easily mark 75 wildcard teams when they allow everyone and
+        # their grandmother into the playoffs...
+        WILDCARDS = 3
+
         def all_teams
           return @all_teams if @all_teams
 
@@ -63,28 +67,25 @@ class Baseballbot
 
         # @!group Wildcards
 
-        # Take the eligible teams, remove all teams who aren't at least tied
-        # with the team in 5th place, remove teams in first place, and then
-        # split between teams ahead of the second spot
-        #
         # This might put two teams tied for second instead of tied for first
         def mark_league_wildcards(league)
+          teams_in_playoffs = 3 + WILDCARDS
+
           teams = teams_in_league(league)
 
           division_leaders = teams.count { _1[:division_lead] }
 
-          # 5 or more division leaders means no wildcards
-          return if division_leaders >= 5
+          spots_remaining = teams_in_playoffs - division_leaders
 
-          allowed_wildcards = 5 - division_leaders
+          return unless spots_remaining.positive?
 
           ranked = ranked_wildcard_teams(teams)
 
-          teams_in_first_wc = mark_wildcards teams, ranked[0], 1
+          while spots_remaining.positive?
+            wildcards_used = WILDCARDS - spots_remaining
 
-          return unless teams_in_first_wc < allowed_wildcards
-
-          mark_wildcards teams, ranked[1], 2
+            spots_remaining -= mark_wildcards(teams, ranked[wildcards_used], wildcards_used + 1)
+          end
         end
 
         def ranked_wildcard_teams(teams)
