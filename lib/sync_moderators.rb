@@ -3,10 +3,15 @@
 require_relative 'default_bot'
 
 class SyncModerators
-  def initialize
+  def initialize(subreddits: [])
     @bot = DefaultBot.create(purpose: 'Sync Moderators')
+    @subreddits = subreddits
+  end
 
-    @bot.subreddits.each_value { process_subreddit(_1) }
+  def run
+    @bot.use_account 'BaseballBot'
+
+    @bot.subreddits.each_value { process_subreddit(_1) if @subreddits.none? || @subreddits.include?(_1.name.downcase) }
   end
 
   protected
@@ -22,13 +27,14 @@ class SyncModerators
     add_modded_users
 
     sleep 3
+  rescue Redd::Errors::Forbidden
+    # BaseballBot can't access /r/troxellophilus
+    nil
   end
 
   def moderator_names
-    @bot.with_reddit_account(@subreddit.account.name) do
-      # This can be filtered on :mod_permissions as well if necessary
-      @subreddit.subreddit.moderators.map { _1[:name].downcase }
-    end
+    # This can be filtered on :mod_permissions as well if necessary
+    @subreddit.subreddit.moderators.map { _1[:name].downcase }
   end
 
   def reset_moderator_names
@@ -76,13 +82,17 @@ class SyncModerators
   end
 
   def existing_relations
-    @existing_relations ||= @bot.db.exec_params(<<~SQL).to_a.group_by { _1['subreddit_id'].to_i }
-      SELECT subreddit_id, user_id, LOWER(users.username) AS username
-      FROM subreddits_users
-      LEFT JOIN subreddits ON (subreddits.id = subreddit_id)
-      LEFT JOIN users ON (users.id = user_id)
-    SQL
+    @existing_relations ||= begin
+      rows = @bot.db.exec_params(<<~SQL).to_a
+        SELECT subreddit_id, user_id, LOWER(users.username) AS username
+        FROM subreddits_users
+        LEFT JOIN subreddits ON (subreddits.id = subreddit_id)
+        LEFT JOIN users ON (users.id = user_id)
+      SQL
+
+      rows.group_by { _1['subreddit_id'].to_i }.tap { _1.default = [] }
+    end
   end
 end
 
-SyncModerators.new.run
+SyncModerators.new.run(subreddits: (ARGV[0]&.downcase || '').split(','))

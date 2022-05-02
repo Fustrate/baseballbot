@@ -54,8 +54,8 @@ every :saturday do
   bundle_exec_ruby :load_sunday_game_threads
 end
 
-# This is off by an hour. Investigate 5 years from now.
 every 1.day, at: '4:30 am' do
   bundle_exec_ruby :around_the_horn, :post
+  bundle_exec_ruby :sync_moderators
   # bundle_exec_ruby :load_postseason_game_threads
 end
