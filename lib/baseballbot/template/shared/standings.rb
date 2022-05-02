@@ -94,9 +94,10 @@ class Baseballbot
             .sort_by { _1[:wildcard_rank] }
         end
 
+        # wildcard_rank is different for two teams in the same position
         def mark_wildcards(teams, target, position)
           teams
-            .select { _1[:wildcard_rank] == target[:wildcard_rank] }
+            .select { _1[:league_games_back] == target[:league_games_back] }
             .each { _1[:wildcard_position] = position }
             .count
         end
@@ -154,7 +155,8 @@ module TeamStandingsData
         division_champ: row['divisionChamp'],
         division_lead: row['divisionLeader'],
         elim: row['eliminationNumber'],
-        games_back: row['divisionGamesBack']
+        games_back: row['divisionGamesBack'],
+        league_games_back: row['leagueGamesBack']
       }
     end
 
