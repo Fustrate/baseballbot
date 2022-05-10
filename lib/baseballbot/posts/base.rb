@@ -3,12 +3,10 @@
 class Baseballbot
   module Posts
     class Base
-      attr_reader :submission, :template, :subreddit
+      attr_reader :submission, :subreddit, :template
 
-      def initialize(row, subreddit:)
+      def initialize(subreddit:)
         @subreddit = subreddit
-
-        @title = row['title']
       end
 
       def bot = @subreddit.bot

@@ -3,9 +3,6 @@
 class Baseballbot
   module Posts
     class OffDay < Base
-      # Off day threads don't come from a table row
-      def initialize(subreddit:) = super({ 'title' => subreddit.options.dig('off_day', 'title') }, subreddit:)
-
       def create!
         @template = off_day_template
 

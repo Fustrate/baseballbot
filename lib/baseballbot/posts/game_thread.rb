@@ -6,7 +6,7 @@ class Baseballbot
       attr_reader :game_pk, :title
 
       def initialize(row, subreddit:)
-        super(row, subreddit:)
+        super(subreddit:)
 
         @row = row
 
@@ -14,6 +14,7 @@ class Baseballbot
         @game_pk = row['game_pk']
         @post_id = row['post_id']
         @type = row['type'] || 'game_thread'
+        @title = row['title']
       end
 
       def create!
