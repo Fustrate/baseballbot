@@ -81,28 +81,28 @@ class Baseballbot
 
         def team_info(game:, team:)
           abbreviation = team_abbreviation(game, team)
+          team_subreddit = subreddit(abbreviation)
 
-          post_id = @game_threads[game['gamePk'].to_i][subreddit(abbreviation).downcase]
+          post_id = @game_threads[game['gamePk'].to_i][team_subreddit.downcase]
 
           {
             link: post_id ? "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" : "[][#{abbreviation}]",
             post_id:,
             abbreviation:,
-            name: team_name(game, team)
+            name: team_name(game, team),
+            subreddit: team_subreddit
           }
         end
 
         def team_abbreviation(game, team)
-          return team.dig('team', 'abbreviation') unless team.dig('team', 'name') == 'Intrasquad'
-
-          game.dig('teams', 'home', 'team', 'abbreviation')
+          intrasquad?(team) ? game.dig('teams', 'home', 'team', 'abbreviation') : team.dig('team', 'abbreviation')
         end
 
         def team_name(game, team)
-          return team.dig('team', 'clubName') unless team.dig('team', 'name') == 'Intrasquad'
-
-          game.dig('teams', 'home', 'team', 'clubName')
+          intrasquad?(team) ? game.dig('teams', 'home', 'team', 'clubName') : team.dig('team', 'clubName')
         end
+
+        def intrasquad?(team) = team.dig('team', 'name') == 'Intrasquad'
 
         def game_status(game)
           status = game.dig('status', 'detailedState')
