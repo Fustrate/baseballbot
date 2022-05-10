@@ -18,17 +18,13 @@ class Baseballbot
         def probable_away_starter
           pitcher_id = game_data.dig('probablePitchers', 'away', 'id')
 
-          return unless pitcher_id
-
-          boxscore.dig('teams', 'away', 'players', "ID#{pitcher_id}")
+          boxscore.dig('teams', 'away', 'players', "ID#{pitcher_id}") if pitcher_id
         end
 
         def probable_home_starter
           pitcher_id = game_data.dig('probablePitchers', 'home', 'id')
 
-          return unless pitcher_id
-
-          boxscore.dig('teams', 'home', 'players', "ID#{pitcher_id}")
+          boxscore.dig('teams', 'home', 'players', "ID#{pitcher_id}") if pitcher_id
         end
 
         def home_pitchers

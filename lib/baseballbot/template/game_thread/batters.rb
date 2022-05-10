@@ -16,9 +16,7 @@ class Baseballbot
         }.freeze
 
         def batting_order(batter)
-          return batter['battingOrder'].to_i if batter['battingOrder']
-
-          game_stats(batter).dig('batting', 'battingOrder').to_i
+          batter['battingOrder']&.to_i || game_stats(batter).dig('batting', 'battingOrder').to_i
         end
 
         def home_batters

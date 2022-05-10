@@ -49,13 +49,12 @@ class Baseballbot
 
         def postseason_interpolations
           # seriesStatus is not included in the live feed
-          psdata = @bot.api.schedule(gamePk: @game_pk, hydrate: 'seriesStatus')
-            .dig('dates', 0, 'games', 0)
+          series_data = @bot.api.schedule(gamePk: @game_pk, hydrate: 'seriesStatus').dig('dates', 0, 'games', 0)
 
           {
-            series_game: psdata.dig('seriesStatus', 'shortDescription'),
-            home_wins: psdata.dig('teams', 'home', 'leagueRecord', 'wins'),
-            away_wins: psdata.dig('teams', 'away', 'leagueRecord', 'wins')
+            series_game: series_data.dig('seriesStatus', 'shortDescription'),
+            home_wins: series_data.dig('teams', 'home', 'leagueRecord', 'wins'),
+            away_wins: series_data.dig('teams', 'away', 'leagueRecord', 'wins')
           }
         end
 

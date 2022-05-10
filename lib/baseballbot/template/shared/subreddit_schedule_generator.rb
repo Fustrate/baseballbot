@@ -15,15 +15,9 @@ class SubredditScheduleGenerator
   end
 end
 
-# This allows us to generate a schedule for a team other than the one belonging
-# to the subreddit.
+# This allows us to generate a schedule for a team other than the one belonging to the subreddit.
 class SubredditSchedule
-  SCHEDULE_HYDRATION = [
-    'team(venue(timezone))',
-    'game(content(summary))',
-    'linescore',
-    'broadcasts(all)'
-  ].join(',').freeze
+  SCHEDULE_HYDRATION = 'team(venue(timezone)),game(content(summary)),linescore,broadcasts(all)'
 
   def initialize(api:, subreddit:, team_id:)
     @api = api
@@ -49,8 +43,7 @@ class SubredditSchedule
 
   protected
 
-  # Rescheduled games, when converted to the local time zone, end up in the
-  # previous day.
+  # Rescheduled games, when converted to the local time zone, end up in the previous day.
   def adjust_game_time(timestamp)
     Baseballbot::Utility.parse_time(
       timestamp.sub('03:33', '12:00'),
@@ -59,13 +52,7 @@ class SubredditSchedule
   end
 
   def build_date_hash(start_date, end_date)
-    days = {}
-
-    start_date.upto(end_date).each do |day|
-      days[day.strftime('%F')] = { date: day, games: [] }
-    end
-
-    days
+    start_date.upto(end_date).to_h { |date| [date.strftime('%F'), { date:, games: [] }] }
   end
 
   def calendar_dates(start_date, end_date)

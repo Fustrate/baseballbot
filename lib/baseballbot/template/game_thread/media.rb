@@ -62,9 +62,7 @@ class Baseballbot
         end
 
         def radio_name(item)
-          return item['callLetters'] if item['language'] == 'en'
-
-          "#{item['callLetters']} (#{item['language'].upcase})"
+          item['language'] == 'en' ? item['callLetters'] : "#{item['callLetters']} (#{item['language'].upcase})"
         end
       end
     end

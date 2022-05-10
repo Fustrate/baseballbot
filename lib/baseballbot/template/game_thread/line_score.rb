@@ -24,17 +24,9 @@ class Baseballbot
           "#{runners}, #{outs} #{outs == 1 ? 'Out' : 'Outs'}, #{inning}"
         end
 
-        def home_rhe
-          return BLANK_RHE unless linescore&.dig('teams', 'home', 'runs')
+        def home_rhe = linescore&.dig('teams', 'home', 'runs') ? linescore.dig('teams', 'home') : BLANK_RHE
 
-          linescore.dig('teams', 'home')
-        end
-
-        def away_rhe
-          return BLANK_RHE unless linescore&.dig('teams', 'away', 'runs')
-
-          linescore.dig('teams', 'away')
-        end
+        def away_rhe = linescore&.dig('teams', 'away', 'runs') ? linescore.dig('teams', 'away') : BLANK_RHE
 
         def home_lob
           boxscore.dig('teams', 'home', 'info')

@@ -5,8 +5,7 @@ class Baseballbot
     class GameThread
       module Links
         def player_link(player, title: nil)
-          url = player_url(player['id'] || player.dig('person', 'id'))
-          link_to player_name(player), url:, title:
+          link_to(player_name(player), url: player_url(player['id'] || player.dig('person', 'id')), title:)
         end
 
         def player_url(id) = "http://mlb.mlb.com/team/player.jsp?player_id=#{id}"
