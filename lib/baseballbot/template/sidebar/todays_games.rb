@@ -31,14 +31,14 @@ class Baseballbot
         def process_todays_game(game) = game_hash(game).tap { mark_winner_and_loser(_1) }
 
         def game_hash(game)
-          status = game.dig('status', 'abstractGameState')
+          raw_status = game.dig('status', 'abstractGameState')
 
-          started = !MLBStatsAPI::Games.pregame_status?(status)
+          started = started?(raw_status)
 
           {
             home: team_data(game, 'home', started),
             away: team_data(game, 'away', started),
-            raw_status: status,
+            raw_status:,
             status: gameday_link(game_status(game), game['gamePk']),
             free: game.dig('content', 'media', 'freeGame'),
             national: national_status(game)
@@ -55,17 +55,13 @@ class Baseballbot
           game
             .dig('content', 'media', 'epg')
             .find { _1['title'] == 'MLBTV' }['items']
-            .select { _1['mediaFeedType'] == 'NATIONAL' }
-            .map { _1['callLetters'] }
+            .filter_map { _1['callLetters'] if _1['mediaFeedType'] == 'NATIONAL' }
         end
 
         def team_data(game, flag, started)
           team = game.dig('teams', flag)
 
-          {
-            **team_info(game:, team:),
-            score: (started && team['score'] ? team['score'].to_i : '')
-          }
+          { **team_info(game:, team:), score: (started && team['score'] ? team['score'].to_i : '') }
         end
 
         def mark_winner_and_loser(data)
@@ -77,28 +73,22 @@ class Baseballbot
           data[loser][:score] = italic data[loser][:score] if MLBStatsAPI::Games.postgame_status?(data[:raw_status])
         end
 
-        def scores_differ?(data)
-          !MLBStatsAPI::Games.pregame_status?(data[:raw_status]) && data[:home][:score] != data[:away][:score]
-        end
+        def scores_differ?(data) = started?(data[:raw_status]) && data[:home][:score] != data[:away][:score]
+
+        def started?(status) = !MLBStatsAPI::Games.pregame_status?(status)
 
         def winner_loser_flags(data) = data[:home][:score] > data[:away][:score] ? %i[home away] : %i[away home]
 
         def team_info(game:, team:)
           abbreviation = team_abbreviation(game, team)
-          team_subreddit = subreddit(abbreviation)
 
-          post_id = @game_threads[game['gamePk'].to_i][team_subreddit.downcase]
-
-          link = post_id ? "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" : "[][#{abbreviation}]"
+          post_id = @game_threads[game['gamePk'].to_i][subreddit(abbreviation).downcase]
 
           {
-            link:,
+            link: post_id ? "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" : "[][#{abbreviation}]",
             post_id:,
             abbreviation:,
-            subreddit: team_subreddit,
-            name: team_name(game, team),
-            # TODO: Change `team` to `link` in /r/baseball's sidebar
-            team: link
+            name: team_name(game, team)
           }
         end
 
