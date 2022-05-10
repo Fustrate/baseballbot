@@ -56,7 +56,7 @@ class CheckMessages
       starts_at: Time.now,
       title: submission.title,
       game_pk:,
-      status: 'Foreign',
+      status: 'External',
       post_id:
     }
   end

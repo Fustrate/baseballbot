@@ -52,6 +52,7 @@ class AroundTheHorn
     @bot = DefaultBot.create(purpose: 'Around the Horn', account: 'BaseballBot')
     @subreddit = @bot.name_to_subreddit('baseball')
 
+    # Keep updating the same thread until 3 AM Pacific
     @date = @subreddit.now - 10_800
   end
 
