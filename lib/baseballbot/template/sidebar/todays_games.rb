@@ -50,7 +50,7 @@ class Baseballbot
 
         def national_feeds(game)
           # Postponed games won't have media
-          return [] unless game.dig('content', 'media')
+          return [] unless game.dig('content', 'media', 'epg')
 
           game
             .dig('content', 'media', 'epg')
