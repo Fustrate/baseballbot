@@ -28,7 +28,7 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
-    capistrano-bundler (2.0.1)
+    capistrano-bundler (2.1.0)
       capistrano (~> 3.1)
     capistrano-rbenv (2.2.0)
       capistrano (~> 3.1)
@@ -52,7 +52,7 @@ GEM
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
       llhttp-ffi (~> 0.4.0)
-    http-cookie (1.0.4)
+    http-cookie (1.0.5)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
     httparty (0.20.0)
@@ -81,7 +81,7 @@ GEM
     rainbow (3.1.1)
     rake (13.0.6)
     redis (4.6.0)
-    regexp_parser (2.4.0)
+    regexp_parser (2.5.0)
     rexml (3.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
@@ -96,21 +96,21 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.11.0)
     rspec-support (3.11.0)
-    rubocop (1.29.0)
+    rubocop (1.30.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.17.0, < 2.0)
+      rubocop-ast (>= 1.18.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.17.0)
+    rubocop-ast (1.18.0)
       parser (>= 3.1.1.0)
-    rubocop-performance (1.13.3)
+    rubocop-performance (1.14.2)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rspec (2.10.0)
+    rubocop-rspec (2.11.1)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     sshkit (1.21.2)
@@ -120,7 +120,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8.1)
+    unf_ext (0.0.8.2)
     unicode-display_width (2.1.0)
     webmock (3.14.0)
       addressable (>= 2.8.0)
@@ -133,26 +133,26 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano (~> 3.15)
-  capistrano-bundler
-  capistrano-rbenv (~> 2.1)
-  chronic
-  honeybadger (~> 4.0)
-  mlb_stats_api!
-  paint
-  pg
-  redd!
-  redis
-  rspec (~> 3.8)
-  rubocop
-  rubocop-performance
-  rubocop-rspec
-  tzinfo
-  webmock (~> 3.4)
-  whenever
+  capistrano (~> 3.17)
+  capistrano-bundler (~> 2.1)
+  capistrano-rbenv (~> 2.2)
+  chronic (~> 0.10)
+  honeybadger (~> 4.12)
+  mlb_stats_api (~> 0.3)!
+  paint (~> 2.2)
+  pg (~> 1.3)
+  redd (>= 0.9.0.pre.3)!
+  redis (~> 4.6)
+  rspec (~> 3.11)
+  rubocop (~> 1.30)
+  rubocop-performance (~> 1.14)
+  rubocop-rspec (~> 2.11)
+  tzinfo (~> 2.0)
+  webmock (~> 3.14)
+  whenever (~> 1.0)
 
 RUBY VERSION
-   ruby 3.1.1p18
+   ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.9
+   2.3.11

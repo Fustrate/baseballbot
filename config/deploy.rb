@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-lock '~> 3.15'
+lock '~> 3.17'
 
 set :application, 'baseballbot'
 set :user, 'baseballbot'

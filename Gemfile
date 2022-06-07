@@ -2,48 +2,48 @@
 
 source 'https://rubygems.org'
 
-ruby '3.1.1'
+ruby '3.1.2'
 
 # Date Parsing
-gem 'chronic'
+gem 'chronic', '~> 0.10'
 
 # Error Monitoring
-gem 'honeybadger', '~> 4.0'
+gem 'honeybadger', '~> 4.12'
 
 # MLB Stats API
-gem 'mlb_stats_api', github: 'Fustrate/mlb_stats_api'
+gem 'mlb_stats_api', '~> 0.3', github: 'Fustrate/mlb_stats_api'
 
 # Postgres Database
-gem 'pg'
+gem 'pg', '~> 1.3'
 
 # Reddit Interaction - this needs to be replaced
-gem 'redd', github: 'Fustrate/redd'
+gem 'redd', '>= 0.9.0.pre.3', github: 'Fustrate/redd'
 
 # Caching
-gem 'redis'
+gem 'redis', '~> 4.6'
 
 # Cron jobs
-gem 'whenever'
+gem 'whenever', '~> 1.0'
 
 # Time zones
-gem 'tzinfo'
+gem 'tzinfo', '~> 2.0'
 
 # Fancy command line colors
-gem 'paint'
+gem 'paint', '~> 2.2'
 
 group :development do
   # Deploy with Capistrano
-  gem 'capistrano', '~> 3.15', require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-rbenv', '~> 2.1', require: false
+  gem 'capistrano', '~> 3.17', require: false
+  gem 'capistrano-bundler', '~> 2.1', require: false
+  gem 'capistrano-rbenv', '~> 2.2', require: false
 
   # Linters
-  gem 'rubocop'
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'rubocop', '~> 1.30'
+  gem 'rubocop-performance', '~> 1.14', require: false
+  gem 'rubocop-rspec', '~> 2.11', require: false
 end
 
 group :test do
-  gem 'rspec', '~> 3.8'
-  gem 'webmock', '~> 3.4'
+  gem 'rspec', '~> 3.11'
+  gem 'webmock', '~> 3.14'
 end
