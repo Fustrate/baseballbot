@@ -15,7 +15,9 @@ class SundayGameThreadLoader
   end
 
   def run
-    (0..4).each { load_espn_game Chronic.parse("#{_1} weeks from Sunday") }
+    next_sunday = Time.now + (86_400 * ((7 - Time.now.wday) % 7))
+
+    (0..4).each { load_espn_game(next_sunday + (_1 * 604_800)) }
 
     puts "Added #{@attempts - @failures} of #{@attempts}"
   end

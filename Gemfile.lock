@@ -136,7 +136,6 @@ DEPENDENCIES
   capistrano (~> 3.17)
   capistrano-bundler (~> 2.1)
   capistrano-rbenv (~> 2.2)
-  chronic (~> 0.10)
   honeybadger (~> 4.12)
   mlb_stats_api (~> 0.3)!
   paint (~> 2.2)

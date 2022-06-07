@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'chronic'
 require 'erb'
 require 'honeybadger/ruby'
 require 'logger'

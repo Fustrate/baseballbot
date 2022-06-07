@@ -4,9 +4,6 @@ source 'https://rubygems.org'
 
 ruby '3.1.2'
 
-# Date Parsing
-gem 'chronic', '~> 0.10'
-
 # Error Monitoring
 gem 'honeybadger', '~> 4.12'
 

@@ -57,7 +57,7 @@ class Baseballbot
     def process_account_row(row) = Account.new(bot: self, name: row['name'], access: account_access(row))
 
     def account_access(row)
-      expires_at = Chronic.parse row['expires_at']
+      expires_at = Time.parse row['expires_at']
 
       Redd::Models::Access.new(
         access_token: row['access_token'],
