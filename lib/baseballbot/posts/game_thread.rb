@@ -54,6 +54,7 @@ class Baseballbot
 
         update_sticky subreddit.sticky_game_threads?
         update_suggested_sort 'new'
+        post_sticky_comment
       end
 
       def update_game_thread_post!
@@ -142,6 +143,8 @@ class Baseballbot
 
         !result['post_game_post_id'].nil?
       end
+
+      def post_sticky_comment = post_comment(subreddit.options.dig('game_threads', 'sticky_comment'))
     end
   end
 end

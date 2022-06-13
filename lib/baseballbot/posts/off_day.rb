@@ -16,6 +16,8 @@ class Baseballbot
 
         info "[OFF] Submitted off day thread #{@submission.id} in /r/#{@name}"
 
+        post_sticky_comment
+
         @submission
       end
 
@@ -28,6 +30,8 @@ class Baseballbot
           title: @subreddit.options.dig('off_day', 'title')
         )
       end
+
+      def post_sticky_comment = post_comment(subreddit.options.dig('off_day', 'sticky_comment'))
     end
   end
 end

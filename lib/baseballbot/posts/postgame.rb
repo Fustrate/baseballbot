@@ -33,6 +33,8 @@ class Baseballbot
         update_sticky @subreddit.sticky_game_threads?
 
         bot.db.exec_params 'UPDATE game_threads SET post_game_post_id = $1 WHERE id = $2', [@submission.id, @id]
+
+        post_sticky_comment
       end
 
       def flair_id
@@ -45,6 +47,8 @@ class Baseballbot
 
         flair['default']
       end
+
+      def post_sticky_comment = post_comment(subreddit.options.dig('postgame', 'sticky_comment'))
     end
   end
 end

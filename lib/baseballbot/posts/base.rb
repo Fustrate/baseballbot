@@ -37,9 +37,20 @@ class Baseballbot
         end
       end
 
+      def post_comment(text:, sticky: true)
+        return unless text && !text.strip.empty?
+
+        with_reddit_account do
+          comment = submission.reply text
+          comment.distinguish(:sticky) if sticky
+        end
+      end
+
       protected
 
       def info(message) = subreddit.bot.logger.info(message)
+
+      def with_reddit_account(&) = subreddit.bot.with_reddit_account(subreddit.account.name, &)
     end
   end
 end
