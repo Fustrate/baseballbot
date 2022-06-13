@@ -18,7 +18,7 @@ class Baseballbot
       end
 
       def create!
-        @template = template_for(@type)
+        @template = post_template(@type)
 
         return change_status('Postponed') if @template.postponed?
 
@@ -30,7 +30,7 @@ class Baseballbot
       end
 
       def update!
-        @template = template_for("#{@type}_update")
+        @template = post_template("#{@type}_update")
         @submission = subreddit.load_submission(id: @post_id)
 
         return reddit_submission_removed! unless submission.banned_by.nil?
@@ -134,7 +134,7 @@ class Baseballbot
 
       def game_thread_flair(type) = subreddit.options.dig('game_threads', 'flair_id', type)
 
-      def template_for(type) = Template::GameThread.new(subreddit:, game_pk:, post_id: @post_id, type:, title:)
+      def post_template(type) = Template::GameThread.new(subreddit:, game_pk:, post_id: @post_id, type:, title:)
 
       # When there are lots of threads running at the same time, the updates may take so long that it's still running
       # when the next update triggers. Make sure there hasn't been a postgame thread ID set since we loaded this round.

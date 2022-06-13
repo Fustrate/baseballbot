@@ -18,12 +18,12 @@ class Baseballbot
         @subreddit = subreddit
         @template_body = body
 
-        @template = ERB.new body, trim_mode: '<>'
+        @erb = ERB.new body, trim_mode: '<>'
         @bot = subreddit.bot
       end
 
       def evaluated_body
-        @template.result(binding)
+        @erb.result(binding)
       rescue SyntaxError => e
         Honeybadger.notify(e, context: { template: @template_body })
         raise StandardError, 'ERB syntax error'

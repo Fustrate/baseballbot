@@ -4,11 +4,9 @@ class Baseballbot
   module Posts
     class OffDay < Base
       def create!
-        @template = off_day_template
-
         @submission = @subreddit.submit(
-          title: @template.formatted_title,
-          text: @template.evaluated_body,
+          title: template.formatted_title,
+          text: template.evaluated_body,
           flair_id: @subreddit.options.dig('off_day', 'flair_id')
         )
 
@@ -23,8 +21,8 @@ class Baseballbot
 
       protected
 
-      def off_day_template
-        Template::General.new(
+      def template
+        @template ||= Template::General.new(
           body: @subreddit.template_for('off_day'),
           subreddit: @subreddit,
           title: @subreddit.options.dig('off_day', 'title')
