@@ -144,7 +144,7 @@ class Baseballbot
         !result['post_game_post_id'].nil?
       end
 
-      def post_sticky_comment = post_comment(subreddit.options.dig('game_threads', 'sticky_comment'))
+      def post_sticky_comment = post_comment(text: subreddit.options.dig('game_threads', 'sticky_comment'))
     end
   end
 end

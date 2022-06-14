@@ -29,7 +29,7 @@ class Baseballbot
         )
       end
 
-      def post_sticky_comment = post_comment(subreddit.options.dig('off_day', 'sticky_comment'))
+      def post_sticky_comment = post_comment(text: subreddit.options.dig('off_day', 'sticky_comment'))
     end
   end
 end

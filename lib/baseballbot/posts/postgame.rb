@@ -44,7 +44,7 @@ class Baseballbot
         flair['default']
       end
 
-      def post_sticky_comment = post_comment(subreddit.options.dig('postgame', 'sticky_comment'))
+      def post_sticky_comment = post_comment(text: subreddit.options.dig('postgame', 'sticky_comment'))
     end
   end
 end
