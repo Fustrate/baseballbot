@@ -39,7 +39,7 @@ class Baseballbot
         return unless flair
 
         return flair['won'] if flair['won'] && template.won?
-        return flair['lost'] if flair['lost'] && template.won?
+        return flair['lost'] if flair['lost'] && template.lost?
 
         flair['default']
       end
