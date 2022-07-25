@@ -29,10 +29,23 @@ class Baseballbot
 
         def team_interpolations
           {
+            opponent_name: opponent.name,
+            **away_interpolations,
+            **home_interpolations
+          }
+        end
+
+        def away_interpolations
+          {
             away_full_name: away_team.full_name,
             away_name: away_team.name,
             away_pitcher: player_name(probable_away_starter),
-            away_record:,
+            away_record:
+          }
+        end
+
+        def home_interpolations
+          {
             home_full_name: home_team.full_name,
             home_name: home_team.name,
             home_pitcher: player_name(probable_home_starter),
