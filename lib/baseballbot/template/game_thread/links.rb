@@ -10,7 +10,7 @@ class Baseballbot
 
         def player_url(id) = "http://mlb.mlb.com/team/player.jsp?player_id=#{id}"
 
-        def gameday_link = "https://www.mlb.com/gameday/#{game_pk}"
+        def gameday_link(mode: nil) = ["https://www.mlb.com/gameday/#{game_pk}", mode].compact.join('/')
 
         def game_graph_link
           "http://www.fangraphs.com/livewins.aspx?date=#{start_time_et.strftime '%F'}&team=#{team.name}" \
@@ -24,7 +24,7 @@ class Baseballbot
         end
 
         # Default to the /r/baseball discord server
-        def discord_link = subreddit.options[:discord_invite] || 'https://discordapp.com/invite/Kqs2KzG'
+        def discord_link = @subreddit.options[:discord_invite] || 'https://discordapp.com/invite/Kqs2KzG'
       end
     end
   end
