@@ -11,13 +11,13 @@ gem 'honeybadger', '~> 4.12'
 gem 'mlb_stats_api', '~> 0.3', github: 'Fustrate/mlb_stats_api'
 
 # Postgres Database
-gem 'pg', '~> 1.3'
+gem 'pg', '~> 1.4'
 
 # Reddit Interaction - this needs to be replaced
 gem 'redd', '>= 0.9.0.pre.3', github: 'Fustrate/redd'
 
 # Caching
-gem 'redis', '~> 4.6'
+gem 'redis', '~> 4.7'
 
 # Cron jobs
 gem 'whenever', '~> 1.0'
@@ -26,7 +26,7 @@ gem 'whenever', '~> 1.0'
 gem 'tzinfo', '~> 2.0'
 
 # Fancy command line colors
-gem 'paint', '~> 2.2'
+gem 'paint', '~> 2.3'
 
 group :development do
   # Deploy with Capistrano
@@ -35,9 +35,9 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.2', require: false
 
   # Linters
-  gem 'rubocop', '~> 1.30'
+  gem 'rubocop', '~> 1.32'
   gem 'rubocop-performance', '~> 1.14', require: false
-  gem 'rubocop-rspec', '~> 2.11', require: false
+  gem 'rubocop-rspec', '~> 2.12', require: false
 end
 
 group :test do
