@@ -4,10 +4,25 @@ require 'webmock/rspec'
 require 'mlb_stats_api'
 require 'open-uri'
 require 'fileutils'
+require 'mock_redis'
 
 require 'support/webmock_helpers'
 
 require_relative '../lib/baseballbot'
+
+class Baseballbot
+  def redis
+    @redis ||= MockRedis.new
+  end
+
+  def api
+    @api ||= MLBStatsAPI::Client.new logger:, cache: nil
+  end
+
+  def logger
+    @logger ||= Logger.new('/dev/null')
+  end
+end
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

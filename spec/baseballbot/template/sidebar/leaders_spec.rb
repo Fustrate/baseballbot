@@ -8,12 +8,6 @@ class Subject
   end
 end
 
-class FakeBot < Baseballbot
-  def initialize
-    super user_agent: 'Baseballbot Fake Bot for Tests'
-  end
-end
-
 RSpec.describe Baseballbot::Template::Sidebar::Leaders do
   let(:bot) { Baseballbot.new(user_agent: 'Baseballbot Tests') }
   let(:subreddit) do

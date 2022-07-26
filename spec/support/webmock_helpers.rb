@@ -2,7 +2,7 @@
 
 module WebmockHelpers
   def stubbed_get_response(request)
-    query = request.uri.query&.gsub(/[?&]?t=\d+/, '')&.gsub(/\W/, '_') || ''
+    query = underscore_query request.uri.query
 
     path = [request.uri.path.gsub(%r{/?api/v[\d.]+/?}, ''), query].reject(&:empty?)
 
@@ -24,5 +24,11 @@ module WebmockHelpers
     return WebMock.stub_request(:any, /mlb(?:infra)?\.com/) unless with_response
 
     WebMock.stub_request(:any, /mlb(?:infra)?\.com/).to_return { stubbed_get_response(_1) }
+  end
+
+  def underscore_query(query)
+    return '' unless query
+
+    query.gsub(/[?&]?t=\d+/, '').gsub(/\W/, '_').gsub(/_+$/, '')
   end
 end
