@@ -41,10 +41,6 @@ class Baseballbot
             .join(', ')
         end
 
-        def home_pitcher_notes = schedule_data.dig('dates', 0, 'games', 0, 'teams', 'home', 'probablePitcher', 'note')
-
-        def away_pitcher_notes = schedule_data.dig('dates', 0, 'games', 0, 'teams', 'away', 'probablePitcher', 'note')
-
         protected
 
         def tv_feeds
