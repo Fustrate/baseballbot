@@ -111,7 +111,7 @@ class Baseballbot
 
         def cast_value(value, type)
           return value.to_i if type == :integer
-          return pct(value) if type == :float
+          return format('%0.3<value>f', value:).sub(/\A0+/, '') if type == :float
 
           value
         end

@@ -41,9 +41,13 @@ class Baseballbot
   end
 
   def configure_honeybadger
+    api_key = ENV.fetch('HONEYBADGER_API_KEY', nil)
+
+    return unless api_key
+
     Honeybadger.configure do |config|
       # For some reason, this isn't getting pulled from ENV. Do some research.
-      config.api_key = ENV.fetch('HONEYBADGER_API_KEY')
+      config.api_key = api_key
 
       config.breadcrumbs.enabled = true
       config.env = 'bot'
