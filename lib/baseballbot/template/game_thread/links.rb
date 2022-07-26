@@ -22,6 +22,9 @@ class Baseballbot
         def thumbnail
           "[](http://mlb.mlb.com/images/2017_ipad/684/#{away_team.file_code}#{home_team.file_code}_684.jpg)"
         end
+
+        # Default to the /r/baseball discord server
+        def discord_link = subreddit.options[:discord_invite] || 'https://discordapp.com/invite/Kqs2KzG'
       end
     end
   end
