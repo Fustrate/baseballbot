@@ -16,12 +16,11 @@ end
 
 RSpec.describe Baseballbot::Template::Sidebar::Leaders do
   let(:bot) { Baseballbot.new(user_agent: 'Baseballbot Tests') }
-  let(:account) { Baseballbot::Account.new bot:, name: 'RSpecTestBot', access: '' }
   let(:subreddit) do
     Baseballbot::Subreddit.new(
       { 'name' => 'dodgers', 'team_code' => 'LAD', 'team_id' => 119, 'options' => '{}' },
       bot:,
-      account:
+      account: (Baseballbot::Account.new bot:, name: 'RSpecTestBot', access: '')
     )
   end
   let(:template) { Subject.new(subreddit:) }
@@ -62,6 +61,38 @@ RSpec.describe Baseballbot::Template::Sidebar::Leaders do
         SB|T Turner|17
         SLG|F Freeman|.539
         XBH|F Freeman|49
+      MARKDOWN
+    end
+  end
+
+  describe '#pitcher_stats' do
+    it 'loads basic pitcher stats' do
+      expect(template.pitcher_stats).to eq(
+        'avg' => [{ name: 'T Gonsolin', value: '.174' }],
+        'era' => [{ name: 'T Gonsolin', value: '2.260' }],
+        'hld' => [{ name: 'E Phillips', value: 11 }],
+        'ip' => [{ name: 'T Anderson', value: '103.1' }],
+        'so' => [{ name: 'J Urías', value: 99 }],
+        'sv' => [{ name: 'C Kimbrel', value: 17 }],
+        'w' => [{ name: 'T Gonsolin', value: 11 }],
+        'whip' => [{ name: 'T Gonsolin', value: '.880' }]
+      )
+    end
+  end
+
+  describe '#pitcher_stats_table' do
+    it 'generates a markdown table' do
+      expect(template.pitcher_stats_table(stats: %w[avg era hld ip so sv w whip])).to eq(<<~MARKDOWN)
+        Stat|Player|Total
+        -|-|-
+        AVG|T Gonsolin|.174
+        ERA|T Gonsolin|2.260
+        HLD|E Phillips|11
+        IP|T Anderson|103.1
+        SO|J Urías|99
+        SV|C Kimbrel|17
+        W|T Gonsolin|11
+        WHIP|T Gonsolin|.880
       MARKDOWN
     end
   end
