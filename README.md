@@ -1,3 +1,5 @@
+[![RSpec](https://github.com/Fustrate/baseballbot/actions/workflows/rspec.yml/badge.svg)](https://github.com/Fustrate/baseballbot/actions/workflows/rspec.yml)
+
 Environment variables needed:
 
 ```sh
