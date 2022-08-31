@@ -35,6 +35,8 @@ class NoHitterBot
   protected
 
   def perform_check?
+    return true if ENV.fetch('FORCE', nil)
+
     value = @bot.redis.get 'next_no_hitter_check'
 
     !value || Time.parse(value) < Time.now
