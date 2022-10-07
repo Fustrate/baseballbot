@@ -45,14 +45,11 @@ class SubredditSchedule
 
   # Rescheduled games, when converted to the local time zone, end up in the previous day.
   def adjust_game_time(timestamp)
-    Baseballbot::Utility.parse_time(
-      timestamp.sub('03:33', '12:00'),
-      in_time_zone: @subreddit.timezone
-    )
+    Baseballbot::Utility.parse_time(timestamp.sub('03:33', '12:00'), in_time_zone: @subreddit.timezone)
   end
 
   def build_date_hash(start_date, end_date)
-    start_date.upto(end_date).to_h { |date| [date.strftime('%F'), { date:, games: [] }] }
+    start_date.upto(end_date).to_h { [_1.strftime('%F'), { date: _1, games: [] }] }
   end
 
   def calendar_dates(start_date, end_date)
