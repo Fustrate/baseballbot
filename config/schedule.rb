@@ -57,5 +57,5 @@ end
 every 1.day, at: '4:30 am' do
   bundle_exec_ruby :around_the_horn, :post
   bundle_exec_ruby :sync_moderators
-  # bundle_exec_ruby :load_postseason_game_threads
+  bundle_exec_ruby :load_postseason_game_threads
 end
