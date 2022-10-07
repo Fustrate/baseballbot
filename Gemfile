@@ -17,7 +17,7 @@ gem 'pg', '~> 1.4'
 gem 'redd', '>= 0.9.0.pre.3', github: 'Fustrate/redd'
 
 # Caching
-gem 'redis', '~> 4.7'
+gem 'redis', '~> 5.0'
 
 # Cron jobs
 gem 'whenever', '~> 1.0'
