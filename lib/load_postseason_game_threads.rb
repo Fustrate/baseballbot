@@ -71,7 +71,8 @@ class PostseasonGameLoader
     # If the team is undetermined, their division will be blank
     !game.dig('status', 'startTimeTBD') &&
       game.dig('teams', 'away', 'team', 'division') &&
-      game.dig('teams', 'home', 'team', 'division')
+      game.dig('teams', 'home', 'team', 'division') &&
+      !game.dig('seriesStatus', 'isOver')
   end
 
   def insert_game(game, starts_at, post_at, title, subreddit_id)
