@@ -34,7 +34,7 @@ class PostseasonGameLoader
 
     return if starts_at < Time.now
 
-    insert_game game, starts_at, starts_at - 3600, post_title(game), R_BASEBALL
+    insert_game game, starts_at, starts_at - 3600, baseball_subreddit_title, R_BASEBALL
 
     insert_team_game game, starts_at
   end
@@ -98,15 +98,10 @@ class PostseasonGameLoader
     }
   end
 
-  def post_title(game)
-    game['gameType'] == 'F' ? baseball_subreddit_titles['wildcard'] : baseball_subreddit_titles['postseason']
-  end
-
-  def baseball_subreddit_titles
-    @baseball_subreddit_titles ||= @bot.db.exec(<<~SQL).first
+  def baseball_subreddit_title
+    @baseball_subreddit_title ||= @bot.db.exec(<<~SQL).first['title']
       SELECT
-        options#>>'{game_threads,title,postseason}' AS postseason,
-        options#>>'{game_threads,title,wildcard}' AS wildcard
+        options#>>'{game_threads,title,postseason}' AS title
       FROM subreddits
       WHERE id = #{R_BASEBALL}
     SQL
