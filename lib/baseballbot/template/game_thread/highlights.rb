@@ -10,18 +10,6 @@ class Baseballbot
           @highlights ||= fetch_highlights || []
         end
 
-        def highlights_list
-          highlights
-            .map do |highlight|
-              # icon = link_to '', url: "/#{highlight[:code]}"
-              text = "#{highlight[:blurb]} (#{highlight[:duration]})"
-              url = highlight[:hd]
-
-              "- #{url ? link_to(text, url:) : text}"
-            end
-            .join "\n"
-        end
-
         def highlights_table
           lines = highlights.map do |highlight|
             [
