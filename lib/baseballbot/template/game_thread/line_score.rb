@@ -9,10 +9,10 @@ class Baseballbot
 
         def line_score
           <<~MARKDOWN
-            | |#{(1..(lines[0].count)).to_a.join('|')}|R|H|E
-            |:-:|#{':-:|' * lines[0].count}:-:|:-:|:-:
-            #{line_for_team(:away)}
-            #{line_for_team(:home)}
+            | |#{(1..(line_score_innings[0].count)).to_a.join('|')}|R|H|E|LOB
+            |:-:|#{':-:|' * line_score_innings[0].count}:-:|:-:|:-:|:-:
+            #{line_score_team(:away)}
+            #{line_score_team(:home)}
           MARKDOWN
         end
 
@@ -24,40 +24,22 @@ class Baseballbot
           "#{runners}, #{outs} #{outs == 1 ? 'Out' : 'Outs'}, #{inning}"
         end
 
-        def home_rhe = linescore&.dig('teams', 'home', 'runs') ? linescore.dig('teams', 'home') : BLANK_RHE
-
-        def away_rhe = linescore&.dig('teams', 'away', 'runs') ? linescore.dig('teams', 'away') : BLANK_RHE
-
-        def home_lob
-          boxscore.dig('teams', 'home', 'info')
-            .find { _1['title'] == 'BATTING' }['fieldList']
-            .find { _1['label'] == 'Team LOB' }['value']
-            .to_i
-        end
-
-        def away_lob
-          boxscore.dig('teams', 'away', 'info')
-            .find { _1['title'] == 'BATTING' }['fieldList']
-            .find { _1['label'] == 'Team LOB' }['value']
-            .to_i
-        end
-
         protected
 
-        def lines
-          @lines ||= started? && linescore&.dig('innings') ? process_linescore_inning : BLANK_LINES
+        def line_score_innings
+          @line_score_innings ||= started? && linescore&.dig('innings') ? process_line_score_inning : BLANK_LINES
         end
 
-        def process_linescore_inning
-          lines = base_lines
-
-          linescore['innings'].each do |inning|
-            lines[0][inning['num'] - 1] = inning['away']&.dig('runs')
-            lines[1][inning['num'] - 1] = inning['home']&.dig('runs')
+        def process_line_score_inning
+          base_lines.tap do |lines|
+            linescore['innings'].each do |inning|
+              lines[0][inning['num'] - 1] = inning_runs(inning, 'away')
+              lines[1][inning['num'] - 1] = inning_runs(inning, 'home')
+            end
           end
-
-          lines
         end
+
+        def inning_runs(inning, flag) = inning[flag]&.dig('runs')
 
         def base_lines
           innings = [9, linescore['innings'].count].max
@@ -65,29 +47,39 @@ class Baseballbot
           [[nil] * innings, [nil] * innings]
         end
 
-        def line_for_team(flag)
+        def line_score_team(flag)
           info = team_line_information(flag)
 
           format(
-            '|[%<code>s](/%<code>s)|%<line>s|%<runs>s|%<hits>s|%<errors>s',
+            '|[%<code>s](/%<code>s)|%<line>s|%<runs>s|%<hits>s|%<errors>s|%<lob>s',
             code: info[:code],
             line: info[:line].join('|'),
             runs: bold(info[:runs]),
             hits: bold(info[:hits]),
-            errors: bold(info[:errors])
+            errors: bold(info[:errors]),
+            lob: bold(team_lob(flag))
           )
         end
 
         def team_line_information(flag)
-          rhe = flag == :home ? home_rhe : away_rhe
+          rhe = team_rhe(flag)
 
           {
             code: (flag == :home ? home_team : away_team).code,
-            line: flag == :home ? lines[1] : lines[0],
+            line: flag == :home ? line_score_innings[1] : line_score_innings[0],
             runs: rhe['runs'],
             hits: rhe['hits'],
             errors: rhe['errors']
           }
+        end
+
+        def team_rhe(flag) = linescore&.dig('teams', flag.to_s, 'runs') ? linescore.dig('teams', flag.to_s) : BLANK_RHE
+
+        def team_lob(flag)
+          boxscore.dig('teams', flag.to_s, 'info')
+            .find { _1['title'] == 'BATTING' }['fieldList']
+            .find { _1['label'] == 'Team LOB' }['value']
+            .to_i
         end
       end
     end
