@@ -32,7 +32,11 @@ class Baseballbot
         end
 
         def box_score
-          [batters_table(:home), pitchers_table(:home), batters_table(:away), pitchers_table(:away)].join("\n\n")
+          tables = [batters_table(:home), pitchers_table(:home), batters_table(:away), pitchers_table(:away)].compact
+
+          return 'Lineups will be posted closer to game time.' if tables.none?
+
+          tables.join "\n\n"
         end
 
         def metadata_section

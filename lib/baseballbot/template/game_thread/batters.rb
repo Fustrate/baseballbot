@@ -16,7 +16,11 @@ class Baseballbot
         }.freeze
 
         def batters_table(flag, stats: %i[ab r h rbi bb so ba])
-          table(headers: batters_table_header(flag, stats), rows: team_batters(flag).map { batter_row(_1, stats) })
+          batters = team_batters(flag)
+
+          return if batters.none?
+
+          table(headers: batters_table_header(flag, stats), rows: batters.map { batter_row(_1, stats) })
         end
 
         protected
