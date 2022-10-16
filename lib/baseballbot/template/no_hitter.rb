@@ -10,12 +10,7 @@ class Baseballbot
       def initialize(subreddit:, game_pk:, flag:)
         @flag = flag
 
-        super(
-          subreddit:,
-          game_pk:,
-          title: TITLE_FORMAT,
-          type: 'no_hitter'
-        )
+        super(subreddit:, game_pk:, title: TITLE_FORMAT, type: 'no_hitter')
       end
 
       def inspect = %(#<Baseballbot::Template::NoHitter @game_pk="#{@game_pk}" @flag="#{@flag}">)
