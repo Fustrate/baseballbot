@@ -6,9 +6,7 @@ class Baseballbot
       module Components
         def header
           <<~MARKDOWN
-            [](http://mlb.mlb.com/images/2017_ipad/684/#{away_team.file_code}#{home_team.file_code}_684.jpg)
-
-            ### #{away_team.name} (#{away_record}) @ #{home_team.name} (#{home_record})
+            ### #{away_team.name} (#{away_record}) @ #{home_team.name} (#{home_record}) #{thumbnail}
 
             **First Pitch**: #{start_time_local.strftime('%-I:%M %p')} at #{venue_name}
           MARKDOWN
