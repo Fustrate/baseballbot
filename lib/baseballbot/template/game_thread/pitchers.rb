@@ -27,64 +27,26 @@ class Baseballbot
           boxscore.dig('teams', 'home', 'players', "ID#{pitcher_id}") if pitcher_id
         end
 
-        def home_pitchers
+        def pitchers_table(flag, stats: %i[ip h r er bb so p-s era])
+          table headers: pitchers_table_header(flag, stats), data: team_pitchers(flag).map { pitcher_row(_1, stats) }
+        end
+
+        protected
+
+        def team_pitchers(flag)
           return [] unless started? && boxscore
 
-          boxscore.dig('teams', 'home', 'pitchers').map { boxscore.dig('teams', 'home', 'players', "ID#{_1}") }
+          boxscore.dig('teams', flag.to_s, 'pitchers').map { boxscore.dig('teams', flag.to_s, 'players', "ID#{_1}") }
         end
 
-        def away_pitchers
-          return [] unless started? && boxscore
-
-          boxscore.dig('teams', 'away', 'pitchers').map { boxscore.dig('teams', 'away', 'players', "ID#{_1}") }
+        def pitchers_table_header(flag, stats)
+          [bold((flag == :home ? home_team : away_team).code), *(stats.map { [_1.to_s.upcase, :center] })]
         end
-
-        def pitchers = full_zip(home_pitchers, away_pitchers)
-
-        def pitchers_table(stats: %i[ip h r er bb so p-s era])
-          rows = pitchers.map do |one, two|
-            [pitcher_row(one, stats), pitcher_row(two, stats)].join('||')
-          end
-
-          stat_alignment = ([':-:'] * stats.count).join('|')
-
-          <<~MARKDOWN
-            #{pitchers_table_header(home_team, stats)}||#{pitchers_table_header(away_team, stats)}
-            -|#{stat_alignment}|-|-|#{stat_alignment}
-            #{rows.join("\n")}
-          MARKDOWN
-        end
-
-        def home_pitchers_table(stats: %i[ip h r er bb so p-s era])
-          rows = home_pitchers.map { pitcher_row(_1, stats) }
-
-          <<~MARKDOWN
-            #{pitchers_table_header(home_team, stats)}
-            -|#{([':-:'] * stats.count).join('|')}
-            #{rows.join("\n")}
-          MARKDOWN
-        end
-
-        def away_pitchers_table(stats: %i[ip h r er bb so p-s era])
-          rows = away_pitchers.map { pitcher_row(_1, stats) }
-
-          <<~MARKDOWN
-            #{pitchers_table_header(away_team, stats)}
-            -|#{([':-:'] * stats.count).join('|')}
-            #{rows.join("\n")}
-          MARKDOWN
-        end
-
-        def pitchers_table_header(team, stats) = "**#{team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}"
 
         def pitcher_row(pitcher, stats = %i[ip h r er bb so p-s era])
-          return " #{'|' * stats.count}" unless pitcher
-
           today = game_stats(pitcher)['pitching']
 
-          cells = stats.map { PITCHER_COLUMNS[_1].call(pitcher, today) }
-
-          [player_link(pitcher, title: 'Game Score: ???'), *cells].join '|'
+          [player_link(pitcher, title: 'Game Score: ???'), *(stats.map { PITCHER_COLUMNS[_1].call(pitcher, today) })]
         end
 
         def pitcher_line(pitcher)

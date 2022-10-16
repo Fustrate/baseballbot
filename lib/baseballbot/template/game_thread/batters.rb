@@ -15,67 +15,26 @@ class Baseballbot
           sb: ->(_, game) { game['stolenBases'] }
         }.freeze
 
-        def batting_order(batter)
-          batter['battingOrder']&.to_i || game_stats(batter).dig('batting', 'battingOrder').to_i
+        def batters_table(flag, stats: %i[ab r h rbi bb so ba])
+          table headers: batters_table_header(flag, stats), data: team_batters(flag).map { batter_row(_1, stats) }
         end
 
-        def home_batters
+        protected
+
+        def team_batters(flag)
           return [] unless started? && boxscore
 
-          @home_batters ||= boxscore['teams']['home']['players']
+          boxscore['teams'][flag.to_s]['players']
             .values
             .select { batting_order(_1).positive? }
             .sort_by { batting_order(_1) }
         end
 
-        def away_batters
-          return [] unless started? && boxscore
-
-          @away_batters ||= boxscore['teams']['away']['players']
-            .values
-            .select { batting_order(_1).positive? }
-            .sort_by { batting_order(_1) }
+        def batters_table_header(flag, stats)
+          [bold((flag == :home ? home_team : away_team).code), ' ', *(stats.map { [_1.to_s.upcase, :center] })]
         end
-
-        def batters = full_zip(home_batters, away_batters)
-
-        def batters_table(stats: %i[ab r h rbi bb so ba])
-          rows = batters.map do |one, two|
-            [batter_row(one, stats), batter_row(two, stats)].join('||')
-          end
-
-          <<~TABLE
-            ||#{batters_table_header(home_team, stats)}|||#{batters_table_header(away_team, stats)}
-            -|-#{'|:-:' * stats.count}|-|-|-#{'|:-:' * stats.count}
-            #{rows.join("\n")}
-          TABLE
-        end
-
-        def home_batters_table(stats: %i[ab r h rbi bb so ba])
-          rows = home_batters.map { batter_row(_1, stats) }
-
-          <<~TABLE
-            ||#{batters_table_header(home_team, stats)}
-            -|-#{'|:-:' * stats.count}
-            #{rows.join("\n")}
-          TABLE
-        end
-
-        def away_batters_table(stats: %i[ab r h rbi bb so ba])
-          rows = away_batters.map { batter_row(_1, stats) }
-
-          <<~TABLE
-            ||#{batters_table_header(away_team, stats)}
-            -|-#{'|:-:' * stats.count}
-            #{rows.join("\n")}
-          TABLE
-        end
-
-        def batters_table_header(team, stats) = "**#{team.code}**|#{stats.map(&:to_s).map(&:upcase).join('|')}"
 
         def batter_row(batter, stats = %i[ab r h rbi bb so ba])
-          return " |#{'|' * stats.count}" unless batter
-
           # Batting order shows as [1-9]00 for the starter, and adds 1 for each substitution (e.g. 400 -> 401 -> 402)
           replacement = (batting_order(batter) % 100).positive?
           position = batter['position']['abbreviation']
@@ -83,13 +42,17 @@ class Baseballbot
           spacer = '[](/spacer)' if replacement
           position = bold(position) unless replacement
 
-          "#{spacer}#{position}|#{spacer}#{player_link(batter)}|#{batter_cells(batter, stats).join('|')}"
+          ["#{spacer}#{position}", "#{spacer}#{player_link(batter)}", *batter_cells(batter, stats)]
         end
 
         def batter_cells(batter, stats)
           today = game_stats(batter)['batting']
 
           stats.map { BATTER_COLUMNS[_1].call(batter, today) }
+        end
+
+        def batting_order(batter)
+          batter['battingOrder']&.to_i || game_stats(batter).dig('batting', 'battingOrder').to_i
         end
       end
     end
