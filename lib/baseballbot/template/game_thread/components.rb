@@ -8,6 +8,8 @@ class Baseballbot
 
         def first_pitch = "**First Pitch**: #{start_time_local.strftime('%-I:%M %p')} at #{venue_name}"
 
+        def final_score = "**Final Score**: #{away_team.name} #{runs(:away)}, #{home_team.name} #{runs(:home)}"
+
         def probables_and_media
           table columns: %w[Team Starter TV Radio], data: [
             [team_link(away_team), pitcher_line(probable_away_starter), away_tv, away_radio],
