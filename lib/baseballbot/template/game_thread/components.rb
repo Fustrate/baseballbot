@@ -29,6 +29,14 @@ class Baseballbot
           [batters_table(:home), pitchers_table(:home), batters_table(:away), pitchers_table(:away)].join("\n\n")
         end
 
+        def metadata_section
+          <<~MARKDOWN
+            #{table(headers: %w[Attendance Weather Wind], rows: [attendance, weather, wind])}
+
+            #{table(headers: umpires.keys.map { [_1, :center] }, rows: umpires.values)}
+          MARKDOWN
+        end
+
         protected
 
         def team_link(team) = link_to(team.name, "/r/#{subreddit(team.code)}")

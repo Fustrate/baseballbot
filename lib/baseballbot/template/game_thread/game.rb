@@ -37,7 +37,7 @@ class Baseballbot
         end
 
         def umpires
-          feed
+          @umpires ||= feed
             .dig('liveData', 'boxscore', 'officials')
             .to_h { [UMPIRE_POSITIONS[_1['officialType']], _1['official']['fullName']] }
         end
