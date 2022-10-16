@@ -24,7 +24,7 @@ class Baseballbot
         end
 
         # Default to the /r/baseball discord server
-        def discord_link = @subreddit.options[:discord_invite] || 'https://discordapp.com/invite/Kqs2KzG'
+        def discord_link = @subreddit.options[:discord_invite] || 'https://discord.gg/rbaseball'
       end
     end
   end
