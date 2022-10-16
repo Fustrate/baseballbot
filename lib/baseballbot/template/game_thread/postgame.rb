@@ -4,6 +4,16 @@ class Baseballbot
   module Template
     class GameThread
       module Postgame
+        def decisions_section
+          return unless final?
+
+          <<~MARKDOWN
+            ### Decisions
+
+            #{decisions_table}
+          MARKDOWN
+        end
+
         def decisions_table
           table(
             headers: [['Winning Pitcher', :center], ['Losing Pitcher', :center], ['Save', :center]],

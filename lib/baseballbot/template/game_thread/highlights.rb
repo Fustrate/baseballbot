@@ -4,10 +4,14 @@ class Baseballbot
   module Template
     class GameThread
       module Highlights
-        def highlights
-          return [] unless started?
+        def highlights_section
+          return unless final? && highlights.any?
 
-          @highlights ||= fetch_highlights || []
+          <<~MARKDOWN
+            ### Highlights
+
+            #{decisions_table}
+          MARKDOWN
         end
 
         def highlights_table
@@ -28,6 +32,12 @@ class Baseballbot
         end
 
         protected
+
+        def highlights
+          return [] unless started?
+
+          @highlights ||= fetch_highlights || []
+        end
 
         def fetch_highlights
           content.dig('highlights', 'highlights', 'items')
