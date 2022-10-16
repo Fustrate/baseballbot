@@ -59,6 +59,8 @@ class Baseballbot
       end
 
       def postponed? = nil
+
+      def timestamp = super(over? ? 'Game ended' : 'Updated')
     end
   end
 end
