@@ -55,8 +55,8 @@ class Baseballbot
 
         def postgame_interpolations
           {
-            away_runs: away_rhe['runs'],
-            home_runs: home_rhe['runs']
+            away_runs: runs(:away),
+            home_runs: runs(:home)
           }
         end
 

@@ -24,6 +24,8 @@ class Baseballbot
           "#{runners}, #{outs} #{outs == 1 ? 'Out' : 'Outs'}, #{inning}"
         end
 
+        def runs(flag) = rhe(flag)['runs']
+
         protected
 
         def line_score_innings
@@ -57,25 +59,25 @@ class Baseballbot
             runs: bold(info[:runs]),
             hits: bold(info[:hits]),
             errors: bold(info[:errors]),
-            lob: bold(team_lob(flag))
+            lob: bold(lob(flag))
           )
         end
 
         def team_line_information(flag)
-          rhe = team_rhe(flag)
+          team_rhe = rhe(flag)
 
           {
             code: (flag == :home ? home_team : away_team).code,
             line: flag == :home ? line_score_innings[1] : line_score_innings[0],
-            runs: rhe['runs'],
-            hits: rhe['hits'],
-            errors: rhe['errors']
+            runs: team_rhe['runs'],
+            hits: team_rhe['hits'],
+            errors: team_rhe['errors']
           }
         end
 
-        def team_rhe(flag) = linescore&.dig('teams', flag.to_s, 'runs') ? linescore.dig('teams', flag.to_s) : BLANK_RHE
+        def rhe(flag) = linescore&.dig('teams', flag.to_s, 'runs') ? linescore.dig('teams', flag.to_s) : BLANK_RHE
 
-        def team_lob(flag)
+        def lob(flag)
           boxscore.dig('teams', flag.to_s, 'info')
             .find { _1['title'] == 'BATTING' }['fieldList']
             .find { _1['label'] == 'Team LOB' }['value']

@@ -8,8 +8,7 @@ class Baseballbot
 
         def home_record = standings_by_team_id[game_data.dig('teams', 'home', 'id')] || '0-0'
 
-        # The game endpoint is returning stale data, so let's try grabbing them from the standings
-        # endpoint instead.
+        # The game endpoint is returning stale data, so let's try grabbing them from the standings endpoint instead.
         def standings_by_team_id
           @standings_by_team_id ||= @bot.api
             .standings(leagues: %i[al nl], season: Date.today.year)['records']
@@ -33,9 +32,9 @@ class Baseballbot
 
         def home? = @subreddit.team ? home_team.id == @subreddit.team.id : true
 
-        def won? = (home? == (home_rhe['runs'] > away_rhe['runs']) if final?)
+        def won? = (home? == (runs(:home) > runs(:away)) if final?)
 
-        def lost? = (home? == (home_rhe['runs'] < away_rhe['runs']) if final?)
+        def lost? = (home? == (runs(:home) < runs(:away)) if final?)
       end
     end
   end
