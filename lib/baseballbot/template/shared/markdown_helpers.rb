@@ -7,11 +7,11 @@ module MarkdownHelpers
     right: '-:'
   }.freeze
 
-  def bold(text) = "**#{text}**"
+  def bold(text) = text.empty ? '' : "**#{text}**"
 
-  def italic(text) = "*#{text}*"
+  def italic(text) = text.empty ? '' : "*#{text}*"
 
-  def sup(text) = "^(#{text})"
+  def sup(text) = text.empty ? '' : "^(#{text})"
 
   def pct(percent) = format('%0.3<percent>f', percent:).sub(/\A0+/, '')
 
