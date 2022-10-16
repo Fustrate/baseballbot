@@ -41,9 +41,9 @@ class Baseballbot
 
         def metadata_section
           <<~MARKDOWN
-            #{table(headers: %w[Attendance Weather Wind], rows: [attendance, weather, wind])}
+            #{table(headers: %w[Attendance Weather Wind], rows: [[attendance, weather, wind]])}
 
-            #{table(headers: umpires.keys.map { [_1, :center] }, rows: umpires.values)}
+            #{table(headers: umpires.keys.map { [_1, :center] }, rows: [umpires.values])}
           MARKDOWN
         end
 
