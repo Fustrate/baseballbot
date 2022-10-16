@@ -31,7 +31,7 @@ class Baseballbot
 
       # Get the default subreddit for this team
       def subreddit(code)
-        name = @subreddit.options.dig('subreddits', code.upcase) || Baseballbot::Subreddits.default_subreddit(code)
+        name = @subreddit.options.dig('subreddits', code.upcase) || @bot.default_subreddit(code)
 
         @subreddit.options.dig('subreddits', 'downcase') ? name.downcase : name
       end
