@@ -87,6 +87,8 @@ class Baseballbot
 
         def game_stats(player) = (player['gameStats'] || player['stats'] || {})
 
+        protected
+
         # If the first array isn't at least as big as the second, it gets truncated during a normal zip operation
         def full_zip(one, two)
           one.length < two.length ? (one + ([nil] * (two.length - one.length))).zip(two) : one.zip(two)
