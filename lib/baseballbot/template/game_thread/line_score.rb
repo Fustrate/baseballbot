@@ -86,7 +86,7 @@ class Baseballbot
         def rhe(flag) = linescore&.dig('teams', flag.to_s, 'runs') ? linescore.dig('teams', flag.to_s) : BLANK_RHE
 
         def lob(flag)
-          return '' unless started?
+          return 0 unless started?
 
           boxscore.dig('teams', flag.to_s, 'info')
             .find { _1['title'] == 'BATTING' }['fieldList']
