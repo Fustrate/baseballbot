@@ -60,7 +60,17 @@ class Baseballbot
 
       def postponed? = nil
 
-      def timestamp(status) = super(status || (over? ? 'Game ended' : 'Updated'))
+      def timestamp(status)
+        return super if status
+
+        return super('Game ended') if over?
+
+        return "#{super('Posted')} *Updates start at game time.*" unless @post_id
+
+        return super('Updated') if started?
+
+        super
+      end
     end
   end
 end
