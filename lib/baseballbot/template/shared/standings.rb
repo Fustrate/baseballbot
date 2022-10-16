@@ -2,7 +2,7 @@
 
 class Baseballbot
   module Template
-    class Shared
+    module Shared
       module Standings
         # I guess I should make this a constant so that I can easily mark 75 wildcard teams when they allow everyone and
         # their grandmother into the playoffs...

@@ -5,7 +5,7 @@ require_relative 'subreddit_schedule_generator'
 
 class Baseballbot
   module Template
-    class Shared
+    module Shared
       module Calendar
         def month_calendar(downcase: false)
           cells = month_schedule.map do |_, day|

@@ -2,7 +2,7 @@
 
 class Baseballbot
   module Template
-    class Shared
+    module Shared
       class MarkdownCalendar
         class << self
           def generate(cells, dates)

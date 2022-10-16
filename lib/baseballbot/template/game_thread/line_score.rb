@@ -88,8 +88,11 @@ class Baseballbot
         def lob(flag)
           return 0 unless started?
 
-          boxscore.dig('teams', flag.to_s, 'info')
-            .find { _1['title'] == 'BATTING' }['fieldList']
+          batting_info = boxscore.dig('teams', flag.to_s, 'info').find { _1['title'] == 'BATTING' }
+
+          return 0 unless batting_info
+
+          batting_info['fieldList']
             .find { _1['label'] == 'Team LOB' }['value']
             .to_i
         end
