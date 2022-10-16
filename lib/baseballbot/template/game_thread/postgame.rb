@@ -13,9 +13,9 @@ class Baseballbot
 
         protected
 
-        def winner_flag = runs(:home) > runs(:away) ? 'home' : 'away'
+        def winner_flag = (runs(:home) > runs(:away) ? 'home' : 'away')
 
-        def loser_flag = runs(:home) > runs(:away) ? 'away' : 'home'
+        def loser_flag = (runs(:home) > runs(:away) ? 'away' : 'home')
 
         def winning_pitcher
           return unless final?
