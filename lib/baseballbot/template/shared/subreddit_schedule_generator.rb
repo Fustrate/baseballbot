@@ -88,12 +88,12 @@ class TeamCalendarGame
     @opponent ||= @api.team(@data.dig('teams', opponent_flag, 'team', 'id'))
   end
 
-  def over?
-    @over ||= %w[F C D FT FR].include?(@data['status']['statusCode'])
+  def final?
+    @final ||= %w[F C D FT FR].include?(@data['status']['statusCode'])
   end
 
   def outcome
-    return unless over?
+    return unless final?
 
     return 'Tied' if score[0] == score[1]
 
@@ -110,7 +110,7 @@ class TeamCalendarGame
   def status
     return 'Delayed' if @data['status']['statusCode'].start_with? 'D'
 
-    return "#{outcome} #{score.join '-'}" if over?
+    return "#{outcome} #{score.join '-'}" if final?
 
     [
       @date.strftime('%-I:%M'),
@@ -127,7 +127,7 @@ class TeamCalendarGame
   end
 
   def wlt
-    return '' unless over?
+    return '' unless final?
 
     return 'T' if score[0] == score[1]
 
@@ -139,9 +139,6 @@ class TeamCalendarGame
   protected
 
   def current_team_game?
-    [
-      @data.dig('teams', 'away', 'team', 'id'),
-      @data.dig('teams', 'home', 'team', 'id')
-    ].include?(@team_id)
+    @data.dig('teams', 'away', 'team', 'id') == @team_id || @data.dig('teams', 'home', 'team', 'id') == @team_id
   end
 end

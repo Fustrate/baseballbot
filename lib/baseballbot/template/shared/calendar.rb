@@ -38,7 +38,7 @@ class Baseballbot
           schedule_between(start_date, Date.today, team).reverse_each do |day|
             next if day[:date] > Date.today
 
-            games.concat day[:games].keep_if(&:over?)
+            games.concat day[:games].keep_if(&:final?)
 
             break if games.count >= limit
           end
@@ -54,7 +54,7 @@ class Baseballbot
           schedule_between(Date.today, end_date, team).each do |day|
             next if day[:date] < Date.today
 
-            games.concat day[:games].reject(&:over?)
+            games.concat day[:games].reject(&:final?)
 
             break if games.count >= limit
           end
