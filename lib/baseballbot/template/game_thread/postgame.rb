@@ -4,6 +4,15 @@ class Baseballbot
   module Template
     class GameThread
       module Postgame
+        def decisions_table
+          table(
+            headers: [['Winning Pitcher', :center], ['Losing Pitcher', :center], ['Save', :center]],
+            data: [winning_pitcher, losing_pitcher, save_pitcher]
+          )
+        end
+
+        protected
+
         def winner_flag = runs(:home) > runs(:away) ? 'home' : 'away'
 
         def loser_flag = runs(:home) > runs(:away) ? 'away' : 'home'
@@ -16,13 +25,13 @@ class Baseballbot
           return unless pitcher_id
 
           data = boxscore.dig 'teams', winner_flag, 'players', "ID#{pitcher_id}"
-          stats = data['seasonStats']['pitching']
 
-          {
+          format(
+            '%<name>s (%<record>s, %<era>s ERA)',
             name: player_name(data),
-            record: stats.values_at('wins', 'losses').join('-'),
-            era: stats['era']
-          }
+            record: data['seasonStats']['pitching'].values_at('wins', 'losses').join('-'),
+            era: data['seasonStats']['pitching']['era']
+          )
         end
 
         def losing_pitcher
@@ -33,13 +42,13 @@ class Baseballbot
           return unless pitcher_id
 
           data = boxscore.dig 'teams', loser_flag, 'players', "ID#{pitcher_id}"
-          stats = data['seasonStats']['pitching']
 
-          {
+          format(
+            '%<name>s (%<record>s, %<era>s ERA)',
             name: player_name(data),
-            record: stats.values_at('wins', 'losses').join('-'),
-            era: stats['era']
-          }
+            record: data['seasonStats']['pitching'].values_at('wins', 'losses').join('-'),
+            era: data['seasonStats']['pitching']['era']
+          )
         end
 
         def save_pitcher
@@ -51,28 +60,12 @@ class Baseballbot
 
           data = boxscore.dig 'teams', winner_flag, 'players', "ID#{pitcher_id}"
 
-          {
+          format(
+            '%<name>s (%<saves>s SV, %<era>s ERA)',
             name: player_name(data),
             saves: data['seasonStats']['pitching']['saves'],
             era: data['seasonStats']['pitching']['era']
-          }
-        end
-
-        def decisions_table
-          winner = pitcher_decision(winning_pitcher, :record)
-          loser = pitcher_decision(losing_pitcher, :record)
-          save = pitcher_decision(save_pitcher, :saves)
-
-          <<~MARKDOWN
-            Winning Pitcher|Losing Pitcher|Save
-            :-:|:-:|:-:\n#{winner}|#{loser}|#{save}
-          MARKDOWN
-        end
-
-        def pitcher_decision(pitcher, info_key)
-          return '' unless pitcher
-
-          format "%<name>s (%<#{info_key}>s, %<era>s)", pitcher
+          )
         end
       end
     end
