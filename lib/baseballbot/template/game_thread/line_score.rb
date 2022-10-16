@@ -92,9 +92,9 @@ class Baseballbot
 
           return 0 unless batting_info
 
-          batting_info['fieldList']
-            .find { _1['label'] == 'Team LOB' }['value']
-            .to_i
+          lob_info = batting_info['fieldList'].find { _1['label'] == 'Team LOB' }
+
+          lob_info ? lob_info['value'].to_i : 0
         end
       end
     end
