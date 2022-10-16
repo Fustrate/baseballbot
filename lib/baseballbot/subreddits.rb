@@ -10,6 +10,7 @@ class Baseballbot
 
     # The default subreddits for each team, as used by /r/baseball. These can be overridden on a team-by-team basis
     # by setting `options['subreddits']['XYZ'] = 'OtherSub'` on the Subreddit record.
+    # These are capitalized the same way the subreddit's display_name is on /r/.../about.json
     DEFAULT_SUBREDDITS = {
       'ARI' => 'azdiamondbacks',
       'ATL' => 'Braves',
@@ -44,6 +45,9 @@ class Baseballbot
     }.freeze
 
     def name_to_subreddit(name) = (name.is_a?(Subreddit) ? name : subreddits[name.downcase])
+
+    # Default to r/baseball for spring training games against college teams or minor league teams
+    def default_subreddit(code) = DEFAULT_SUBREDDITS[code.upcase] || 'baseball'
 
     protected
 

@@ -31,8 +31,9 @@ class Baseballbot
 
       # Get the default subreddit for this team
       def subreddit(code)
-        @subreddit.options.dig('subreddits', code.upcase) ||
-          Baseballbot::Subreddits::DEFAULT_SUBREDDITS[code.upcase]
+        name = @subreddit.options.dig('subreddits', code.upcase) || Baseballbot::Subreddits.default_subreddit(code)
+
+        @subreddit.options.dig('subreddits', 'downcase') ? name.downcase : name
       end
 
       def replace_regexp(delimiter: DELIMITER)
