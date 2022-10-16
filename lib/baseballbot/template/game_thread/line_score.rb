@@ -7,6 +7,14 @@ class Baseballbot
         BLANK_RHE = { 'runs' => 0, 'hits' => 0, 'errors' => 0 }.freeze
         BLANK_LINES = [[nil] * 9, [nil] * 9].freeze
 
+        def line_score_section
+          <<~MARKDOWN
+            ### Line Score - #{line_score_status}
+
+            #{line_score}
+          MARKDOWN
+        end
+
         def line_score
           <<~MARKDOWN
             | |#{(1..(line_score_innings[0].count)).to_a.join('|')}|R|H|E|LOB

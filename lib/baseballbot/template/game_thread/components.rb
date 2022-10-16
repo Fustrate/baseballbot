@@ -17,6 +17,14 @@ class Baseballbot
           ]
         end
 
+        def box_score_section
+          <<~MARKDOWN
+            ### Box Score
+
+            #{box_score}
+          MARKDOWN
+        end
+
         def box_score
           [batters_table(:home), pitchers_table(:home), batters_table(:away), pitchers_table(:away)].join("\n\n")
         end
