@@ -9,7 +9,6 @@ class Baseballbot
       using TemplateRefinements
 
       include Template::GameThread::Batters
-      include Template::GameThread::BoxScore
       include Template::GameThread::Components
       include Template::GameThread::Game
       include Template::GameThread::Highlights

@@ -15,6 +15,12 @@ class Baseballbot
           ]
         end
 
+        def box_score
+          [batters_table(:home), pitchers_table(:home), batters_table(:away), pitchers_table(:away)].join("\n\n")
+        end
+
+        protected
+
         def team_link(team) = link_to(team.name, "/r/#{subreddit(team.code)}")
       end
     end

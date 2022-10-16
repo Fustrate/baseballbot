@@ -12,7 +12,7 @@ class Baseballbot
           bb: ->(_, game) { game['baseOnBalls'] },
           so: ->(_, game) { game['strikeOuts'] },
           'p-s': ->(_, game) { "#{game['pitchesThrown']}-#{game['strikes']}" },
-          era: ->(season, _) { season['seasonStats']['pitching']['era'] }
+          era: ->(pitcher, _) { pitcher['seasonStats']['pitching']['era'] }
         }.freeze
 
         def probable_away_starter

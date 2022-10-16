@@ -11,7 +11,7 @@ class Baseballbot
           rbi: ->(_, game) { game['rbi'] },
           bb: ->(_, game) { game['baseOnBalls'] },
           so: ->(_, game) { game['strikeOuts'] },
-          ba: ->(season, _) { season['seasonStats']['batting']['avg'] },
+          ba: ->(batter, _) { batter['seasonStats']['batting']['avg'] },
           sb: ->(_, game) { game['stolenBases'] }
         }.freeze
 
