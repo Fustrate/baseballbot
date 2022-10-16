@@ -4,7 +4,7 @@ class Baseballbot
   module Template
     class GameThread
       module ScoringPlays
-        def highlights_section
+        def scoring_plays_section
           return unless final? && scoring_plays.any?
 
           <<~MARKDOWN
