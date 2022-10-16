@@ -11,7 +11,7 @@ class Baseballbot
         def final_score = "**Final Score**: #{away_team.name} #{runs(:away)}, #{home_team.name} #{runs(:home)}"
 
         def probables_and_media
-          table columns: %w[Team Starter TV Radio], data: [
+          table headers: %w[Team Starter TV Radio], rows: [
             [team_link(away_team), pitcher_line(probable_away_starter), away_tv, away_radio],
             [team_link(home_team), pitcher_line(probable_home_starter), home_tv, home_radio]
           ]

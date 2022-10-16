@@ -28,7 +28,7 @@ class Baseballbot
         end
 
         def pitchers_table(flag, stats: %i[ip h r er bb so p-s era])
-          table headers: pitchers_table_header(flag, stats), data: team_pitchers(flag).map { pitcher_row(_1, stats) }
+          table(headers: pitchers_table_header(flag, stats), rows: team_pitchers(flag).map { pitcher_row(_1, stats) })
         end
 
         protected

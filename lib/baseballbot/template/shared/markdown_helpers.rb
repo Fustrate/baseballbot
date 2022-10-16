@@ -17,21 +17,21 @@ module MarkdownHelpers
 
   def gb(games_back) = games_back.gsub(/\.0$/, '')
 
-  def table(columns: [], data: [])
-    headers = []
-    alignments = []
+  def table(headers: [], rows: [])
+    header_cells = []
+    alignment_cells = []
 
-    columns.each do |column|
+    headers.each do |column|
       header, alignment = Array(column)
 
-      headers << header.to_s
-      alignments << ALIGNMENT.fetch(alignment, ALIGNMENT[:left])
+      header_cells << header.to_s
+      alignment_cells << ALIGNMENT.fetch(alignment, ALIGNMENT[:left])
     end
 
     <<~TABLE
-      #{headers.join('|')}|
-      #{alignments.join('|')}|
-      #{data.map { _1.join('|') }.join("\n")}|
+      #{header_cells.join('|')}|
+      #{alignment_cells.join('|')}|
+      #{rows.map { _1.join('|') }.join("\n")}|
     TABLE
   end
 
