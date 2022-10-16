@@ -19,23 +19,21 @@ module MarkdownHelpers
 
   def table(columns: [], data: [])
     headers = []
-    alignment = []
+    alignments = []
 
     columns.each do |column|
-      headers << header_for(column)
-      alignment << alignment_for(column)
+      header, alignment = Array(column)
+
+      headers << header.to_s
+      alignments << ALIGNMENT.fetch(alignment, ALIGNMENT[:left])
     end
 
     <<~TABLE
       #{headers.join('|')}|
-      #{alignment.join('|')}|
+      #{alignments.join('|')}|
       #{data.map { _1.join('|') }.join("\n")}|
     TABLE
   end
-
-  def header_for(column) = column.is_a?(Array) ? column[0] : column.to_s
-
-  def alignment_for(column) = ALIGNMENT[Array(column)[1] || :left] || ALIGNMENT[:left]
 
   def link_to(text = '', **options)
     title = %( "#{options[:title]}") if options[:title]
