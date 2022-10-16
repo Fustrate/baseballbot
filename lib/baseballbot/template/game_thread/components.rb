@@ -4,7 +4,15 @@ class Baseballbot
   module Template
     class GameThread
       module Components
-        def header = "#{away_team.name} (#{away_record}) @ #{home_team.name} (#{home_record})"
+        def header
+          <<~MARKDOWN
+            [](http://mlb.mlb.com/images/2017_ipad/684/#{away_team.file_code}#{home_team.file_code}_684.jpg)
+
+            ### #{away_team.name} (#{away_record}) @ #{home_team.name} (#{home_record})
+
+            **First Pitch**: #{start_time_local.strftime('%-I:%M %p')} at #{venue_name}
+          MARKDOWN
+        end
 
         def first_pitch = "**First Pitch**: #{start_time_local.strftime('%-I:%M %p')} at #{venue_name}"
 
