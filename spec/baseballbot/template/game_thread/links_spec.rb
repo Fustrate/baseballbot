@@ -68,7 +68,7 @@ RSpec.describe Baseballbot::Template::GameThread::Links do
 
   describe '#discord_link' do
     it 'uses the default /r/baseball discord link if none is set' do
-      expect(template.discord_link).to eq 'https://discordapp.com/invite/Kqs2KzG'
+      expect(template.discord_link).to eq 'https://discord.gg/rbaseball'
     end
 
     it 'uses a custom discord link if set' do
