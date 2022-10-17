@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class SubredditScheduleGenerator
-  def initialize(api:, subreddit:)
+  def initialize(subreddit:)
     @subreddit = subreddit
-    @api = api
   end
 
   def games_between(start_date, end_date, team: nil)
     SubredditSchedule.new(
-      api: @api,
       subreddit: @subreddit,
       team_id: team || @subreddit.team&.id
     ).generate(start_date, end_date)
@@ -19,8 +17,7 @@ end
 class SubredditSchedule
   SCHEDULE_HYDRATION = 'team(venue(timezone)),game(content(summary)),linescore,broadcasts(all)'
 
-  def initialize(api:, subreddit:, team_id:)
-    @api = api
+  def initialize(subreddit:, team_id:)
     @subreddit = subreddit
     @team_id = team_id
   end
@@ -53,7 +50,7 @@ class SubredditSchedule
   end
 
   def calendar_dates(start_date, end_date)
-    @api.schedule(
+    @subreddit.bot.api.schedule(
       teamId: @team_id,
       startDate: start_date.strftime('%m/%d/%Y'),
       endDate: end_date.strftime('%m/%d/%Y'),
@@ -64,7 +61,7 @@ class SubredditSchedule
     )['dates']
   end
 
-  def team_calendar_game(data:, date:) = TeamCalendarGame.new(api: @api, data:, date:, team_id: @team_id)
+  def team_calendar_game(data:, date:) = TeamCalendarGame.new(api: @subreddit.bot.api, data:, date:, team_id: @team_id)
 end
 
 class TeamCalendarGame

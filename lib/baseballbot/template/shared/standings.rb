@@ -22,14 +22,8 @@ class Baseballbot
 
         def full_standings
           @full_standings ||= {
-            al: teams_in_division(:al_west).zip(
-              teams_in_division(:al_central),
-              teams_in_division(:al_east)
-            ),
-            nl: teams_in_division(:nl_west).zip(
-              teams_in_division(:nl_central),
-              teams_in_division(:nl_east)
-            )
+            al: teams_in_division(:al_west).zip(teams_in_division(:al_central), teams_in_division(:al_east)),
+            nl: teams_in_division(:nl_west).zip(teams_in_division(:nl_central), teams_in_division(:nl_east))
           }
         end
         alias leagues full_standings
@@ -104,8 +98,8 @@ class Baseballbot
         # @!endgroup Wildcards
 
         def load_all_teams_standings
-          data = @bot.api.load('standings_hydrate_team', expires: 300) do
-            @bot.api.standings(leagues: %i[al nl], season: Date.today.year)
+          data = @subreddit.bot.api.load('standings_hydrate_team', expires: 300) do
+            @subreddit.bot.api.standings(leagues: %i[al nl], season: Date.today.year)
           end
 
           @all_teams = data['records'].flat_map do |division|

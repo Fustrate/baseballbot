@@ -33,11 +33,11 @@ class Baseballbot
       end
 
       def content
-        @content ||= @bot.api.content @game_pk
+        @content ||= @subreddit.bot.api.content @game_pk
       end
 
       def feed
-        @feed ||= @bot.api.live_feed @game_pk
+        @feed ||= @subreddit.bot.api.live_feed @game_pk
       end
 
       def linescore = feed.linescore

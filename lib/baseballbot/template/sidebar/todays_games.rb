@@ -24,7 +24,7 @@ class Baseballbot
         protected
 
         def scheduled_games
-          @bot.api.schedule(sportId: 1, date: @date.strftime('%m/%d/%Y'), hydrate: TODAYS_GAMES_HYDRATE)
+          @subreddit.bot.api.schedule(sportId: 1, date: @date.strftime('%m/%d/%Y'), hydrate: TODAYS_GAMES_HYDRATE)
             .dig('dates', 0, 'games') || []
         end
 
@@ -139,7 +139,7 @@ class Baseballbot
         def load_known_game_threads
           @game_threads = Hash.new { |h, k| h[k] = {} }
 
-          @bot.db.exec_params(TODAYS_GAMES_SQL, [@date.strftime('%F')]).each do |row|
+          @subreddit.bot.db.exec_params(TODAYS_GAMES_SQL, [@date.strftime('%F')]).each do |row|
             @game_threads[row['game_pk'].to_i][row['name']] = row['post_id']
           end
         end

@@ -28,11 +28,11 @@ module MarkdownHelpers
       alignment_cells << ALIGNMENT.fetch(alignment, ALIGNMENT[:left])
     end
 
-    <<~TABLE
-      #{header_cells.join('|')}|
-      #{alignment_cells.join('|')}|
-      #{rows.map { _1.join('|') }.join("\n")}|
-    TABLE
+    <<~MARKDOWN
+      |#{header_cells.join('|')}|
+      |#{alignment_cells.join('|')}|
+      |#{rows.map { _1.join('|') }.join("\n")}|
+    MARKDOWN
   end
 
   def link_to(text = '', **options)

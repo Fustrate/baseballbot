@@ -125,7 +125,7 @@ class Baseballbot
         # Interestingly, this doesn't include the esoteric column "extraBaseHits", and I'd rather not have to add it up
         # myself.
         # def load_from_api(group:, year:, type:, pool:)
-        #   @bot.api.stats(
+        #   @subreddit.bot.api.stats(
         #     hydrate: 'person',
         #     sportId: 1,
         #     season: year,

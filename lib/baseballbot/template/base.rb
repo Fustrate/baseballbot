@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
+Dir.glob(File.join(File.dirname(__FILE__), 'shared', '*.rb')).each { require_relative _1 }
+
 class Baseballbot
   module Template
     class Base
-      # This is kept here because of inheritance
-      Dir.glob(File.join(File.dirname(__FILE__), 'shared', '*.rb')).each { require_relative _1 }
-
       include MarkdownHelpers
       using TemplateRefinements
 
@@ -16,30 +15,21 @@ class Baseballbot
 
       def initialize(body:, subreddit:)
         @subreddit = subreddit
-        @template_body = body
-
-        @erb = ERB.new body, trim_mode: '<>'
-        @bot = subreddit.bot
+        @body = body
       end
 
       def evaluated_body
-        @erb.result(binding)
+        ERB.new(@body, trim_mode: '<>').result(binding)
       rescue SyntaxError => e
-        Honeybadger.notify(e, context: { template: @template_body })
+        Honeybadger.notify(e, context: { template: @body })
         raise StandardError, 'ERB syntax error'
       end
 
       # Get the default subreddit for this team
       def subreddit(code)
-        name = @subreddit.options.dig('subreddits', code.upcase) || @bot.default_subreddit(code)
+        name = @subreddit.options.dig('subreddits', code.upcase) || @subreddit.bot.default_subreddit(code)
 
         @subreddit.options.dig('subreddits', 'downcase') ? name.downcase : name
-      end
-
-      def replace_regexp(delimiter: DELIMITER)
-        escaped_delimiter = Regexp.escape delimiter
-
-        Regexp.new "#{escaped_delimiter}(.*)#{escaped_delimiter}", Regexp::MULTILINE
       end
 
       def replace_in(text, delimiter: DELIMITER)
@@ -52,6 +42,14 @@ class Baseballbot
         time = @subreddit.now.strftime '%-I:%M %p'
 
         italic(action ? "#{action} at #{time}." : time)
+      end
+
+      protected
+
+      def replace_regexp(delimiter: DELIMITER)
+        escaped_delimiter = Regexp.escape delimiter
+
+        Regexp.new "#{escaped_delimiter}(.*)#{escaped_delimiter}", Regexp::MULTILINE
       end
     end
   end
