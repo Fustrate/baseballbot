@@ -5,14 +5,16 @@ class Baseballbot
     class GameThread
       module Highlights
         def highlights_section
-          return unless final? && highlights.any?
+          return unless started? && highlights.any?
 
           <<~MARKDOWN
             ### Highlights
 
-            #{highlights_table}
+            #{highlights_table.strip}
           MARKDOWN
         end
+
+        protected
 
         def highlights_table
           table(
@@ -20,8 +22,6 @@ class Baseballbot
             rows: highlights.map { [_1[:blurb], _1[:duration], link_to('Video', url: _1[:hd])] }
           )
         end
-
-        protected
 
         def highlights
           return [] unless started?

@@ -1,0 +1,1833 @@
+{
+    "copyright" : "Copyright 2022 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+    "link" : "/api/v1/game/715730/content",
+    "editorial" : { },
+    "media" : {
+      "epg" : [ {
+        "title" : "MLBTV",
+        "items" : [ {
+          "callLetters" : "FOX/FS1",
+          "espnAuthRequired" : false,
+          "tbsAuthRequired" : false,
+          "espn2AuthRequired" : false,
+          "gameDate" : "2022-10-19",
+          "contentId" : "4a5609a9-7d4e-44dd-a963-f52203861ef4",
+          "fs1AuthRequired" : false,
+          "mediaId" : "1d33e686-8a91-4d07-b4c4-6d5a205df692",
+          "mediaFeedType" : "NATIONAL",
+          "mlbnAuthRequired" : false,
+          "foxAuthRequired" : true,
+          "mediaFeedSubType" : "135",
+          "freeGame" : false,
+          "id" : 249684078,
+          "mediaState" : "MEDIA_ON",
+          "abcAuthRequired" : false
+        } ]
+      }, {
+        "title" : "MLBTV-Audio",
+        "items" : [ {
+          "mediaFeedType" : "NATIONAL",
+          "renditionName" : "English",
+          "description" : "FOX / FS1",
+          "language" : "EN",
+          "id" : 249684078,
+          "type" : ""
+        }, {
+          "mediaFeedType" : "NATIONAL",
+          "renditionName" : "Radio Española",
+          "description" : "XEMO 860",
+          "language" : "ES",
+          "id" : 249684078,
+          "type" : ""
+        }, {
+          "mediaFeedType" : "NATIONAL",
+          "renditionName" : "English Radio",
+          "description" : "KWFN 97.3",
+          "language" : "EN",
+          "id" : 249684078,
+          "type" : ""
+        } ]
+      }, {
+        "title" : "Audio",
+        "items" : [ {
+          "callLetters" : "XEMO",
+          "mediaFeedSubType" : "135",
+          "contentId" : "74f1065a-b3c3-4a25-879f-15fd2dd9061e",
+          "language" : "es",
+          "id" : 218667968,
+          "mediaState" : "MEDIA_ON",
+          "mediaId" : "9580b066-495b-4aff-8a3e-97f712917982",
+          "type" : "HOME"
+        }, {
+          "callLetters" : "KWFN",
+          "mediaFeedSubType" : "135",
+          "contentId" : "dae6f7e1-3ba5-40ea-b72f-dadce6097c80",
+          "language" : "en",
+          "id" : 3600497,
+          "mediaState" : "MEDIA_ON",
+          "mediaId" : "7a1e2e3b-0f28-4aa1-a721-1bd6f4fdc801",
+          "type" : "HOME"
+        }, {
+          "callLetters" : "WIP",
+          "mediaFeedSubType" : "143",
+          "contentId" : "9ca1bfeb-25aa-496a-8474-27ac4584d02f",
+          "language" : "en",
+          "id" : 151572211,
+          "mediaState" : "MEDIA_ON",
+          "mediaId" : "edeb361a-e410-440f-9592-14fb455c5e92",
+          "type" : "AWAY"
+        }, {
+          "callLetters" : "WTTM1680",
+          "mediaFeedSubType" : "143",
+          "contentId" : "2295be6f-7498-46ee-bbb4-3fa4080043e8",
+          "language" : "es",
+          "id" : 162041699,
+          "mediaState" : "MEDIA_ON",
+          "mediaId" : "d831e2fc-e3a6-4753-af15-55b6ef7824f2",
+          "type" : "AWAY"
+        } ]
+      } ],
+      "milestones" : null,
+      "featuredMedia" : {
+        "id" : "phillies-score-four-in-the-2nd"
+      },
+      "freeGame" : false,
+      "enhancedGame" : false
+    },
+    "highlights" : {
+      "scoreboard" : null,
+      "gameCenter" : null,
+      "milestone" : null,
+      "highlights" : {
+        "items" : [ {
+          "type" : "video",
+          "state" : "A",
+          "date" : "2022-10-19T21:47:33.253Z",
+          "id" : "phillies-score-four-in-the-2nd",
+          "headline" : "Phillies score four in the 2nd",
+          "seoTitle" : "",
+          "slug" : "phillies-score-four-in-the-2nd",
+          "blurb" : "Phillies plate four runs in the 2nd inning",
+          "keywordsAll" : [ {
+            "type" : "game",
+            "value" : "gamepk-715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "game_pk",
+            "value" : "715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "team",
+            "value" : "teamid-143",
+            "displayName" : "Philadelphia Phillies"
+          }, {
+            "type" : "team_id",
+            "value" : "143",
+            "displayName" : "Philadelphia Phillies"
+          }, {
+            "type" : "player",
+            "value" : "playerid-656941",
+            "displayName" : "Kyle Schwarber"
+          }, {
+            "type" : "player_id",
+            "value" : "656941",
+            "displayName" : "Kyle Schwarber"
+          }, {
+            "type" : "player",
+            "value" : "playerid-663837",
+            "displayName" : "Matt Vierling"
+          }, {
+            "type" : "player_id",
+            "value" : "663837",
+            "displayName" : "Matt Vierling"
+          }, {
+            "type" : "player",
+            "value" : "playerid-624641",
+            "displayName" : "Edmundo Sosa"
+          }, {
+            "type" : "player_id",
+            "value" : "624641",
+            "displayName" : "Edmundo Sosa"
+          }, {
+            "type" : "player",
+            "value" : "playerid-664761",
+            "displayName" : "Alec Bohm"
+          }, {
+            "type" : "player_id",
+            "value" : "664761",
+            "displayName" : "Alec Bohm"
+          }, {
+            "type" : "taxonomy",
+            "value" : "highlight-reel-team",
+            "displayName" : "highlight reel team"
+          }, {
+            "type" : "taxonomy",
+            "value" : "highlight-reel-offense",
+            "displayName" : "highlight reel offense"
+          }, {
+            "type" : "taxonomy",
+            "value" : "in-game-highlight",
+            "displayName" : "in-game highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "highlight",
+            "displayName" : "highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "hitting",
+            "displayName" : "hitting"
+          }, {
+            "type" : "taxonomy",
+            "value" : "nlcs",
+            "displayName" : "NLCS"
+          }, {
+            "type" : "taxonomy",
+            "value" : "postseason",
+            "displayName" : "postseason"
+          }, {
+            "type" : "taxonomy",
+            "value" : "imagen-feed",
+            "displayName" : "Imagen feed"
+          } ],
+          "keywordsDisplay" : [ ],
+          "image" : {
+            "title" : "Phillies score four in the 2nd - thumbnail",
+            "altText" : null,
+            "templateUrl" : "https://img.mlbstatic.com/mlb-images/image/upload/{formatInstructions}/mlb/tjwd1wqcmrwaipqqb2z7",
+            "cuts" : [ {
+              "aspectRatio" : "16:9",
+              "width" : 1920,
+              "height" : 1080,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1440,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1280,
+              "height" : 720,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 960,
+              "height" : 540,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 800,
+              "height" : 448,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 720,
+              "height" : 405,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 684,
+              "height" : 385,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 640,
+              "height" : 360,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 496,
+              "height" : 279,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 480,
+              "height" : 270,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 430,
+              "height" : 242,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 400,
+              "height" : 224,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 320,
+              "height" : 180,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 270,
+              "height" : 154,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 248,
+              "height" : 138,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 215,
+              "height" : 121,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 209,
+              "height" : 118,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 135,
+              "height" : 77,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 124,
+              "height" : 70,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 222,
+              "height" : 168,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 192,
+              "height" : 144,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 148,
+              "height" : 112,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 96,
+              "height" : 72,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 74,
+              "height" : 56,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            }, {
+              "aspectRatio" : "64:27",
+              "width" : 1920,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/tjwd1wqcmrwaipqqb2z7.jpg"
+            } ]
+          },
+          "noIndex" : false,
+          "mediaPlaybackId" : "25dca771-34189a66-ce1c53be-csvm-diamondx64-asset",
+          "title" : "Phillies score four in the 2nd",
+          "description" : "Alec Bohm, Matt Vierling, Edmundo Sosa and Kyle Schwarber each plate a run in a four-run inning for the Phillies",
+          "duration" : "00:00:29",
+          "mediaPlaybackUrl" : "",
+          "playbacks" : [ {
+            "name" : "mp4Avc",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/25dca771-34189a66-ce1c53be-csvm-diamondx64-asset_1280x720_59_4000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "hlsCloud",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/25dca771-34189a66-ce1c53be-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/25dca771-34189a66-ce1c53be-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED_60",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/25dca771-34189a66-ce1c53be-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "highBit",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/25dca771-34189a66-ce1c53be-csvm-diamondx64-asset_1280x720_59_16000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "trickplay",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/25dca771-34189a66-ce1c53be-csvm-diamondx64-asset_320x180/05s.%.jpg",
+            "width" : "",
+            "height" : ""
+          } ]
+        }, {
+          "type" : "video",
+          "state" : "A",
+          "date" : "2022-10-19T22:49:26.789Z",
+          "id" : "brandon-drury-s-two-run-single",
+          "headline" : "Brandon Drury's two-run single",
+          "seoTitle" : "",
+          "slug" : "brandon-drury-s-two-run-single",
+          "blurb" : "Brandon Drury hits a two-run single to center field",
+          "keywordsAll" : [ {
+            "type" : "season",
+            "value" : "season-2022",
+            "displayName" : "Season 2022"
+          }, {
+            "type" : "game",
+            "value" : "gamepk-715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "game_pk",
+            "value" : "715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "player",
+            "value" : "playerid-592273",
+            "displayName" : "Brandon Drury"
+          }, {
+            "type" : "player_id",
+            "value" : "592273",
+            "displayName" : "Brandon Drury"
+          }, {
+            "type" : "team",
+            "value" : "teamid-135",
+            "displayName" : "San Diego Padres"
+          }, {
+            "type" : "team_id",
+            "value" : "135",
+            "displayName" : "San Diego Padres"
+          }, {
+            "type" : "taxonomy",
+            "value" : "hitting",
+            "displayName" : "hitting"
+          }, {
+            "type" : "taxonomy",
+            "value" : "highlight",
+            "displayName" : "highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "in-game-highlight",
+            "displayName" : "in-game highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "imagen-feed",
+            "displayName" : "Imagen feed"
+          } ],
+          "keywordsDisplay" : [ ],
+          "image" : {
+            "title" : "Brad Hand In play, run(s) to Brandon Drury",
+            "altText" : null,
+            "templateUrl" : "https://img.mlbstatic.com/mlb-images/image/upload/{formatInstructions}/mlb/lgjm4fkkgjrr9g7qpfhs",
+            "cuts" : [ {
+              "aspectRatio" : "16:9",
+              "width" : 1920,
+              "height" : 1080,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1440,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1280,
+              "height" : 720,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 960,
+              "height" : 540,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 800,
+              "height" : 448,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 720,
+              "height" : 405,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 684,
+              "height" : 385,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 640,
+              "height" : 360,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 496,
+              "height" : 279,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 480,
+              "height" : 270,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 430,
+              "height" : 242,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 400,
+              "height" : 224,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 320,
+              "height" : 180,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 270,
+              "height" : 154,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 248,
+              "height" : 138,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 215,
+              "height" : 121,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 209,
+              "height" : 118,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 135,
+              "height" : 77,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 124,
+              "height" : 70,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 222,
+              "height" : 168,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 192,
+              "height" : 144,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 148,
+              "height" : 112,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 96,
+              "height" : 72,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 74,
+              "height" : 56,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            }, {
+              "aspectRatio" : "64:27",
+              "width" : 1920,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/lgjm4fkkgjrr9g7qpfhs.jpg"
+            } ]
+          },
+          "noIndex" : false,
+          "mediaPlaybackId" : "c2cc6f07-61d8-4ff3-b3b9-f18efffba263",
+          "title" : "Brandon Drury's two-run single",
+          "description" : "Brandon Drury hits a two-run single to center field to give the Padres a 6-4 lead in the bottom of the 5th inning",
+          "duration" : "00:00:20",
+          "guid" : "75f0e472-1d06-4642-9941-09a4c3e08fd1",
+          "mediaPlaybackUrl" : "",
+          "playbacks" : [ {
+            "name" : "mp4Avc",
+            "url" : "https://bdata-producedclips.mlb.com/c2cc6f07-61d8-4ff3-b3b9-f18efffba263.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "hlsCloud",
+            "url" : "https://bdata-producedclips.mlb.com/c2cc6f07-61d8-4ff3-b3b9-f18efffba263.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED",
+            "url" : "https://bdata-producedclips.mlb.com/c2cc6f07-61d8-4ff3-b3b9-f18efffba263.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED_60",
+            "url" : "https://bdata-producedclips.mlb.com/c2cc6f07-61d8-4ff3-b3b9-f18efffba263.m3u8",
+            "width" : "",
+            "height" : ""
+          } ]
+        }, {
+          "type" : "video",
+          "state" : "A",
+          "date" : "2022-10-19T22:32:21.291Z",
+          "id" : "aaron-nola-in-play-run-s-to-austin-nola-ubqxld",
+          "headline" : "Austin Nola's RBI hit vs. brother",
+          "seoTitle" : "",
+          "slug" : "aaron-nola-in-play-run-s-to-austin-nola-ubqxld",
+          "blurb" : "Austin Nola records an RBI single off brother Aaron",
+          "keywordsAll" : [ {
+            "type" : "season",
+            "value" : "season-2022",
+            "displayName" : "Season 2022"
+          }, {
+            "type" : "game",
+            "value" : "gamepk-715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "game_pk",
+            "value" : "715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "player",
+            "value" : "playerid-543592",
+            "displayName" : "Austin Nola"
+          }, {
+            "type" : "player_id",
+            "value" : "543592",
+            "displayName" : "Austin Nola"
+          }, {
+            "type" : "team",
+            "value" : "teamid-135",
+            "displayName" : "San Diego Padres"
+          }, {
+            "type" : "team_id",
+            "value" : "135",
+            "displayName" : "San Diego Padres"
+          }, {
+            "type" : "taxonomy",
+            "value" : "hitting",
+            "displayName" : "hitting"
+          }, {
+            "type" : "taxonomy",
+            "value" : "highlight",
+            "displayName" : "highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "in-game-highlight",
+            "displayName" : "in-game highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "nlcs",
+            "displayName" : "NLCS"
+          }, {
+            "type" : "taxonomy",
+            "value" : "postseason",
+            "displayName" : "postseason"
+          }, {
+            "type" : "taxonomy",
+            "value" : "imagen-feed",
+            "displayName" : "Imagen feed"
+          } ],
+          "keywordsDisplay" : [ ],
+          "image" : {
+            "title" : "Austin Nola's RBI hit vs. brother - thumbnail",
+            "altText" : null,
+            "templateUrl" : "https://img.mlbstatic.com/mlb-images/image/upload/{formatInstructions}/mlb/fraimgvybljpnc2cjbl4",
+            "cuts" : [ {
+              "aspectRatio" : "16:9",
+              "width" : 1920,
+              "height" : 1080,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1440,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1280,
+              "height" : 720,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 960,
+              "height" : 540,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 800,
+              "height" : 448,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 720,
+              "height" : 405,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 684,
+              "height" : 385,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 640,
+              "height" : 360,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 496,
+              "height" : 279,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 480,
+              "height" : 270,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 430,
+              "height" : 242,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 400,
+              "height" : 224,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 320,
+              "height" : 180,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 270,
+              "height" : 154,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 248,
+              "height" : 138,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 215,
+              "height" : 121,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 209,
+              "height" : 118,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 135,
+              "height" : 77,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 124,
+              "height" : 70,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 222,
+              "height" : 168,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 192,
+              "height" : 144,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 148,
+              "height" : 112,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 96,
+              "height" : 72,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 74,
+              "height" : 56,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            }, {
+              "aspectRatio" : "64:27",
+              "width" : 1920,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/fraimgvybljpnc2cjbl4.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/fraimgvybljpnc2cjbl4.jpg"
+            } ]
+          },
+          "noIndex" : false,
+          "mediaPlaybackId" : "911dc517-3943e9b8-c281039b-csvm-diamondx64-asset",
+          "title" : "Austin Nola's RBI hit vs. brother",
+          "description" : "Austin Nola lines an RBI single to right-center field off of his brother Aaron to cut the Phillies' lead to 4-3 in the bottom of the 5th inning",
+          "duration" : "00:00:17",
+          "guid" : "a123cd3b-43f9-48e6-a63b-0b1342066bb9",
+          "mediaPlaybackUrl" : "",
+          "playbacks" : [ {
+            "name" : "mp4Avc",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/911dc517-3943e9b8-c281039b-csvm-diamondx64-asset_1280x720_59_4000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "hlsCloud",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/911dc517-3943e9b8-c281039b-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/911dc517-3943e9b8-c281039b-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED_60",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/911dc517-3943e9b8-c281039b-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "highBit",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/911dc517-3943e9b8-c281039b-csvm-diamondx64-asset_1280x720_59_16000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "trickplay",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/911dc517-3943e9b8-c281039b-csvm-diamondx64-asset_320x180/05s.%.jpg",
+            "width" : "",
+            "height" : ""
+          } ]
+        }, {
+          "type" : "video",
+          "state" : "A",
+          "date" : "2022-10-19T22:16:49.416Z",
+          "id" : "kim-takes-the-field-for-game-2",
+          "headline" : "Kim takes the field for Game 2",
+          "seoTitle" : "",
+          "slug" : "kim-takes-the-field-for-game-2",
+          "blurb" : "Ha-Seong Kim takes the field | Creator Cuts",
+          "keywordsAll" : [ {
+            "type" : "game",
+            "value" : "gamepk-715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "game_pk",
+            "value" : "715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "team",
+            "value" : "teamid-135",
+            "displayName" : "San Diego Padres"
+          }, {
+            "type" : "team_id",
+            "value" : "135",
+            "displayName" : "San Diego Padres"
+          }, {
+            "type" : "player",
+            "value" : "playerid-673490",
+            "displayName" : "Ha-Seong Kim"
+          }, {
+            "type" : "player_id",
+            "value" : "673490",
+            "displayName" : "Ha-Seong Kim"
+          }, {
+            "type" : "taxonomy",
+            "value" : "exclusive-angle",
+            "displayName" : "exclusive angle"
+          }, {
+            "type" : "taxonomy",
+            "value" : "postseason",
+            "displayName" : "postseason"
+          }, {
+            "type" : "taxonomy",
+            "value" : "nlcs",
+            "displayName" : "NLCS"
+          }, {
+            "type" : "taxonomy",
+            "value" : "imagen-feed",
+            "displayName" : "Imagen feed"
+          } ],
+          "keywordsDisplay" : [ ],
+          "image" : {
+            "title" : "Kim takes the field for Game 2 - thumbnail",
+            "altText" : null,
+            "templateUrl" : "https://img.mlbstatic.com/mlb-images/image/upload/{formatInstructions}/mlb/vzzf3yxxprjupltcm7cp",
+            "cuts" : [ {
+              "aspectRatio" : "16:9",
+              "width" : 1920,
+              "height" : 1080,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1440,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1280,
+              "height" : 720,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 960,
+              "height" : 540,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 800,
+              "height" : 448,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 720,
+              "height" : 405,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 684,
+              "height" : 385,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 640,
+              "height" : 360,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 496,
+              "height" : 279,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 480,
+              "height" : 270,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 430,
+              "height" : 242,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 400,
+              "height" : 224,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 320,
+              "height" : 180,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 270,
+              "height" : 154,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 248,
+              "height" : 138,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 215,
+              "height" : 121,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 209,
+              "height" : 118,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 135,
+              "height" : 77,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 124,
+              "height" : 70,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 222,
+              "height" : 168,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 192,
+              "height" : 144,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 148,
+              "height" : 112,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 96,
+              "height" : 72,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 74,
+              "height" : 56,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            }, {
+              "aspectRatio" : "64:27",
+              "width" : 1920,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/vzzf3yxxprjupltcm7cp.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/vzzf3yxxprjupltcm7cp.jpg"
+            } ]
+          },
+          "noIndex" : false,
+          "mediaPlaybackId" : "19ae17ed-505e81e9-f986ab6a-csvm-diamondx64-asset",
+          "title" : "Kim takes the field for Game 2",
+          "description" : "Check out this unique look of Ha-Seong Kim taking the field for Game 2 of the NLCS #CreatorCuts",
+          "duration" : "00:00:45",
+          "mediaPlaybackUrl" : "",
+          "playbacks" : [ {
+            "name" : "mp4Avc",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/19ae17ed-505e81e9-f986ab6a-csvm-diamondx64-asset_1280x720_59_4000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "hlsCloud",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/19ae17ed-505e81e9-f986ab6a-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/19ae17ed-505e81e9-f986ab6a-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED_60",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/19ae17ed-505e81e9-f986ab6a-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "highBit",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/19ae17ed-505e81e9-f986ab6a-csvm-diamondx64-asset_1280x720_59_16000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "trickplay",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/19ae17ed-505e81e9-f986ab6a-csvm-diamondx64-asset_320x180/05s.%.jpg",
+            "width" : "",
+            "height" : ""
+          } ]
+        }, {
+          "type" : "video",
+          "state" : "A",
+          "date" : "2022-10-19T21:41:19.942Z",
+          "id" : "drury-bell-go-back-to-back",
+          "headline" : "Drury & Bell go back-to-back",
+          "seoTitle" : "",
+          "slug" : "drury-bell-go-back-to-back",
+          "blurb" : "Brandon Drury and Josh Bell belt back-to-back homers",
+          "keywordsAll" : [ {
+            "type" : "game",
+            "value" : "gamepk-715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "game_pk",
+            "value" : "715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "team",
+            "value" : "teamid-135",
+            "displayName" : "San Diego Padres"
+          }, {
+            "type" : "team_id",
+            "value" : "135",
+            "displayName" : "San Diego Padres"
+          }, {
+            "type" : "player",
+            "value" : "playerid-592273",
+            "displayName" : "Brandon Drury"
+          }, {
+            "type" : "player_id",
+            "value" : "592273",
+            "displayName" : "Brandon Drury"
+          }, {
+            "type" : "player",
+            "value" : "playerid-605137",
+            "displayName" : "Josh Bell"
+          }, {
+            "type" : "player_id",
+            "value" : "605137",
+            "displayName" : "Josh Bell"
+          }, {
+            "type" : "taxonomy",
+            "value" : "home-run",
+            "displayName" : "home run"
+          }, {
+            "type" : "taxonomy",
+            "value" : "hitting",
+            "displayName" : "hitting"
+          }, {
+            "type" : "taxonomy",
+            "value" : "in-game-highlight",
+            "displayName" : "in-game highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "highlight",
+            "displayName" : "highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "highlight-reel-team",
+            "displayName" : "highlight reel team"
+          }, {
+            "type" : "taxonomy",
+            "value" : "highlight-reel-offense",
+            "displayName" : "highlight reel offense"
+          }, {
+            "type" : "taxonomy",
+            "value" : "nlcs",
+            "displayName" : "NLCS"
+          }, {
+            "type" : "taxonomy",
+            "value" : "postseason",
+            "displayName" : "postseason"
+          }, {
+            "type" : "taxonomy",
+            "value" : "imagen-feed",
+            "displayName" : "Imagen feed"
+          } ],
+          "keywordsDisplay" : [ ],
+          "image" : {
+            "title" : "Drury & Bell go back-to-back - thumbnail",
+            "altText" : null,
+            "templateUrl" : "https://img.mlbstatic.com/mlb-images/image/upload/{formatInstructions}/mlb/g1i2eiv8qstydc3mqx71",
+            "cuts" : [ {
+              "aspectRatio" : "16:9",
+              "width" : 1920,
+              "height" : 1080,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1440,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1280,
+              "height" : 720,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 960,
+              "height" : 540,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 800,
+              "height" : 448,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 720,
+              "height" : 405,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 684,
+              "height" : 385,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 640,
+              "height" : 360,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 496,
+              "height" : 279,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 480,
+              "height" : 270,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 430,
+              "height" : 242,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 400,
+              "height" : 224,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 320,
+              "height" : 180,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 270,
+              "height" : 154,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 248,
+              "height" : 138,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 215,
+              "height" : 121,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 209,
+              "height" : 118,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 135,
+              "height" : 77,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 124,
+              "height" : 70,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 222,
+              "height" : 168,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 192,
+              "height" : 144,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 148,
+              "height" : 112,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 96,
+              "height" : 72,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 74,
+              "height" : 56,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            }, {
+              "aspectRatio" : "64:27",
+              "width" : 1920,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/g1i2eiv8qstydc3mqx71.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/g1i2eiv8qstydc3mqx71.jpg"
+            } ]
+          },
+          "noIndex" : false,
+          "mediaPlaybackId" : "9e0785b5-6233b731-0e6e6ec7-csvm-diamondx64-asset",
+          "title" : "Drury & Bell go back-to-back",
+          "description" : "Brandon Drury and Josh Bell crush back-to-back home runs in the bottom of the 2nd inning to put the Padres on the board",
+          "duration" : "00:00:29",
+          "mediaPlaybackUrl" : "",
+          "playbacks" : [ {
+            "name" : "mp4Avc",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/9e0785b5-6233b731-0e6e6ec7-csvm-diamondx64-asset_1280x720_59_4000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "hlsCloud",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/9e0785b5-6233b731-0e6e6ec7-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/9e0785b5-6233b731-0e6e6ec7-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED_60",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/9e0785b5-6233b731-0e6e6ec7-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "highBit",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/9e0785b5-6233b731-0e6e6ec7-csvm-diamondx64-asset_1280x720_59_16000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "trickplay",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/9e0785b5-6233b731-0e6e6ec7-csvm-diamondx64-asset_320x180/05s.%.jpg",
+            "width" : "",
+            "height" : ""
+          } ]
+        }, {
+          "type" : "video",
+          "state" : "A",
+          "date" : "2022-10-19T21:31:58.184Z",
+          "id" : "aaron-nola-in-play-out-s-to-austin-nola-zhb9ij",
+          "headline" : "Aaron takes Round 1 vs. Austin",
+          "seoTitle" : "",
+          "slug" : "aaron-nola-in-play-out-s-to-austin-nola-zhb9ij",
+          "blurb" : "Aaron Nola retires Austin Nola in the 2nd inning",
+          "keywordsAll" : [ {
+            "type" : "season",
+            "value" : "season-2022",
+            "displayName" : "Season 2022"
+          }, {
+            "type" : "game",
+            "value" : "gamepk-715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "game_pk",
+            "value" : "715730",
+            "displayName" : "2022/10/19 phi@sd"
+          }, {
+            "type" : "team",
+            "value" : "teamid-143",
+            "displayName" : "Philadelphia Phillies"
+          }, {
+            "type" : "team_id",
+            "value" : "143",
+            "displayName" : "Philadelphia Phillies"
+          }, {
+            "type" : "player",
+            "value" : "playerid-605400",
+            "displayName" : "Aaron Nola"
+          }, {
+            "type" : "player_id",
+            "value" : "605400",
+            "displayName" : "Aaron Nola"
+          }, {
+            "type" : "player",
+            "value" : "playerid-543592",
+            "displayName" : "Austin Nola"
+          }, {
+            "type" : "player_id",
+            "value" : "543592",
+            "displayName" : "Austin Nola"
+          }, {
+            "type" : "taxonomy",
+            "value" : "highlight",
+            "displayName" : "highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "in-game-highlight",
+            "displayName" : "in-game highlight"
+          }, {
+            "type" : "taxonomy",
+            "value" : "nlcs",
+            "displayName" : "NLCS"
+          }, {
+            "type" : "taxonomy",
+            "value" : "postseason",
+            "displayName" : "postseason"
+          }, {
+            "type" : "taxonomy",
+            "value" : "cut-4",
+            "displayName" : "Cut4"
+          }, {
+            "type" : "taxonomy",
+            "value" : "apple-news",
+            "displayName" : "Apple News"
+          }, {
+            "type" : "taxonomy",
+            "value" : "imagen-feed",
+            "displayName" : "Imagen feed"
+          } ],
+          "keywordsDisplay" : [ ],
+          "image" : {
+            "title" : "Aaron takes Round 1 vs. Austin - thumbnail",
+            "altText" : null,
+            "templateUrl" : "https://img.mlbstatic.com/mlb-images/image/upload/{formatInstructions}/mlb/sbkuwzhdjwdq9htjplnr",
+            "cuts" : [ {
+              "aspectRatio" : "16:9",
+              "width" : 1920,
+              "height" : 1080,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_1080,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1440,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1440,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 1280,
+              "height" : 720,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1280,h_720,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 960,
+              "height" : 540,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_960,h_540,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 800,
+              "height" : 448,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_800,h_448,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 720,
+              "height" : 405,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_720,h_405,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 684,
+              "height" : 385,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_684,h_385,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 640,
+              "height" : 360,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_640,h_360,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 496,
+              "height" : 279,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_496,h_279,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 480,
+              "height" : 270,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_480,h_270,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 430,
+              "height" : 242,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_430,h_242,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 400,
+              "height" : 224,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_400,h_224,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 320,
+              "height" : 180,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_320,h_180,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 270,
+              "height" : 154,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_270,h_154,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 248,
+              "height" : 138,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_248,h_138,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 215,
+              "height" : 121,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_215,h_121,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 209,
+              "height" : 118,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_209,h_118,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 135,
+              "height" : 77,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_135,h_77,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "16:9",
+              "width" : 124,
+              "height" : 70,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_124,h_70,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 222,
+              "height" : 168,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_222,h_168,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 192,
+              "height" : 144,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_192,h_144,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 148,
+              "height" : 112,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_148,h_112,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 96,
+              "height" : 72,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_96,h_72,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "4:3",
+              "width" : 74,
+              "height" : 56,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_74,h_56,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            }, {
+              "aspectRatio" : "64:27",
+              "width" : 1920,
+              "height" : 810,
+              "src" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at2x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_2.0/mlb/sbkuwzhdjwdq9htjplnr.jpg",
+              "at3x" : "https://img.mlbstatic.com/mlb-images/image/upload/w_1920,h_810,f_jpg,c_fill,g_auto,dpr_3.0/mlb/sbkuwzhdjwdq9htjplnr.jpg"
+            } ]
+          },
+          "noIndex" : false,
+          "mediaPlaybackId" : "68d4348c-f587bd7a-cc2cd1e7-csvm-diamondx64-asset",
+          "title" : "Aaron takes Round 1 vs. Austin",
+          "description" : "Aaron Nola takes Round 1 against brother Austin Nola by getting him to ground out to third in the bottom of the 2nd inning",
+          "duration" : "00:00:21",
+          "guid" : "e3f6dde4-7d45-48ed-aacd-8f3bcdb5362e",
+          "mediaPlaybackUrl" : "",
+          "playbacks" : [ {
+            "name" : "mp4Avc",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/68d4348c-f587bd7a-cc2cd1e7-csvm-diamondx64-asset_1280x720_59_4000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "hlsCloud",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/68d4348c-f587bd7a-cc2cd1e7-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/68d4348c-f587bd7a-cc2cd1e7-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "HTTP_CLOUD_WIRED_60",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/68d4348c-f587bd7a-cc2cd1e7-csvm-diamondx64-asset.m3u8",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "highBit",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/68d4348c-f587bd7a-cc2cd1e7-csvm-diamondx64-asset_1280x720_59_16000K.mp4",
+            "width" : "",
+            "height" : ""
+          }, {
+            "name" : "trickplay",
+            "url" : "https://mlb-cuts-diamond.mlb.com/FORGE/2022/2022-10/19/68d4348c-f587bd7a-cc2cd1e7-csvm-diamondx64-asset_320x180/05s.%.jpg",
+            "width" : "",
+            "height" : ""
+          } ]
+        } ]
+      },
+      "live" : {
+        "items" : [ ]
+      },
+      "scoreboardPreview" : {
+        "items" : [ ]
+      }
+    },
+    "summary" : {
+      "hasPreviewArticle" : false,
+      "hasRecapArticle" : false,
+      "hasWrapArticle" : false,
+      "hasHighlightsVideo" : true
+    },
+    "gameNotes" : { }
+  }

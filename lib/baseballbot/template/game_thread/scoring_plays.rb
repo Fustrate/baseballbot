@@ -10,9 +10,11 @@ class Baseballbot
           <<~MARKDOWN
             ### Scoring Plays
 
-            #{scoring_plays_table}
+            #{scoring_plays_table.strip}
           MARKDOWN
         end
+
+        protected
 
         def scoring_plays_table
           table(
@@ -20,8 +22,6 @@ class Baseballbot
             rows: scoring_plays.map { ["#{_1[:side]}#{_1[:inning]}", _1[:event], event_score(_1)] }
           )
         end
-
-        protected
 
         def scoring_plays
           @scoring_plays ||= started? && feed.plays ? formatted_plays : []
