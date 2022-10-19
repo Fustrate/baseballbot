@@ -1,22 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Baseballbot::Template::GameThread::Links do
-  let(:bot) { Baseballbot.new(user_agent: 'Baseballbot Tests') }
-  let(:r_dodgers) do
-    Baseballbot::Subreddit.new(
-      { 'name' => 'dodgers', 'team_code' => 'LAD', 'team_id' => 119, 'options' => '{}' },
-      bot:,
-      account: (Baseballbot::Account.new bot:, name: 'RSpecTestBot', access: '')
-    )
-  end
-  let(:template) do
-    Baseballbot::Template::GameThread.new(subreddit: r_dodgers, game_pk: 662_573, title: 'Test', type: 'game_thread')
-  end
+  let(:template) { game_thread_template(game_pk: 662_573) }
 
   before do
     stub_requests! with_response: true
-
-    allow(r_dodgers).to receive(:template_for).with('game_thread').and_return ''
   end
 
   describe '#gameday_link' do
@@ -72,7 +60,7 @@ RSpec.describe Baseballbot::Template::GameThread::Links do
     end
 
     it 'uses a custom discord link if set' do
-      r_dodgers.options[:discord_invite] = 'https://discordapp.com/invite/abc123'
+      template.instance_variable_get(:@subreddit).options[:discord_invite] = 'https://discordapp.com/invite/abc123'
 
       expect(template.discord_link).to eq 'https://discordapp.com/invite/abc123'
     end

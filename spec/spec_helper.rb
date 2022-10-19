@@ -6,7 +6,7 @@ require 'open-uri'
 require 'fileutils'
 require 'mock_redis'
 
-require 'support/webmock_helpers'
+Dir.glob(File.join(File.dirname(__FILE__), 'support', '*.rb')).each { require_relative _1 }
 
 require_relative '../lib/baseballbot'
 
@@ -44,6 +44,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.include WebmockHelpers
+  config.include BotHelpers
 
   config.before do
     allow(Time).to receive(:now).and_return(Time.utc(2018, 10, 4, 9, 28, 41))

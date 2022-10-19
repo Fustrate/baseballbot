@@ -1,0 +1,56 @@
+{
+    "copyright" : "Copyright 2022 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+    "teams" : [ {
+      "springLeague" : {
+        "id" : 114,
+        "name" : "Cactus League",
+        "link" : "/api/v1/league/114",
+        "abbreviation" : "CL"
+      },
+      "allStarStatus" : "N",
+      "id" : 135,
+      "name" : "San Diego Padres",
+      "link" : "/api/v1/teams/135",
+      "season" : 2022,
+      "venue" : {
+        "id" : 2680,
+        "name" : "Petco Park",
+        "link" : "/api/v1/venues/2680",
+        "timeZone" : {
+          "id" : "America/Los_Angeles",
+          "offset" : -7,
+          "tz" : "PDT"
+        },
+        "active" : true
+      },
+      "springVenue" : {
+        "id" : 2530,
+        "link" : "/api/v1/venues/2530"
+      },
+      "teamCode" : "sdn",
+      "fileCode" : "sd",
+      "abbreviation" : "SD",
+      "teamName" : "Padres",
+      "locationName" : "San Diego",
+      "firstYearOfPlay" : "1968",
+      "league" : {
+        "id" : 104,
+        "name" : "National League",
+        "link" : "/api/v1/league/104"
+      },
+      "division" : {
+        "id" : 203,
+        "name" : "National League West",
+        "link" : "/api/v1/divisions/203"
+      },
+      "sport" : {
+        "id" : 1,
+        "link" : "/api/v1/sports/1",
+        "name" : "Major League Baseball"
+      },
+      "shortName" : "San Diego",
+      "franchiseName" : "San Diego",
+      "clubName" : "Padres",
+      "active" : true
+    } ]
+  }
