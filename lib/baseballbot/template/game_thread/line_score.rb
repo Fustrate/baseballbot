@@ -37,11 +37,7 @@ class Baseballbot
         end
 
         def team_inning_scores(flag)
-          [[' '] * innings].tap do |inning_scores|
-            linescore['innings'].each do |inning|
-              inning_scores[inning['num'] - 1] = inning.dig(flag, 'runs')
-            end
-          end
+          [*linescore['innings'].sort_by { _1['num'] }.map { _1.dig(flag, 'runs') }, *([' '] * 9)].first(innings)
         end
 
         def innings = [9, linescore['innings'].count].max
