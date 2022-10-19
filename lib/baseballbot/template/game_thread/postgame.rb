@@ -17,7 +17,7 @@ class Baseballbot
         def decisions_table
           table(
             headers: [['Winning Pitcher', :center], ['Losing Pitcher', :center], ['Save', :center]],
-            rows: [winning_pitcher, losing_pitcher, save_pitcher]
+            rows: [[winning_pitcher, losing_pitcher, save_pitcher]]
           )
         end
 
