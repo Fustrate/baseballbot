@@ -11,86 +11,69 @@ class Baseballbot
           <<~MARKDOWN
             ### Line Score - #{line_score_status}
 
-            #{line_score}
+            #{line_score_table.strip}
           MARKDOWN
         end
 
-        def line_score
-          <<~MARKDOWN
-            | |#{(1..(line_score_innings[0].count)).to_a.join('|')}|R|H|E|LOB
-            |:-:|#{':-:|' * line_score_innings[0].count}:-:|:-:|:-:|:-:
-            #{line_score_team(:away)}
-            #{line_score_team(:home)}
-          MARKDOWN
+        protected
+
+        def line_score_table
+          table(
+            headers: [' ', *[*line_score_inning_numbers, 'R', 'H', 'E', 'LOB'].map { [_1, :center] }],
+            rows: [line_score_team(:away), line_score_team(:home)]
+          )
         end
 
         def line_score_status
           return game_data.dig('status', 'detailedState') unless live?
 
-          return inning if outs == 3
-
-          "#{runners}, #{outs} #{outs == 1 ? 'Out' : 'Outs'}, #{inning}"
+          outs == 3 ? inning : "#{runners}, #{line_score_outs}, #{inning}"
         end
 
-        def runs(flag) = rhe(flag)['runs']
+        def line_score_outs = "#{outs} #{outs == 1 ? 'Out' : 'Outs'}"
 
-        protected
-
-        def line_score_innings
-          @line_score_innings ||= started? && linescore&.dig('innings') ? process_line_score_inning : BLANK_LINES
+        def line_score_innings(flag)
+          started? && linescore&.dig('innings') ? team_inning_scores(flag.to_s) : BLANK_LINES
         end
 
-        def process_line_score_inning
-          base_lines.tap do |lines|
+        def team_inning_scores(flag)
+          [[nil] * innings].tap do |inning_scores|
             linescore['innings'].each do |inning|
-              lines[0][inning['num'] - 1] = inning_runs(inning, 'away')
-              lines[1][inning['num'] - 1] = inning_runs(inning, 'home')
+              inning_scores[inning['num'] - 1] = inning.dig(flag, 'runs')
             end
           end
         end
 
-        def inning_runs(inning, flag) = inning[flag]&.dig('runs')
+        def innings = [9, linescore['innings'].count].max
 
-        def base_lines
-          innings = [9, linescore['innings'].count].max
-
-          [[nil] * innings, [nil] * innings]
-        end
+        def base_lines = [[nil] * innings] * 2
 
         def line_score_team(flag)
-          info = team_line_information(flag)
-
-          format(
-            '|[%<code>s](/%<code>s)|%<line>s|%<runs>s|%<hits>s|%<errors>s|%<lob>s',
-            code: info[:code],
-            line: info[:line].join('|'),
-            runs: bold(info[:runs]),
-            hits: bold(info[:hits]),
-            errors: bold(info[:errors]),
-            lob: bold(lob(flag))
-          )
-        end
-
-        def team_line_information(flag)
           team_rhe = rhe(flag)
 
-          {
-            code: (flag == :home ? home_team : away_team).code,
-            line: flag == :home ? line_score_innings[1] : line_score_innings[0],
-            runs: team_rhe['runs'],
-            hits: team_rhe['hits'],
-            errors: team_rhe['errors']
-          }
+          [
+            (flag == :home ? home_team : away_team).code,
+            *line_score_innings(flag),
+            bold(team_rhe['runs']),
+            bold(team_rhe['hits']),
+            bold(team_rhe['errors']),
+            bold(lob(flag))
+          ]
         end
+
+        def line_score_inning_numbers = (1..innings).to_a
 
         def rhe(flag) = linescore&.dig('teams', flag.to_s, 'runs') ? linescore.dig('teams', flag.to_s) : BLANK_RHE
 
+        def runs(flag) = rhe(flag)['runs']
+
+        # This is surprisingly complicated. I'm going to guess they'll move this info in the next few seasons.
         def lob(flag)
-          return 0 unless started?
+          return '-' unless started?
 
-          batting_info = boxscore.dig('teams', flag.to_s, 'info').find { _1['title'] == 'BATTING' }
+          batting_info = boxscore.dig('teams', flag.to_s, 'info')&.find { _1['title'] == 'BATTING' }
 
-          return 0 unless batting_info
+          return '-' unless batting_info
 
           lob_info = batting_info['fieldList'].find { _1['label'] == 'Team LOB' }
 
