@@ -15,20 +15,10 @@ class Baseballbot
         end
 
         def highlights_table
-          lines = highlights.map do |highlight|
-            [
-              # link_to('', url: "/#{highlight[:code]}"),
-              highlight[:blurb],
-              highlight[:duration],
-              link_to('Video', url: highlight[:hd])
-            ].join('|')
-          end
-
-          <<~MARKDOWN
-            Description|Length|Video
-            -|-|-
-            #{lines.join("\n")}
-          MARKDOWN
+          table(
+            headers: %w[Description Length Video],
+            rows: highlights.map { [_1[:blurb], _1[:duration], link_to('Video', url: _1[:hd])] }
+          )
         end
 
         protected
@@ -63,11 +53,7 @@ class Baseballbot
 
         def media_duration(media) = media['duration']&.strip&.gsub(/^00:0?/, '') || ''
 
-        def hd_playback_url(media)
-          media['playbacks']
-            .find { _1['name'] == 'mp4Avc' }
-            &.dig('url')
-        end
+        def hd_playback_url(media) = media['playbacks'].find { _1['name'] == 'mp4Avc' }&.dig('url')
 
         def media_team_code(media) = media.dig('image', 'title')&.match(/^\d+([a-z]+)/i)&.captures&.first
       end

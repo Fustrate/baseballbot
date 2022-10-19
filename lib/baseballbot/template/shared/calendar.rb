@@ -63,11 +63,9 @@ class Baseballbot
         end
 
         def schedule_between(start_date, end_date, team)
-          team_schedule.games_between(
-            start_date,
-            end_date,
-            team: team || @subreddit.team.id
-          ).values
+          team_schedule
+            .games_between(start_date, end_date, team: team || @subreddit.team.id)
+            .values
         end
 
         def next_game_str(date_format: '%-m/%-d', team: nil)

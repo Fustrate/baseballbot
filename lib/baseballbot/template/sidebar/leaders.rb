@@ -43,58 +43,40 @@ class Baseballbot
         end
 
         def hitter_stats_table(stats: [])
-          rows = stats.map { "#{_1.upcase}|#{hitter_stats[_1].first&.values&.join('|')}" }
-
-          <<~TABLE
-            Stat|Player|Total
-            -|-|-
-            #{rows.join("\n")}
-          TABLE
+          table(
+            headers: %w[Stat Player Total],
+            rows: stats.map { [_1.upcase, *(hitter_stats[_1].first&.values || ['', ''])] }
+          )
         end
 
         def pitcher_stats_table(stats: [])
-          rows = stats.map { "#{_1.upcase}|#{pitcher_stats[_1].first&.values&.join('|')}" }
-
-          <<~TABLE
-            Stat|Player|Total
-            -|-|-
-            #{rows.join("\n")}
-          TABLE
+          table(
+            headers: %w[Stat Player Total],
+            rows: stats.map { [_1.upcase, *(pitcher_stats[_1].first&.values || ['', ''])] }
+          )
         end
 
         protected
 
         def load_hitter_stats(year, type, count)
-          stats = {}
           all_hitters = load_stats(group: 'hitting', year:, type:)
           qualifying = load_stats(group: 'hitting', year:, type:, pool: 'QUALIFIED')
 
-          %w[h xbh hr rbi bb sb r].each do |key|
-            stats[key] = list_of(key, all_hitters, :desc, count, :integer)
-          end
-
-          %w[avg obp slg ops].each do |key|
-            stats[key] = list_of(key, qualifying, :desc, count, :float)
-          end
-
-          stats
+          {
+            **(%w[h xbh hr rbi bb sb r].to_h { [_1, list_of(_1, all_hitters, :desc, count, :integer)] }),
+            **(%w[avg obp slg ops].to_h { [_1, list_of(_1, qualifying, :desc, count, :float)] })
+          }
         end
 
         def load_pitcher_stats(year, type, count)
           all_pitchers = load_stats(group: 'pitching', year:, type:)
           qualifying = load_stats(group: 'pitching', year:, type:, pool: 'QUALIFIED')
 
-          stats = { 'ip' => list_of('ip', all_pitchers, :desc, count) }
-
-          %w[w sv hld so].each do |key|
-            stats[key] = list_of(key, all_pitchers, :desc, count, :integer)
-          end
-
-          %w[whip era avg].each do |key|
-            stats[key] = list_of(key, qualifying, :asc, count, :float)
-          end
-
-          stats
+          {
+            'ip' => list_of('ip', all_pitchers, :desc, count),
+            **(%w[w sv hld so].to_h { [_1, list_of(_1, all_pitchers, :desc, count, :integer)] }),
+            **(%w[whip era avg].to_h { [_1, list_of(_1, qualifying, :asc, count, :float)] })
+          }
         end
 
         def list_of(key, players, direction, count, type = :noop)
