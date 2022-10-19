@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Subject
+  include MarkdownHelpers
   include Baseballbot::Template::Sidebar::Leaders
 
   def initialize(subreddit:)
@@ -42,19 +43,19 @@ RSpec.describe Baseballbot::Template::Sidebar::Leaders do
   describe '#hitter_stats_table' do
     it 'generates a markdown table' do
       expect(template.hitter_stats_table(stats: %w[avg bb h hr obp ops r rbi sb slg xbh])).to eq(<<~MARKDOWN)
-        Stat|Player|Total
-        -|-|-
-        AVG|F Freeman|.322
-        BB|M Muncy|57
-        H|F Freeman|120
-        HR|M Betts|22
-        OBP|F Freeman|.398
-        OPS|F Freeman|.937
-        R|M Betts|67
-        RBI|T Turner|69
-        SB|T Turner|17
-        SLG|F Freeman|.539
-        XBH|F Freeman|49
+        |Stat|Player|Total|
+        |-|-|-|
+        |AVG|F Freeman|.322|
+        |BB|M Muncy|57|
+        |H|F Freeman|120|
+        |HR|M Betts|22|
+        |OBP|F Freeman|.398|
+        |OPS|F Freeman|.937|
+        |R|M Betts|67|
+        |RBI|T Turner|69|
+        |SB|T Turner|17|
+        |SLG|F Freeman|.539|
+        |XBH|F Freeman|49|
       MARKDOWN
     end
   end
@@ -77,16 +78,16 @@ RSpec.describe Baseballbot::Template::Sidebar::Leaders do
   describe '#pitcher_stats_table' do
     it 'generates a markdown table' do
       expect(template.pitcher_stats_table(stats: %w[avg era hld ip so sv w whip])).to eq(<<~MARKDOWN)
-        Stat|Player|Total
-        -|-|-
-        AVG|T Gonsolin|.174
-        ERA|T Gonsolin|2.260
-        HLD|E Phillips|11
-        IP|T Anderson|103.1
-        SO|J Urías|99
-        SV|C Kimbrel|17
-        W|T Gonsolin|11
-        WHIP|T Gonsolin|.880
+        |Stat|Player|Total|
+        |-|-|-|
+        |AVG|T Gonsolin|.174|
+        |ERA|T Gonsolin|2.260|
+        |HLD|E Phillips|11|
+        |IP|T Anderson|103.1|
+        |SO|J Urías|99|
+        |SV|C Kimbrel|17|
+        |W|T Gonsolin|11|
+        |WHIP|T Gonsolin|.880|
       MARKDOWN
     end
   end

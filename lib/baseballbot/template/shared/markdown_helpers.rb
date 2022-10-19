@@ -31,7 +31,7 @@ module MarkdownHelpers
     <<~MARKDOWN
       |#{header_cells.join('|')}|
       |#{alignment_cells.join('|')}|
-      |#{rows.map { _1.join('|') }.join("\n")}|
+      |#{rows.map { _1.join('|') }.join("|\n|")}|
     MARKDOWN
   end
 
