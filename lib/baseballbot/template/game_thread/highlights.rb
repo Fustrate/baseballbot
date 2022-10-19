@@ -10,7 +10,7 @@ class Baseballbot
           <<~MARKDOWN
             ### Highlights
 
-            #{decisions_table}
+            #{highlights_table}
           MARKDOWN
         end
 
