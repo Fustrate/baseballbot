@@ -37,7 +37,7 @@ class Baseballbot
         end
 
         def team_inning_scores(flag)
-          [[nil] * innings].tap do |inning_scores|
+          [[' '] * innings].tap do |inning_scores|
             linescore['innings'].each do |inning|
               inning_scores[inning['num'] - 1] = inning.dig(flag, 'runs')
             end
@@ -45,8 +45,6 @@ class Baseballbot
         end
 
         def innings = [9, linescore['innings'].count].max
-
-        def base_lines = [[nil] * innings] * 2
 
         def line_score_team(flag)
           team_rhe = rhe(flag)
