@@ -49,7 +49,7 @@ class Baseballbot
           }
         end
 
-        def media_blurb(media) = media['blurb']&.strip&.gsub(/^[A-Z@]+: /, '') || ''
+        def media_blurb(media) = media['blurb']&.strip&.gsub(/^[A-Z@]+: /, '')&.tr('|', '-') || ''
 
         def media_duration(media) = media['duration']&.strip&.gsub(/^00:0?/, '') || ''
 
