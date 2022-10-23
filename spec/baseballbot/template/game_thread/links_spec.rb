@@ -20,18 +20,18 @@ RSpec.describe Baseballbot::Template::GameThread::Links do
   describe '#player_link' do
     it 'generates a markdown link to a normal player hash' do
       expect(template.player_link({ 'boxscoreName' => 'Smith, W.D.', 'id' => 420 }))
-        .to eq '[Smith, W.D.](http://mlb.mlb.com/team/player.jsp?player_id=420)'
+        .to eq '[Smith, W.D.](https://www.mlb.com/player/420)'
     end
 
     it 'generates a markdown link to a player with a complicated hash' do
       expect(template.player_link({ 'name' => { 'boxscore' => 'Smith, W.D.' }, 'person' => { 'id' => 420 } }))
-        .to eq '[Smith, W.D.](http://mlb.mlb.com/team/player.jsp?player_id=420)'
+        .to eq '[Smith, W.D.](https://www.mlb.com/player/420)'
     end
   end
 
   describe '#player_url' do
     it 'generates a link to a player by ID' do
-      expect(template.player_url(8_675_309)).to eq 'http://mlb.mlb.com/team/player.jsp?player_id=8675309'
+      expect(template.player_url(8_675_309)).to eq 'https://www.mlb.com/player/8675309'
     end
   end
 

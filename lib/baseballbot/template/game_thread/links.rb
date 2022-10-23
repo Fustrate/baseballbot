@@ -8,7 +8,7 @@ class Baseballbot
           link_to(player_name(player), url: player_url(player['id'] || player.dig('person', 'id')), title:)
         end
 
-        def player_url(id) = "http://mlb.mlb.com/team/player.jsp?player_id=#{id}"
+        def player_url(id) = "https://www.mlb.com/player/#{id}"
 
         def gameday_link(mode: nil) = ["https://www.mlb.com/gameday/#{game_pk}", mode].compact.join('/')
 
