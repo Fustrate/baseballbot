@@ -23,7 +23,7 @@ class AroundTheHorn
     end
 
     def yesterday_link
-      yesterday_id = @bot.redis.hget('around_the_horn', (@subreddit.now - (3_600 * 27)).strftime('%F'))
+      yesterday_id = @subreddit.bot.redis.hget('around_the_horn', (@subreddit.now - (3_600 * 27)).strftime('%F'))
 
       yesterday_id ? "[Yesterday's ATH](/#{yesterday_id})" : ''
     end
