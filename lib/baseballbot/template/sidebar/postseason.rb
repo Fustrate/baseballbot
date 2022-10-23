@@ -4,85 +4,95 @@ class Baseballbot
   module Template
     class Sidebar
       module Postseason
-        POSTSEASON_SERIES_NAMES = {
-          'AL Wild Card Series' => 'AL Wild Card',
-          'ALCS' => 'AL Championship Series',
-          'ALDS' => 'AL Division Series',
-          'NL Wild Card Series' => 'NL Wild Card',
-          'NLCS' => 'NL Championship Series',
-          'NLDS' => 'NL Division Series'
-        }.freeze
+        def postseason_series_section = PostseasonSeriesSection.new(@subreddit).to_markdown
 
-        POSTSEASON_SERIES_ORDER = [
-          'World Series', 'AL Championship Series', 'NL Championship Series', 'AL Division Series',
-          'NL Division Series', 'AL Wild Card', 'NL Wild Card'
-        ].freeze
+        class PostseasonSeriesSection
+          POSTSEASON_SERIES_NAMES = {
+            'AL Wild Card Series' => 'AL Wild Card',
+            'ALCS' => 'AL Championship Series',
+            'ALDS' => 'AL Division Series',
+            'NL Wild Card Series' => 'NL Wild Card',
+            'NLCS' => 'NL Championship Series',
+            'NLDS' => 'NL Division Series'
+          }.freeze
 
-        def postseason_series
-          load_postseason_series
-            .group_by { |series, _| postseason_series_name(series) }
-            .transform_values { |matchup_games| matchup_games.map { postseason_series_row(_1[1].last) } }
-            .sort_by { |series, _| POSTSEASON_SERIES_ORDER.index(series) }
-            .map { |series, rows| postseason_series_section(series, rows) }
-            .join("\n\n")
-        end
+          POSTSEASON_SERIES_ORDER = [
+            'World Series', 'AL Championship Series', 'NL Championship Series', 'AL Division Series',
+            'NL Division Series', 'AL Wild Card', 'NL Wild Card'
+          ].freeze
 
-        protected
+          def initialize(subreddit)
+            @subreddit = subreddit
 
-        def load_postseason_series
-          @postseason_series = Hash.new { |h, k| h[k] = [] }
+            @postseason_series = Hash.new { |h, k| h[k] = [] }
 
-          @subreddit.bot.api.schedule(type: :postseason)['dates'].each do |date|
-            date['games'].each { process_postseason_game(_1) }
+            load_series
           end
 
-          @postseason_series
-        end
+          def to_markdown
+            <<~MARKDOWN
+              # #{@subreddit.now.year} Postseason
 
-        def postseason_series_section(series, rows)
-          <<~MARKDOWN
-            ## #{series}
-            #{table(headers: [[' ', :center]] * 3, rows:)}
+              #{postseason_series_tables.join("\n")}
+            MARKDOWN
+          end
 
-          MARKDOWN
-        end
+          protected
 
-        def postseason_series_row(game)
-          [
-            postseason_team_link(game.dig('teams', 'away', 'team', 'id')),
-            postseason_series_score(game),
-            postseason_team_link(game.dig('teams', 'home', 'team', 'id'))
-          ]
-        end
+          def load_series
+            @subreddit.bot.api.schedule(type: :postseason)['dates'].each do |date|
+              date['games'].each { process_game(_1) }
+            end
+          end
 
-        def postseason_series_score(game)
-          to_advance = (game['gamesInSeries'] / 2.0).ceil
+          def postseason_series_tables
+            @postseason_series
+              .group_by { |series, _| series_name(series) }
+              .transform_values { |matchup_games| matchup_games.map { series_row(_1[1].last) } }
+              .sort_by { |series, _| POSTSEASON_SERIES_ORDER.index(series) }
+              .map { |series, rows| postseason_series_table(series, rows) }
+          end
 
-          [
-            postseason_games_won(game.dig('teams', 'away', 'leagueRecord', 'wins'), to_advance),
-            postseason_games_won(game.dig('teams', 'home', 'leagueRecord', 'wins'), to_advance)
-          ].join('-')
-        end
+          def postseason_series_table(series, rows)
+            <<~MARKDOWN
+              ## #{series}
+              #{table(headers: [[' ', :center]] * 3, rows:)}
+            MARKDOWN
+          end
 
-        def postseason_games_won(wins, to_advance) = (wins == to_advance ? "**#{wins}**" : wins)
+          def series_row(game)
+            to_advance = (game['gamesInSeries'] / 2.0).ceil
 
-        def postseason_team_link(team_id)
-          team = @subreddit.bot.api.team(team_id)
+            [
+              team_link(game.dig('teams', 'away', 'team', 'id')),
+              [
+                series_games_won(game.dig('teams', 'away', 'leagueRecord', 'wins'), to_advance),
+                series_games_won(game.dig('teams', 'home', 'leagueRecord', 'wins'), to_advance)
+              ].join('-'),
+              team_link(game.dig('teams', 'home', 'team', 'id'))
+            ]
+          end
 
-          "[#{team.name}][#{team.code.upcase}]"
-        end
+          def series_games_won(wins, to_advance) = (wins == to_advance ? "**#{wins}**" : wins)
 
-        def postseason_series_name(series) = POSTSEASON_SERIES_NAMES[series.split('-').first]
+          def team_link(team_id)
+            team = @subreddit.bot.api.team(team_id)
 
-        def process_postseason_game(game)
-          return unless game.dig('status', 'abstractGameState') == 'Final'
+            "[#{team.name}][#{team.code.upcase}]"
+          end
 
-          low_team_id = [game.dig('teams', 'away', 'team', 'id'), game.dig('teams', 'home', 'team', 'id')].min
+          def series_name(series) = POSTSEASON_SERIES_NAMES[series.split('-').first]
 
-          # After the wildcard series, all of the descriptions are the same.
-          key = "#{game['description'].split(/ Game| - /).first}-#{low_team_id}"
+          def process_game(game)
+            return unless game.dig('status', 'abstractGameState') == 'Final'
 
-          @postseason_series[key] << game
+            low_team_id = [game.dig('teams', 'away', 'team', 'id'), game.dig('teams', 'home', 'team', 'id')].min
+
+            # After the wildcard series, all of the descriptions are the same.
+            key = "#{game['description'].split(/ Game| - /).first}-#{low_team_id}"
+
+            @postseason_series[key] << game
+          end
         end
       end
     end
