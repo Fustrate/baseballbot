@@ -69,8 +69,8 @@ class Baseballbot
 
           winner, loser = winner_loser_flags(data)
 
-          data[winner][:score] = bold data[winner][:score]
-          data[loser][:score] = italic data[loser][:score] if MLBStatsAPI::Games.postgame_status?(data[:raw_status])
+          data[winner][:score] = "**#{data[winner][:score]}**"
+          data[loser][:score] = "*#{data[loser][:score]}*" if MLBStatsAPI::Games.postgame_status?(data[:raw_status])
         end
 
         def scores_differ?(data) = started?(data[:raw_status]) && data[:home][:score] != data[:away][:score]
@@ -109,7 +109,7 @@ class Baseballbot
 
           case status
           when 'In Progress'   then game_inning game
-          when 'Postponed'     then italic 'PPD'
+          when 'Postponed'     then '*PPD*'
           when 'Delayed Start' then delay_type game
           when 'Delayed'       then "#{delay_type game} #{game_inning game}"
           when 'Warmup'        then 'Warmup'
@@ -131,7 +131,7 @@ class Baseballbot
         def delay_type(game) = game.dig('status', 'reason') == 'Rain' ? '☂' : 'Delay'
 
         def game_inning(game)
-          (game.dig('linescore', 'isTopInning') ? '▲' : '▼') + bold(game.dig('linescore', 'currentInning'))
+          "#{game.dig('linescore', 'isTopInning') ? '▲' : '▼'}**#{game.dig('linescore', 'currentInning')}**"
         end
 
         def gameday_link(text, game_pk) = link_to(text, url: "https://www.mlb.com/gameday/#{game_pk}")

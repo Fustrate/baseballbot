@@ -40,9 +40,9 @@ class Baseballbot
         end
 
         def event_score(play)
-          return "#{play[:score][0]}-#{bold play[:score][1]}" if play[:side] == 'T'
+          return "#{play[:score][0]}-**#{play[:score][1]}**" if play[:side] == 'T'
 
-          "#{bold play[:score][0]}-#{play[:score][1]}"
+          "**#{play[:score][0]}**-#{play[:score][1]}"
         end
       end
     end

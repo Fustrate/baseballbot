@@ -41,7 +41,7 @@ class Baseballbot
       def timestamp(action = nil)
         time = @subreddit.now.strftime '%-I:%M %p'
 
-        italic(action ? "#{action} at #{time}." : time)
+        "*#{action ? "#{action} at #{time}." : time}*"
       end
 
       protected

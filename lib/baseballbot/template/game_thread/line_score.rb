@@ -48,10 +48,10 @@ class Baseballbot
           [
             (flag == :home ? home_team : away_team).code,
             *line_score_innings(flag),
-            bold(team_rhe['runs']),
-            bold(team_rhe['hits']),
-            bold(team_rhe['errors']),
-            bold(lob(flag))
+            "**#{team_rhe['runs']}**",
+            "**#{team_rhe['hits']}**",
+            "**#{team_rhe['errors']}**",
+            "**#{lob(flag)}**"
           ]
         end
 

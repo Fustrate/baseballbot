@@ -35,7 +35,7 @@ class Baseballbot
         end
 
         def batters_table_header(flag, stats)
-          [bold((flag == :home ? home_team : away_team).code), ' ', *(stats.map { [_1.to_s.upcase, :center] })]
+          ["**#{(flag == :home ? home_team : away_team).code}**", ' ', *(stats.map { [_1.to_s.upcase, :center] })]
         end
 
         def batter_row(batter, stats = %i[ab r h rbi bb so ba])
@@ -44,9 +44,12 @@ class Baseballbot
           position = batter['position']['abbreviation']
 
           spacer = '[](/spacer)' if replacement
-          position = bold(position) unless replacement
 
-          ["#{spacer}#{position}", "#{spacer}#{player_link(batter)}", *batter_cells(batter, stats)]
+          [
+            "#{spacer}#{replacement ? position : "**#{position}**"}",
+            "#{spacer}#{player_link(batter)}",
+            *batter_cells(batter, stats)
+          ]
         end
 
         def batter_cells(batter, stats)

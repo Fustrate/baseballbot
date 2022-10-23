@@ -44,7 +44,7 @@ class Baseballbot
         end
 
         def pitchers_table_header(flag, stats)
-          [bold((flag == :home ? home_team : away_team).code), *(stats.map { [_1.to_s.upcase, :center] })]
+          ["**#{(flag == :home ? home_team : away_team).code}**", *(stats.map { [_1.to_s.upcase, :center] })]
         end
 
         def pitcher_row(pitcher, stats = %i[ip h r er bb so p-s era])

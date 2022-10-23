@@ -116,9 +116,9 @@ class Baseballbot
             title: games.map(&:status).join(', ')
           )
 
-          return bold "#{num} #{link}" if games[0].home_team?
+          return "**#{num} #{link}**" if games[0].home_team?
 
-          italic "#{num} #{link}"
+          "*#{num} #{link}*"
         end
 
         # Spring training games sometimes are against colleges, so sometimes
