@@ -18,7 +18,7 @@ class PostseasonGameLoader
   end
 
   def run
-    @bot.api.schedule(:postseason, hydrate: 'team,metadata,seriesStatus')['dates'].each do |date|
+    @bot.api.schedule(type: :postseason, hydrate: 'team,metadata,seriesStatus')['dates'].each do |date|
       date['games'].each { process_game(_1) }
     end
 
