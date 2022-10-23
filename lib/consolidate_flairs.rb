@@ -2,14 +2,15 @@
 
 require_relative 'default_bot'
 
-class ConsolidateFlairs
+class ConsolidateFlairs < DefaultBot
   CHANGES = {
     'old classes' => 'new classes'
   }.freeze
 
   def initialize
-    @bot = DefaultBot.create(purpose: 'Merge Flairs', account: 'BaseballBot')
-    @subreddit = @bot.session.subreddit('baseball')
+    super(purpose: 'Merge Flairs', account: 'BaseballBot')
+
+    @subreddit = session.subreddit('baseball')
   end
 
   def run = load_flairs after: ARGV[0]
@@ -19,7 +20,7 @@ class ConsolidateFlairs
   def load_flairs(after: nil)
     puts "Loading flairs#{after ? " after #{after}" : ''}"
 
-    res = @subreddit.client.get('/r/baseball/api/flairlist', after:, limit: 1000).body
+    res = client.get('/r/baseball/api/flairlist', after:, limit: 1000).body
 
     res[:users].each { process_flair(_1) }
 

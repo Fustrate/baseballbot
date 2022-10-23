@@ -2,7 +2,7 @@
 
 require_relative 'default_bot'
 
-class GameThreadLoader
+class GameThreadLoader < DefaultBot
   INSERT_GAME_THREAD = <<~SQL
     INSERT INTO game_threads (post_at, starts_at, subreddit_id, game_pk, status)
     VALUES ($1, $2, $3, $4, 'Future')
@@ -25,9 +25,9 @@ class GameThreadLoader
   SQL
 
   def initialize
-    @created = @updated = 0
+    super(purpose: 'Game Thread Loader', account: 'BaseballBot')
 
-    @bot = DefaultBot.create(purpose: 'Game Thread Loader', account: 'BaseballBot')
+    @created = @updated = 0
 
     @utc_offset = Time.now.utc_offset
   end
@@ -56,7 +56,7 @@ class GameThreadLoader
   end
 
   def load_game_threads
-    @bot.db.exec(ENABLED_SUBREDDITS).each do |row|
+    db.exec(ENABLED_SUBREDDITS).each do |row|
       next unless @names.empty? || @names.include?(row['name'].downcase)
 
       load_schedule row['id'], row['team_id'], Baseballbot::Utility.adjust_time_proc(row['post_at'])
@@ -64,7 +64,7 @@ class GameThreadLoader
   end
 
   def load_schedule(subreddit_id, team_id, post_at)
-    data = @bot.api.schedule(
+    data = api.schedule(
       startDate: @date.strftime('%F'),
       endDate: (Date.new(@date.year, @date.month + 1, 1) - 1).strftime('%F'),
       teamId: team_id,
@@ -92,7 +92,7 @@ class GameThreadLoader
   def insert_game(subreddit_id, game, post_at, starts_at)
     data = row_data(game, starts_at, post_at, subreddit_id)
 
-    @bot.db.exec_params INSERT_GAME_THREAD, data.values_at(:post_at, :starts_at, :subreddit_id, :game_pk)
+    db.exec_params INSERT_GAME_THREAD, data.values_at(:post_at, :starts_at, :subreddit_id, :game_pk)
 
     @created += 1
   rescue PG::UniqueViolation
@@ -110,7 +110,7 @@ class GameThreadLoader
   end
 
   def update_game(data)
-    @updated += @bot.db
+    @updated += db
       .exec_params(UPDATE_GAME_THREAD, data.values_at(:post_at, :starts_at, :updated_at, :subreddit_id, :game_pk))
       .cmd_tuples
   end

@@ -3,22 +3,22 @@
 require_relative 'default_bot'
 
 # A bot to iterate over pages of flairs
-class FlairBot
+class FlairBot < DefaultBot
   def initialize(purpose:, subreddit:)
-    @bot = DefaultBot.create(purpose:)
+    super(purpose:)
 
     @name = subreddit
-    @subreddit = @bot.session.subreddit(@name)
+
+    use_account name_to_subreddit(subreddit).account.name
 
     @updates = []
   end
 
   def run(after: ARGV[0])
-    @bot.with_reddit_account(@bot.name_to_subreddit(@name).account.name) do
-      load_flair_page(after:)
+    load_flair_page(after:)
 
-      send_batch if @updates.any?
-    end
+    # Send any updates from the last few pages
+    send_batch if @updates.any?
   end
 
   protected
@@ -26,7 +26,7 @@ class FlairBot
   def load_flair_page(after:)
     puts "Loading flairs#{after ? " after #{after}" : ''}"
 
-    response = @subreddit.client.get("/r/#{@name}/api/flairlist", after:, limit: 1000).body
+    response = client.get("/r/#{@name}/api/flairlist", after:, limit: 1000).body
 
     response[:users].each do |flair|
       process_flair(flair)
@@ -50,7 +50,7 @@ class FlairBot
     puts "Committing #{@updates.count} changes..."
     puts flair_csv
 
-    @subreddit.client.post("/r/#{@name}/api/flaircsv", flair_csv:)
+    client.post("/r/#{@name}/api/flaircsv", flair_csv:)
 
     @updates = []
   end

@@ -9,7 +9,7 @@ require 'json'
 
 SLACK_HOOK_ID = ENV.fetch('DODGERS_SLACK_HOOK_ID')
 
-class ModQueue
+class ModQueue < DefaultBot
   ACTIONS = [
     {
       name: 'queue_action',
@@ -47,8 +47,9 @@ class ModQueue
   ].freeze
 
   def initialize
-    @bot = DefaultBot.create(purpose: 'Mod Queue', account: 'DodgerBot')
-    @subreddit = @bot.session.subreddit('Dodgers')
+    super(purpose: 'Mod Queue', account: 'DodgerBot')
+
+    @subreddit = session.subreddit('Dodgers')
 
     @uri = URI.parse("https://hooks.slack.com/services/#{SLACK_HOOK_ID}")
 
@@ -73,11 +74,11 @@ class ModQueue
   protected
 
   def process_item(item)
-    return if @bot.redis.hget('dodgers_mod_queue', item.name)
+    return if redis.hget('dodgers_mod_queue', item.name)
 
     send_to_slack slack_message(item)
 
-    @bot.redis.hset 'dodgers_mod_queue', item.name, 1
+    redis.hset 'dodgers_mod_queue', item.name, 1
 
     # Don't flood the slack channel
     sleep(5)

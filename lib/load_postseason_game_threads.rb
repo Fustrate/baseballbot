@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-require_relative 'baseballbot'
+require_relative 'default_bot'
 
 # Load all postseason game threads for /r/baseball - team subs will load normally via load_game_threads.rb
-class PostseasonGameLoader
+class PostseasonGameLoader < DefaultBot
   R_BASEBALL = 15
 
   # TODO: This is a bad fix - figure it out the right way
   HOUR_OFFSET = 8
 
   def initialize
-    @attempts = @failures = 0
+    super(purpose: 'Postseason /r/baseball Game Thread Loader')
 
-    @bot = Baseballbot.new
+    @attempts = @failures = 0
 
     @utc_offset = Time.now.utc_offset
   end
 
   def run
-    @bot.api.schedule(type: :postseason, hydrate: 'team,metadata,seriesStatus')['dates'].each do |date|
+    api.schedule(type: :postseason, hydrate: 'team,metadata,seriesStatus')['dates'].each do |date|
       date['games'].each { process_game(_1) }
     end
 
@@ -44,7 +44,7 @@ class PostseasonGameLoader
   end
 
   def team_subreddits_data
-    @bot.db.exec(<<~SQL)
+    db.exec(<<~SQL)
       SELECT id, team_id, options#>>'{game_threads,post_at}' AS post_at,
         COALESCE(options#>>'{game_threads,title,postseason}', options#>>'{game_threads,title,default}') AS title
       FROM subreddits
@@ -80,7 +80,7 @@ class PostseasonGameLoader
 
     data = row_data(game, starts_at, post_at, title, subreddit_id)
 
-    @bot.db.exec_params(<<~SQL, data.values)
+    db.exec_params(<<~SQL, data.values)
       INSERT INTO game_threads (#{data.keys.join(', ')})
       VALUES (#{(1..data.size).map { "$#{_1}" }.join(', ')})
     SQL
@@ -100,7 +100,7 @@ class PostseasonGameLoader
   end
 
   def baseball_subreddit_title
-    @baseball_subreddit_title ||= @bot.db.exec(<<~SQL).first['title']
+    @baseball_subreddit_title ||= db.exec(<<~SQL).first['title']
       SELECT
         options#>>'{game_threads,title,postseason}' AS title
       FROM subreddits

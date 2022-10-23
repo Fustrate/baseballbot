@@ -4,7 +4,7 @@ require_relative 'default_bot'
 
 # Known bug: if there are dueling no hitters, only the home team will get a post since the database has a uniqueness
 # constraint on subreddit/game_pk/type.
-class NoHitterBot
+class NoHitterBot < DefaultBot
   MIN_INNINGS = 6
   SUBREDDIT_NAME = 'baseball'
 
@@ -12,7 +12,9 @@ class NoHitterBot
   WAIT_TIMES = [0, 3600, 1800, 900, 600, 300, 30].freeze
 
   def initialize
-    @bot = DefaultBot.create(purpose: 'No Hitter Bot', account: 'BaseballBot')
+    super(purpose: 'No Hitter Bot')
+
+    use_account name_to_subreddit(SUBREDDIT_NAME).account.name
   end
 
   def post_no_hitters!
@@ -21,7 +23,7 @@ class NoHitterBot
     # Default to checking again in 30 minutes
     @next_check = [Time.now + 1800]
 
-    schedule = @bot.api.schedule(
+    schedule = api.schedule(
       date: Time.now.strftime('%m/%d/%Y'),
       hydrate: 'game,linescore,flags,team',
       sportId: 1
@@ -29,7 +31,7 @@ class NoHitterBot
 
     schedule.dig('dates', 0, 'games').each { process_game(_1) }
 
-    @bot.redis.set 'next_no_hitter_check', @next_check.min.strftime('%F %T')
+    redis.set 'next_no_hitter_check', @next_check.min.strftime('%F %T')
   end
 
   protected
@@ -37,13 +39,13 @@ class NoHitterBot
   def perform_check?
     return true if ENV.fetch('FORCE', nil)
 
-    value = @bot.redis.get 'next_no_hitter_check'
+    value = redis.get 'next_no_hitter_check'
 
     !value || Time.parse(value) < Time.now
   end
 
   def subreddit
-    @subreddit ||= @bot.name_to_subreddit(SUBREDDIT_NAME)
+    @subreddit ||= name_to_subreddit(SUBREDDIT_NAME)
   end
 
   def process_game(game)
@@ -108,7 +110,7 @@ class NoHitterBot
   end
 
   def already_posted?(game_pk)
-    @bot.db.exec_params(<<~SQL, [subreddit.id, game_pk, 'no_hitter']).any?
+    db.exec_params(<<~SQL, [subreddit.id, game_pk, 'no_hitter']).any?
       SELECT 1 FROM game_threads WHERE subreddit_id = $1 AND game_pk = $2 AND type = $3
     SQL
   end
@@ -122,7 +124,7 @@ class NoHitterBot
       submission.title
     ]
 
-    @bot.db.exec_params(<<~SQL, data)
+    db.exec_params(<<~SQL, data)
       INSERT INTO game_threads (post_at, starts_at, subreddit_id, game_pk, post_id, title, status, type)
       VALUES ($1, $1, $2, $3, $4, $5, 'Posted', 'no_hitter')
     SQL

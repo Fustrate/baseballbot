@@ -2,26 +2,40 @@
 
 require_relative 'default_bot'
 
-@bot = DefaultBot.create(purpose: 'Refresh Tokens')
+class RefreshTokens < DefaultBot
+  def initialize(*account_names)
+    super(purpose: 'Refresh Tokens')
 
-@names = ARGV[0]&.downcase&.split(',') || []
-
-@bot.accounts.each_value do |account|
-  next if @names.any? && !@names.include?(account.name.downcase)
-
-  unless account.access.expired?
-    puts "Skipping #{account.name}"
-
-    next
+    @account_names = account_names.map(&:downcase)
   end
 
-  begin
-    puts "Refreshing #{account.name}"
+  def run
+    accounts.each_value do |account|
+      process_account(account)
 
-    @bot.use_account account.name
+      sleep 5
+    end
+  end
+
+  def process_account(account)
+    return if skip_account?(account.name)
+
+    if account.access.expired?
+      refresh!(account.name)
+    else
+      puts "Skipping #{account.name}"
+    end
+  end
+
+  def refresh!(account_name)
+    puts "Refreshing #{account_name}"
+
+    use_account account_name
   rescue Redd::Errors::APIError => e
     puts "\tError: #{e.class}"
   end
 
-  sleep 5
+  def skip_account?(name) = @account_names.any? && !@account_names.include?(name.downcase)
 end
+
+RefreshTokens.new(*ARGV).run

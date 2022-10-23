@@ -2,8 +2,8 @@
 
 require_relative 'default_bot'
 
-class AroundTheHorn
-  class Template < Baseballbot::Template::Sidebar
+class AroundTheHorn < DefaultBot
+  class ATHTemplate < Baseballbot::Template::Sidebar
     TODAYS_GAMES = <<~'ERB'
       # <%= (@subreddit.now - 10_800).strftime('%A') %>'s Games
 
@@ -18,9 +18,7 @@ class AroundTheHorn
       ^(★)Game Thread. All game times are Eastern. <%= updated_with_link %> <%= yesterday_link %>
     ERB
 
-    def initialize(subreddit:)
-      super(body: TODAYS_GAMES, subreddit:)
-    end
+    def initialize(subreddit:) = super(body: TODAYS_GAMES, subreddit:)
 
     def yesterday_link
       yesterday_id = @subreddit.bot.redis.hget('around_the_horn', (@subreddit.now - (3_600 * 27)).strftime('%F'))
@@ -49,8 +47,9 @@ class AroundTheHorn
   end
 
   def initialize
-    @bot = DefaultBot.create(purpose: 'Around the Horn', account: 'BaseballBot')
-    @subreddit = @bot.name_to_subreddit('baseball')
+    super(purpose: 'Around the Horn', account: 'BaseballBot')
+
+    @subreddit = name_to_subreddit('baseball')
 
     # Keep updating the same thread until 3 AM Pacific
     @date = @subreddit.now - 10_800
@@ -74,19 +73,19 @@ class AroundTheHorn
     submission.make_sticky(slot: 1)
     submission.set_suggested_sort 'new'
 
-    @bot.redis.hset 'around_the_horn', @date.strftime('%F'), submission.id
+    redis.hset 'around_the_horn', @date.strftime('%F'), submission.id
   end
 
   protected
 
-  def todays_submission_id = @bot.redis.hget('around_the_horn', @date.strftime('%F'))
+  def todays_submission_id = redis.hget('around_the_horn', @date.strftime('%F'))
 
   def post_title = @date.strftime('[General Discussion] Around the Horn - %-m/%-d/%y')
 
   def initial_body = @subreddit.subreddit.wiki_page('ath').content_md.split(/\r?\n-{3,}\r?\n/)[1].strip
 
   def update_todays_games_in(text)
-    AroundTheHorn::Template.new(subreddit: @subreddit).replace_in(text, delimiter: '[](/todays_games)')
+    AroundTheHorn::ATHTemplate.new(subreddit: @subreddit).replace_in(text, delimiter: '[](/todays_games)')
   end
 end
 

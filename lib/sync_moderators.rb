@@ -2,21 +2,24 @@
 
 require_relative 'default_bot'
 
-class SyncModerators
-  def initialize(subreddits: [])
-    @bot = DefaultBot.create(purpose: 'Sync Moderators')
-    @subreddits = subreddits
+class SyncModerators < DefaultBot
+  def initialize(*subreddit_names)
+    super(purpose: 'Sync Moderators')
+
+    use_account 'BaseballBot'
+
+    @subreddit_names = subreddit_names.map(&:downcase)
   end
 
-  def run
-    @bot.use_account 'BaseballBot'
-
-    @bot.subreddits.each_value { process_subreddit(_1) if @subreddits.none? || @subreddits.include?(_1.name.downcase) }
-  end
+  def run = subreddits.each_value { process_subreddit(_1) }
 
   protected
 
+  def skip_subreddit?(name) = @subreddit_names.any? && !@subreddit_names.include?(name.downcase)
+
   def process_subreddit(subreddit)
+    return if skip_subreddit?(subreddit.name)
+
     @subreddit = subreddit
     @mod_names = moderator_names
 
@@ -40,7 +43,7 @@ class SyncModerators
   def reset_moderator_names
     names_sql_array = %({"#{@mod_names.join('","')}"})
 
-    @bot.db.exec_params(<<~SQL, [names_sql_array, @subreddit.id])
+    db.exec_params(<<~SQL, [names_sql_array, @subreddit.id])
       UPDATE subreddits SET moderators = $1 WHERE id = $2
     SQL
   end
@@ -50,7 +53,7 @@ class SyncModerators
 
     return if remove_ids.none?
 
-    @bot.db.exec_params(<<~SQL, [@subreddit.id, *remove_ids])
+    db.exec_params(<<~SQL, [@subreddit.id, *remove_ids])
       DELETE FROM subreddits_users
       WHERE subreddit_id = $1
         AND user_id IN ($#{(2...(2 + remove_ids.length)).to_a.join(', $')})
@@ -64,7 +67,7 @@ class SyncModerators
   end
 
   def add_modded_users
-    mod_user_ids = @bot.db.exec_params(<<~SQL, [@subreddit.id, *@mod_names]).to_a.map { _1['id'] }
+    mod_user_ids = db.exec_params(<<~SQL, [@subreddit.id, *@mod_names]).to_a.map { _1['id'] }
       SELECT id
       FROM users
         LEFT JOIN subreddits_users ON (subreddit_id = $1 AND user_id = users.id)
@@ -75,7 +78,7 @@ class SyncModerators
   end
 
   def add_modded_user(user_id)
-    @bot.db.exec_params(<<~SQL, [@subreddit.id, user_id.to_i])
+    db.exec_params(<<~SQL, [@subreddit.id, user_id.to_i])
       INSERT INTO subreddits_users (subreddit_id, user_id)
       VALUES ($1, $2)
     SQL
@@ -83,7 +86,7 @@ class SyncModerators
 
   def existing_relations
     @existing_relations ||= begin
-      rows = @bot.db.exec_params(<<~SQL).to_a
+      rows = db.exec_params(<<~SQL).to_a
         SELECT subreddit_id, user_id, LOWER(users.username) AS username
         FROM subreddits_users
         LEFT JOIN subreddits ON (subreddits.id = subreddit_id)
@@ -95,4 +98,4 @@ class SyncModerators
   end
 end
 
-SyncModerators.new.run(subreddits: (ARGV[0]&.downcase || '').split(','))
+SyncModerators.new(*ARGV).run

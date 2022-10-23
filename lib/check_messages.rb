@@ -2,14 +2,12 @@
 
 require_relative 'default_bot'
 
-class CheckMessages
+class CheckMessages < DefaultBot
   TITLE = /(?:game ?(?:thread|chat|day)|gdt)/i
   LINK = %r{(?:redd\.it|/comments|reddit\.com)/([a-z0-9]{6})}i
   GAME_PK = %r{(?:gamePk=|gameday/)(\d{6,})}i
 
-  def initialize
-    @bot = DefaultBot.create(purpose: 'Messages', account: 'BaseballBot')
-  end
+  def initialize = super(purpose: 'Messages', account: 'BaseballBot')
 
   def run!(retry_on_failure: true)
     unread_messages.each { process_message(_1) }
@@ -27,18 +25,18 @@ class CheckMessages
 
   protected
 
-  def unread_messages = @bot.session.my_messages(category: 'unread', mark: false, limit: 10) || []
+  def unread_messages = session.my_messages(category: 'unread', mark: false, limit: 10) || []
 
   def process_message(message)
     post_id = extract_post_id(message)
 
     return unless post_id
 
-    submission = @bot.session.from_ids("t3_#{post_id}")&.first
+    submission = session.from_ids("t3_#{post_id}")&.first
 
     return unless submission
 
-    subreddit_id = @bot.name_to_subreddit(submission.subreddit.display_name.downcase).id
+    subreddit_id = name_to_subreddit(submission.subreddit.display_name.downcase).id
 
     game_pk = Regexp.last_match[1] if submission.selftext =~ GAME_PK
 
@@ -66,7 +64,7 @@ class CheckMessages
 
     data = game_thread_data(game_pk, submission, subreddit_id, post_id)
 
-    @bot.db.exec_params(<<~SQL, data.values)
+    db.exec_params(<<~SQL, data.values)
       INSERT INTO game_threads (#{data.keys.join(', ')})
       VALUES ($#{(1..data.size).to_a.join(', $')})
     SQL

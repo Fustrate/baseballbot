@@ -3,19 +3,19 @@
 # The bare basics of most files in /lib/
 require_relative 'baseballbot'
 
-module DefaultBot
-  def self.create(purpose: nil, account: nil)
-    bot = Baseballbot.new(
+class DefaultBot < Baseballbot
+  def initialize(purpose: nil, account: nil)
+    super(
       user_agent: ['Baseballbot by /u/Fustrate', purpose].compact.join(' - '),
       logger: Logger.new(log_location)
     )
 
-    bot.use_account account if account
-
-    bot
+    use_account(account) if account
   end
 
-  def self.log_location
+  protected
+
+  def log_location
     return $stdout if ARGV.any? { _1.match?(/\Alog=(?:1|stdout)\z/i) }
 
     File.expand_path '../log/baseballbot.log', __dir__

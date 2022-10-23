@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require_relative 'baseballbot'
+require_relative 'default_bot'
 
 # Add the ESPN game of the week to /r/baseball's schedule
-class SundayGameThreadLoader
+class SundayGameThreadLoader < DefaultBot
   R_BASEBALL_ID = 15
 
   def initialize
-    @attempts = @failures = 0
+    super(purpose: 'Sunday /r/baseball Game Thread Loader')
 
-    @bot = Baseballbot.new
+    @attempts = @failures = 0
 
     @utc_offset = Time.now.utc_offset
   end
@@ -36,7 +36,7 @@ class SundayGameThreadLoader
   end
 
   def sunday_games(date)
-    @bot.api.schedule(
+    api.schedule(
       sportId: 1,
       date: date.strftime('%m/%d/%Y'),
       hydrate: 'game(content(media(epg)))'
@@ -55,7 +55,7 @@ class SundayGameThreadLoader
 
     data = game_data(game, starts_at)
 
-    @bot.db.exec_params(<<~SQL, data.values)
+    db.exec_params(<<~SQL, data.values)
       INSERT INTO game_threads (#{data.keys.join(', ')})
       VALUES (#{(1..data.size).map { "$#{_1}" }.join(', ')})
     SQL
