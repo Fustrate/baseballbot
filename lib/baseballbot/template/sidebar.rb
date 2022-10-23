@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
+Dir.glob(File.join(File.dirname(__FILE__), 'sidebar', '*.rb')).each { require _1 }
+
 class Baseballbot
   module Template
     class Sidebar < Base
-      Dir.glob(File.join(File.dirname(__FILE__), 'sidebar', '*.rb')).each { require _1 }
-
       include Template::Sidebar::Leaders
+      include Template::Sidebar::Postseason
       include Template::Sidebar::TodaysGames
 
       def inspect = %(#<Baseballbot::Template::Sidebar @subreddit="#{@subreddit.name}">)
