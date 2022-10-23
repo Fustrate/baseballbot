@@ -67,7 +67,7 @@ class Baseballbot
         def postseason_games_won(wins, to_advance) = (wins == to_advance ? "**#{wins}**" : wins)
 
         def postseason_team_link(team_id)
-          team = api.team(team_id)
+          team = @subreddit.bot.api.team(team_id)
 
           "[#{team.name}][#{team.code.upcase}]"
         end
