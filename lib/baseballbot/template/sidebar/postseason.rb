@@ -19,7 +19,7 @@ class Baseballbot
         ].freeze
 
         def postseason_series
-          @postseason_series
+          load_postseason_series
             .group_by { |series, _| postseason_series_name(series) }
             .transform_values { |matchup_games| matchup_games.map { postseason_series_row(_1[1].last) } }
             .sort_by { |series, _| POSTSEASON_SERIES_ORDER.index(series) }
@@ -35,6 +35,8 @@ class Baseballbot
           @subreddit.bot.api.schedule(type: :postseason)['dates'].each do |date|
             date['games'].each { process_postseason_game(_1) }
           end
+
+          @postseason_series
         end
 
         def postseason_series_section(series, rows)
