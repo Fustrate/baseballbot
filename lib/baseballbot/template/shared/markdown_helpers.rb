@@ -7,10 +7,6 @@ module MarkdownHelpers
     right: '-:'
   }.freeze
 
-  def pct(percent) = format('%0.3<percent>f', percent:).sub(/\A0+/, '')
-
-  def gb(games_back) = games_back.gsub(/\.0$/, '')
-
   def table(headers: [], rows: [])
     header_cells = []
     alignment_cells = []
