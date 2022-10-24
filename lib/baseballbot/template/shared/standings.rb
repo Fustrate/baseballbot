@@ -136,7 +136,7 @@ module TeamStandingsData
     def standard_information(row)
       {
         losses: row['losses'],
-        percent: row['leagueRecord']['pct'].to_f,
+        percent: format('%0.3<percent>f', percent: row['leagueRecord']['pct'].to_f).sub(/\A0+/, ''),
         run_diff: row['runDifferential'],
         streak: row.dig('streak', 'streakCode') || '-',
         wins: row['wins']
@@ -148,8 +148,8 @@ module TeamStandingsData
         division_champ: row['divisionChamp'],
         division_lead: row['divisionLeader'],
         elim: row['eliminationNumber'],
-        games_back: row['divisionGamesBack'],
-        league_games_back: row['leagueGamesBack']
+        games_back: row['divisionGamesBack'].gsub(/\.0$/, ''),
+        league_games_back: row['leagueGamesBack'].gsub(/\.0$/, '')
       }
     end
 
