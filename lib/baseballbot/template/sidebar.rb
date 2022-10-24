@@ -7,7 +7,7 @@ class Baseballbot
 
       def postseason_series_section = Sidebar::Postseason.new(@subreddit).to_s
 
-      def todays_games(date = nil) = Sidebar::TodaysGames.new(@subreddit, date).generate
+      def todays_games(date = nil) = Sidebar::TodaysGames.new(@subreddit, date)
 
       def hitter_stats(...) = Sidebar::Leaders.new(@subreddit).hitter_stats(...)
 
