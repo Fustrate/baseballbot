@@ -5,17 +5,21 @@ class Baseballbot
     class Sidebar < Template::Base
       Dir.glob(File.join(File.dirname(__FILE__), 'sidebar', '*.rb')).each { require _1 }
 
-      include Template::Sidebar::Leaders
-      include Template::Sidebar::Postseason
-      include Template::Sidebar::TodaysGames
+      def postseason_series_section = Sidebar::Postseason.new(@subreddit).to_s
 
-      def inspect = %(#<Baseballbot::Template::Sidebar @subreddit="#{@subreddit.name}">)
+      def todays_games(date = nil) = Sidebar::TodaysGames.new(@subreddit, date).generate
+
+      def hitter_stats(...) = Sidebar::Leaders.hitter_stats(...)
+
+      def pitcher_stats(...) = Sidebar::Leaders.pitcher_stats(...)
+
+      def hitter_stats_table(...) = Sidebar::Leaders.new(@subreddit).hitter_stats_table(...)
+
+      def pitcher_stats_table(...) = Sidebar::Leaders.new(@subreddit).pitcher_stats_table(...)
 
       def updated_with_link = "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
 
-      protected
-
-      def wildcard(wcgb) = wcgb.to_f * (wcgb[0] == '+' ? -1 : 1)
+      def inspect = %(#<Baseballbot::Template::Sidebar @subreddit="#{@subreddit.name}">)
     end
   end
 end

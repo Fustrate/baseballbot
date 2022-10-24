@@ -3,7 +3,9 @@
 class Baseballbot
   module Template
     class Sidebar
-      module Leaders
+      class Leaders
+        include MarkdownHelpers
+
         BASE_URL = 'https://bdfed.stitch.mlbinfra.com/bdfed/stats/player?stitch_env=prod&season=%<year>d' \
                    '&group=%<group>s&stats=season&gameType=%<type>s&playerPool=%<pool>s&teamId=%<team_id>d'
 
@@ -23,6 +25,10 @@ class Baseballbot
         }.freeze
 
         NO_QUALIFIED_PLAYERS = [{ name: 'None Qualified', value: 0 }].freeze
+
+        def initialize(subreddit)
+          @subreddit = subreddit
+        end
 
         def hitter_stats(year: nil, type: 'R', count: 1)
           year ||= Date.today.year

@@ -3,7 +3,7 @@
 class Baseballbot
   module Template
     class Sidebar
-      module TodaysGames
+      class TodaysGames
         TODAYS_GAMES_HYDRATE = 'game(content(summary)),linescore,flags,team'
 
         TODAYS_GAMES_SQL = <<~SQL
@@ -13,13 +13,14 @@ class Baseballbot
           WHERE starts_at::date = $1
         SQL
 
-        def todays_games(date)
-          @date = date || @subreddit.now
+        def initialize(subreddit, date = nil)
+          @subreddit = subreddit
+          @date = date || subreddit.now
 
           load_known_game_threads
-
-          scheduled_games.map { process_todays_game(_1) }
         end
+
+        def generate = scheduled_games.map { process_todays_game(_1) }
 
         protected
 
@@ -94,13 +95,11 @@ class Baseballbot
           }
         end
 
-        def team_abbreviation(game, team)
-          intrasquad?(team) ? game.dig('teams', 'home', 'team', 'abbreviation') : team.dig('team', 'abbreviation')
-        end
+        def team_abbreviation(game, team) = find_team(game, team)['abbreviation']
 
-        def team_name(game, team)
-          intrasquad?(team) ? game.dig('teams', 'home', 'team', 'clubName') : team.dig('team', 'clubName')
-        end
+        def team_name(game, team) = find_team(game, team)['clubName']
+
+        def find_team(game, team) = intrasquad?(team) ? game.dig('teams', 'home', 'team') : team['team']
 
         def intrasquad?(team) = team.dig('team', 'name') == 'Intrasquad'
 
