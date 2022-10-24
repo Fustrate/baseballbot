@@ -9,9 +9,9 @@ class Baseballbot
 
       def todays_games(date = nil) = Sidebar::TodaysGames.new(@subreddit, date).generate
 
-      def hitter_stats(...) = Sidebar::Leaders.hitter_stats(...)
+      def hitter_stats(...) = Sidebar::Leaders.new(@subreddit).hitter_stats(...)
 
-      def pitcher_stats(...) = Sidebar::Leaders.pitcher_stats(...)
+      def pitcher_stats(...) = Sidebar::Leaders.new(@subreddit).pitcher_stats(...)
 
       def hitter_stats_table(...) = Sidebar::Leaders.new(@subreddit).hitter_stats_table(...)
 

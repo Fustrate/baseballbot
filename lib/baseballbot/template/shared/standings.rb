@@ -175,7 +175,7 @@ module TeamStandingsData
 
     def sort_order(row)
       [
-        1.0 - row[:percent],
+        1.0 - row[:percent].to_f,
         162 - row[:wins],
         row[:losses],
         row[:team]['abbreviation']

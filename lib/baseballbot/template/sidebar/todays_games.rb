@@ -82,7 +82,7 @@ class Baseballbot
 
         def team_info(game:, team:)
           abbreviation = team_abbreviation(game, team)
-          team_subreddit = subreddit(abbreviation)
+          team_subreddit = @subreddit.bot.default_subreddit(abbreviation)
 
           post_id = @game_threads[game['gamePk'].to_i][team_subreddit.downcase]
 
