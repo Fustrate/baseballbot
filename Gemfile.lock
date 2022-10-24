@@ -103,14 +103,14 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.11.0)
     rspec-support (3.11.1)
-    rubocop (1.37.0)
+    rubocop (1.37.1)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.22.0, < 2.0)
+      rubocop-ast (>= 1.23.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.23.0)
@@ -118,7 +118,7 @@ GEM
     rubocop-performance (1.15.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rspec (2.13.2)
+    rubocop-rspec (2.14.1)
       rubocop (~> 1.33)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
@@ -164,4 +164,4 @@ RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.11
+   2.3.23
