@@ -49,7 +49,7 @@ class Baseballbot
 
         protected
 
-        def team_link(team) = link_to(team.name, url: "/r/#{subreddit(team.code)}")
+        def team_link(team) = "[#{team.name}](/r/#{subreddit(team.code)}"
       end
     end
   end

@@ -19,7 +19,7 @@ class Baseballbot
         def highlights_table
           table(
             headers: %w[Description Length Video],
-            rows: highlights.map { [_1[:blurb], _1[:duration], link_to('Video', url: _1[:hd])] }
+            rows: highlights.map { [_1[:blurb], _1[:duration], "[Video](#{_1[:hd]})"] }
           )
         end
 

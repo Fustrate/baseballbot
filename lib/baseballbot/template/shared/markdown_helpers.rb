@@ -24,14 +24,4 @@ module MarkdownHelpers
       |#{rows.map { _1.join('|') }.join("|\n|")}|
     MARKDOWN
   end
-
-  def link_to(text = '', **options)
-    title = %( "#{options[:title]}") if options[:title]
-
-    return "[#{text}](/r/#{options[:sub]}#{title})" if options[:sub]
-    return "[#{text}](#{options[:url]}#{title})" if options[:url]
-    return "[#{text}](/u/#{options[:user]}#{title})" if options[:user]
-
-    "[#{text}](/##{title})"
-  end
 end

@@ -110,11 +110,8 @@ class Baseballbot
 
           return num if games.empty?
 
-          link = link_to(
-            '',
-            sub: cell_subreddit(games.first.opponent.code, options[:downcase]),
-            title: games.map(&:status).join(', ')
-          )
+          sub_name = cell_subreddit(games.first.opponent.code, options[:downcase])
+          link = "[](/r/#{sub_name} \"#{games.map(&:status).join(', ')}\")"
 
           return "**#{num} #{link}**" if games[0].home_team?
 

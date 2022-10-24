@@ -134,7 +134,7 @@ class Baseballbot
           "#{game.dig('linescore', 'isTopInning') ? '▲' : '▼'}**#{game.dig('linescore', 'currentInning')}**"
         end
 
-        def gameday_link(text, game_pk) = link_to(text, url: "https://www.mlb.com/gameday/#{game_pk}")
+        def gameday_link(text, game_pk) = "[#{text}](https://www.mlb.com/gameday/#{game_pk})"
 
         def load_known_game_threads
           @game_threads = Hash.new { |h, k| h[k] = {} }
