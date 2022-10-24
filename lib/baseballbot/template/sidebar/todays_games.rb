@@ -4,6 +4,8 @@ class Baseballbot
   module Template
     class Sidebar
       class TodaysGames
+        include MarkdownHelpers
+
         TODAYS_GAMES_HYDRATE = 'game(content(summary)),linescore,flags,team'
 
         TODAYS_GAMES_SQL = <<~SQL
@@ -25,6 +27,8 @@ class Baseballbot
             ## #{(@subreddit.now - 10_800).strftime('%A')}'s Games
 
             #{games_table}
+
+            ^(★)Game Thread. All game times are Eastern.
           MARKDOWN
         end
 
@@ -35,7 +39,7 @@ class Baseballbot
         def game_rows
           scheduled_games
             .map { game_hash(_1) }
-            .in_groups_of(2)
+            .each_slice(2)
             .flat_map { |one, two| [[*away_cells(one), *away_cells(two)], [*home_cells(one), *home_cells(two)]] }
         end
 
@@ -71,7 +75,7 @@ class Baseballbot
 
         # Postponed games won't have media
         def national_feeds(game)
-          (game.dig('content', 'media', 'epg') || [])
+          (game.dig('content', 'media', 'epg') || [{ 'title' => 'MLBTV', 'items' => [] }])
             .find { _1['title'] == 'MLBTV' }['items']
             .filter_map { _1['callLetters'] if _1['mediaFeedType'] == 'NATIONAL' }
         end
