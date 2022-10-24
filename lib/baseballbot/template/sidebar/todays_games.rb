@@ -26,15 +26,13 @@ class Baseballbot
           <<~MARKDOWN
             ## #{(@subreddit.now - 10_800).strftime('%A')}'s Games
 
-            #{games_table}
+            #{table(headers: [' ', [' ', :center], [' ', :center]] * 2, rows: game_rows)}
 
             ^(★)Game Thread. All game times are Eastern.
           MARKDOWN
         end
 
         protected
-
-        def games_table = table(headers: [' ', [' ', :center], [' ', :center]] * 2, rows: game_rows)
 
         def game_rows
           scheduled_games
