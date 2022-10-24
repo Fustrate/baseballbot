@@ -1,14 +1,5 @@
 # frozen_string_literal: true
 
-class Subject
-  include MarkdownHelpers
-  include Baseballbot::Template::Sidebar::Leaders
-
-  def initialize(subreddit:)
-    @subreddit = subreddit
-  end
-end
-
 RSpec.describe Baseballbot::Template::Sidebar::Leaders do
   let(:bot) { Baseballbot.new(user_agent: 'Baseballbot Tests') }
   let(:subreddit) do
@@ -18,13 +9,12 @@ RSpec.describe Baseballbot::Template::Sidebar::Leaders do
       account: (Baseballbot::Account.new bot:, name: 'RSpecTestBot', access: '')
     )
   end
-  let(:template) { Subject.new(subreddit:) }
 
   before { stub_requests! with_response: true }
 
   describe '#hitter_stats' do
     it 'loads basic hitter stats' do
-      expect(template.hitter_stats).to eq(
+      expect(described_class.new(subreddit).hitter_stats).to eq(
         'avg' => [{ name: 'F Freeman', value: '.322' }],
         'bb' => [{ name: 'M Muncy', value: 57 }],
         'h' => [{ name: 'F Freeman', value: 120 }],
@@ -42,27 +32,28 @@ RSpec.describe Baseballbot::Template::Sidebar::Leaders do
 
   describe '#hitter_stats_table' do
     it 'generates a markdown table' do
-      expect(template.hitter_stats_table(stats: %w[avg bb h hr obp ops r rbi sb slg xbh])).to eq(<<~MARKDOWN)
-        |Stat|Player|Total|
-        |-|-|-|
-        |AVG|F Freeman|.322|
-        |BB|M Muncy|57|
-        |H|F Freeman|120|
-        |HR|M Betts|22|
-        |OBP|F Freeman|.398|
-        |OPS|F Freeman|.937|
-        |R|M Betts|67|
-        |RBI|T Turner|69|
-        |SB|T Turner|17|
-        |SLG|F Freeman|.539|
-        |XBH|F Freeman|49|
-      MARKDOWN
+      expect(described_class.new(subreddit).hitter_stats_table(stats: %w[avg bb h hr obp ops r rbi sb slg xbh]))
+        .to eq(<<~MARKDOWN)
+          |Stat|Player|Total|
+          |-|-|-|
+          |AVG|F Freeman|.322|
+          |BB|M Muncy|57|
+          |H|F Freeman|120|
+          |HR|M Betts|22|
+          |OBP|F Freeman|.398|
+          |OPS|F Freeman|.937|
+          |R|M Betts|67|
+          |RBI|T Turner|69|
+          |SB|T Turner|17|
+          |SLG|F Freeman|.539|
+          |XBH|F Freeman|49|
+        MARKDOWN
     end
   end
 
   describe '#pitcher_stats' do
     it 'loads basic pitcher stats' do
-      expect(template.pitcher_stats).to eq(
+      expect(described_class.new(subreddit).pitcher_stats).to eq(
         'avg' => [{ name: 'T Gonsolin', value: '.174' }],
         'era' => [{ name: 'T Gonsolin', value: '2.260' }],
         'hld' => [{ name: 'E Phillips', value: 11 }],
@@ -77,18 +68,19 @@ RSpec.describe Baseballbot::Template::Sidebar::Leaders do
 
   describe '#pitcher_stats_table' do
     it 'generates a markdown table' do
-      expect(template.pitcher_stats_table(stats: %w[avg era hld ip so sv w whip])).to eq(<<~MARKDOWN)
-        |Stat|Player|Total|
-        |-|-|-|
-        |AVG|T Gonsolin|.174|
-        |ERA|T Gonsolin|2.260|
-        |HLD|E Phillips|11|
-        |IP|T Anderson|103.1|
-        |SO|J Urías|99|
-        |SV|C Kimbrel|17|
-        |W|T Gonsolin|11|
-        |WHIP|T Gonsolin|.880|
-      MARKDOWN
+      expect(described_class.new(subreddit).pitcher_stats_table(stats: %w[avg era hld ip so sv w whip]))
+        .to eq(<<~MARKDOWN)
+          |Stat|Player|Total|
+          |-|-|-|
+          |AVG|T Gonsolin|.174|
+          |ERA|T Gonsolin|2.260|
+          |HLD|E Phillips|11|
+          |IP|T Anderson|103.1|
+          |SO|J Urías|99|
+          |SV|C Kimbrel|17|
+          |W|T Gonsolin|11|
+          |WHIP|T Gonsolin|.880|
+        MARKDOWN
     end
   end
 end
