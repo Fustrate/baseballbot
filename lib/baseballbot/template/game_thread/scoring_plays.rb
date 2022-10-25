@@ -3,36 +3,43 @@
 class Baseballbot
   module Template
     class GameThread
-      module ScoringPlays
-        def scoring_plays_section
-          return unless started? && scoring_plays.any?
+      class ScoringPlays
+        include MarkdownHelpers
 
-          <<~MARKDOWN
+        TABLE_HEADERS = [['Inning', :center], 'Event', ['Score', :center]].freeze
+
+        attr_reader :template
+
+        def initialize(template)
+          @template = template
+        end
+
+        def to_s
+          return if scoring_plays.none?
+
+          <<~MARKDOWN.strip
             ### Scoring Plays
 
-            #{scoring_plays_table.strip}
+            #{table(headers: TABLE_HEADERS, rows: table_rows)}
           MARKDOWN
         end
 
         protected
 
-        def scoring_plays_table
-          table(
-            headers: [['Inning', :center], 'Event', ['Score', :center]],
-            rows: scoring_plays.map { ["#{_1[:side]}#{_1[:inning]}", _1[:event], event_score(_1)] }
-          )
-        end
-
         def scoring_plays
-          @scoring_plays ||= started? && feed.plays ? formatted_plays : []
+          @scoring_plays ||= template.started? && template.feed.plays ? formatted_plays : []
         end
 
-        def formatted_plays = feed.plays['allPlays'].values_at(*feed.plays['scoringPlays']).map { format_play(_1) }
+        def table_rows = scoring_plays.map { ["#{_1[:side]}#{_1[:inning]}", _1[:event], event_score(_1)] }
+
+        def formatted_plays = template.feed.plays['allPlays'].values_at(*scoring_play_ids).map { format_play(_1) }
+
+        def scoring_play_ids = template.feed.plays['scoringPlays']
 
         def format_play(play)
           {
             side: play['about']['halfInning'] == 'top' ? 'T' : 'B',
-            team: play['about']['halfInning'] == 'top' ? opponent : team,
+            team: play['about']['halfInning'] == 'top' ? template.opponent : template.team,
             inning: play['about']['inning'],
             event: play['result']['description'],
             score: [play['result']['homeScore'], play['result']['awayScore']]

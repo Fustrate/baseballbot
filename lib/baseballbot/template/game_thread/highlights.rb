@@ -3,34 +3,37 @@
 class Baseballbot
   module Template
     class GameThread
-      module Highlights
-        def highlights_section
-          return unless started? && highlights.any?
+      class Highlights
+        include MarkdownHelpers
 
-          <<~MARKDOWN
+        TABLE_HEADERS = %w[Description Length Video].freeze
+
+        attr_reader :template
+
+        def initialize(template)
+          @template = template
+        end
+
+        def to_s
+          return unless highlights.any?
+
+          <<~MARKDOWN.strip
             ### Highlights
 
-            #{highlights_table.strip}
+            #{table(headers: TABLE_HEADERS, rows: table_rows)}
           MARKDOWN
         end
 
         protected
 
-        def highlights_table
-          table(
-            headers: %w[Description Length Video],
-            rows: highlights.map { [_1[:blurb], _1[:duration], "[Video](#{_1[:hd]})"] }
-          )
-        end
+        def table_rows = highlights.map { [_1[:blurb], _1[:duration], "[Video](#{_1[:hd]})"] }
 
         def highlights
-          return [] unless started?
-
-          @highlights ||= fetch_highlights || []
+          @highlights ||= (fetch_highlights if template.started?) || []
         end
 
         def fetch_highlights
-          content.dig('highlights', 'highlights', 'items')
+          template.content.dig('highlights', 'highlights', 'items')
             &.sort_by { _1['date'] }
             &.map { process_media(_1) }
             &.compact

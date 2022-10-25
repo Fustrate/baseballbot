@@ -11,13 +11,9 @@ class Baseballbot
       include Template::GameThread::Batters
       include Template::GameThread::Components
       include Template::GameThread::Game
-      include Template::GameThread::Highlights
-      include Template::GameThread::LineScore
       include Template::GameThread::Links
       include Template::GameThread::Media
       include Template::GameThread::Pitchers
-      include Template::GameThread::Postgame
-      include Template::GameThread::ScoringPlays
       include Template::GameThread::Teams
       include Template::GameThread::Titles
 
@@ -31,6 +27,14 @@ class Baseballbot
         @post_id = post_id
         @type = type
       end
+
+      def decisions_section = GameThread::Decisions.new(self)
+
+      def highlights_section = GameThread::Highlights.new(self)
+
+      def line_score_section = GameThread::LineScore.new(self)
+
+      def scoring_plays_section = GameThread::ScoringPlays.new(self)
 
       def content
         @content ||= @subreddit.bot.api.content @game_pk

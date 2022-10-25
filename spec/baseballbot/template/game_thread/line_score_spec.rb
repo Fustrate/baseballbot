@@ -9,7 +9,7 @@ RSpec.describe Baseballbot::Template::GameThread::LineScore do
     it 'generates a gameday link' do
       template = game_thread_template(game_pk: 715_730)
 
-      expect(template.line_score_section).to eq <<~MARKDOWN
+      expect(template.line_score_section.to_s).to eq <<~MARKDOWN.strip
         ### Line Score - Bases loaded, 2 Outs, Bottom of the 5th
 
         | |1|2|3|4|5|6|7|8|9|R|H|E|LOB|

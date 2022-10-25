@@ -9,7 +9,7 @@ RSpec.describe Baseballbot::Template::GameThread::Highlights do
     it 'generates a highlights section' do
       template = game_thread_template(game_pk: 715_730)
 
-      expect(template.highlights_section).to eq <<~MARKDOWN
+      expect(template.highlights_section.to_s).to eq <<~MARKDOWN.strip
         ### Highlights
 
         |Description|Length|Video|
