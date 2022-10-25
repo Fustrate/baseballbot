@@ -23,7 +23,7 @@ class AroundTheHorn < DefaultBot
       <% end %>
     ERB
 
-    def initialize(subreddit:) = super(body: TODAYS_GAMES, subreddit:)
+    def initialize(subreddit:) = super(body: '', subreddit:)
 
     def yesterday_link
       yesterday_id = @subreddit.bot.redis.hget('around_the_horn', (@subreddit.now - (3_600 * 27)).strftime('%F'))
