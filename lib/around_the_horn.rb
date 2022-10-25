@@ -5,6 +5,8 @@ require_relative 'default_bot'
 class AroundTheHorn < DefaultBot
   class ATHTemplate < Baseballbot::Template::Sidebar
     TODAYS_GAMES = <<~'ERB'
+      <% games = todays_games(@subreddit.now - 10_800) %>
+      <% if games.any? %>
       # <%= (@subreddit.now - 10_800).strftime('%A') %>'s Games
 
       Away|Score|Home|Score|Status|National
@@ -16,6 +18,9 @@ class AroundTheHorn < DefaultBot
 
 
       ^(★)Game Thread. All game times are Eastern. <%= updated_with_link %> <%= yesterday_link %>
+      <% else %>
+      <%= updated_with_link %> <%= yesterday_link %>
+      <% end %>
     ERB
 
     def initialize(subreddit:) = super(body: TODAYS_GAMES, subreddit:)
