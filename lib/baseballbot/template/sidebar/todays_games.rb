@@ -23,7 +23,7 @@ class Baseballbot
         end
 
         def to_s
-          <<~MARKDOWN
+          <<~MARKDOWN.strip
             ## #{(@subreddit.now - 10_800).strftime('%A')}'s Games
 
             #{table(headers: [' ', [' ', :center], [' ', :center]] * 2, rows: game_rows)}

@@ -29,10 +29,10 @@ class Baseballbot
         end
 
         def to_s
-          <<~MARKDOWN
+          <<~MARKDOWN.strip
             # #{@subreddit.now.year} Postseason
 
-            #{postseason_series_tables.join("\n")}
+            #{postseason_series_tables.join("\n\n")}
           MARKDOWN
         end
 
@@ -53,7 +53,7 @@ class Baseballbot
         end
 
         def postseason_series_table(series, rows)
-          <<~MARKDOWN
+          <<~MARKDOWN.strip
             ## #{series}
             #{table(headers: [[' ', :center]] * 3, rows:)}
           MARKDOWN

@@ -18,7 +18,7 @@ module MarkdownHelpers
       alignment_cells << ALIGNMENT.fetch(alignment, ALIGNMENT[:left])
     end
 
-    <<~MARKDOWN
+    <<~MARKDOWN.strip
       |#{header_cells.join('|')}|
       |#{alignment_cells.join('|')}|
       |#{rows.map { _1.join('|') }.join("|\n|")}|

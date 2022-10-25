@@ -5,7 +5,7 @@ class Baseballbot
     class GameThread
       module Components
         def header
-          <<~MARKDOWN
+          <<~MARKDOWN.strip
             ### #{away_team.name} (#{away_record}) @ #{home_team.name} (#{home_record}) #{thumbnail}
 
             **First Pitch**: #{start_time_local.strftime('%-I:%M %p')} at #{venue_name}
@@ -24,7 +24,7 @@ class Baseballbot
         end
 
         def box_score_section
-          <<~MARKDOWN
+          <<~MARKDOWN.strip
             ### Box Score
 
             #{box_score}
@@ -40,7 +40,7 @@ class Baseballbot
         end
 
         def metadata_section
-          <<~MARKDOWN
+          <<~MARKDOWN.strip
             #{table(headers: %w[Attendance Weather Wind], rows: [[attendance, weather, wind]])}
 
             #{table(headers: umpires.keys.map { [_1, :center] }, rows: [umpires.values])}

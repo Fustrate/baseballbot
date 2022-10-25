@@ -33,7 +33,7 @@ RSpec.describe Baseballbot::Template::Sidebar::Leaders do
   describe '#hitter_stats_table' do
     it 'generates a markdown table' do
       expect(described_class.new(subreddit).hitter_stats_table(stats: %w[avg bb h hr obp ops r rbi sb slg xbh]))
-        .to eq(<<~MARKDOWN)
+        .to eq(<<~MARKDOWN.strip)
           |Stat|Player|Total|
           |-|-|-|
           |AVG|F Freeman|.322|
@@ -69,7 +69,7 @@ RSpec.describe Baseballbot::Template::Sidebar::Leaders do
   describe '#pitcher_stats_table' do
     it 'generates a markdown table' do
       expect(described_class.new(subreddit).pitcher_stats_table(stats: %w[avg era hld ip so sv w whip]))
-        .to eq(<<~MARKDOWN)
+        .to eq(<<~MARKDOWN.strip)
           |Stat|Player|Total|
           |-|-|-|
           |AVG|T Gonsolin|.174|
