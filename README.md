@@ -12,3 +12,11 @@ REDDIT_SECRET=
 REDDIT_REDIRECT_URI=
 DODGERS_SLACK_HOOK_ID=
 ```
+
+# Spec Games
+
+ID|Status|Date|Teams
+-|-|-|-
+634555|Final|2021-04-08|Cubs @ Pirates
+662573|Preview|2022-07-26|Nationals @ Dodgers
+715730|In Progress|2022-10-19|Phillies @ Padres

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Baseballbot::Template::GameThread::Links do
-  let(:template) { game_thread_template(game_pk: 662_573) }
+  let(:template) { game_thread_template(:preview) }
 
   before do
     stub_requests! with_response: true

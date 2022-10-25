@@ -7,7 +7,7 @@ RSpec.describe Baseballbot::Template::GameThread::ScoringPlays do
 
   describe '#scoring_plays_section' do
     it 'generates a Scoring Plays section' do
-      template = game_thread_template(game_pk: 715_730)
+      template = game_thread_template(:in_progress)
 
       expect(template.scoring_plays_section.to_s).to eq <<~MARKDOWN.strip
         ### Scoring Plays

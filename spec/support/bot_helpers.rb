@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module BotHelpers
+  GAME_PKS = {
+    in_progress: 715_730,
+    final: 634_555,
+    preview: 662_573
+  }.freeze
+
   def default_bot = Baseballbot.new(user_agent: 'Baseballbot Tests')
 
   def r_dodgers
@@ -15,7 +21,12 @@ module BotHelpers
     end
   end
 
-  def game_thread_template(game_pk:)
-    Baseballbot::Template::GameThread.new(subreddit: r_dodgers, game_pk:, title: 'Test', type: 'game_thread')
+  def game_thread_template(status)
+    Baseballbot::Template::GameThread.new(
+      subreddit: r_dodgers,
+      game_pk: GAME_PKS[status],
+      title: 'Test',
+      type: 'game_thread'
+    )
   end
 end
