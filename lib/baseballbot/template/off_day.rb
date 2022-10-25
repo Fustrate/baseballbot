@@ -3,8 +3,6 @@
 class Baseballbot
   module Template
     class General < Base
-      using TemplateRefinements
-
       def initialize(body:, subreddit:, title: '')
         super(body:, subreddit:)
 

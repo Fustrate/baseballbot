@@ -6,7 +6,6 @@ class Baseballbot
   module Template
     class Base
       include MarkdownHelpers
-      using TemplateRefinements
 
       include Template::Shared::Calendar
       include Template::Shared::Standings

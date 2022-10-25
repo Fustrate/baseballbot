@@ -6,8 +6,6 @@ class Baseballbot
       # This is kept here because of inheritance
       Dir.glob(File.join(File.dirname(__FILE__), 'game_thread', '*.rb')).each { require _1 }
 
-      using TemplateRefinements
-
       include Template::GameThread::Batters
       include Template::GameThread::Components
       include Template::GameThread::Game
