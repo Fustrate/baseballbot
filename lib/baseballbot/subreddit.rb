@@ -48,6 +48,12 @@ class Baseballbot
       @subreddit ||= @bot.session.subreddit(@name)
     end
 
+    def code_to_subreddit_name(code)
+      name = @options.dig('subreddits', code.upcase) || @bot.default_subreddit(code)
+
+      @options.dig('subreddits', 'downcase') ? name.downcase : name
+    end
+
     def settings
       return @settings if @settings
 

@@ -7,21 +7,7 @@ class Baseballbot
   module Templates
     module Shared
       module Calendar
-        def month_calendar(downcase: false)
-          cells = month_schedule.map do |_, day|
-            cell(day[:date].day, day[:games], downcase:)
-          end
-
-          MarkdownCalendar.generate(cells, month_schedule)
-        end
-
-        def month_schedule
-          team_schedule.games_between(
-            Date.civil(Date.today.year, Date.today.month, 1),
-            Date.civil(Date.today.year, Date.today.month, -1)
-          )
-        end
-
+        # Used by TB sidebar
         def month_games
           start_date = Date.civil(Date.today.year, Date.today.month, 1)
           end_date = Date.civil(Date.today.year, Date.today.month, -1)
@@ -30,6 +16,7 @@ class Baseballbot
             .flat_map { |_, day| day[:games] }
         end
 
+        # Used by CLE sidebar
         def previous_games(limit, team: nil)
           games = []
           start_date = Date.today - limit - 7
@@ -46,6 +33,7 @@ class Baseballbot
           games.first(limit)
         end
 
+        # Used by TOR, MIN, and CLE sidebars
         def upcoming_games(limit, team: nil)
           games = []
           end_date = Date.today + limit + 7
@@ -103,27 +91,6 @@ class Baseballbot
         # This is the schedule generator for this subreddit, not necessarily this subreddit's team.
         def team_schedule
           @team_schedule ||= SubredditScheduleGenerator.new(api: @subreddit.bot.api, subreddit: @subreddit)
-        end
-
-        def cell(date, games, **options)
-          num = "^#{date}"
-
-          return num if games.empty?
-
-          sub_name = cell_subreddit(games.first.opponent.code, options[:downcase])
-          link = "[](/r/#{sub_name} \"#{games.map(&:status).join(', ')}\")"
-
-          return "**#{num} #{link}**" if games[0].home_team?
-
-          "*#{num} #{link}*"
-        end
-
-        # Spring training games sometimes are against colleges, so sometimes
-        # the team sub is nil
-        def cell_subreddit(code, downcase)
-          team_sub = subreddit(code)
-
-          downcase ? team_sub&.downcase : team_sub
         end
       end
     end

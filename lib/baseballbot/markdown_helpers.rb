@@ -34,7 +34,19 @@ class Baseballbot
       "[#{player_name(player)}](#{url})"
     end
 
+    def markdown_calendar(cells, dates)
+      table(headers: 'SMTWTFS'.chars.map { [_1, :center] }, rows: calendar_rows(cells, dates))
+    end
+
     protected
+
+    def calendar_rows(cells, dates)
+      [
+        *([' '] * dates.values.first[:date].wday),
+        *cells,
+        *([' '] * (6 - dates.values.last[:date].wday))
+      ].each_slice(7)
+    end
 
     def player_name(player)
       return 'TBA' unless player
