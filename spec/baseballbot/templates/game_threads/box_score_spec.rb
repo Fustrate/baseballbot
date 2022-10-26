@@ -24,7 +24,7 @@ RSpec.describe Baseballbot::Templates::GameThreads::BoxScore do
 
         |**SD**|IP|H|R|ER|BB|SO|P-S|ERA|
         |-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-        |[Snell](https://www.mlb.com/player/605483 "Game Score: ???")|5.0|5|4|4|1|6|89-56|4.61|
+        |[Snell](https://www.mlb.com/player/605483 "Game Score: 52")|5.0|5|4|4|1|6|89-56|4.61|
 
         |**PHI**| |AB|R|H|RBI|BB|SO|BA|
         |-|-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -40,9 +40,9 @@ RSpec.describe Baseballbot::Templates::GameThreads::BoxScore do
 
         |**PHI**|IP|H|R|ER|BB|SO|P-S|ERA|
         |-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-        |[Nola, Aa](https://www.mlb.com/player/605400 "Game Score: ???")|4.2|7|6|6|0|6|81-54|3.12|
-        |[Hand](https://www.mlb.com/player/543272 "Game Score: ???")|0.0|2|1|1|0|0|15-7|3.38|
-        |[Bellatti](https://www.mlb.com/player/571479 "Game Score: ???")|0.0|0|0|0|1|0|12-5|3.38|
+        |[Nola, Aa](https://www.mlb.com/player/605400 "Game Score: 34")|4.2|7|6|6|0|6|81-54|3.12|
+        |[Hand](https://www.mlb.com/player/543272)|0.0|2|1|1|0|0|15-7|3.38|
+        |[Bellatti](https://www.mlb.com/player/571479)|0.0|0|0|0|1|0|12-5|3.38|
       MARKDOWN
     end
   end

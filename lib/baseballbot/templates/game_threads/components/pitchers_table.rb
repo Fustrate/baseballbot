@@ -44,9 +44,16 @@ class Baseballbot
         def table_header = ["**#{@team.code}**", *(@stats.map { [_1.to_s.upcase, :center] })]
 
         def pitcher_row(pitcher)
-          today = game_stats(pitcher)['pitching']
+          game = game_stats(pitcher)['pitching']
 
-          [player_link(pitcher, title: 'Game Score: ???'), *(@stats.map { PITCHER_COLUMNS[_1].call(pitcher, today) })]
+          title = starting_pitcher?(pitcher) ? "Game Score: #{tom_tango_game_score(game)}" : nil
+
+          [player_link(pitcher, title:), *(@stats.map { PITCHER_COLUMNS[_1].call(pitcher, game) })]
+        end
+
+        def starting_pitcher?(pitcher)
+          pitcher.dig('person', 'id') == @template.game_data.dig('probablePitchers', 'home', 'id') ||
+            pitcher.dig('person', 'id') == @template.game_data.dig('probablePitchers', 'away', 'id')
         end
 
         def pitcher_line(pitcher)
@@ -61,6 +68,34 @@ class Baseballbot
         end
 
         def game_stats(player) = (player['gameStats'] || player['stats'] || {})
+
+        def bill_james_game_score(game)
+          [
+            50,
+            game['outs'],
+            2 * innings_after_fourth(game),
+            game['strikeOuts'],
+            -2 * game['hits'],
+            -4 * game['earnedRuns'],
+            -2 * (game['runs'] - game['unearnedRuns']),
+            -game['baseOnBalls']
+          ].sum
+        end
+
+        def innings_after_fourth(game) = [(game['outs'] - 12), 0].max / 3
+
+        # This is the game score MLB shows on their site
+        def tom_tango_game_score(game)
+          [
+            40,
+            2 * game['outs'],
+            game['strikeOuts'],
+            -2 * game['baseOnBalls'],
+            -2 * game['hits'],
+            -3 * game['runs'],
+            -4 * game['homeRuns']
+          ].sum
+        end
       end
     end
   end
