@@ -14,6 +14,8 @@ require_relative 'baseballbot/error'
 require_relative 'baseballbot/subreddit'
 require_relative 'baseballbot/account'
 require_relative 'baseballbot/utility'
+require_relative 'baseballbot/markdown_helpers'
+require_relative 'baseballbot/template'
 
 require_relative 'baseballbot/accounts'
 require_relative 'baseballbot/game_threads'
@@ -22,7 +24,7 @@ require_relative 'baseballbot/pregames'
 require_relative 'baseballbot/sidebars'
 require_relative 'baseballbot/subreddits'
 
-Dir.glob(File.join(File.dirname(__FILE__), 'baseballbot/{template,posts}/*.rb')).each { require_relative _1 }
+Dir.glob(File.join(__dir__, 'baseballbot/{templates,posts}/*.rb')).each { require_relative _1 }
 
 class Baseballbot
   include Accounts

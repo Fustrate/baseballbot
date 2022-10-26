@@ -134,7 +134,7 @@ class Baseballbot
 
       def game_thread_flair(type) = subreddit.options.dig('game_threads', 'flair_id', type)
 
-      def post_template(type) = Template::GameThread.new(subreddit:, game_pk:, post_id: @post_id, type:, title:)
+      def post_template(type) = Templates::GameThread.new(subreddit:, game_pk:, post_id: @post_id, type:, title:)
 
       # When there are lots of threads running at the same time, the updates may take so long that it's still running
       # when the next update triggers. Make sure there hasn't been a postgame thread ID set since we loaded this round.

@@ -97,7 +97,7 @@ class NoHitterBot < DefaultBot
     false
   end
 
-  def no_hitter_template(game, flag) = Baseballbot::Template::NoHitter.new(subreddit:, game_pk: game['gamePk'], flag:)
+  def no_hitter_template(game, flag) = Baseballbot::Templates::NoHitter.new(subreddit:, game_pk: game['gamePk'], flag:)
 
   def post_thread!(game, flag)
     template = no_hitter_template(game, flag)

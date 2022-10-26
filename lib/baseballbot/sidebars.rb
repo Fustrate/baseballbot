@@ -32,7 +32,7 @@ class Baseballbot
     def generate_sidebar(subreddit)
       raise Baseballbot::Error::NoSidebarText unless sidebar_present?(subreddit)
 
-      Template::Sidebar
+      Templates::Sidebar
         .new(body: subreddit.template_for('sidebar'), subreddit:)
         .replace_in CGI.unescapeHTML(subreddit.settings[:description])
     end

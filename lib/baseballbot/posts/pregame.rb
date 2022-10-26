@@ -26,7 +26,7 @@ class Baseballbot
       end
 
       def template
-        @template ||= Template::PreGameThread.new(
+        @template ||= Templates::PreGameThread.new(
           subreddit: @subreddit,
           game_pk: @game_pk,
           type: 'pregame'

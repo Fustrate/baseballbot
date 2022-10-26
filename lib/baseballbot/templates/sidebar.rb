@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+Dir.glob(File.join(__dir__, 'sidebars/*.rb')).each { require _1 }
+
+class Baseballbot
+  module Templates
+    class Sidebar < Template
+      def postseason_series_section = Sidebars::Postseason.new(@subreddit).to_s
+
+      def todays_games(date = nil) = Sidebars::TodaysGames.new(@subreddit, date)
+
+      def hitter_stats(...) = Sidebars::Leaders.new(@subreddit).hitter_stats(...)
+
+      def pitcher_stats(...) = Sidebars::Leaders.new(@subreddit).pitcher_stats(...)
+
+      def hitter_stats_table(...) = Sidebars::Leaders.new(@subreddit).hitter_stats_table(...)
+
+      def pitcher_stats_table(...) = Sidebars::Leaders.new(@subreddit).pitcher_stats_table(...)
+
+      def updated_with_link = "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
+
+      def inspect = %(#<Baseballbot::Templates::Sidebar @subreddit="#{@subreddit.name}">)
+    end
+  end
+end

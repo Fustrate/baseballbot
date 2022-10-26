@@ -22,7 +22,7 @@ class Baseballbot
       protected
 
       def template
-        @template ||= Template::General.new(
+        @template ||= Templates::General.new(
           body: @subreddit.template_for('off_day'),
           subreddit: @subreddit,
           title: @subreddit.options.dig('off_day', 'title')

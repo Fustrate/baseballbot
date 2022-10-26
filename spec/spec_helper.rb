@@ -6,7 +6,7 @@ require 'open-uri'
 require 'fileutils'
 require 'mock_redis'
 
-Dir.glob(File.join(File.dirname(__FILE__), 'support', '*.rb')).each { require_relative _1 }
+Dir.glob(File.join(__dir__, 'support/*.rb')).each { require_relative _1 }
 
 require_relative '../lib/baseballbot'
 

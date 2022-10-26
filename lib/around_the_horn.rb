@@ -3,7 +3,7 @@
 require_relative 'default_bot'
 
 class AroundTheHorn < DefaultBot
-  class ATHTemplate < Baseballbot::Template::Sidebar
+  class ATHTemplate < Baseballbot::Templates::Sidebar
     TODAYS_GAMES = <<~'ERB'
       <% games = todays_games(@subreddit.now - 10_800) %>
       <% if games.any? %>

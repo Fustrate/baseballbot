@@ -22,7 +22,7 @@ module BotHelpers
   end
 
   def game_thread_template(status)
-    Baseballbot::Template::GameThread.new(
+    Baseballbot::Templates::GameThread.new(
       subreddit: r_dodgers,
       game_pk: GAME_PKS[status],
       title: 'Test',
