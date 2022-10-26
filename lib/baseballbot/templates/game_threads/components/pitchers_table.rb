@@ -84,7 +84,7 @@ class Baseballbot
 
         def innings_after_fourth(game) = [(game['outs'] - 12), 0].max / 3
 
-        # This is the game score MLB shows on their site
+        # This is the game score MLB shows on their site - https://blogs.fangraphs.com/instagraphs/game-score-v2-0/
         def tom_tango_game_score(game)
           [
             40,
