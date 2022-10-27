@@ -11,6 +11,8 @@ class Baseballbot
 
     DELIMITER = '[](/baseballbot)'
 
+    attr_reader :subreddit
+
     def initialize(body:, subreddit:)
       @subreddit = subreddit
       @body = body
