@@ -24,7 +24,7 @@ class Baseballbot
 
         protected
 
-        def team_link(team) = "[#{team.name}](/r/#{template.subreddit.code_to_subreddit_name(team.code)}"
+        def team_link(team) = "[#{team.name}](/r/#{template.subreddit.code_to_subreddit_name(team.code)})"
 
         def probable_starter_line(flag)
           pitcher_id = template.game_data.dig('probablePitchers', flag, 'id')
@@ -48,16 +48,14 @@ class Baseballbot
         end
 
         def television_feeds
-          @television_feeds ||= media_with_title('MLBTV')
+          @television_feeds ||= template.content.dig('media', 'epg')
+            &.detect { _1['title'] == 'MLBTV' }
+            &.fetch('items') || []
         end
 
         def audio_feeds
-          @audio_feeds ||= media_with_title('Audio')
-        end
-
-        def media_with_title(title)
-          content.dig('media', 'epg')
-            &.detect { _1['title'] == title }
+          @audio_feeds ||= template.content.dig('media', 'epg')
+            &.detect { _1['title'] == 'Audio' }
             &.fetch('items') || []
         end
 
