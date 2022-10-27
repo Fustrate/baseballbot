@@ -7,7 +7,7 @@ class Baseballbot
         include MarkdownHelpers
 
         BLANK_RHE = { 'runs' => 0, 'hits' => 0, 'errors' => 0 }.freeze
-        BLANK_LINES = [[nil] * 9, [nil] * 9].freeze
+        BLANK_LINES = ([' '] * 9).freeze
 
         attr_reader :template
 
