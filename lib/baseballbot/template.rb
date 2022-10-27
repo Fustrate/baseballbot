@@ -23,13 +23,6 @@ class Baseballbot
       raise StandardError, 'ERB syntax error'
     end
 
-    # Get the default subreddit for this team
-    def subreddit(code)
-      name = @subreddit.options.dig('subreddits', code.upcase) || @subreddit.bot.default_subreddit(code)
-
-      @subreddit.options.dig('subreddits', 'downcase') ? name.downcase : name
-    end
-
     def replace_in(text, delimiter: DELIMITER)
       text = CGI.unescapeHTML(text.selftext) if text.is_a?(Redd::Models::Submission)
 

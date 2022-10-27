@@ -17,14 +17,14 @@ class Baseballbot
 
         def to_s
           table headers: %w[Team Starter TV Radio], rows: [
-            [team_link(away_team), probable_starter_line('away'), tv_feeds(:away), radio_feeds(:away)],
-            [team_link(home_team), probable_starter_line('home'), tv_feeds(:home), radio_feeds(:home)]
+            [team_link(template.away_team), probable_starter_line('away'), tv_feeds(:away), radio_feeds(:away)],
+            [team_link(template.home_team), probable_starter_line('home'), tv_feeds(:home), radio_feeds(:home)]
           ]
         end
 
         protected
 
-        def team_link(team) = "[#{team.name}](/r/#{subreddit(team.code)}"
+        def team_link(team) = "[#{team.name}](/r/#{template.subreddit.code_to_subreddit_name(team.code)}"
 
         def probable_starter_line(flag)
           pitcher_id = template.game_data.dig('probablePitchers', flag, 'id')

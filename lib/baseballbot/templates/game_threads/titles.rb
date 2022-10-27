@@ -55,8 +55,8 @@ class Baseballbot
 
         def postgame_interpolations
           {
-            away_runs: runs(:away),
-            home_runs: runs(:home)
+            away_runs: linescore&.dig('teams', 'away', 'runs') || 0,
+            home_runs: linescore&.dig('teams', 'home', 'runs') || 0
           }
         end
 
@@ -88,6 +88,8 @@ class Baseballbot
 
           player_name(boxscore.dig('teams', flag, 'players', "ID#{pitcher_id}")) if pitcher_id
         end
+
+        def runs_scored(flag) = (linescore&.dig('teams', flag, 'runs') || 0)
       end
     end
   end
