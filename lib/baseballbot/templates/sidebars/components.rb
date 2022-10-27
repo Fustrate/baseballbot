@@ -18,6 +18,8 @@ class Baseballbot
 
         def pitcher_stats_table(...) = Sidebars::Leaders.new(@subreddit).pitcher_stats_table(...)
 
+        def month_calendar = Sidebars::Calendar.new(@subreddit).to_s
+
         def updated_with_link
           "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
         end

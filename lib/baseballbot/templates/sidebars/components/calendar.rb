@@ -10,7 +10,7 @@ class Baseballbot
           @subreddit = subreddit
         end
 
-        def month_calendar
+        def to_s
           cells = month_schedule.map do |_, day|
             cell(day[:date].day, day[:games])
           end
