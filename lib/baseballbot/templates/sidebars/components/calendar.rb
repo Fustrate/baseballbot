@@ -168,7 +168,6 @@ class Baseballbot
             @data.dig('teams', 'away', 'team', 'id') == @team_id || @data.dig('teams', 'home', 'team', 'id') == @team_id
           end
         end
-
       end
     end
   end
