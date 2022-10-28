@@ -1,0 +1,56 @@
+{
+  "copyright" : "Copyright 2022 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+  "teams" : [ {
+    "springLeague" : {
+      "id" : 114,
+      "name" : "Cactus League",
+      "link" : "/api/v1/league/114",
+      "abbreviation" : "CL"
+    },
+    "allStarStatus" : "N",
+    "id" : 108,
+    "name" : "Los Angeles Angels",
+    "link" : "/api/v1/teams/108",
+    "season" : 2022,
+    "venue" : {
+      "id" : 1,
+      "name" : "Angel Stadium",
+      "link" : "/api/v1/venues/1",
+      "timeZone" : {
+        "id" : "America/Los_Angeles",
+        "offset" : -7,
+        "tz" : "PDT"
+      },
+      "active" : true
+    },
+    "springVenue" : {
+      "id" : 2500,
+      "link" : "/api/v1/venues/2500"
+    },
+    "teamCode" : "ana",
+    "fileCode" : "ana",
+    "abbreviation" : "LAA",
+    "teamName" : "Angels",
+    "locationName" : "Anaheim",
+    "firstYearOfPlay" : "1961",
+    "league" : {
+      "id" : 103,
+      "name" : "American League",
+      "link" : "/api/v1/league/103"
+    },
+    "division" : {
+      "id" : 200,
+      "name" : "American League West",
+      "link" : "/api/v1/divisions/200"
+    },
+    "sport" : {
+      "id" : 1,
+      "link" : "/api/v1/sports/1",
+      "name" : "Major League Baseball"
+    },
+    "shortName" : "LA Angels",
+    "franchiseName" : "Los Angeles",
+    "clubName" : "Angels",
+    "active" : true
+  } ]
+}

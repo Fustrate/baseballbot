@@ -1,0 +1,56 @@
+{
+  "copyright" : "Copyright 2022 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+  "teams" : [ {
+    "springLeague" : {
+      "id" : 115,
+      "name" : "Grapefruit League",
+      "link" : "/api/v1/league/115",
+      "abbreviation" : "GL"
+    },
+    "allStarStatus" : "N",
+    "id" : 138,
+    "name" : "St. Louis Cardinals",
+    "link" : "/api/v1/teams/138",
+    "season" : 2022,
+    "venue" : {
+      "id" : 2889,
+      "name" : "Busch Stadium",
+      "link" : "/api/v1/venues/2889",
+      "timeZone" : {
+        "id" : "America/Chicago",
+        "offset" : -5,
+        "tz" : "CDT"
+      },
+      "active" : true
+    },
+    "springVenue" : {
+      "id" : 2520,
+      "link" : "/api/v1/venues/2520"
+    },
+    "teamCode" : "sln",
+    "fileCode" : "stl",
+    "abbreviation" : "STL",
+    "teamName" : "Cardinals",
+    "locationName" : "St. Louis",
+    "firstYearOfPlay" : "1892",
+    "league" : {
+      "id" : 104,
+      "name" : "National League",
+      "link" : "/api/v1/league/104"
+    },
+    "division" : {
+      "id" : 205,
+      "name" : "National League Central",
+      "link" : "/api/v1/divisions/205"
+    },
+    "sport" : {
+      "id" : 1,
+      "link" : "/api/v1/sports/1",
+      "name" : "Major League Baseball"
+    },
+    "shortName" : "St. Louis",
+    "franchiseName" : "St. Louis",
+    "clubName" : "Cardinals",
+    "active" : true
+  } ]
+}
