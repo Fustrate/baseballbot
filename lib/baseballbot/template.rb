@@ -7,7 +7,6 @@ class Baseballbot
     include MarkdownHelpers
 
     include Templates::Shared::Calendar
-    include Templates::Shared::Standings
 
     DELIMITER = '[](/baseballbot)'
 

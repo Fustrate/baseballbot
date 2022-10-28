@@ -20,6 +20,10 @@ class Baseballbot
 
         def calendar = Sidebars::Calendar.new(@subreddit).to_s
 
+        def division_standings = Sidebars::DivisionStandings.new(@subreddit)
+
+        def league_standings = Sidebars::LeagueStandings.new(@subreddit).to_s
+
         def updated_with_link
           "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
         end
