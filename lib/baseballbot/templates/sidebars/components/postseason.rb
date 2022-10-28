@@ -84,7 +84,7 @@ class Baseballbot
           def series_name(series) = POSTSEASON_SERIES_NAMES[series.split('-').first]
 
           def process_game(game)
-            return unless game.dig('status', 'abstractGameState') == 'Final'
+            return unless ['Final', 'Preview', 'In Progress', 'Live'].include?(game.dig('status', 'abstractGameState'))
 
             low_team_id = [game.dig('teams', 'away', 'team', 'id'), game.dig('teams', 'home', 'team', 'id')].min
 
