@@ -1,15 +1,13 @@
 # frozen_string_literal: true
 
-Dir.glob(File.join(__dir__, 'game_threads/*.rb')).each { require _1 }
-
 class Baseballbot
   module Templates
     class GameThread < Template
-      include GameThreads::Components
-      include GameThreads::Game
-      include GameThreads::Links
-      include GameThreads::Teams
-      include GameThreads::Titles
+      include Components
+      include Game
+      include Links
+      include Teams
+      include Titles
 
       attr_reader :post_id, :game_pk
 

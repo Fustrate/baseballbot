@@ -4,41 +4,112 @@ class Baseballbot
   module Templates
     module Sidebars
       module Components
-        class Calendar
+        class Schedule
           include MarkdownHelpers
 
           def initialize(subreddit)
             @subreddit = subreddit
           end
 
-          def to_s
-            cells = month_schedule.map do |_, day|
-              cell(day[:date].day, day[:games])
+          # Used by TB sidebar
+          def month_games
+            start_date = Date.civil(@subreddit.today.year, @subreddit.today.month, 1)
+            end_date = Date.civil(@subreddit.today.year, @subreddit.today.month, -1)
+
+            team_schedule.games_between(start_date, end_date)
+              .flat_map { |_, day| day[:games] }
+          end
+
+          # Used by CLE sidebar
+          def previous_games(limit, team: nil)
+            games = []
+            start_date = @subreddit.today - limit - 7
+
+            # Go backwards an extra week to account for off days
+            schedule_between(start_date, @subreddit.today, team).reverse_each do |day|
+              next if day[:date] > @subreddit.today
+
+              games.concat day[:games].keep_if(&:final?)
+
+              break if games.count >= limit
             end
 
-            markdown_calendar(cells, month_schedule)
+            games.first(limit)
+          end
+
+          # Used by TOR, MIN, and CLE sidebars
+          def upcoming_games(limit, team: nil)
+            games = []
+            end_date = @subreddit.today + limit + 7
+
+            # Go forward an extra week to account for off days
+            schedule_between(@subreddit.today, end_date, team).each do |day|
+              next if day[:date] < @subreddit.today
+
+              games.concat day[:games].reject(&:final?)
+
+              break if games.count >= limit
+            end
+
+            games.first(limit)
+          end
+
+          # Used by CIN sidebar
+          def next_game_str(date_format: '%-m/%-d', team: nil)
+            game = upcoming_games(1, team:).first
+
+            return '???' unless game
+
+            format(
+              '%<date>s %<team>s %<dir>s %<opponent>s %<time>s',
+              date: game.date.strftime(date_format),
+              team: @subreddit.team.name,
+              dir: game.home_team? ? 'vs.' : '@',
+              opponent: game.opponent.name,
+              time: game.date.strftime('%-I:%M %p')
+            )
+          end
+
+          # Used by CIN sidebar
+          def last_game_str(date_format: '%-m/%-d', team: nil)
+            game = previous_games(1, team:).first
+
+            return '???' unless game
+
+            format(
+              '%<date>s %<team>s %<team_runs>s %<opponent>s %<opponent_runs>s',
+              date: game.date.strftime(date_format),
+              team: @subreddit.team.name,
+              team_runs: game.score[0],
+              opponent: game.opponent.name,
+              opponent_runs: game.score[1]
+            )
           end
 
           protected
 
-          def month_schedule
-            @month_schedule ||= SubredditSchedule.new(subreddit: @subreddit, team_id: @subreddit.team&.id).generate(
-              Date.civil(@subreddit.today.year, @subreddit.today.month, 1),
-              Date.civil(@subreddit.today.year, @subreddit.today.month, -1)
-            )
+          def schedule_between(start_date, end_date, team)
+            team_schedule
+              .games_between(start_date, end_date, team: team || @subreddit.team.id)
+              .values
           end
 
-          def cell(date, games)
-            num = "^#{date}"
+          # This is the schedule generator for this subreddit, not necessarily this subreddit's team.
+          def team_schedule
+            @team_schedule ||= SubredditScheduleGenerator.new(api: @subreddit.bot.api, subreddit: @subreddit)
+          end
 
-            return num if games.empty?
+          class SubredditScheduleGenerator
+            def initialize(subreddit:)
+              @subreddit = subreddit
+            end
 
-            sub_name = @subreddit.code_to_subreddit_name(games.first.opponent.code)
-            link = "[](/r/#{sub_name} \"#{games.map(&:status).join(', ')}\")"
-
-            return "**#{num} #{link}**" if games[0].home_team?
-
-            "*#{num} #{link}*"
+            def games_between(start_date, end_date, team: nil)
+              SubredditSchedule.new(
+                subreddit: @subreddit,
+                team_id: team || @subreddit.team&.id
+              ).generate(start_date, end_date)
+            end
           end
 
           # This allows us to generate a schedule for a team other than the one belonging to the subreddit.
@@ -89,9 +160,7 @@ class Baseballbot
               )['dates']
             end
 
-            def team_calendar_game(data:, date:)
-              TeamCalendarGame.new(api: @subreddit.bot.api, data:, date:, team_id: @team_id)
-            end
+            def team_calendar_game(data:, date:) = TeamCalendarGame.new(api: @subreddit.bot.api, data:, date:, team_id: @team_id)
           end
 
           class TeamCalendarGame

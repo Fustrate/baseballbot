@@ -10,21 +10,9 @@ require 'redd'
 require 'redis'
 require 'tzinfo'
 
-require_relative 'baseballbot/error'
-require_relative 'baseballbot/subreddit'
-require_relative 'baseballbot/account'
-require_relative 'baseballbot/utility'
-require_relative 'baseballbot/markdown_helpers'
-require_relative 'baseballbot/template'
-
-require_relative 'baseballbot/accounts'
-require_relative 'baseballbot/game_threads'
-require_relative 'baseballbot/off_day'
-require_relative 'baseballbot/pregames'
-require_relative 'baseballbot/sidebars'
-require_relative 'baseballbot/subreddits'
-
-Dir.glob(File.join(__dir__, 'baseballbot/{templates,posts}/*.rb')).each { require_relative _1 }
+loader = Zeitwerk::Loader.new
+loader.push_dir(__dir__)
+loader.setup
 
 class Baseballbot
   include Accounts

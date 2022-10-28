@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Baseballbot::Templates::GameThreads::ScoringPlays do
+RSpec.describe Baseballbot::Templates::GameThreads::Components::ScoringPlays do
   before do
     stub_requests! with_response: true
   end

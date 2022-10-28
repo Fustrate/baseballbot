@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
-Dir.glob(File.join(__dir__, 'templates/shared/*.rb')).each { require_relative _1 }
-
 class Baseballbot
   class Template
     include MarkdownHelpers
-
-    include Templates::Shared::Calendar
 
     DELIMITER = '[](/baseballbot)'
 

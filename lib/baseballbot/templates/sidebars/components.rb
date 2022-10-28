@@ -1,31 +1,45 @@
 # frozen_string_literal: true
 
-Dir.glob(File.join(__dir__, 'components/*.rb')).each { require _1 }
-
 class Baseballbot
   module Templates
     module Sidebars
       module Components
-        def postseason_series_section = Sidebars::Postseason.new(@subreddit).to_s
+        def postseason_series_section = Postseason.new(@subreddit).to_s
 
-        def todays_games(date = nil) = Sidebars::TodaysGames.new(@subreddit, date)
+        def todays_games(date = nil) = TodaysGames.new(@subreddit, date)
 
-        def hitter_stats(...) = Sidebars::Leaders.new(@subreddit).hitter_stats(...)
+        def hitter_stats(...) = Leaders.new(@subreddit).hitter_stats(...)
 
-        def pitcher_stats(...) = Sidebars::Leaders.new(@subreddit).pitcher_stats(...)
+        def pitcher_stats(...) = Leaders.new(@subreddit).pitcher_stats(...)
 
-        def hitter_stats_table(...) = Sidebars::Leaders.new(@subreddit).hitter_stats_table(...)
+        def hitter_stats_table(...) = Leaders.new(@subreddit).hitter_stats_table(...)
 
-        def pitcher_stats_table(...) = Sidebars::Leaders.new(@subreddit).pitcher_stats_table(...)
+        def pitcher_stats_table(...) = Leaders.new(@subreddit).pitcher_stats_table(...)
 
-        def calendar = Sidebars::Calendar.new(@subreddit).to_s
+        def calendar = Calendar.new(@subreddit).to_s
 
-        def division_standings = Sidebars::DivisionStandings.new(@subreddit)
+        def month_games = schedule.month_games
 
-        def league_standings = Sidebars::LeagueStandings.new(@subreddit).to_s
+        def previous_games(...) = schedule.previous_games(...)
+
+        def upcoming_games(...) = schedule.upcoming_games(...)
+
+        def next_game_str(...) = schedule.next_game_str(...)
+
+        def last_game_str(...) = schedule.last_game_str(...)
+
+        def division_standings = DivisionStandings.new(@subreddit)
+
+        def league_standings = LeagueStandings.new(@subreddit).to_s
 
         def updated_with_link
           "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
+        end
+
+        protected
+
+        def schedule
+          @schedule ||= Schedule.new(@subreddit)
         end
       end
     end

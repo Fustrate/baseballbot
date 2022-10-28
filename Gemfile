@@ -28,6 +28,9 @@ gem 'tzinfo', '~> 2.0'
 # Fancy command line colors
 gem 'paint', '~> 2.3'
 
+# File autoloading
+gem 'zeitwerk', '~> 2.6'
+
 group :development do
   # Deploy with Capistrano
   gem 'capistrano', '~> 3.17', require: false

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-Dir.glob(File.join(__dir__, 'components/*.rb')).each { require _1 }
-
 class Baseballbot
   module Templates
     module GameThreads
