@@ -4,7 +4,7 @@ class Baseballbot
   module Templates
     module Sidebars
       module Components
-        def postseason_series_section = Postseason.new(@subreddit).to_s
+        def postseason_series_section = Postseason.new(@subreddit)
 
         def todays_games(date = nil) = TodaysGames.new(@subreddit, date)
 
@@ -16,7 +16,7 @@ class Baseballbot
 
         def pitcher_stats_table(...) = Leaders.new(@subreddit).pitcher_stats_table(...)
 
-        def calendar = Calendar.new(@subreddit).to_s
+        def calendar = Calendar.new(@subreddit)
 
         def month_games = schedule.month_games
 
@@ -30,7 +30,7 @@ class Baseballbot
 
         def division_standings = DivisionStandings.new(@subreddit)
 
-        def league_standings = LeagueStandings.new(@subreddit).to_s
+        def league_standings = LeagueStandings.new(@subreddit)
 
         def updated_with_link
           "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
