@@ -30,7 +30,7 @@ class Baseballbot
 
         def to_s
           <<~MARKDOWN.strip
-            # #{@subreddit.now.year} Postseason
+            # #{@subreddit.today.year} Postseason
 
             #{postseason_series_tables.join("\n\n")}
           MARKDOWN

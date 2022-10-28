@@ -32,7 +32,7 @@ class Baseballbot
         # The game endpoint is returning stale data, so let's try grabbing them from the standings endpoint instead.
         def standings_by_team_id
           @standings_by_team_id ||= @subreddit.bot.api
-            .standings(leagues: %i[al nl], season: Date.today.year)['records']
+            .standings(leagues: %i[al nl], season: @subreddit.today.year)['records']
             .flat_map do |division|
               division['teamRecords'].map { [_1.dig('team', 'id'), _1.values_at('wins', 'losses').join('-')] }
             end

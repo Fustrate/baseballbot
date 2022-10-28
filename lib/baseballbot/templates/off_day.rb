@@ -12,7 +12,7 @@ class Baseballbot
       def inspect = %(#<Baseballbot::Templates::General>)
 
       def formatted_title
-        @formatted_title ||= Time.now.strftime @title
+        @formatted_title ||= @subreddit.today.strftime @title
       end
     end
   end

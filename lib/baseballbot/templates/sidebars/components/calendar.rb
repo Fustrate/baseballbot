@@ -22,8 +22,8 @@ class Baseballbot
 
         def month_schedule
           @month_schedule ||= SubredditSchedule.new(subreddit: @subreddit, team_id: @subreddit.team&.id).generate(
-            Date.civil(Date.today.year, Date.today.month, 1),
-            Date.civil(Date.today.year, Date.today.month, -1)
+            Date.civil(@subreddit.today.year, @subreddit.today.month, 1),
+            Date.civil(@subreddit.today.year, @subreddit.today.month, -1)
           )
         end
 

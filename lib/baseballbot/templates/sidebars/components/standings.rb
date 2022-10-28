@@ -33,7 +33,7 @@ class Baseballbot
 
         def standings_data
           @subreddit.bot.api.load('standings_hydrate_team', expires: 300) do
-            @subreddit.bot.api.standings(leagues: %i[al nl], season: Date.today.year)
+            @subreddit.bot.api.standings(leagues: %i[al nl], season: @subreddit.today.year)
           end
         end
       end

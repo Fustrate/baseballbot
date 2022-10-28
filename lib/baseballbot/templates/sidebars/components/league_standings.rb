@@ -9,7 +9,7 @@ class Baseballbot
       class LeagueStandings < Standings
         def to_s
           <<~MARKDOWN.strip
-            # #{@subreddit.now.year} Standings
+            # #{@subreddit.today.year} Standings
 
             Click a team's logo to visit their subreddit
 

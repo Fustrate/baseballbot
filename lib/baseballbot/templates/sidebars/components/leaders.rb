@@ -31,7 +31,7 @@ class Baseballbot
         end
 
         def hitter_stats(year: nil, type: 'R', count: 1)
-          year ||= Date.today.year
+          year ||= @subreddit.today.year
 
           # TODO: I'm not sure this is really memoizing much of anything
           @hitter_stats ||= {}
@@ -40,7 +40,7 @@ class Baseballbot
         end
 
         def pitcher_stats(year: nil, type: 'R', count: 1)
-          year ||= Date.today.year
+          year ||= @subreddit.today.year
 
           # TODO: I'm not sure this is really memoizing much of anything
           @pitcher_stats ||= {}
