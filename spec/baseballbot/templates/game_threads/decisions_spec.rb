@@ -21,7 +21,7 @@ RSpec.describe Baseballbot::Templates::GameThreads::Decisions do
     it 'does not output anything until the game has ended' do
       template = game_thread_template(:in_progress)
 
-      expect(template.decisions_section.to_s).to be_nil
+      expect(template.decisions_section.to_s).to eq ''
     end
   end
 end
