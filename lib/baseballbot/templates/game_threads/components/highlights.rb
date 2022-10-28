@@ -15,7 +15,7 @@ class Baseballbot
         end
 
         def to_s
-          return unless highlights.any?
+          return '' unless highlights.any?
 
           <<~MARKDOWN.strip
             ### Highlights

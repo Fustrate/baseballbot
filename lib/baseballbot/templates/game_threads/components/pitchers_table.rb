@@ -26,7 +26,7 @@ class Baseballbot
         end
 
         def to_s
-          return unless template.started? && template.boxscore && pitchers.any?
+          return '' unless template.started? && template.boxscore && pitchers.any?
 
           table(headers: table_header, rows: pitchers.map { pitcher_row(_1) })
         end

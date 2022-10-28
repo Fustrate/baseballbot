@@ -15,7 +15,7 @@ class Baseballbot
         end
 
         def to_s
-          return unless template.final? && template.linescore
+          return '' unless template.final? && template.linescore
 
           @winner_flag, @loser_flag = winner_and_loser_flags
 
