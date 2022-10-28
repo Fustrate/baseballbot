@@ -84,7 +84,7 @@ class Baseballbot
           def series_name(series) = POSTSEASON_SERIES_NAMES[series.split('-').first]
 
           def process_game(game)
-            return unless ['Final', 'Preview', 'In Progress', 'Live'].include?(game.dig('status', 'abstractGameState'))
+            return if skip_game?(game)
 
             low_team_id = [game.dig('teams', 'away', 'team', 'id'), game.dig('teams', 'home', 'team', 'id')].min
 
@@ -92,6 +92,11 @@ class Baseballbot
             key = "#{game['description'].split(/ Game| - /).first}-#{low_team_id}"
 
             @postseason_series[key] << game
+          end
+
+          def include_game?(game)
+            !['Final', 'Preview', 'In Progress', 'Live'].include?(game.dig('status', 'abstractGameState')) ||
+              game['ifNecessary'] == 'Y'
           end
         end
       end
