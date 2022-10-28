@@ -96,7 +96,7 @@ class Baseballbot
 
           # This is the schedule generator for this subreddit, not necessarily this subreddit's team.
           def team_schedule
-            @team_schedule ||= SubredditScheduleGenerator.new(api: @subreddit.bot.api, subreddit: @subreddit)
+            @team_schedule ||= SubredditScheduleGenerator.new(subreddit: @subreddit)
           end
 
           class SubredditScheduleGenerator
