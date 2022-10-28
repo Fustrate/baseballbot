@@ -3,11 +3,11 @@
 class Baseballbot
   module Templates
     class GameThread < Template
-      include Components
-      include Game
-      include Links
-      include Teams
-      include Titles
+      include GameThreads::Components
+      include GameThreads::Game
+      include GameThreads::Links
+      include GameThreads::Teams
+      include GameThreads::Titles
 
       attr_reader :post_id, :game_pk
 
