@@ -15,7 +15,7 @@ class Baseballbot
         end
 
         def to_s
-          return if scoring_plays.none?
+          return '' if scoring_plays.none?
 
           <<~MARKDOWN.strip
             ### Scoring Plays
