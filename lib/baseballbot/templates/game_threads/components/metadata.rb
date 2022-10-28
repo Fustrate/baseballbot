@@ -25,6 +25,8 @@ class Baseballbot
         def umpires_table
           ump_positions, ump_names = template.umpires.transform_keys { [_1, :center] }.to_a.transpose
 
+          return '' unless ump_positions
+
           table(headers: ump_positions, rows: [ump_names])
         end
 
