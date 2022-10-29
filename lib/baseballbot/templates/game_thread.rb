@@ -7,7 +7,6 @@ class Baseballbot
       include GameThreads::Game
       include GameThreads::Links
       include GameThreads::Teams
-      include GameThreads::Titles
 
       attr_reader :post_id, :game_pk
 
@@ -15,10 +14,12 @@ class Baseballbot
         super(body: subreddit.template_for(type), subreddit:)
 
         @game_pk = game_pk
-        @title = title
+        @title = title || default_title
         @post_id = post_id
         @type = type
       end
+
+      def formatted_title = GameThreads::Title.new(self, @title).to_s
 
       def content
         @content ||= @subreddit.bot.api.content @game_pk
@@ -40,6 +41,18 @@ class Baseballbot
 
       # For MarkdownHelpers#player_link until everything is in a reasonable state
       def template = self
+
+      protected
+
+      def default_title
+        titles = @subreddit.options.dig('game_threads', 'title')
+
+        return titles if titles.is_a?(String)
+
+        playoffs = %w[F D L W].include? game_data.dig('game', 'type')
+
+        titles[playoffs ? 'postseason' : 'default'] || titles.values.first
+      end
     end
   end
 end

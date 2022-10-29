@@ -1,0 +1,104 @@
+{
+  "copyright" : "Copyright 2022 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+  "totalItems" : 1,
+  "totalEvents" : 0,
+  "totalGames" : 1,
+  "totalGamesInProgress" : 0,
+  "dates" : [ {
+    "date" : "2022-10-19",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalGamesInProgress" : 0,
+    "games" : [ {
+      "gamePk" : 715730,
+      "link" : "/api/v1.1/game/715730/feed/live",
+      "gameType" : "L",
+      "season" : "2022",
+      "gameDate" : "2022-10-19T20:35:00Z",
+      "officialDate" : "2022-10-19",
+      "status" : {
+        "abstractGameState" : "Final",
+        "codedGameState" : "F",
+        "detailedState" : "Final",
+        "statusCode" : "F",
+        "startTimeTBD" : false,
+        "abstractGameCode" : "F"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 1,
+            "losses" : 1,
+            "pct" : ".500"
+          },
+          "score" : 5,
+          "team" : {
+            "id" : 143,
+            "name" : "Philadelphia Phillies",
+            "link" : "/api/v1/teams/143"
+          },
+          "isWinner" : false,
+          "splitSquad" : false,
+          "seriesNumber" : 2
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 1,
+            "losses" : 1,
+            "pct" : ".500"
+          },
+          "score" : 8,
+          "team" : {
+            "id" : 135,
+            "name" : "San Diego Padres",
+            "link" : "/api/v1/teams/135"
+          },
+          "isWinner" : true,
+          "splitSquad" : false,
+          "seriesNumber" : 2
+        }
+      },
+      "venue" : {
+        "id" : 2680,
+        "name" : "Petco Park",
+        "link" : "/api/v1/venues/2680"
+      },
+      "content" : {
+        "link" : "/api/v1/game/715730/content"
+      },
+      "seriesStatus" : {
+        "gameNumber" : 2,
+        "totalGames" : 7,
+        "isTied" : true,
+        "isOver" : false,
+        "wins" : 1,
+        "losses" : 1,
+        "description" : "NL Championship Series",
+        "shortDescription" : "NLCS Game 2",
+        "result" : "Series tied 1-1",
+        "shortName" : "NLCS"
+      },
+      "isTie" : false,
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-715730-2022-10-19",
+      "seasonDisplay" : "2022",
+      "dayNight" : "day",
+      "description" : "NLCS Game 2",
+      "scheduledInnings" : 9,
+      "reverseHomeAwayStatus" : false,
+      "inningBreakLength" : 120,
+      "gamesInSeries" : 7,
+      "seriesGameNumber" : 2,
+      "seriesDescription" : "League Championship Series",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    } ],
+    "events" : [ ]
+  } ]
+}

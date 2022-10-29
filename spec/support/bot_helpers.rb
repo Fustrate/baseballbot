@@ -21,12 +21,7 @@ module BotHelpers
     end
   end
 
-  def game_thread_template(status)
-    Baseballbot::Templates::GameThread.new(
-      subreddit: r_dodgers,
-      game_pk: GAME_PKS[status],
-      title: 'Test',
-      type: 'game_thread'
-    )
+  def game_thread_template(status, title: 'Test', type: 'game_thread')
+    Baseballbot::Templates::GameThread.new(subreddit: r_dodgers, game_pk: GAME_PKS[status], title:, type:)
   end
 end

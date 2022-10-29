@@ -31,6 +31,9 @@ gem 'paint', '~> 2.3'
 # File autoloading
 gem 'zeitwerk', '~> 2.6'
 
+# Formatting that users can mess up without destroying the bot itself
+gem 'mustache'
+
 group :development do
   # Deploy with Capistrano
   gem 'capistrano', '~> 3.17', require: false
