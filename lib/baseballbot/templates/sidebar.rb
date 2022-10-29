@@ -5,7 +5,7 @@ class Baseballbot
     class Sidebar < Template
       include Sidebars::Components
 
-      def inspect = %(#<Baseballbot::Templates::Sidebar @subreddit="#{@subreddit.name}">)
+      def inspect = %(#<#{self.class.name} @subreddit="#{@subreddit.name}">)
     end
   end
 end

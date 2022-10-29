@@ -35,7 +35,7 @@ class Baseballbot
 
       def game_data = feed.game_data
 
-      def inspect = %(#<Baseballbot::Templates::GameThread @game_pk="#{@game_pk}">)
+      def inspect = %(#<#{self.class.name} @game_pk="#{@game_pk}">)
 
       def postponed? = nil
 

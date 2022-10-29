@@ -13,7 +13,7 @@ class Baseballbot
         super(subreddit:, game_pk:, title: TITLE_FORMAT, type: 'no_hitter')
       end
 
-      def inspect = %(#<Baseballbot::Templates::NoHitter @game_pk="#{@game_pk}" @flag="#{@flag}">)
+      def inspect = %(#<#{self.class.name} @game_pk="#{@game_pk}" @flag="#{@flag}">)
 
       protected
 
