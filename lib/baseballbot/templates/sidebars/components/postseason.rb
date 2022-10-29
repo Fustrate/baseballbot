@@ -81,7 +81,11 @@ class Baseballbot
             "[#{team.name}][#{team.code.upcase}]"
           end
 
-          def series_name(series) = POSTSEASON_SERIES_NAMES[series.split('-').first]
+          def series_name(series)
+            return 'World Series' if series.start_with?('World Series')
+
+            POSTSEASON_SERIES_NAMES[series.split('-').first.strip]
+          end
 
           def process_game(game)
             return if skip_game?(game)
