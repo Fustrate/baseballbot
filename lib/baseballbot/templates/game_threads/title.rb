@@ -71,6 +71,12 @@ class Baseballbot
 
         def away_wins = postseason_data.dig('teams', 'away', 'leagueRecord', 'wins')
 
+        def pitcher_names = no_hitter_pitchers.map { player_name(_1) }.join(', ')
+
+        def pitching_team = no_hitter_flag == 'home' ? home_team.name : away_team.name
+
+        def batting_team = no_hitter_flag == 'home' ? away_team.name : home_team.name
+
         protected
 
         def postseason_data
@@ -93,6 +99,10 @@ class Baseballbot
             player.dig('name', 'boxscore') ||
             @game_thread.game_data.dig('players', "ID#{player['person']['id']}", 'boxscoreName')
         end
+
+        def no_hitter_flag = @game_thread.flag if @game_thread.is_a?(Templates::NoHitter)
+
+        def no_hitter_pitchers = no_hitter_flag == 'home' ? home_pitchers : away_pitchers
       end
     end
   end

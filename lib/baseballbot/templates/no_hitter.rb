@@ -5,7 +5,10 @@
 class Baseballbot
   module Templates
     class NoHitter < GameThread
-      TITLE_FORMAT = 'No-H****r Alert - %<pitcher_names>s (%<pitching_team>s) vs. %<batting_team>s'
+      TITLE_FORMAT = 'No-H****r Alert - {{pitcher_names}} ({{pitching_team}}) vs. {{batting_team}}'
+
+      # The title formatter needs to know this
+      attr_reader :flag
 
       def initialize(subreddit:, game_pk:, flag:)
         @flag = flag
@@ -14,22 +17,6 @@ class Baseballbot
       end
 
       def inspect = %(#<#{self.class.name} @game_pk="#{@game_pk}" @flag="#{@flag}">)
-
-      protected
-
-      def title_interpolations
-        super.merge(
-          pitcher_names:,
-          pitching_team: @flag == 'home' ? home_team.name : away_team.name,
-          batting_team: @flag == 'home' ? away_team.name : home_team.name
-        )
-      end
-
-      def pitcher_names
-        (@flag == 'home' ? home_pitchers : away_pitchers)
-          .map { player_name(_1) }
-          .join(', ')
-      end
     end
   end
 end
