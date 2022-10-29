@@ -69,8 +69,6 @@ class Baseballbot
             template.linescore&.dig('teams', flag.to_s, 'runs') ? template.linescore.dig('teams', flag.to_s) : BLANK_RHE
           end
 
-          def runs(flag) = rhe(flag)['runs']
-
           # This is surprisingly complicated. I'm going to guess they'll move this info in the next few seasons.
           def lob(flag)
             return '-' unless template.started?

@@ -14,7 +14,10 @@ class Baseballbot
 
         def first_pitch = "**First Pitch**: #{start_time_local.strftime('%-I:%M %p')} at #{venue_name}"
 
-        def final_score = "**Final Score**: #{away_team.name} #{runs(:away)}, #{home_team.name} #{runs(:home)}"
+        def final_score
+          "**Final Score**: #{away_team.name} #{linescore.dig('teams', 'away', 'runs')}, " \
+            "#{home_team.name} #{linescore.dig('teams', 'home', 'runs')}"
+        end
 
         def probables_and_media = ProbablesAndMedia.new(self)
 
