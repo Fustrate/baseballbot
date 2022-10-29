@@ -166,7 +166,8 @@ class Baseballbot
             protected
 
             def current_team_game?
-              @data.dig('teams', 'away', 'team', 'id') == @team_id || @data.dig('teams', 'home', 'team', 'id') == @team_id
+              @data.dig('teams', 'away', 'team', 'id') == @team_id ||
+                @data.dig('teams', 'home', 'team', 'id') == @team_id
             end
           end
         end

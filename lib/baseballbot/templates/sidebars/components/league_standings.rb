@@ -4,7 +4,7 @@ class Baseballbot
   module Templates
     module Sidebars
       module Components
-        # This is used by the /r/baseball sidebar. Most if not all team subs should be showing division standings instead.
+        # This is used by the /r/baseball sidebar. Team subs should be showing division standings instead.
         class LeagueStandings < Standings
           def to_s
             <<~MARKDOWN.strip

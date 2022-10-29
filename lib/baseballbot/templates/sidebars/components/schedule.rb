@@ -160,7 +160,9 @@ class Baseballbot
               )['dates']
             end
 
-            def team_calendar_game(data:, date:) = TeamCalendarGame.new(api: @subreddit.bot.api, data:, date:, team_id: @team_id)
+            def team_calendar_game(data:, date:)
+              TeamCalendarGame.new(api: @subreddit.bot.api, data:, date:, team_id: @team_id)
+            end
           end
 
           class TeamCalendarGame
@@ -235,7 +237,8 @@ class Baseballbot
             protected
 
             def current_team_game?
-              @data.dig('teams', 'away', 'team', 'id') == @team_id || @data.dig('teams', 'home', 'team', 'id') == @team_id
+              @data.dig('teams', 'away', 'team', 'id') == @team_id ||
+                @data.dig('teams', 'home', 'team', 'id') == @team_id
             end
           end
         end

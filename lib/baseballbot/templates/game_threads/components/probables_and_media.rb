@@ -64,11 +64,11 @@ class Baseballbot
             return 'TBA' unless pitcher
 
             format '[%<name>s](%<url>s) (%<wins>d-%<losses>d, %<era>s ERA)',
-                  name: pitcher.dig('person', 'fullName'),
-                  url: player_url(pitcher.dig('person', 'id')),
-                  wins: pitcher.dig('seasonStats', 'pitching', 'wins').to_i,
-                  losses: pitcher.dig('seasonStats', 'pitching', 'losses').to_i,
-                  era: pitcher.dig('seasonStats', 'pitching', 'era')
+                   name: pitcher.dig('person', 'fullName'),
+                   url: player_url(pitcher.dig('person', 'id')),
+                   wins: pitcher.dig('seasonStats', 'pitching', 'wins').to_i,
+                   losses: pitcher.dig('seasonStats', 'pitching', 'losses').to_i,
+                   era: pitcher.dig('seasonStats', 'pitching', 'era')
           end
         end
       end

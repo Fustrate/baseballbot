@@ -24,11 +24,11 @@ class Baseballbot
         def home? = @subreddit.team ? home_team.id == @subreddit.team.id : true
 
         def won?
-          (home? == (linescore&.dig('teams', 'home', 'runs') > linescore&.dig('teams', 'away', 'runs')) if final?)
+          (home? == (linescore.dig('teams', 'home', 'runs') > linescore.dig('teams', 'away', 'runs')) if final?)
         end
 
         def lost?
-          (home? == (linescore&.dig('teams', 'home', 'runs') < linescore&.dig('teams', 'away', 'runs')) if final?)
+          (home? == (linescore.dig('teams', 'home', 'runs') < linescore.dig('teams', 'away', 'runs')) if final?)
         end
 
         protected

@@ -8,7 +8,7 @@ class Baseballbot
           include MarkdownHelpers
 
           BASE_URL = 'https://bdfed.stitch.mlbinfra.com/bdfed/stats/player?stitch_env=prod&season=%<year>d' \
-                    '&group=%<group>s&stats=season&gameType=%<type>s&playerPool=%<pool>s&teamId=%<team_id>d'
+                     '&group=%<group>s&stats=season&gameType=%<type>s&playerPool=%<pool>s&teamId=%<team_id>d'
 
           # The data source spells out some of the column names
           COLUMN_ALIASES = {
@@ -111,7 +111,7 @@ class Baseballbot
             JSON.parse(URI.parse(url).open.read)['stats']
           end
 
-          # Interestingly, this doesn't include the esoteric column "extraBaseHits", and I'd rather not have to add it up
+          # Interestingly, this doesn't include the esoteric column "extraBaseHits". I'd rather not have to add it up
           # myself.
           # def load_from_api(group:, year:, type:, pool:)
           #   @subreddit.bot.api.stats(

@@ -43,7 +43,7 @@ class Baseballbot
 
             pitcher = template.boxscore.dig('teams', @winner_flag, 'players', "ID#{pitcher_id}")
 
-            format('%<name>s (%<record>s, %<era>s ERA)', name: name(pitcher), record: record(pitcher), era: era(pitcher))
+            format '%<name>s (%<record>s, %<era>s ERA)', name: name(pitcher), record: record(pitcher), era: era(pitcher)
           end
 
           def losing_pitcher
@@ -53,7 +53,7 @@ class Baseballbot
 
             pitcher = template.boxscore.dig('teams', @loser_flag, 'players', "ID#{pitcher_id}")
 
-            format('%<name>s (%<record>s, %<era>s ERA)', name: name(pitcher), record: record(pitcher), era: era(pitcher))
+            format '%<name>s (%<record>s, %<era>s ERA)', name: name(pitcher), record: record(pitcher), era: era(pitcher)
           end
 
           def record(pitcher) = pitcher['seasonStats']['pitching'].values_at('wins', 'losses').join('-')
@@ -65,7 +65,7 @@ class Baseballbot
 
             pitcher = template.boxscore.dig('teams', @winner_flag, 'players', "ID#{pitcher_id}")
 
-            format('%<name>s (%<saves>s SV, %<era>s ERA)', name: name(pitcher), saves: saves(pitcher), era: era(pitcher))
+            format '%<name>s (%<saves>s SV, %<era>s ERA)', name: name(pitcher), saves: saves(pitcher), era: era(pitcher)
           end
 
           def name(pitcher) = template.player_name(pitcher)
