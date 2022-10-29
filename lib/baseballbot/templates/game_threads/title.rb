@@ -35,6 +35,8 @@ class Baseballbot
 
         def day_of_week = @game_thread.start_time_local.strftime('%A')
 
+        def short_day_of_week = @game_thread.start_time_local.strftime('%a')
+
         def short_year = @game_thread.start_time_local.strftime('%y')
 
         def start_time = @game_thread.start_time_local.strftime('%-I:%M %p')

@@ -15,10 +15,11 @@ RSpec.describe Baseballbot::Templates::GameThreads::Title do
     it 'generates a title with date tokens' do
       template = game_thread_template(
         :preview,
-        title: 'Hello {{month_name}} {{year}}-{{month}}-{{day}} {{short_year}} {{day_of_week}} {{short_month}}'
+        title: '{{month_name}} {{year}}-{{month}}-{{day}} {{short_year}} ' \
+               '{{day_of_week}} {{short_month}} {{short_day_of_week}}'
       )
 
-      expect(template.formatted_title).to eq 'Hello July 2022-7-26 22 Tuesday Jul'
+      expect(template.formatted_title).to eq 'July 2022-7-26 22 Tuesday Jul Tue'
     end
 
     it 'generates a title with time tokens' do
