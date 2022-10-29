@@ -94,7 +94,7 @@ class Baseballbot
             @postseason_series[key] << game
           end
 
-          def include_game?(game)
+          def skip_game?(game)
             !['Final', 'Preview', 'In Progress', 'Live'].include?(game.dig('status', 'abstractGameState')) ||
               game['ifNecessary'] == 'Y'
           end
