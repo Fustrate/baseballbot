@@ -16,11 +16,7 @@ class Baseballbot
         end
 
         def to_s
-          @to_s ||= begin
-            title = @game_thread.start_time_local.strftime(render)
-
-            title
-          end
+          @to_s ||= @game_thread.start_time_local.strftime(render)
         end
 
         def year = @game_thread.start_time_local.year
