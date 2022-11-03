@@ -6,12 +6,8 @@ class Baseballbot
       SELECT name
       FROM subreddits
       WHERE options['off_day']['enabled']::boolean IS TRUE
-      AND (
-        options['off_day']['last_run_at'] IS NULL OR DATE(options['off_day']['last_run_at']::text) < CURRENT_DATE
-      )
-      AND (
-        (CURRENT_DATE + options['off_day']['post_at']::text::interval) < NOW() AT TIME ZONE (options->>'timezone')
-      )
+      AND (options['off_day']['last_run_at'] IS NULL OR DATE(options['off_day']['last_run_at']::text) < CURRENT_DATE)
+      AND ((CURRENT_DATE + options['off_day']['post_at']::text::interval) < NOW() AT TIME ZONE (options->>'timezone'))
       ORDER BY name ASC
     SQL
 
