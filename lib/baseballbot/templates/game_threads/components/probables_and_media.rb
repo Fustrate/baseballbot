@@ -10,27 +10,25 @@ class Baseballbot
           HOME_FEED_TYPES = %w[HOME NATIONAL].freeze
           AWAY_FEED_TYPES = %w[AWAY NATIONAL].freeze
 
-          attr_reader :template
-
-          def initialize(template)
-            @template = template
+          def initialize(game_thread)
+            @game_thread = game_thread
           end
 
           def to_s
             table headers: %w[Team Starter TV Radio], rows: [
-              [team_link(template.away_team), probable_starter_line('away'), tv_feeds(:away), radio_feeds(:away)],
-              [team_link(template.home_team), probable_starter_line('home'), tv_feeds(:home), radio_feeds(:home)]
+              [team_link(@game_thread.away_team), probable_starter_line('away'), tv_feeds(:away), radio_feeds(:away)],
+              [team_link(@game_thread.home_team), probable_starter_line('home'), tv_feeds(:home), radio_feeds(:home)]
             ]
           end
 
           protected
 
-          def team_link(team) = "[#{team.name}](/r/#{template.subreddit.code_to_subreddit_name(team.code)})"
+          def team_link(team) = "[#{team.name}](/r/#{@game_thread.subreddit.code_to_subreddit_name(team.code)})"
 
           def probable_starter_line(flag)
-            pitcher_id = template.game_data.dig('probablePitchers', flag, 'id')
+            pitcher_id = @game_thread.game_data.dig('probablePitchers', flag, 'id')
 
-            pitcher_line(template.boxscore.dig('teams', flag, 'players', "ID#{pitcher_id}")) if pitcher_id
+            pitcher_line(@game_thread.boxscore.dig('teams', flag, 'players', "ID#{pitcher_id}")) if pitcher_id
           end
 
           def tv_feeds(flag)
@@ -49,13 +47,13 @@ class Baseballbot
           end
 
           def television_feeds
-            @television_feeds ||= template.content.dig('media', 'epg')
+            @television_feeds ||= @game_thread.content.dig('media', 'epg')
               &.detect { _1['title'] == 'MLBTV' }
               &.fetch('items') || []
           end
 
           def audio_feeds
-            @audio_feeds ||= template.content.dig('media', 'epg')
+            @audio_feeds ||= @game_thread.content.dig('media', 'epg')
               &.detect { _1['title'] == 'Audio' }
               &.fetch('items') || []
           end

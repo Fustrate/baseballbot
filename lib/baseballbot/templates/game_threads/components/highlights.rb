@@ -9,10 +9,8 @@ class Baseballbot
 
           TABLE_HEADERS = %w[Description Length Video].freeze
 
-          attr_reader :template
-
-          def initialize(template)
-            @template = template
+          def initialize(game_thread)
+            @game_thread = game_thread
           end
 
           def to_s
@@ -30,11 +28,11 @@ class Baseballbot
           def table_rows = highlights.map { [_1[:blurb], _1[:duration], "[Video](#{_1[:hd]})"] }
 
           def highlights
-            @highlights ||= (fetch_highlights if template.started?) || []
+            @highlights ||= (fetch_highlights if @game_thread.started?) || []
           end
 
           def fetch_highlights
-            template.content.dig('highlights', 'highlights', 'items')
+            @game_thread.content.dig('highlights', 'highlights', 'items')
               &.sort_by { _1['date'] }
               &.map { process_media(_1) }
               &.compact

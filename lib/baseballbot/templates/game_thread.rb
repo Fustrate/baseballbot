@@ -39,9 +39,6 @@ class Baseballbot
 
       def postponed? = nil
 
-      # For MarkdownHelpers#player_link until everything is in a reasonable state
-      def template = self
-
       protected
 
       def default_title

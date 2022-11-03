@@ -18,16 +18,14 @@ class Baseballbot
             era: ->(pitcher, _) { pitcher['seasonStats']['pitching']['era'] }
           }.freeze
 
-          attr_reader :template
-
-          def initialize(template, team, stats: %i[ip h r er bb so p-s era])
-            @template = template
+          def initialize(game_thread, team, stats: %i[ip h r er bb so p-s era])
+            @game_thread = game_thread
             @team = team
             @stats = stats
           end
 
           def to_s
-            return '' unless template.started? && template.boxscore && pitchers.any?
+            return '' unless @game_thread.started? && @game_thread.boxscore && pitchers.any?
 
             table(headers: table_header, rows: pitchers.map { pitcher_row(_1) })
           end
@@ -36,7 +34,7 @@ class Baseballbot
 
           def pitchers
             @pitchers ||= begin
-              team_info = template.boxscore['teams'].find { |_, v| v.dig('team', 'id') == @team.id }[1]
+              team_info = @game_thread.boxscore['teams'].find { |_, v| v.dig('team', 'id') == @team.id }[1]
 
               team_info['pitchers'].map { team_info.dig('players', "ID#{_1}") }
             end
@@ -53,8 +51,8 @@ class Baseballbot
           end
 
           def starting_pitcher?(pitcher)
-            pitcher.dig('person', 'id') == @template.game_data.dig('probablePitchers', 'home', 'id') ||
-              pitcher.dig('person', 'id') == @template.game_data.dig('probablePitchers', 'away', 'id')
+            pitcher.dig('person', 'id') == @game_thread.game_data.dig('probablePitchers', 'home', 'id') ||
+              pitcher.dig('person', 'id') == @game_thread.game_data.dig('probablePitchers', 'away', 'id')
           end
 
           def game_stats(player) = (player['gameStats'] || player['stats'] || {})

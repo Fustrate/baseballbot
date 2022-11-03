@@ -53,7 +53,7 @@ class Baseballbot
 
       player['boxscoreName'] ||
         player.dig('name', 'boxscore') ||
-        template.game_data.dig('players', "ID#{player['person']['id']}", 'boxscoreName')
+        @game_thread.game_data.dig('players', "ID#{player['person']['id']}", 'boxscoreName')
     end
 
     def player_url(id) = "https://www.mlb.com/player/#{id}"

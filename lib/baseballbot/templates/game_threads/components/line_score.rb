@@ -10,10 +10,8 @@ class Baseballbot
           BLANK_RHE = { 'runs' => 0, 'hits' => 0, 'errors' => 0 }.freeze
           BLANK_LINES = ([' '] * 9).freeze
 
-          attr_reader :template
-
-          def initialize(template)
-            @template = template
+          def initialize(game_thread)
+            @game_thread = game_thread
           end
 
           def to_s
@@ -31,30 +29,34 @@ class Baseballbot
           def table_rows = [line_score_team(:away), line_score_team(:home)]
 
           def line_score_status
-            return template.game_data.dig('status', 'detailedState') unless template.live?
+            return @game_thread.game_data.dig('status', 'detailedState') unless @game_thread.live?
 
-            template.outs == 3 ? template.inning : "#{template.runners}, #{line_score_outs}, #{template.inning}"
+            return @game_thread.inning if @game_thread.outs == 3
+
+            "#{@game_thread.runners}, #{line_score_outs}, #{@game_thread.inning}"
           end
 
-          def line_score_outs = "#{template.outs} #{template.outs == 1 ? 'Out' : 'Outs'}"
+          def line_score_outs = "#{@game_thread.outs} #{@game_thread.outs == 1 ? 'Out' : 'Outs'}"
 
           def line_score_innings(flag)
-            template.started? && template.linescore&.dig('innings') ? team_inning_scores(flag.to_s) : BLANK_LINES
+            return BLANK_LINES unless @game_thread.started? && @game_thread.linescore&.dig('innings')
+
+            team_inning_scores(flag.to_s)
           end
 
           def team_inning_scores(flag) = [*played_inning_runs(flag), *([' '] * 9)].first(innings)
 
           def played_inning_runs(flag)
-            template.linescore['innings'].sort_by { _1['num'] }.map { _1.dig(flag, 'runs') }
+            @game_thread.linescore['innings'].sort_by { _1['num'] }.map { _1.dig(flag, 'runs') }
           end
 
-          def innings = [9, template.linescore['innings'].count].max
+          def innings = [9, @game_thread.linescore['innings'].count].max
 
           def line_score_team(flag)
             team_rhe = rhe(flag)
 
             [
-              (flag == :home ? template.home_team : template.away_team).code,
+              (flag == :home ? @game_thread.home_team : @game_thread.away_team).code,
               *line_score_innings(flag),
               "**#{team_rhe['runs']}**",
               "**#{team_rhe['hits']}**",
@@ -66,14 +68,16 @@ class Baseballbot
           def line_score_inning_numbers = (1..innings).to_a
 
           def rhe(flag)
-            template.linescore&.dig('teams', flag.to_s, 'runs') ? template.linescore.dig('teams', flag.to_s) : BLANK_RHE
+            return BLANK_RHE unless @game_thread.linescore&.dig('teams', flag.to_s, 'runs')
+
+            @game_thread.linescore.dig('teams', flag.to_s)
           end
 
           # This is surprisingly complicated. I'm going to guess they'll move this info in the next few seasons.
           def lob(flag)
-            return '-' unless template.started?
+            return '-' unless @game_thread.started?
 
-            batting_info = template.boxscore.dig('teams', flag.to_s, 'info')&.find { _1['title'] == 'BATTING' }
+            batting_info = @game_thread.boxscore.dig('teams', flag.to_s, 'info')&.find { _1['title'] == 'BATTING' }
 
             return '-' unless batting_info
 

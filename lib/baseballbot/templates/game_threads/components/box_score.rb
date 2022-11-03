@@ -7,10 +7,8 @@ class Baseballbot
         class BoxScore
           include MarkdownHelpers
 
-          attr_reader :template
-
-          def initialize(template)
-            @template = template
+          def initialize(game_thread)
+            @game_thread = game_thread
           end
 
           def to_s
@@ -27,16 +25,16 @@ class Baseballbot
 
           def batter_and_pitcher_tables
             [
-              batters_table(template.home_team),
-              pitchers_table(template.home_team),
-              batters_table(template.away_team),
-              pitchers_table(template.away_team)
+              batters_table(@game_thread.home_team),
+              pitchers_table(@game_thread.home_team),
+              batters_table(@game_thread.away_team),
+              pitchers_table(@game_thread.away_team)
             ]
           end
 
-          def batters_table(team) = BattersTable.new(template, team).to_s
+          def batters_table(team) = BattersTable.new(@game_thread, team).to_s
 
-          def pitchers_table(team) = PitchersTable.new(template, team).to_s
+          def pitchers_table(team) = PitchersTable.new(@game_thread, team).to_s
         end
       end
     end

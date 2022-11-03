@@ -18,16 +18,14 @@ class Baseballbot
             sb: ->(_, game) { game['stolenBases'] }
           }.freeze
 
-          attr_reader :template
-
-          def initialize(template, team, stats: %i[ab r h rbi bb so ba])
-            @template = template
+          def initialize(game_thread, team, stats: %i[ab r h rbi bb so ba])
+            @game_thread = game_thread
             @team = team
             @stats = stats
           end
 
           def to_s
-            return '' unless template.started? && template.boxscore && batters.any?
+            return '' unless @game_thread.started? && @game_thread.boxscore && batters.any?
 
             table(headers: table_header, rows: batters.map { batter_row(_1) })
           end
@@ -35,7 +33,7 @@ class Baseballbot
           protected
 
           def batters
-            @batters ||= template.boxscore['teams']
+            @batters ||= @game_thread.boxscore['teams']
               .find { |_, v| v.dig('team', 'id') == @team.id }
               .dig(1, 'players')
               .values

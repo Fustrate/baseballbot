@@ -9,14 +9,12 @@ class Baseballbot
 
           TABLE_HEADERS = [['Winning Pitcher', :center], ['Losing Pitcher', :center], ['Save', :center]].freeze
 
-          attr_reader :template
-
-          def initialize(template)
-            @template = template
+          def initialize(game_thread)
+            @game_thread = game_thread
           end
 
           def to_s
-            return '' unless template.final? && template.linescore
+            return '' unless @game_thread.final? && @game_thread.linescore
 
             @winner_flag, @loser_flag = winner_and_loser_flags
 
@@ -30,28 +28,28 @@ class Baseballbot
           protected
 
           def winner_and_loser_flags
-            teams = template.linescore['teams']
+            teams = @game_thread.linescore['teams']
 
             (teams.dig('home', 'runs') || 0) > (teams.dig('away', 'runs') || 0) ? %w[home away] : %w[away home]
           end
 
           # The player info in game_data.players doesn't include pitching stats
           def winning_pitcher
-            pitcher_id = template.feed.dig('liveData', 'decisions', 'winner', 'id')
+            pitcher_id = @game_thread.feed.dig('liveData', 'decisions', 'winner', 'id')
 
             return unless pitcher_id
 
-            pitcher = template.boxscore.dig('teams', @winner_flag, 'players', "ID#{pitcher_id}")
+            pitcher = @game_thread.boxscore.dig('teams', @winner_flag, 'players', "ID#{pitcher_id}")
 
             format '%<name>s (%<record>s, %<era>s ERA)', name: name(pitcher), record: record(pitcher), era: era(pitcher)
           end
 
           def losing_pitcher
-            pitcher_id = template.feed.dig('liveData', 'decisions', 'loser', 'id')
+            pitcher_id = @game_thread.feed.dig('liveData', 'decisions', 'loser', 'id')
 
             return unless pitcher_id
 
-            pitcher = template.boxscore.dig('teams', @loser_flag, 'players', "ID#{pitcher_id}")
+            pitcher = @game_thread.boxscore.dig('teams', @loser_flag, 'players', "ID#{pitcher_id}")
 
             format '%<name>s (%<record>s, %<era>s ERA)', name: name(pitcher), record: record(pitcher), era: era(pitcher)
           end
@@ -59,16 +57,22 @@ class Baseballbot
           def record(pitcher) = pitcher['seasonStats']['pitching'].values_at('wins', 'losses').join('-')
 
           def save_pitcher
-            pitcher_id = template.feed.dig('liveData', 'decisions', 'save', 'id')
+            pitcher_id = @game_thread.feed.dig('liveData', 'decisions', 'save', 'id')
 
             return unless pitcher_id
 
-            pitcher = template.boxscore.dig('teams', @winner_flag, 'players', "ID#{pitcher_id}")
+            pitcher = @game_thread.boxscore.dig('teams', @winner_flag, 'players', "ID#{pitcher_id}")
 
             format '%<name>s (%<saves>s SV, %<era>s ERA)', name: name(pitcher), saves: saves(pitcher), era: era(pitcher)
           end
 
-          def name(pitcher) = template.player_name(pitcher)
+          def name(pitcher)
+            return 'TBA' unless pitcher
+
+            pitcher['boxscoreName'] ||
+              pitcher.dig('name', 'boxscore') ||
+              @game_thread.game_data.dig('players', "ID#{pitcher['person']['id']}", 'boxscoreName')
+          end
 
           def era(pitcher) = pitcher['seasonStats']['pitching']['era']
 

@@ -7,10 +7,8 @@ class Baseballbot
         class Metadata
           include MarkdownHelpers
 
-          attr_reader :template
-
-          def initialize(template)
-            @template = template
+          def initialize(game_thread)
+            @game_thread = game_thread
           end
 
           def to_s
@@ -24,7 +22,7 @@ class Baseballbot
           protected
 
           def umpires_table
-            ump_positions, ump_names = template.umpires.transform_keys { [_1, :center] }.to_a.transpose
+            ump_positions, ump_names = @game_thread.umpires.transform_keys { [_1, :center] }.to_a.transpose
 
             return '' unless ump_positions
 
@@ -34,12 +32,12 @@ class Baseballbot
           def attendance = nil
 
           def weather
-            data = template.game_data['weather'] || {}
+            data = @game_thread.game_data['weather'] || {}
 
             "#{data['temp']}°F, #{data['condition']}" if data['condition']
           end
 
-          def wind = template.game_data.dig('weather', 'wind')
+          def wind = @game_thread.game_data.dig('weather', 'wind')
         end
       end
     end

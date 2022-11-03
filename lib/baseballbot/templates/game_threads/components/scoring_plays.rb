@@ -9,10 +9,8 @@ class Baseballbot
 
           TABLE_HEADERS = [['Inning', :center], 'Event', ['Score', :center]].freeze
 
-          attr_reader :template
-
-          def initialize(template)
-            @template = template
+          def initialize(game_thread)
+            @game_thread = game_thread
           end
 
           def to_s
@@ -28,19 +26,19 @@ class Baseballbot
           protected
 
           def scoring_plays
-            @scoring_plays ||= template.started? && template.feed.plays ? formatted_plays : []
+            @scoring_plays ||= @game_thread.started? && @game_thread.feed.plays ? formatted_plays : []
           end
 
           def table_rows = scoring_plays.map { ["#{_1[:side]}#{_1[:inning]}", _1[:event], event_score(_1)] }
 
-          def formatted_plays = template.feed.plays['allPlays'].values_at(*scoring_play_ids).map { format_play(_1) }
+          def formatted_plays = @game_thread.feed.plays['allPlays'].values_at(*scoring_play_ids).map { format_play(_1) }
 
-          def scoring_play_ids = template.feed.plays['scoringPlays']
+          def scoring_play_ids = @game_thread.feed.plays['scoringPlays']
 
           def format_play(play)
             {
               side: play['about']['halfInning'] == 'top' ? 'T' : 'B',
-              team: play['about']['halfInning'] == 'top' ? template.opponent : template.team,
+              team: play['about']['halfInning'] == 'top' ? @game_thread.opponent : @game_thread.team,
               inning: play['about']['inning'],
               event: play['result']['description'],
               score: [play['result']['homeScore'], play['result']['awayScore']]
