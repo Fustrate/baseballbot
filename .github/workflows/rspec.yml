@@ -27,6 +27,23 @@ jobs:
     continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' }}
 
     steps:
+    - name: Start PostgreSQL on Ubuntu
+      run: |
+        sudo systemctl start postgresql.service
+        pg_isready
+
+    - name: Create database user
+      run: |
+        sudo -u postgres psql --command="CREATE USER $BASEBALLBOT_PG_USERNAME PASSWORD '$BASEBALLBOT_PG_PASSWORD'" --command="\du"
+
+    - name: Create database
+      run: |
+        sudo -u postgres createdb $BASEBALLBOT_PG_DATABASE --owner=$BASEBALLBOT_PG_USERNAME
+
+    - name: Restore database data
+      run: |
+        sudo -u postgres pg_restore --create --clean -d $BASEBALLBOT_PG_DATABASE --verbose < spec/database.sql
+
     - uses: actions/checkout@v3
 
     - name: Set up Ruby
