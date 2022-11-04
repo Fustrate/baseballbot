@@ -4,26 +4,28 @@ require_relative 'default_bot'
 
 class AroundTheHorn < DefaultBot
   class ATHTemplate < Baseballbot::Templates::Sidebar
+    include Baseballbot::MarkdownHelpers
+
     TODAYS_GAMES = <<~'ERB'
-      <% games = todays_games(@subreddit.now - 10_800) %>
-      <% if games.any? %>
-      # <%= (@subreddit.now - 10_800).strftime('%A') %>'s Games
+      # {{ath_games_header}}
 
-      Away|Score|Home|Score|Status|National
-      -|:-:|-|:-:|:-:|-
-      <% todays_games(@subreddit.now - 10_800).each do |game| %>
-      <%= todays_games_row(game) %>
+      {{ath_games_table}}
 
-      <% end %>
+      ^(★)Game Thread. All game times are Eastern. {{updated_with_link}}
 
-
-      ^(★)Game Thread. All game times are Eastern. <%= updated_with_link %> <%= yesterday_link %>
-      <% else %>
-      <%= updated_with_link %> <%= yesterday_link %>
-      <% end %>
+      {{yesterday_link}}
     ERB
 
-    def initialize(subreddit:) = super(body: '', subreddit:)
+    def initialize(subreddit:) = super(body: TODAYS_GAMES, subreddit:)
+
+    def ath_games_header = "#{(@subreddit.now - 10_800).strftime('%A')}'s Games"
+
+    def ath_games_table
+      table(
+        headers: ['Away', ['Score', :center], 'Home', ['Score', :center], ['Status', :center], 'National'],
+        rows: ath_games_table_rows
+      )
+    end
 
     def yesterday_link
       yesterday_id = @subreddit.bot.redis.hget('around_the_horn', (@subreddit.now - (3_600 * 27)).strftime('%F'))
@@ -31,23 +33,21 @@ class AroundTheHorn < DefaultBot
       yesterday_id ? "[Yesterday's ATH](/#{yesterday_id})" : ''
     end
 
-    def todays_games_row(game)
-      [
-        team_game_thread_link(game[:away]),
-        game[:away][:score],
-        team_game_thread_link(game[:home]),
-        game[:home][:score],
-        game[:status],
-        game[:national]
-      ].join('|')
+    protected
+
+    def ath_games_table_rows
+      Baseballbot::Templates::Sidebars::Components::TodaysGames.new(@subreddit).to_a.map { todays_games_row(_1) }
     end
 
-    def team_game_thread_link(team)
-      text = team[:post_id] ? "#{team[:abbreviation]} ^(★)" : team[:abbreviation]
-
-      link = team[:post_id] ? %(/#{team[:post_id]} "team-#{team[:abbreviation].downcase}") : "/r/#{team[:subreddit]}"
-
-      "[#{text}](#{link})"
+    def todays_games_row(game)
+      [
+        game[:away][:link],
+        game[:away][:score],
+        game[:home][:link],
+        game[:home][:score],
+        game[:status],
+        game[:national] || ' '
+      ]
     end
   end
 

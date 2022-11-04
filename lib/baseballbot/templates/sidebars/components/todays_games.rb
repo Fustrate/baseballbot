@@ -35,11 +35,12 @@ class Baseballbot
             MARKDOWN
           end
 
+          def to_a = scheduled_games.map { game_hash(_1) }
+
           protected
 
           def game_rows
-            scheduled_games
-              .map { game_hash(_1) }
+            to_a
               .each_slice(2)
               .flat_map { |one, two| [[*away_cells(one), *away_cells(two)], [*home_cells(one), *home_cells(two)]] }
           end
