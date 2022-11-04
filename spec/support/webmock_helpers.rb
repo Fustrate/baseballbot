@@ -10,9 +10,9 @@ module WebmockHelpers
 
     data_file = File.expand_path "../data/#{path.join('/')}.json", __dir__
 
-    raise "Could not locate #{data_file} (stubbing #{request.uri} )" unless File.exist?(data_file)
-
     # download_file_to_path(request.uri, data_file) unless File.exist?(data_file)
+
+    raise "Could not locate #{data_file} (stubbing #{request.uri} )" unless File.exist?(data_file)
 
     {
       body: File.new(data_file),
