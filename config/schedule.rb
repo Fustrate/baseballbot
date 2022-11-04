@@ -2,7 +2,7 @@
 
 set :output, '/home/baseballbot/apps/baseballbot/shared/log/whenever.log'
 
-DIRECTORY = '/home/baseballbot/apps/baseballbot/current/lib'
+SCRIPTS_DIR = '/home/baseballbot/apps/baseballbot/current/scripts'
 BUNDLE_EXEC = 'bundle exec'
 
 def step_minutes_by(step, except: [], &block)
@@ -10,7 +10,7 @@ def step_minutes_by(step, except: [], &block)
 end
 
 def bundle_exec_ruby(name, *arguments)
-  command "cd #{DIRECTORY} && #{BUNDLE_EXEC} ruby #{name}.rb #{arguments.join(' ')}"
+  command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC} ruby #{name}.rb #{arguments.join(' ')}"
 end
 
 every :minute do

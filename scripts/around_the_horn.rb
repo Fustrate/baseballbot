@@ -3,6 +3,8 @@
 require_relative 'default_bot'
 
 class AroundTheHorn < DefaultBot
+  ATH_SUBREDDIT = 'baseball'
+
   class ATHTemplate < Baseballbot::Templates::Sidebar
     include Baseballbot::MarkdownHelpers
 
@@ -60,7 +62,7 @@ class AroundTheHorn < DefaultBot
   def initialize
     super(purpose: 'Around the Horn', account: 'BaseballBot')
 
-    @subreddit = name_to_subreddit('baseball')
+    @subreddit = name_to_subreddit(ATH_SUBREDDIT)
 
     # Keep updating the same thread until 3 AM Pacific
     @date = @subreddit.now - 10_800
@@ -96,7 +98,7 @@ class AroundTheHorn < DefaultBot
   def initial_body = @subreddit.subreddit.wiki_page('ath').content_md.split(/\r?\n-{3,}\r?\n/)[1].strip
 
   def update_todays_games_in(text)
-    AroundTheHorn::ATHTemplate.new(subreddit: @subreddit).replace_in(text, delimiter: '[](/todays_games)')
+    ATHTemplate.new(subreddit: @subreddit).replace_in(text, delimiter: '[](/todays_games)')
   end
 end
 

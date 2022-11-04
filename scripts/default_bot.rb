@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# The bare basics of most files in /lib/
-require_relative 'baseballbot'
+require_relative '../lib/baseballbot'
 
 require 'fileutils'
 
+# The bare basics of most of these scripts
 class DefaultBot < Baseballbot
   def initialize(purpose: nil, account: nil)
     super(
