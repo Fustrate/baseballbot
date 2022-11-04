@@ -7,23 +7,33 @@ class AroundTheHorn < DefaultBot
     include Baseballbot::MarkdownHelpers
 
     TODAYS_GAMES = <<~'ERB'
-      # {{ath_games_header}}
-
-      {{ath_games_table}}
-
-      ^(★)Game Thread. All game times are Eastern. {{updated_with_link}}
+      {{todays_games_section}}
 
       {{yesterday_link}}
     ERB
 
     def initialize(subreddit:) = super(body: TODAYS_GAMES, subreddit:)
 
+    def todays_games_section
+      @todays_games = Baseballbot::Templates::Sidebars::Components::TodaysGames.new(@subreddit).to_a
+
+      return '' if @todays_games.none?
+
+      <<~MARKDOWN
+        # #{ath_games_header}
+
+        #{ath_games_table}
+
+        ^(★)Game Thread. All game times are Eastern. #{updated_with_link}
+      MARKDOWN
+    end
+
     def ath_games_header = "#{(@subreddit.now - 10_800).strftime('%A')}'s Games"
 
     def ath_games_table
       table(
         headers: ['Away', ['Score', :center], 'Home', ['Score', :center], ['Status', :center], 'National'],
-        rows: ath_games_table_rows
+        rows: @todays_games.map { todays_games_row(_1) }
       )
     end
 
@@ -34,10 +44,6 @@ class AroundTheHorn < DefaultBot
     end
 
     protected
-
-    def ath_games_table_rows
-      Baseballbot::Templates::Sidebars::Components::TodaysGames.new(@subreddit).to_a.map { todays_games_row(_1) }
-    end
 
     def todays_games_row(game)
       [
