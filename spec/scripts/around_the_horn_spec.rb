@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../scripts/around_the_horn'
+
 RSpec.describe AroundTheHorn do
   before do
     stub_request(:post, 'https://www.reddit.com/api/v1/access_token')
