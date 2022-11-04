@@ -2,6 +2,10 @@
 
 require 'mustache'
 
+class Time
+  def short_day_of_week = strftime('%a')
+end
+
 class Baseballbot
   class Template < Mustache
     include MarkdownHelpers

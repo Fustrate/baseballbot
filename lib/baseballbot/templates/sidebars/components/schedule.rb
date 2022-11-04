@@ -166,7 +166,7 @@ class Baseballbot
           end
 
           class TeamCalendarGame
-            attr_reader :flag, :opponent_flag, :team_id, :game_pk, :date
+            attr_reader :flag, :opponent_flag, :team_id, :game_pk, :date, :where
 
             def initialize(api:, data:, team_id:, date:)
               @api = api
@@ -176,6 +176,7 @@ class Baseballbot
 
               @flag, @opponent_flag = home_team? ? %w[home away] : %w[away home]
               @game_pk = data['gamePk']
+              @where = home_team? ? 'vs' : '@'
             end
 
             def home_team?

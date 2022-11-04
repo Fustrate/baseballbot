@@ -63,6 +63,49 @@ RSpec.describe Baseballbot::Templates::Sidebar do
       MARKDOWN
     end
 
+    it 'generates the current month\'s games' do
+      # |<%= game.date.strftime '%a, %-m/%-d' %>|<%= game.home_team? ? 'vs' : '@' %> [](/<%= game.opponent.code %>) <%= game.opponent.name %>|<%= game.status %>|
+
+      sidebar = described_class.new(subreddit: default_subreddit, body: <<~BODY.strip)
+        |Date|Opponent|Score|
+        |-|-|-|
+        {{#month_games}}
+        |{{date.short_day_of_week}}, {{date.month}}/{{date.day}}|{{where}} [](/{{opponent.code}}) {{opponent.name}}|{{status}}|
+        {{/month_games}}
+      BODY
+
+      expect(sidebar.evaluated_body.strip).to eq <<~MARKDOWN.strip
+        |Date|Opponent|Score|
+        |-|-|-|
+        |Fri, 7/1|vs [](/SD) Padres|Won 5-1|
+        |Sat, 7/2|vs [](/SD) Padres|Won 7-2|
+        |Sun, 7/3|vs [](/SD) Padres|Lost 2-4|
+        |Mon, 7/4|vs [](/COL) Rockies|Won 5-3|
+        |Tue, 7/5|vs [](/COL) Rockies|Won 5-2|
+        |Wed, 7/6|vs [](/COL) Rockies|Won 2-1|
+        |Thu, 7/7|vs [](/CHC) Cubs|Won 5-3|
+        |Fri, 7/8|vs [](/CHC) Cubs|Won 4-3|
+        |Sat, 7/9|vs [](/CHC) Cubs|Won 4-2|
+        |Sun, 7/10|vs [](/CHC) Cubs|Won 11-9|
+        |Tue, 7/12|@ [](/STL) Cardinals|Lost 6-7|
+        |Wed, 7/13|@ [](/STL) Cardinals|Won 7-6|
+        |Thu, 7/14|@ [](/STL) Cardinals|Won 4-0|
+        |Fri, 7/15|@ [](/LAA) Angels|Won 9-1|
+        |Sat, 7/16|@ [](/LAA) Angels|Won 7-1|
+        |Thu, 7/21|vs [](/SF) Giants|Won 9-6|
+        |Fri, 7/22|vs [](/SF) Giants|Won 5-1|
+        |Sat, 7/23|vs [](/SF) Giants|Won 4-2|
+        |Sun, 7/24|vs [](/SF) Giants|Won 7-4|
+        |Mon, 7/25|vs [](/WSH) Nationals|Lost 1-4|
+        |Tue, 7/26|vs [](/WSH) Nationals|Lost 3-8|
+        |Wed, 7/27|vs [](/WSH) Nationals|Won 7-1|
+        |Thu, 7/28|@ [](/COL) Rockies|Won 13-0|
+        |Fri, 7/29|@ [](/COL) Rockies|Won 5-4|
+        |Sat, 7/30|@ [](/COL) Rockies|Lost 3-5|
+        |Sun, 7/31|@ [](/COL) Rockies|Won 7-3|
+      MARKDOWN
+    end
+
     it 'generates team stat leaders' do
       sidebar = described_class.new(subreddit: default_subreddit, body: <<~BODY.strip)
         <% hitters = hitter_stats(count: 3) %>
