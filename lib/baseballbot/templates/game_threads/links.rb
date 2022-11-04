@@ -4,7 +4,7 @@ class Baseballbot
   module Templates
     module GameThreads
       module Links
-        def gameday_link(mode: nil) = ["https://www.mlb.com/gameday/#{game_pk}", mode].compact.join('/')
+        def gameday_link = "https://www.mlb.com/gameday/#{game_pk}"
 
         def game_graph_link
           "http://www.fangraphs.com/livewins.aspx?date=#{start_time_et.strftime '%F'}&team=#{team.name}" \
