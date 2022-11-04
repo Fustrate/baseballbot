@@ -26,6 +26,9 @@ class Baseballbot
       raise StandardError, 'ERB syntax error'
     end
 
+    # Don't escape values in templates - this is all markdown in the end.
+    def escape(value) = value
+
     def replace_in(text, delimiter: DELIMITER)
       text = CGI.unescapeHTML(text.selftext) if text.is_a?(Redd::Models::Submission)
 
