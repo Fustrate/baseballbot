@@ -38,6 +38,31 @@ RSpec.describe Baseballbot::Templates::Sidebar do
       MARKDOWN
     end
 
+    it 'highlights the current team in the division standings' do
+      sidebar = described_class.new(subreddit: default_subreddit, body: <<~MUSTACHE)
+        |Team|W|L|GB|
+        |-|:-:|:-:|:-:|
+        {{#division_standings}}
+        {{#current}}
+        |[](/r/{{subreddit}}) DODGERS|**{{wins}}**|**{{losses}}**|**{{games_back}}**|
+        {{/current}}
+        {{^current}}
+        |[](/r/{{subreddit}}) {{name}}|{{wins}}|{{losses}}|{{games_back}}|
+        {{/current}}
+        {{/division_standings}}
+      MUSTACHE
+
+      expect(sidebar.evaluated_body.strip).to eq <<~MARKDOWN
+        |Team|W|L|GB|
+        |-|:-:|:-:|:-:|
+        |[](/r/Dodgers) DODGERS|**111**|**51**|**-**|
+        |[](/r/Padres) Padres|89|73|22|
+        |[](/r/SFGiants) Giants|81|81|30|
+        |[](/r/azdiamondbacks) D-backs|74|88|37|
+        |[](/r/ColoradoRockies) Rockies|68|94|43|
+      MARKDOWN
+    end
+
     it 'generates team stat leaders' do
       sidebar = described_class.new(subreddit: default_subreddit, body: <<~BODY.strip)
         <% hitters = hitter_stats(count: 3) %>

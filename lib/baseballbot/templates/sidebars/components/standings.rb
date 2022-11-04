@@ -43,12 +43,13 @@ class Baseballbot
           # This is based off of other teams' data as well, so it can't be calculated inside this class.
           attr_accessor :wildcard_position
 
-          attr_reader :subreddit
+          attr_reader :subreddit, :current
 
           def initialize(row, subreddit)
             @row = row
 
             @subreddit = subreddit.code_to_subreddit_name(@row.dig('team', 'abbreviation'))
+            @current = @row.dig('team', 'abbreviation') == subreddit.code
           end
 
           def team = @row['team']
