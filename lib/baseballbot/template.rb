@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+require 'mustache'
+
 class Baseballbot
-  class Template
+  class Template < Mustache
     include MarkdownHelpers
 
     DELIMITER = '[](/baseballbot)'
@@ -9,14 +11,18 @@ class Baseballbot
     attr_reader :subreddit
 
     def initialize(body:, subreddit:)
+      super()
+
+      self.template = body
+
       @subreddit = subreddit
-      @body = body
     end
 
     def evaluated_body
-      ERB.new(@body, trim_mode: '<>').result(binding)
+      # Allow both Mustache and ERB until all templates are converted, then rip out ERB.
+      ERB.new(render, trim_mode: '<>').result(binding)
     rescue SyntaxError => e
-      Honeybadger.notify(e, context: { template: @body })
+      Honeybadger.notify(e, context: { template: })
       raise StandardError, 'ERB syntax error'
     end
 

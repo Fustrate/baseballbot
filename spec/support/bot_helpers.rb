@@ -7,21 +7,21 @@ module BotHelpers
     preview: 662_573
   }.freeze
 
-  def default_bot = Baseballbot.new(user_agent: 'Baseballbot Tests')
-
-  def r_dodgers
-    bot = default_bot
-
-    Baseballbot::Subreddit.new(
-      { 'name' => 'dodgers', 'team_code' => 'LAD', 'team_id' => 119, 'options' => '{}' },
-      bot:,
-      account: (Baseballbot::Account.new bot:, name: 'RSpecTestBot', access: '')
-    ).tap do |sub|
-      allow(sub).to receive(:template_for).with('game_thread').and_return ''
-    end
+  def default_bot
+    @default_bot ||= Baseballbot.new(user_agent: 'Baseballbot Tests')
   end
 
-  def game_thread_template(status, title: 'Test', type: 'game_thread')
-    Baseballbot::Templates::GameThread.new(subreddit: r_dodgers, game_pk: GAME_PKS[status], title:, type:)
+  def default_subreddit
+    @default_subreddit ||= Baseballbot::Subreddit.new(
+      { 'name' => 'dodgers', 'team_code' => 'LAD', 'team_id' => 119, 'options' => '{}' },
+      bot: default_bot,
+      account: (Baseballbot::Account.new bot: default_bot, name: 'RSpecTestBot', access: '')
+    )
+  end
+
+  def game_thread_template(status, title: 'Test', type: 'game_thread', body: '')
+    allow(default_subreddit).to receive(:template_for).with('game_thread').and_return body
+
+    Baseballbot::Templates::GameThread.new(subreddit: default_subreddit, game_pk: GAME_PKS[status], title:, type:)
   end
 end
