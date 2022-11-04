@@ -82,17 +82,17 @@ class Baseballbot
 
           def home_record = records['home']&.join('-') || '0-0'
 
-          def home_wins = records['home'][0] || 0
+          def home_wins = records.dig('home', 0) || 0
 
-          def home_losses = records['home'][1] || 0
+          def home_losses = records.dig('home', 1) || 0
 
-          def last_ten = records['lastTen'].join('-')
+          def last_ten = records['lastTen']&.join('-') || '0-0'
 
           def road_record = records['away']&.join('-') || '0-0'
 
-          def road_wins = records['away'][0] || 0
+          def road_wins = records.dig('away', 0) || 0
 
-          def road_losses = records['away'][1] || 0
+          def road_losses = records.dig('away', 1) || 0
 
           def elim_wildcard = row['wildCardEliminationNumber'].to_i
 
