@@ -8,7 +8,7 @@ class Baseballbot
 
         def game_graph_link
           "http://www.fangraphs.com/livewins.aspx?date=#{start_time_et.strftime '%F'}&team=#{team.name}" \
-            "&dh=#{game_data.dig('game', 'gameNumber') - 1}&season=#{date.year}"
+            "&dh=#{game_data.dig('game', 'gameNumber') - 1}&season=#{start_time_et.year}"
         end
 
         def savant_feed_link = "https://baseballsavant.mlb.com/gamefeed?gamePk=#{game_pk}"

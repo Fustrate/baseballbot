@@ -11,10 +11,6 @@ RSpec.describe Baseballbot::Templates::GameThreads::Links do
     it 'generates a gameday link' do
       expect(template.gameday_link).to eq 'https://www.mlb.com/gameday/662573'
     end
-
-    it 'generates a gameday preview link' do
-      expect(template.gameday_link(mode: 'preview')).to eq 'https://www.mlb.com/gameday/662573/preview'
-    end
   end
 
   describe '#game_graph_link' do
