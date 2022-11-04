@@ -43,7 +43,7 @@ jobs:
     - name: Restore database data
       run: |
         sudo -u postgres pg_restore --create --clean -d $BASEBALLBOT_PG_DATABASE --verbose < database.sql
-      working-directory: ./spec
+      working-directory: spec
 
     - uses: actions/checkout@v3
 
