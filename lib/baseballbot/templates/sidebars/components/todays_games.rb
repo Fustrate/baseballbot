@@ -18,7 +18,9 @@ class Baseballbot
 
           def initialize(subreddit, date = nil)
             @subreddit = subreddit
-            @date = date || subreddit.now
+
+            # Default to 3 hours ago so that late west coast games show for a while after midnight.
+            @date = date || (subreddit.now - 10_800)
 
             load_known_game_threads
           end
