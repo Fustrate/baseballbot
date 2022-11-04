@@ -64,8 +64,6 @@ RSpec.describe Baseballbot::Templates::Sidebar do
     end
 
     it 'generates the current month\'s games' do
-      # |<%= game.date.strftime '%a, %-m/%-d' %>|<%= game.home_team? ? 'vs' : '@' %> [](/<%= game.opponent.code %>) <%= game.opponent.name %>|<%= game.status %>|
-
       sidebar = described_class.new(subreddit: default_subreddit, body: <<~BODY.strip)
         |Date|Opponent|Score|
         |-|-|-|
