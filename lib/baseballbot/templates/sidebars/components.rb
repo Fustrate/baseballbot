@@ -33,7 +33,7 @@ class Baseballbot
         def league_standings = LeagueStandings.new(@subreddit)
 
         def updated_with_link
-          "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
+          "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}".strip
         end
 
         def team_stats
