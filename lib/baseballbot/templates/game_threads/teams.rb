@@ -35,10 +35,6 @@ class Baseballbot
 
         def away_subreddit = @subreddit.code_to_subreddit_name(away_team.code)
 
-        def year = @subreddit.today.year
-
-        def month_name = @subreddit.today.strftime('%B')
-
         protected
 
         # The game endpoint is returning stale data, so let's try grabbing them from the standings endpoint instead.

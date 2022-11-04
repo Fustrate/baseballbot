@@ -41,6 +41,10 @@ class Baseballbot
       "*#{action ? "#{action} at #{time}." : time}*"
     end
 
+    def year = @subreddit.today.year
+
+    def month_name = @subreddit.today.strftime('%B')
+
     protected
 
     def replace_regexp(delimiter: DELIMITER)
