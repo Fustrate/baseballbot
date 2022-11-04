@@ -6,6 +6,15 @@ on:
   pull_request:
     branches: [master]
 
+env:
+  BASEBALLBOT_PG_USERNAME: baseballbot
+  BASEBALLBOT_PG_DATABASE: baseballbot_test
+  BASEBALLBOT_PG_PASSWORD: password
+  REDDIT_CLIENT_ID: ""
+  REDDIT_SECRET: ""
+  REDDIT_REDIRECT_URI: ""
+  TZ: America/Los_Angeles
+
 jobs:
   test:
     strategy:
@@ -19,12 +28,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically:
+
     - name: Install dependencies
       run: bundle install
+
     - name: Run tests
-      run: TZ="America/Los_Angeles" bundle exec rake
+      run:  bundle exec rake
