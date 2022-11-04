@@ -52,7 +52,7 @@ RSpec.describe Baseballbot::Templates::Sidebar do
         {{/division_standings}}
       MUSTACHE
 
-      expect(sidebar.evaluated_body.strip).to eq <<~MARKDOWN
+      expect(sidebar.evaluated_body.strip).to eq <<~MARKDOWN.strip
         |Team|W|L|GB|
         |-|:-:|:-:|:-:|
         |[](/r/Dodgers) DODGERS|**111**|**51**|**-**|

@@ -80,11 +80,19 @@ class Baseballbot
 
           def league_games_back = @row['leagueGamesBack'].gsub(/\.0$/, '')
 
-          def home_record = records['home']
+          def home_record = records['home']&.join('-') || '0-0'
+
+          def home_wins = records['home'][0] || 0
+
+          def home_losses = records['home'][1] || 0
 
           def last_ten = records['lastTen'].join('-')
 
-          def road_record = records['away']
+          def road_record = records['away']&.join('-') || '0-0'
+
+          def road_wins = records['away'][0] || 0
+
+          def road_losses = records['away'][1] || 0
 
           def elim_wildcard = row['wildCardEliminationNumber'].to_i
 

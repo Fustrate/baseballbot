@@ -36,6 +36,10 @@ class Baseballbot
           "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
         end
 
+        def team_stats
+          @team_stats ||= Standings.new(@subreddit).team_stats
+        end
+
         protected
 
         def schedule
