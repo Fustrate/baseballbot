@@ -32,9 +32,7 @@ class Baseballbot
 
         def start_time_local = Baseballbot::Utility.parse_time(start_time_utc, in_time_zone: @subreddit.timezone)
 
-        def date
-          @date ||= Date.parse game_data.dig('datetime', 'dateTime')
-        end
+        def date = Date.parse(game_data.dig('datetime', 'dateTime')).strftime '%-m/%-d/%Y'
 
         def umpires
           @umpires ||= feed
