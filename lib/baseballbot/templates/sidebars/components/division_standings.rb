@@ -7,10 +7,9 @@ class Baseballbot
         class DivisionStandings < Standings
           include MarkdownHelpers
           include Enumerable
+          include Mustache::Enumerable
 
-          def each(&)
-            teams_in_division(@subreddit.team.division_id).each(&)
-          end
+          def each(&) = teams_in_division(@subreddit.team.division_id).each(&)
 
           # TODO
           # def table(**options) = Table.new(teams_in_division(@subreddit.team.division_id), **options).to_s

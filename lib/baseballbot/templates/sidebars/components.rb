@@ -28,7 +28,7 @@ class Baseballbot
 
         def last_game_str(...) = schedule.last_game_str(...)
 
-        def division_standings = DivisionStandings.new(@subreddit).to_a
+        def division_standings = DivisionStandings.new(@subreddit)
 
         def league_standings = LeagueStandings.new(@subreddit)
 
