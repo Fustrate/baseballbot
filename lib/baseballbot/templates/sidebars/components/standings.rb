@@ -26,7 +26,7 @@ class Baseballbot
 
           def load_standings_data
             @all_teams = standings_data['records'].flat_map do |division|
-              division['teamRecords'].map { StandingsTeam.new(_1) }
+              division['teamRecords'].map { StandingsTeam.new(_1, @subreddit) }
             end
 
             @all_teams.sort_by!(&:sort_order)
@@ -43,8 +43,12 @@ class Baseballbot
           # This is based off of other teams' data as well, so it can't be calculated inside this class.
           attr_accessor :wildcard_position
 
-          def initialize(row)
+          attr_reader :subreddit
+
+          def initialize(row, subreddit)
             @row = row
+
+            @subreddit = subreddit.code_to_subreddit_name(@row.dig('team', 'abbreviation'))
           end
 
           def team = @row['team']

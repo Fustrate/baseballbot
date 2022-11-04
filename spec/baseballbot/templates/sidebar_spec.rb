@@ -14,23 +14,34 @@ RSpec.describe Baseballbot::Templates::Sidebar do
       expect(sidebar.evaluated_body).to eq 'Hello World'
     end
 
-    it 'adds a few blocks' do
+    it 'generates division standings' do
+      sidebar = described_class.new(subreddit: default_subreddit, body: <<~MUSTACHE.strip)
+        ### NL West Standings
+
+        |Team|W|L|PCT|GB|
+        |-|-|-|-|-|
+        {{#division_standings}}
+        |[{{name}}](/r/{{subreddit}})|{{wins}}|{{losses}}|{{percent}}|{{games_back}}|
+        {{/division_standings}}
+      MUSTACHE
+
+      expect(sidebar.evaluated_body).to eq <<~MARKDOWN
+        ### NL West Standings
+
+        |Team|W|L|PCT|GB|
+        |-|-|-|-|-|
+        |[Dodgers](/r/Dodgers)|111|51|.685|-|
+        |[Padres](/r/Padres)|89|73|.549|22|
+        |[Giants](/r/SFGiants)|81|81|.500|30|
+        |[D-backs](/r/azdiamondbacks)|74|88|.457|37|
+        |[Rockies](/r/ColoradoRockies)|68|94|.420|43|
+      MARKDOWN
+    end
+
+    it 'generates team stat leaders' do
       sidebar = described_class.new(subreddit: default_subreddit, body: <<~BODY.strip)
         <% hitters = hitter_stats(count: 3) %>
         <% pitchers = pitcher_stats(count: 3) %>
-        # AL West Standings
-
-        |Standings|W|L|PCT|GB|
-        |:-:|:-:|:-:|:-:|:-:|
-        <% division_standings.each do |team| %>
-        |[<%= team.name %>](/r/<%= subreddit.code_to_subreddit_name(team.abbreviation) %>)|<%= team.wins %>|<%= team.losses %>|<%= team.percent %>|<%= team.games_back %>|
-        <% end %>
-
-        <%= updated_with_link %>
-
-        # <%= @subreddit.now.strftime '%B' %> Schedule
-
-        <%= calendar %>
 
         # Team Leaders
 
@@ -63,28 +74,7 @@ RSpec.describe Baseballbot::Templates::Sidebar do
         <% end %>
       BODY
 
-      expect(sidebar.evaluated_body).to eq <<~MARKDOWN
-        # AL West Standings
-
-        |Standings|W|L|PCT|GB|
-        |:-:|:-:|:-:|:-:|:-:|
-        |[Dodgers](/r/Dodgers)|111|51|.685|-|
-        |[Padres](/r/Padres)|89|73|.549|22|
-        |[Giants](/r/SFGiants)|81|81|.500|30|
-        |[D-backs](/r/azdiamondbacks)|74|88|.457|37|
-        |[Rockies](/r/ColoradoRockies)|68|94|.420|43|
-
-        [Updated](https://baseballbot.io) 7/4 at 2:28 AM PDT
-        # July Schedule
-
-        |S|M|T|W|T|F|S|
-        |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-        | | | | | |**^1 [](/r/Padres "Won 5-1")**|**^2 [](/r/Padres "Won 7-2")**|
-        |**^3 [](/r/Padres "Lost 2-4")**|**^4 [](/r/ColoradoRockies "Won 5-3")**|**^5 [](/r/ColoradoRockies "Won 5-2")**|**^6 [](/r/ColoradoRockies "Won 2-1")**|**^7 [](/r/CHICubs "Won 5-3")**|**^8 [](/r/CHICubs "Won 4-3")**|**^9 [](/r/CHICubs "Won 4-2")**|
-        |**^10 [](/r/CHICubs "Won 11-9")**|^11|*^12 [](/r/Cardinals "Lost 6-7")*|*^13 [](/r/Cardinals "Won 7-6")*|*^14 [](/r/Cardinals "Won 4-0")*|*^15 [](/r/AngelsBaseball "Won 9-1")*|*^16 [](/r/AngelsBaseball "Won 7-1")*|
-        |^17|^18|^19|^20|**^21 [](/r/SFGiants "Won 9-6")**|**^22 [](/r/SFGiants "Won 5-1")**|**^23 [](/r/SFGiants "Won 4-2")**|
-        |**^24 [](/r/SFGiants "Won 7-4")**|**^25 [](/r/Nationals "Lost 1-4")**|**^26 [](/r/Nationals "Lost 3-8")**|**^27 [](/r/Nationals "Won 7-1")**|*^28 [](/r/ColoradoRockies "Won 13-0")*|*^29 [](/r/ColoradoRockies "Won 5-4")*|*^30 [](/r/ColoradoRockies "Lost 3-5")*|
-        |*^31 [](/r/ColoradoRockies "Won 7-3")*| | | | | | |
+      expect(sidebar.evaluated_body.strip).to eq <<~MARKDOWN.strip
         # Team Leaders
 
         ## Hitting
