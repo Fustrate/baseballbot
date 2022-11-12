@@ -577,40 +577,6 @@ COPY public.accounts (id, name, access_token, refresh_token, scope, expires_at) 
 
 
 --
--- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
-environment	development	2022-01-06 15:28:24.97692	2022-01-06 15:28:24.97692
-schema_sha1	d0869c26d3ea519ac1b6ff12a9e3833073a696d5	2022-01-06 15:28:24.98208	2022-01-06 15:28:24.98208
-\.
-
-
---
--- Data for Name: bot_actions; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.bot_actions (id, subject_type, subject_id, action, note, data, date) FROM stdin;
-\.
-
-
---
--- Data for Name: edits; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.edits (id, editable_type, editable_id, user_type, user_id, note, reason, pretty_changes, raw_changes, created_at, updated_at) FROM stdin;
-\.
-
-
---
--- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.events (id, eventable_type, eventable_id, type, note, created_at, updated_at, user_type, user_id) FROM stdin;
-\.
-
-
---
 -- Data for Name: game_threads; Type: TABLE DATA; Schema: public; Owner: baseballbot
 --
 
@@ -619,45 +585,6 @@ COPY public.game_threads (id, post_at, starts_at, status, title, post_id, create
 3	2022-05-17 13:40:00	2022-05-17 15:40:00	Future	\N	\N	2022-05-15 11:16:18.46372	2022-05-15 11:16:18.467421	15	662053	\N	\N	\N
 4	2022-05-15 12:10:00	2022-05-15 13:10:00	Future	\N	\N	2022-05-15 11:17:41.533325	2022-05-15 11:17:41.535708	1	662696	\N	\N	\N
 6	2022-05-15 10:10:00	2022-05-15 11:10:00	Future	Test %<one>d two three	\N	2022-05-15 11:45:47.11991	2022-05-15 11:45:47.124299	24	661732	\N	\N	\N
-\.
-
-
---
--- Data for Name: scheduled_posts; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.scheduled_posts (id, next_post_at, title, body, subreddit_id, options) FROM stdin;
-\.
-
-
---
--- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.schema_migrations (version) FROM stdin;
-20211010070253
-20180308202459
-20180331181802
-20180404032107
-20180429223112
-20180901001353
-20180912155358
-20180912201118
-20180916205420
-20180916212407
-20181025005935
-20181025011756
-20190323191654
-20200119223746
-20200204004826
-20200204010243
-20200309053109
-20220502062052
-20220502070727
-20220502152728
-20220506170453
-20220506171415
-20221016212936
 \.
 
 
@@ -702,35 +629,11 @@ COPY public.subreddits (id, name, team_code, account_id, options, team_id, slack
 
 
 --
--- Data for Name: subreddits_users; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.subreddits_users (subreddit_id, user_id) FROM stdin;
-\.
-
-
---
 -- Data for Name: system_users; Type: TABLE DATA; Schema: public; Owner: baseballbot
 --
 
 COPY public.system_users (id, username, description, created_at, updated_at) FROM stdin;
 1	BaseballBot	\N	2022-05-06 10:15:07.03258	2022-05-06 10:15:07.03258
-\.
-
-
---
--- Data for Name: templates; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.templates (id, body, type, subreddit_id, created_at, updated_at) FROM stdin;
-\.
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.users (id, username, crypted_password, salt, last_activity_at, last_login_at, last_logout_at, last_login_from_ip_address, remember_me_token_expires_at, remember_me_token, created_at, updated_at) FROM stdin;
 \.
 
 
