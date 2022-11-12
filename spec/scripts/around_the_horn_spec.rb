@@ -26,22 +26,22 @@ RSpec.describe AroundTheHorn do
   # it 'has the proper initial body' do
   #   expect(ath.send(:initial_body).strip).to eq <<~MARKDOWN.strip
   #     Hello
-
+  #
   #     [](/todays_games)[](/todays_games)
-
+  #
   #     World
   #   MARKDOWN
   # end
-
+  #
   # it 'generates the initial post' do
   #   wiki_content = "Hello\n\n[](/todays_games)[](/todays_games)\n\nWorld"
 
   #   expect(ath.send(:update_todays_games_in, wiki_content).strip).to eq <<~MARKDOWN.strip
   #     Hello
-
+  #
   #     [](/todays_games)
   #     # Monday's Games
-
+  #
   #     |Away|Score|Home|Score|Status|National|
   #     |-|:-:|-|:-:|:-:|-|
   #     |[][MIA]|**3**|[][WSH]|*2*|[F/10](https://www.mlb.com/gameday/662541)| |
@@ -58,12 +58,12 @@ RSpec.describe AroundTheHorn do
   #     |[][MIN]|**6**|[][CWS]|*3*|[F/10](https://www.mlb.com/gameday/661452)| |
   #     |[][TOR]|*1*|[][OAK]|**5**|[F](https://www.mlb.com/gameday/662355)| |
   #     |[][COL]|*3*|[][LAD]|**5**|[F](https://www.mlb.com/gameday/662732)| |
-
+  #
   #     ^(★)Game Thread. All game times are Eastern. [Updated](https://baseballbot.io) 7/4 at 5:28 AM
-
-
-
-
+  #
+  #
+  #
+  #
   #     [](/todays_games)
 
   #     World
