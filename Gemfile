@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '3.1.2'
 
 # Error Monitoring
-gem 'honeybadger', '~> 4.12'
+gem 'honeybadger', '~> 5.0'
 
 # MLB Stats API
 gem 'mlb_stats_api', '~> 0.3', github: 'Fustrate/mlb_stats_api'
