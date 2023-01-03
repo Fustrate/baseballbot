@@ -4,25 +4,25 @@ source 'https://rubygems.org'
 
 ruby '3.1.2'
 
-# Error Monitoring
+# App Monitoring [https://github.com/honeybadger-io/honeybadger-ruby]
 gem 'honeybadger', '~> 5.0'
 
-# MLB Stats API
+# Fetch data from the MLB Stats API [https://github.com/Fustrate/mlb_stats_api]
 gem 'mlb_stats_api', '~> 0.3', github: 'Fustrate/mlb_stats_api'
 
-# Postgres Database
+# Postgres database [https://github.com/ged/ruby-pg]
 gem 'pg', '~> 1.4'
 
-# Reddit Interaction - this needs to be replaced
+# Reddit interaction [https://github.com/Fustrate/redd]
 gem 'redd', '>= 0.9.0.pre.3', github: 'Fustrate/redd'
 
-# Caching
+# A more slim redis client [https://github.com/redis/redis-rb]
 gem 'redis', '~> 5.0'
 
 # Cron jobs
 gem 'whenever', '~> 1.0'
 
-# Time zones
+# Time zone information
 gem 'tzinfo', '~> 2.0'
 
 # Fancy command line colors
@@ -35,19 +35,32 @@ gem 'zeitwerk', '~> 2.6'
 gem 'mustache'
 
 group :development do
-  # Deploy with Capistrano
+  # Deploy with Capistrano [https://github.com/capistrano/capistrano]
   gem 'capistrano', '~> 3.17', require: false
+
+  # Capistrano Bundler integration [https://github.com/capistrano/bundler]
   gem 'capistrano-bundler', '~> 2.1', require: false
+
+  # Capistrano rbenv integration [https://github.com/capistrano/rbenv]
   gem 'capistrano-rbenv', '~> 2.2', require: false
 
-  # Linters
-  gem 'rubocop', '~> 1.32'
+  # Ruby code linting [https://github.com/rubocop/rubocop]
+  gem 'rubocop', '~> 1.42', require: false
+
+  # Rubocop - performance cops [https://github.com/rubocop/rubocop-performance]
   gem 'rubocop-performance', '~> 1.14', require: false
+
+  # Rubocop - rspec cops [https://github.com/rubocop/rubocop-rspec]
   gem 'rubocop-rspec', '~> 2.12', require: false
 end
 
 group :test do
+  # Mock the redis server/client [https://github.com/sds/mock_redis]
   gem 'mock_redis', '~> 0.32'
+
+  # Automated testing framework
   gem 'rspec', '~> 3.11'
+
+  # Mock HTTP requests instead of hitting external servers
   gem 'webmock', '~> 3.14'
 end
