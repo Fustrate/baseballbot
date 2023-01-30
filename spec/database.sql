@@ -641,63 +641,21 @@ COPY public.system_users (id, username, description, created_at, updated_at) FRO
 -- Name: accounts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
 --
 
-SELECT pg_catalog.setval('public.accounts_id_seq', 1, false);
-
-
---
--- Name: bot_actions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
---
-
-SELECT pg_catalog.setval('public.bot_actions_id_seq', 1, false);
-
-
---
--- Name: edits_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
---
-
-SELECT pg_catalog.setval('public.edits_id_seq', 1, false);
-
-
---
--- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
---
-
-SELECT pg_catalog.setval('public.events_id_seq', 4, true);
+SELECT pg_catalog.setval('public.accounts_id_seq', 31, false);
 
 
 --
 -- Name: game_threads_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
 --
 
-SELECT pg_catalog.setval('public.game_threads_id_seq', 6, true);
-
-
---
--- Name: scheduled_posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
---
-
-SELECT pg_catalog.setval('public.scheduled_posts_id_seq', 1, false);
+SELECT pg_catalog.setval('public.game_threads_id_seq', 5, true);
 
 
 --
 -- Name: subreddits_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
 --
 
-SELECT pg_catalog.setval('public.subreddits_id_seq', 1, false);
-
-
---
--- Name: system_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
---
-
-SELECT pg_catalog.setval('public.system_users_id_seq', 1, true);
-
-
---
--- Name: templates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
---
-
-SELECT pg_catalog.setval('public.templates_id_seq', 1, false);
+SELECT pg_catalog.setval('public.subreddits_id_seq', 34, false);
 
 
 --
