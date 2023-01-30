@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.1.2'
+ruby '3.2.0'
 
 # App Monitoring [https://github.com/honeybadger-io/honeybadger-ruby]
 gem 'honeybadger', '~> 5.0'
