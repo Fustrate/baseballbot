@@ -8,11 +8,11 @@ class AroundTheHorn < DefaultBot
   class ATHTemplate < Baseballbot::Templates::Sidebar
     include Baseballbot::MarkdownHelpers
 
-    TODAYS_GAMES = <<~'ERB'
+    TODAYS_GAMES = <<~MUSTACHE
       {{todays_games_section}}
 
       {{yesterday_link}}
-    ERB
+    MUSTACHE
 
     def initialize(subreddit:) = super(body: TODAYS_GAMES, subreddit:)
 
