@@ -8,7 +8,7 @@ namespace :bot do
     subreddits = args[:subreddits]&.split('+') || []
 
     on roles(:web) do
-      within "#{release_path}/lib" do
+      within "#{release_path}/scripts" do
         execute(:bundle, :exec, :ruby, 'sidebars.rb', args[:action], *subreddits)
       end
     end
