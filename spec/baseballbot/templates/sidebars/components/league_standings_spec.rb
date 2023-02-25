@@ -26,7 +26,7 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components::LeagueStandings do
         |[**111-51**][LAD]|[**93-69**][STL]|[**101-61**][ATL]|
         |[89-73](/r/Padres "WC2")|[86-76][MIL]|[101-61](/r/NewYorkMets "WC1")|
         |[81-81][SF]|[74-88][CHC]|[87-75](/r/Phillies "WC3")|
-        |[74-88][ARI]|[62-100][CIN]|[69-93][MIA]|
+        |[74-88][AZ]|[62-100][CIN]|[69-93][MIA]|
         |[68-94][COL]|[62-100][PIT]|[55-107][WSH]|
 
         ## American League

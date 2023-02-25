@@ -51,7 +51,7 @@ RSpec.describe AroundTheHorn do
   #     |[][TB]|*0*|[][BOS]|**4**|[F](https://www.mlb.com/gameday/663251)| |
   #     |[][KC]|*6*|[][HOU]|**7**|[F](https://www.mlb.com/gameday/662874)| |
   #     |[][CHC]|*2*|[][MIL]|**5**|[F/10](https://www.mlb.com/gameday/661181)| |
-  #     |[][SF]|*3*|[][ARI]|**8**|[F](https://www.mlb.com/gameday/663343)| |
+  #     |[][SF]|*3*|[][AZ]|**8**|[F](https://www.mlb.com/gameday/663343)| |
   #     |[][NYM]|**7**|[][CIN]|*4*|[F](https://www.mlb.com/gameday/663036)| |
   #     |[][SEA]|**8**|[][SD]|*2*|[F](https://www.mlb.com/gameday/662270)| |
   #     |[][STL]|*3*|[][ATL]|**6**|[F](https://www.mlb.com/gameday/661511)| |

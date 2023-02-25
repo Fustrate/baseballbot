@@ -12,7 +12,7 @@ class Baseballbot
     # by setting `options['subreddits']['XYZ'] = 'OtherSub'` on the Subreddit record.
     # These are capitalized the same way the subreddit's display_name is on /r/.../about.json
     DEFAULT_SUBREDDITS = {
-      'ARI' => 'azdiamondbacks',
+      'AZ' => 'azdiamondbacks',
       'ATL' => 'Braves',
       'BAL' => 'Orioles',
       'BOS' => 'RedSox',
@@ -26,7 +26,7 @@ class Baseballbot
       'KC' => 'KCRoyals',
       'LAA' => 'AngelsBaseball',
       'LAD' => 'Dodgers',
-      'MIA' => 'letsgofish',
+      'MIA' => 'MiamiMarlins',
       'MIL' => 'Brewers',
       'MIN' => 'MinnesotaTwins',
       'NYM' => 'NewYorkMets',

@@ -22,7 +22,7 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components::DivisionStandings d
         |[][LAD]|111|51|.685|-|6-4|
         |[][SD]|89|73|.549|22|5-5|
         |[][SF]|81|81|.500|30|7-3|
-        |[][ARI]|74|88|.457|37|4-6|
+        |[][AZ]|74|88|.457|37|4-6|
         |[][COL]|68|94|.420|43|3-7|
       MARKDOWN
     end
