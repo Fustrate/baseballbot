@@ -35,3 +35,7 @@ Style/RescueStandardError:
 
 Style/CaseLikeIf:
   Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - lib/baseballbot/templates/sidebars/components/todays_games.rb

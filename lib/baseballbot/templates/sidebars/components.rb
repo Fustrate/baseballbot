@@ -6,7 +6,7 @@ class Baseballbot
       module Components
         def postseason_series_section = Postseason.new(@subreddit)
 
-        def todays_games(date = nil) = TodaysGames.new(@subreddit, date)
+        def todays_games(date = nil) = TodaysGames.new(@subreddit, date:, links: :code)
 
         def hitter_stats(...) = Leaders.new(@subreddit).hitter_stats(...)
 

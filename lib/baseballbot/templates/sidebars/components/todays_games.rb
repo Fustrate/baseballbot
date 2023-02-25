@@ -16,11 +16,13 @@ class Baseballbot
             WHERE starts_at::date = $1
           SQL
 
-          def initialize(subreddit, date = nil)
+          # This table can also be shown in the daily ATH thread, where [][LAD] links aren't set up.
+          def initialize(subreddit, links:, date: nil)
             @subreddit = subreddit
 
             # Default to 3 hours ago so that late west coast games show for a while after midnight.
             @date = date || (subreddit.now - 10_800)
+            @links = links
 
             load_known_game_threads
           end
@@ -105,10 +107,13 @@ class Baseballbot
 
           def team_link(game:, team:)
             abbreviation = team_abbreviation(game, team)
+            team_sub = @subreddit.bot.default_subreddit(abbreviation)
 
-            post_id = @game_threads[game['gamePk'].to_i][@subreddit.bot.default_subreddit(abbreviation).downcase]
+            post_id = @game_threads[game['gamePk'].to_i][team_sub.downcase]
 
-            post_id ? "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" : "[][#{abbreviation}]"
+            return "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" if post_id
+
+            @links == :code ? "[][#{abbreviation}]" : "[](/r/#{team_sub})"
           end
 
           def team_abbreviation(game, team) = find_team(game, team)['abbreviation']
