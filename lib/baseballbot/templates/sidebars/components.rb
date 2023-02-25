@@ -32,6 +32,14 @@ class Baseballbot
 
         def league_standings = LeagueStandings.new(@subreddit)
 
+        def spring_standings = SpringStandings.new(@subreddit)
+
+        # Allows /r/baseball to show both spring leagues
+        def cactus_league_standings = SpringStandings.new(@subreddit, league: :cactus)
+
+        # Allows /r/baseball to show both spring leagues
+        def grapefruit_league_standings = SpringStandings.new(@subreddit, league: :grapefruit)
+
         def updated_with_link
           "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}".strip
         end
