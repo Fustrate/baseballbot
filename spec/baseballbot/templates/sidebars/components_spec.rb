@@ -29,7 +29,8 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components do
 
   describe '#todays_games' do
     it 'creates a Today\'s Games table' do
-      expect(Baseballbot::Templates::Sidebars::Components::TodaysGames).to receive(:new).with(subreddit, nil)
+      expect(Baseballbot::Templates::Sidebars::Components::TodaysGames)
+        .to receive(:new).with(subreddit, date: nil, links: :code)
 
       SidebarComponents.new(subreddit).todays_games
     end
@@ -37,7 +38,8 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components do
     it 'creates a Today\'s Games table for a specific date' do
       date = subreddit.today - 3
 
-      expect(Baseballbot::Templates::Sidebars::Components::TodaysGames).to receive(:new).with(subreddit, date)
+      expect(Baseballbot::Templates::Sidebars::Components::TodaysGames)
+        .to receive(:new).with(subreddit, date:, links: :code)
 
       SidebarComponents.new(subreddit).todays_games(date)
     end
