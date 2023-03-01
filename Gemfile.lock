@@ -131,7 +131,7 @@ GEM
       syntax_tree (>= 6, < 7)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sorbet-runtime (0.5.10689)
+    sorbet-runtime (0.5.10690)
     sshkit (1.21.4)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
