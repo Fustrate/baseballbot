@@ -9,7 +9,7 @@ class CheckMessages < DefaultBot
 
   def initialize = super(purpose: 'Messages', account: 'BaseballBot')
 
-  def run!(retry_on_failure: true)
+  def run(retry_on_failure: true)
     unread_messages.each { process_message(_1) if _1.is_a? Redd::Models::PrivateMessage }
   rescue Redd::Errors::APIError
     return unless retry_on_failure
@@ -18,7 +18,7 @@ class CheckMessages < DefaultBot
 
     sleep 30
 
-    run!(retry_on_failure: false)
+    run(retry_on_failure: false)
   rescue => e
     Honeybadger.notify(e)
   end
@@ -72,5 +72,3 @@ class CheckMessages < DefaultBot
     # Do nothing
   end
 end
-
-CheckMessages.new.run!

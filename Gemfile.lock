@@ -137,6 +137,7 @@ GEM
       net-ssh (>= 2.8.0)
     syntax_tree (6.0.1)
       prettier_print (>= 1.2.0)
+    thor (1.2.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
@@ -171,6 +172,7 @@ DEPENDENCIES
   rubocop-performance (~> 1.14)
   rubocop-rspec (~> 2.12)
   ruby-lsp (~> 0.3)
+  thor
   tzinfo (~> 2.0)
   webmock (~> 3.14)
   whenever (~> 1.0)

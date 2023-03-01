@@ -9,8 +9,15 @@ def step_minutes_by(step, except: [], &block)
   every "#{(0.step(59, step).to_a - Array(except)).join(',')} * * * *", &block
 end
 
-def bundle_exec_ruby(name, *arguments)
-  command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC} ruby #{name}.rb #{arguments.join(' ')}"
+def bundle_exec_ruby(name, *args) = command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC} ruby #{name}.rb #{args.join(' ')}"
+
+def cli(action, *args, **kwargs)
+  script_arguments = [
+    *args.map { "--#{_1}" },
+    *kwargs.map { |k, v| "--#{k}=#{v.is_a?(Array) ? v.join(',') : v}" }
+  ]
+
+  command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC} ruby cli.rb #{action} #{script_arguments.join(' ')}"
 end
 
 every :minute do
@@ -24,7 +31,7 @@ every 1.hour do
 end
 
 every 15.minutes do
-  bundle_exec_ruby :check_messages
+  cli :check_messages
   bundle_exec_ruby :game_threads, :pregame
 end
 
@@ -56,6 +63,9 @@ end
 
 every 1.day, at: '4:30 am' do
   bundle_exec_ruby :around_the_horn, :post
-  bundle_exec_ruby :sync_moderators
-  # bundle_exec_ruby :load_postseason_game_threads
+  cli :sync_moderators
 end
+
+# every '30 4 * 9,10,11 *' do
+#   cli :load_postseason_game_threads
+# end

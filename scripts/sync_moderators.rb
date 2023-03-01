@@ -3,12 +3,12 @@
 require_relative 'default_bot'
 
 class SyncModerators < DefaultBot
-  def initialize(*subreddit_names)
+  def initialize(subreddits: [])
     super(purpose: 'Sync Moderators')
 
     use_account 'BaseballBot'
 
-    @subreddit_names = subreddit_names.map(&:downcase)
+    @subreddit_names = subreddits.map(&:downcase)
   end
 
   def run = subreddits.each_value { process_subreddit(_1) }
@@ -97,5 +97,3 @@ class SyncModerators < DefaultBot
     end
   end
 end
-
-SyncModerators.new(*ARGV).run

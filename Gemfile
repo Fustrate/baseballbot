@@ -34,6 +34,9 @@ gem 'zeitwerk', '~> 2.6'
 # Formatting that users can mess up without destroying the bot itself
 gem 'mustache'
 
+# Command line options for scripts
+gem 'thor'
+
 group :development do
   # Deploy with Capistrano [https://github.com/capistrano/capistrano]
   gem 'capistrano', '~> 3.17', require: false
