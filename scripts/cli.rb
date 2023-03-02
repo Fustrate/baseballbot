@@ -29,7 +29,7 @@ class CLI < Thor
   def sync_moderators
     require_relative 'sync_moderators'
 
-    SyncModerators.new(subreddits: options.subreddits&.split(/[,+]/ || [])).run
+    SyncModerators.new(subreddits: options.subreddits&.split(/[,+]/) || []).run
   end
 end
 
