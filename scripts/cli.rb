@@ -24,7 +24,7 @@ class CLI < Thor
     CheckMessages.new.run
   end
 
-  desc 'sync_moderators'
+  desc 'sync_moderators', 'Sync moderator names from reddit'
   method_option :subreddits, type: :string, aliases: '-s'
   def sync_moderators
     require_relative 'sync_moderators'
