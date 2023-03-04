@@ -5,6 +5,7 @@ require 'mlb_stats_api'
 require 'open-uri'
 require 'fileutils'
 require 'mock_redis'
+require 'mustache'
 
 Dir.glob(File.join(__dir__, 'support/*.rb')).each { require_relative _1 }
 
