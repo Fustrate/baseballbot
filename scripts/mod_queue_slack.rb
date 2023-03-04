@@ -9,7 +9,7 @@ require 'json'
 
 SLACK_HOOK_ID = ENV.fetch('DODGERS_SLACK_HOOK_ID')
 
-class ModQueue < DefaultBot
+class ModQueueSlack < DefaultBot
   ACTIONS = [
     {
       name: 'queue_action',
@@ -127,5 +127,3 @@ class ModQueue < DefaultBot
 
   def item_title(item) = item.is_a?(Redd::Models::Submission) ? item.title : item.link_title
 end
-
-ModQueue.new.run!

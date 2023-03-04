@@ -108,5 +108,3 @@ class PostseasonGameLoader < DefaultBot
     SQL
   end
 end
-
-PostseasonGameLoader.new.run

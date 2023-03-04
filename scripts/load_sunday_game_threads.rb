@@ -81,5 +81,3 @@ class SundayGameThreadLoader < DefaultBot
     puts "- #{game['gamePk']}"
   end
 end
-
-SundayGameThreadLoader.new.run

@@ -3,10 +3,10 @@
 require_relative 'default_bot'
 
 class RefreshTokens < DefaultBot
-  def initialize(*account_names)
+  def initialize(accounts: [])
     super(purpose: 'Refresh Tokens')
 
-    @account_names = account_names.map(&:downcase)
+    @account_names = accounts.map(&:downcase)
   end
 
   def run
@@ -37,5 +37,3 @@ class RefreshTokens < DefaultBot
 
   def skip_account?(name) = @account_names.any? && !@account_names.include?(name.downcase)
 end
-
-RefreshTokens.new(*ARGV).run

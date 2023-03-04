@@ -4,7 +4,7 @@ require_relative 'default_bot'
 
 # Known bug: if there are dueling no hitters, only the home team will get a post since the database has a uniqueness
 # constraint on subreddit/game_pk/type.
-class NoHitterBot < DefaultBot
+class NoHitters < DefaultBot
   MIN_INNINGS = 6
   SUBREDDIT_NAME = 'baseball'
 
@@ -130,5 +130,3 @@ class NoHitterBot < DefaultBot
     SQL
   end
 end
-
-NoHitterBot.new.post_no_hitters!

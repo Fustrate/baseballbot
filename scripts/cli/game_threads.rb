@@ -15,15 +15,21 @@ class GameThreads < Subcommand
     GameThreadLoader.new(
       date: Date.new(Date.today.year, options.month ? options.month.to_i : Date.today.month, 1),
       subreddits: parse_subreddits(options.subreddits)
-    ) # .run
+    ).run
   end
 
   desc 'load_postseason', ''
   def load_postseason
+    require_relative '../load_postseason_game_threads'
+
+    PostseasonGameLoader.new.run
   end
 
   desc 'load_sunday', ''
   def load_sunday
+    require_relative '../load_sunday_game_threads'
+
+    SundayGameThreadLoader.new.run
   end
 
   desc 'off_day', 'Post daily off-day threads'
