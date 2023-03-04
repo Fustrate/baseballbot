@@ -30,16 +30,16 @@ end
 
 every 1.hour do
   cli :sidebars, :update
-  bundle_exec_ruby :game_threads, :off_day
+  cli :game_threads, :off_day
 end
 
 every 15.minutes do
   cli :check_messages
-  bundle_exec_ruby :game_threads, :pregame
+  cli :game_threads, :pregame
 end
 
 every 5.minutes do
-  bundle_exec_ruby :game_threads, :post
+  cli :game_threads, :post
   bundle_exec_ruby :around_the_horn, :update
 end
 
@@ -49,19 +49,19 @@ step_minutes_by(5, except: 0) do
 end
 
 step_minutes_by(2, except: [0, 30]) do
-  bundle_exec_ruby :game_threads, :update
+  cli :game_threads, :update
 end
 
 step_minutes_by(30) do
-  bundle_exec_ruby :game_threads, :update, :posted
+  cli :game_threads, :update, posted: true
 end
 
 every :day do
-  bundle_exec_ruby :load_game_threads
+  cli :game_threads, :load
 end
 
 every :saturday do
-  bundle_exec_ruby :load_sunday_game_threads
+  cli :game_threads, :load_sunday
 end
 
 every 1.day, at: '4:30 am' do
@@ -70,5 +70,5 @@ every 1.day, at: '4:30 am' do
 end
 
 # every '30 4 * 9,10,11 *' do
-#   cli :load_postseason_game_threads
+#   cli :game_threads, :load_postseason
 # end

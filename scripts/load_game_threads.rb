@@ -24,67 +24,58 @@ class GameThreadLoader < DefaultBot
     AND options['game_threads']['enabled']::boolean IS TRUE
   SQL
 
-  def initialize
+  def initialize(date:, subreddits: [])
     super(purpose: 'Game Thread Loader', account: 'BaseballBot')
 
     @created = @updated = 0
+    @date = date
+
+    process_subreddit_names(subreddits&.map(&:downcase))
 
     @utc_offset = Time.now.utc_offset
   end
 
   def run
-    calculate_dates
+    month_schedule['dates'].each do |date|
+      date['games'].each do
+        add_game(game) unless game.dig('status', 'startTimeTBD')
+      end
+    end
 
-    load_game_threads
-
-    puts "Added #{@created} / Updated #{@updated}"
+    {
+      added: @created,
+      updated: @updated
+    }
   end
 
   protected
 
-  def calculate_dates
-    raise ArgumentError, 'Please pass at most 2 arguments: ruby load_schedule.rb 6/2015 reds,mets' if ARGV.count > 2
+  def process_subreddit_names(subreddit_names)
+    # There could be multiple subreddits for a single team, so a normal hash isn't useful
+    @subs_to_add = Hash.new { |h, k| h[k] = [] }
 
-    @date = date_from_args
-    @names = (ARGV[1] || '').split(%r{[+/,]}).map(&:downcase)
-  end
-
-  def date_from_args
-    return Date.today unless ARGV[0] =~ %r{\A(\d{1,2})/(\d{4})\z}
-
-    Date.new(Regexp.last_match[2].to_i, Regexp.last_match[1].to_i, 1)
-  end
-
-  def load_game_threads
     db.exec(ENABLED_SUBREDDITS).each do |row|
-      next unless @names.empty? || @names.include?(row['name'].downcase)
+      next unless subreddit_names.empty? || subreddit_names.include?(row['name'].downcase)
 
-      load_schedule row['id'], row['team_id'], Baseballbot::Utility.adjust_time_proc(row['post_at'])
+      @subs_to_add[row['team_id']] << { id: row['id'], post_at: Baseballbot::Utility.adjust_time_proc(row['post_at']) }
     end
   end
 
-  def load_schedule(subreddit_id, team_id, post_at)
-    data = api.schedule(
+  def month_schedule
+    api.schedule(
       startDate: @date.strftime('%F'),
       endDate: (Date.new(@date.year, @date.month + 1, 1) - 1).strftime('%F'),
-      teamId: team_id,
       eventTypes: 'primary',
       scheduleTypes: 'games,events,xref'
     )
-
-    process_games data['dates'], subreddit_id, post_at
   end
 
-  def process_games(dates, subreddit_id, adjusted_time)
-    dates.each do |date|
-      date['games'].each do |game|
-        next if game.dig('status', 'startTimeTBD')
+  def add_game(game)
+    starts_at = Time.parse(game['gameDate']) + @utc_offset
 
-        starts_at = Time.parse(game['gameDate']) + @utc_offset
-
-        post_at = adjusted_time.call(starts_at)
-
-        insert_game subreddit_id, game, post_at, starts_at
+    %w[away home].each do |home_or_away|
+      @subs_to_add[game.dig('teams', home_or_away, 'team', 'id')].each do |team_info|
+        insert_game(team_info[:id], game, team_info[:post_at].call(starts_at), starts_at)
       end
     end
   end
@@ -115,5 +106,3 @@ class GameThreadLoader < DefaultBot
       .cmd_tuples
   end
 end
-
-GameThreadLoader.new.run
