@@ -5,6 +5,8 @@
 
 require 'thor'
 
+def parse_subreddits(input) = input&.split(/[,+]/) || []
+
 class CLI < Thor
   package_name 'BaseballBot'
 
@@ -29,7 +31,7 @@ class CLI < Thor
   def sync_moderators
     require_relative 'sync_moderators'
 
-    SyncModerators.new(subreddits: options.subreddits&.split(/[,+]/) || []).run
+    SyncModerators.new(subreddits: parse_subreddits(options.subreddits)).run
   end
 end
 
