@@ -61,7 +61,7 @@ class CLI < Thor
   end
 
   desc 'tokens', 'Refresh reddit account tokens'
-  method_option :accounts, type: string
+  method_option :accounts, type: :string
   def tokens
     require_relative 'refresh_tokens'
 
