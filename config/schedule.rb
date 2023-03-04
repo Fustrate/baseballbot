@@ -11,13 +11,16 @@ end
 
 def bundle_exec_ruby(name, *args) = command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC} ruby #{name}.rb #{args.join(' ')}"
 
-def cli(action, *args, **kwargs)
-  script_arguments = [
-    *args.map { "--#{_1}" },
-    *kwargs.map { |k, v| "--#{k}=#{v.is_a?(Array) ? v.join(',') : v}" }
-  ]
+def process_kwarg(key, value)
+  return "--#{key}" if value.is_a?(TrueClass)
 
-  command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC} ruby cli.rb #{action} #{script_arguments.join(' ')}"
+  "--#{k}=#{v.is_a?(Array) ? v.join(',') : v}"
+end
+
+def cli(*command, **kwargs)
+  cli_args = [*command, *kwargs.map { |k, v| process_kwarg(k, v) }].join(' ')
+
+  command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC} ruby cli.rb #{cli_args}"
 end
 
 every :minute do
@@ -26,7 +29,7 @@ every :minute do
 end
 
 every 1.hour do
-  bundle_exec_ruby :sidebars, :update
+  cli :sidebars, :update
   bundle_exec_ruby :game_threads, :off_day
 end
 
@@ -42,7 +45,7 @@ end
 
 # So we don't run twice on the hour
 step_minutes_by(5, except: 0) do
-  bundle_exec_ruby :sidebars, :update, :baseball
+  cli :sidebars, :update, subreddits: :baseball
 end
 
 step_minutes_by(2, except: [0, 30]) do
