@@ -9,8 +9,6 @@ def step_minutes_by(step, except: [], &block)
   every "#{(0.step(59, step).to_a - Array(except)).join(',')} * * * *", &block
 end
 
-def bundle_exec_ruby(name, *args) = command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC} ruby #{name}.rb #{args.join(' ')}"
-
 def process_kwarg(key, value)
   return "--#{key}" if value.is_a?(TrueClass)
 
@@ -40,7 +38,7 @@ end
 
 every 5.minutes do
   cli :game_threads, :post
-  bundle_exec_ruby :around_the_horn, :update
+  cli :around_the_horn
 end
 
 # So we don't run twice on the hour
@@ -58,15 +56,11 @@ end
 
 every :day do
   cli :game_threads, :load
+  cli :sync_moderators
 end
 
 every :saturday do
   cli :game_threads, :load_sunday
-end
-
-every 1.day, at: '4:30 am' do
-  bundle_exec_ruby :around_the_horn, :post
-  cli :sync_moderators
 end
 
 # every '30 4 * 9,10,11 *' do

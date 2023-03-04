@@ -5,6 +5,9 @@ require_relative 'default_bot'
 class AroundTheHorn < DefaultBot
   ATH_SUBREDDIT = 'baseball'
 
+  # Make a new post every morning at 4:30 Pacific
+  POST_AT = 4.5 * 3_600
+
   class ATHTemplate < Baseballbot::Templates::Sidebar
     include Baseballbot::MarkdownHelpers
 
@@ -30,7 +33,7 @@ class AroundTheHorn < DefaultBot
       MARKDOWN
     end
 
-    def ath_games_header = "#{(@subreddit.now - 10_800).strftime('%A')}'s Games"
+    def ath_games_header = "#{(@subreddit.now - POST_AT).strftime('%A')}'s Games"
 
     def ath_games_table
       table(
@@ -65,22 +68,24 @@ class AroundTheHorn < DefaultBot
     @subreddit = name_to_subreddit(ATH_SUBREDDIT)
 
     # Keep updating the same thread until 3 AM Pacific
-    @date = @subreddit.now - 10_800
+    @date = @subreddit.now - POST_AT
   end
 
-  def update!
+  def run
     submission_id = todays_submission_id
 
-    return unless submission_id
+    submission_id ? update!(submission_id) : post!
+  end
 
+  protected
+
+  def update!(submission_id)
     submission = @subreddit.load_submission id: submission_id
 
     @subreddit.edit id: submission_id, body: update_todays_games_in(submission)
   end
 
   def post!
-    return if todays_submission_id
-
     submission = @subreddit.submit(title: post_title, text: update_todays_games_in(initial_body))
 
     submission.make_sticky(slot: 1)
@@ -88,8 +93,6 @@ class AroundTheHorn < DefaultBot
 
     redis.hset 'around_the_horn', @date.strftime('%F'), submission.id
   end
-
-  protected
 
   def todays_submission_id = redis.hget('around_the_horn', @date.strftime('%F'))
 
@@ -100,11 +103,4 @@ class AroundTheHorn < DefaultBot
   def update_todays_games_in(text)
     ATHTemplate.new(subreddit: @subreddit).replace_in(text, delimiter: '[](/todays_games)')
   end
-end
-
-case ARGV.shift
-when 'update'
-  AroundTheHorn.new.update!
-when 'post'
-  AroundTheHorn.new.post!
 end

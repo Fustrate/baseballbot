@@ -15,6 +15,13 @@ class CLI < Thor
   desc 'sidebars', 'Sidebar commands'
   subcommand 'sidebars', Sidebars
 
+  desc 'around_the_horn', 'Post the daily /r/baseball ATH thread'
+  def around_the_horn
+    require_relative 'around_the_horn'
+
+    AroundTheHorn.new.run
+  end
+
   desc 'chaos', 'Burn the wagons!'
   method_option :teams, type: :string, required: true
   method_option :after, type: :string
