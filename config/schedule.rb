@@ -14,7 +14,7 @@ def bundle_exec_ruby(name, *args) = command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC}
 def process_kwarg(key, value)
   return "--#{key}" if value.is_a?(TrueClass)
 
-  "--#{k}=#{v.is_a?(Array) ? v.join(',') : v}"
+  "--#{key}=#{value.is_a?(Array) ? value.join(',') : value}"
 end
 
 def cli(*command, **kwargs)
