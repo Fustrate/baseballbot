@@ -58,9 +58,11 @@ class GameThreads < Subcommand
 
   desc 'update', 'Update active game threads'
   method_option :subreddits, type: :string, aliases: '-s'
+  method_option :posted, type: :boolean
   def update
     require_relative '../default_bot'
 
+    # TODO: Implement options.posted
     DefaultBot.new(purpose: 'Update GDT').update_game_threads! names: parse_subreddits(options.subreddits)
   end
 end
