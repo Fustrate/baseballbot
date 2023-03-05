@@ -60,7 +60,7 @@ class GameThreadLoader < DefaultBot
       next unless include_subreddit?(name)
 
       @subs_to_add[row['team_id'].to_i] << {
-        id: row['id'],
+        id: row['id'].to_i,
         post_at: Baseballbot::Utility.adjust_time_proc(row['post_at'])
       }
     end
