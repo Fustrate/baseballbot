@@ -43,7 +43,7 @@ class GameThreadLoader < DefaultBot
     end
 
     {
-      added: @created,
+      created: @created,
       updated: @updated
     }
   end

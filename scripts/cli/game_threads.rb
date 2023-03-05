@@ -12,10 +12,12 @@ class GameThreads < Subcommand
   def load
     require_relative '../load_game_threads'
 
-    GameThreadLoader.new(
-      date: Date.new(Date.today.year, options.month ? options.month.to_i : Date.today.month, 1),
+    results = GameThreadLoader.new(
+      date: month_to_date(options.month),
       subreddits: parse_array(options.subreddits)
     ).run
+
+    puts "Added #{results[:created]}, Updated #{results[:updated]}"
   end
 
   desc 'load_postseason', ''
@@ -65,4 +67,8 @@ class GameThreads < Subcommand
     # TODO: Implement options.posted
     DefaultBot.new(purpose: 'Update GDT').update_game_threads! names: parse_array(options.subreddits)
   end
+
+  protected
+
+  def month_to_date(month) = Date.new(Date.today.year, month ? month.to_i : Date.today.month, 1)
 end
