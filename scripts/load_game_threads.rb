@@ -38,7 +38,7 @@ class GameThreadLoader < DefaultBot
   def run
     month_schedule['dates'].each do |date|
       date['games'].each do |game|
-        add_game(game) unless game.dig('status', 'startTimeTBD')
+        add_game(game) if add_game?(game)
       end
     end
 
@@ -65,6 +65,8 @@ class GameThreadLoader < DefaultBot
       }
     end
   end
+
+  def add_game?(game) = !game.dig('status', 'startTimeTBD')
 
   def include_subreddit?(name) = @subreddit_names.empty? || @subreddit_names.include?(name.downcase)
 
