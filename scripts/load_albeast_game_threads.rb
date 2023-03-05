@@ -13,6 +13,10 @@ class ALEastGameThreadLoader < GameThreadLoader
     WHERE id = #{SUBREDDIT_ID}
   SQL
 
+  def initialize
+    super(date: Date.new(Date.today.year, Date.today.month, 1), subreddits: [])
+  end
+
   def add_game?(game)
     super(game) &&
       game.dig('teams', 'away', 'team', 'division', 'id') == DIVISION_ID &&

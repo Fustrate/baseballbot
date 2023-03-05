@@ -30,7 +30,7 @@ class GameThreadLoader < DefaultBot
     @created = @updated = 0
     @date = date
 
-    process_subreddit_names(subreddits&.map(&:downcase))
+    process_subreddit_names(subreddits.map(&:downcase))
 
     @utc_offset = Time.now.utc_offset
   end
@@ -57,7 +57,7 @@ class GameThreadLoader < DefaultBot
     @subs_to_add = Hash.new { |h, k| h[k] = [] }
 
     db.exec(ENABLED_SUBREDDITS).each do |row|
-      next unless include_subreddit?(name)
+      next unless include_subreddit?(row['name'])
 
       @subs_to_add[row['team_id'].to_i] << {
         id: row['id'].to_i,
@@ -75,7 +75,8 @@ class GameThreadLoader < DefaultBot
       startDate: @date.strftime('%F'),
       endDate: (Date.new(@date.year, @date.month + 1, 1) - 1).strftime('%F'),
       eventTypes: 'primary',
-      scheduleTypes: 'games,events,xref'
+      scheduleTypes: 'games',
+      hydrate: 'team'
     )
   end
 
