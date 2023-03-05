@@ -11,7 +11,7 @@ class Sidebars < Subcommand
   def update
     require_relative '../default_bot'
 
-    DefaultBot.new(purpose: 'Update Sidebars').update_sidebars!(names: parse_subreddits(options.subreddits))
+    DefaultBot.new(purpose: 'Update Sidebars').update_sidebars!(names: parse_array(options.subreddits))
   end
 
   desc 'show', 'Display the current sidebar markdown for a subreddit'

@@ -43,7 +43,7 @@ class CLI < Thor
   def sync_moderators
     require_relative 'sync_moderators'
 
-    SyncModerators.new(subreddits: parse_subreddits(options.subreddits)).run
+    SyncModerators.new(subreddits: parse_array(options.subreddits)).run
   end
 
   desc 'no_hitters', 'Post game threads for no-hitters in progress'
@@ -65,7 +65,7 @@ class CLI < Thor
   def tokens
     require_relative 'refresh_tokens'
 
-    RefreshTokens.new(accounts: parse_subreddits(options.accounts)).run
+    RefreshTokens.new(accounts: parse_array(options.accounts)).run
   end
 end
 

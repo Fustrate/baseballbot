@@ -14,7 +14,7 @@ class GameThreads < Subcommand
 
     GameThreadLoader.new(
       date: Date.new(Date.today.year, options.month ? options.month.to_i : Date.today.month, 1),
-      subreddits: parse_subreddits(options.subreddits)
+      subreddits: parse_array(options.subreddits)
     ).run
   end
 
@@ -37,7 +37,7 @@ class GameThreads < Subcommand
   def off_day
     require_relative '../default_bot'
 
-    DefaultBot.new(purpose: 'Post ODTs').post_off_day_threads! names: parse_subreddits(options.subreddits)
+    DefaultBot.new(purpose: 'Post ODTs').post_off_day_threads! names: parse_array(options.subreddits)
   end
 
   desc 'post', 'Post game threads'
@@ -45,7 +45,7 @@ class GameThreads < Subcommand
   def post
     require_relative '../default_bot'
 
-    DefaultBot.new(purpose: 'Post GDTs').post_game_threads! names: parse_subreddits(options.subreddits)
+    DefaultBot.new(purpose: 'Post GDTs').post_game_threads! names: parse_array(options.subreddits)
   end
 
   desc 'pregame', 'Post daily pregame threads'
@@ -53,7 +53,7 @@ class GameThreads < Subcommand
   def pregame
     require_relative '../default_bot'
 
-    DefaultBot.new(purpose: 'Post PreGTs').post_pregame_threads! names: parse_subreddits(options.subreddits)
+    DefaultBot.new(purpose: 'Post PreGTs').post_pregame_threads! names: parse_array(options.subreddits)
   end
 
   desc 'update', 'Update active game threads'
@@ -63,6 +63,6 @@ class GameThreads < Subcommand
     require_relative '../default_bot'
 
     # TODO: Implement options.posted
-    DefaultBot.new(purpose: 'Update GDT').update_game_threads! names: parse_subreddits(options.subreddits)
+    DefaultBot.new(purpose: 'Update GDT').update_game_threads! names: parse_array(options.subreddits)
   end
 end

@@ -14,5 +14,5 @@ class Subcommand < Thor
 
   protected
 
-  def parse_subreddits(input) = input&.split(/[,+]/) || []
+  def parse_array(input) = input&.split(/[,+]/) || []
 end
