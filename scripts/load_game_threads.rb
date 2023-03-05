@@ -51,15 +51,22 @@ class GameThreadLoader < DefaultBot
   protected
 
   def process_subreddit_names(subreddit_names)
+    @subreddit_names = subreddit_names
+
     # There could be multiple subreddits for a single team, so a normal hash isn't useful
     @subs_to_add = Hash.new { |h, k| h[k] = [] }
 
     db.exec(ENABLED_SUBREDDITS).each do |row|
-      next unless subreddit_names.empty? || subreddit_names.include?(row['name'].downcase)
+      next unless include_subreddit?(name)
 
-      @subs_to_add[row['team_id']] << { id: row['id'], post_at: Baseballbot::Utility.adjust_time_proc(row['post_at']) }
+      @subs_to_add[row['team_id'].to_i] << {
+        id: row['id'],
+        post_at: Baseballbot::Utility.adjust_time_proc(row['post_at'])
+      }
     end
   end
+
+  def include_subreddit?(name) = @subreddit_names.empty? || @subreddit_names.include?(name.downcase)
 
   def month_schedule
     api.schedule(
