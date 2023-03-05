@@ -37,7 +37,7 @@ class GameThreadLoader < DefaultBot
 
   def run
     month_schedule['dates'].each do |date|
-      date['games'].each do
+      date['games'].each do |game|
         add_game(game) unless game.dig('status', 'startTimeTBD')
       end
     end
