@@ -47,11 +47,11 @@ step_minutes_by(5, except: 0) do
 end
 
 step_minutes_by(2, except: [0, 30]) do
-  cli :game_threads, :update
+  cli :game_threads, :update, live: true
 end
 
 step_minutes_by(30) do
-  cli :game_threads, :update, posted: true
+  cli :game_threads, :update
 end
 
 every :day do
