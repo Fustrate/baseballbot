@@ -10,7 +10,7 @@ class GameThreads < Subcommand
   method_option :month, type: :string, aliases: '-m'
   method_option :subreddits, type: :string, aliases: '-s'
   def load
-    require_relative '../load_game_threads'
+    require_relative '../game_thread_loader'
 
     results = GameThreadLoader.new(
       date: month_to_date(options.month),

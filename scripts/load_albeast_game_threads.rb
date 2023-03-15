@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'load_game_threads'
+require_relative 'game_thread_loader'
 
 # Add all AL East interdivision games to /r/albeast's schedule
 class ALEastGameThreadLoader < GameThreadLoader
