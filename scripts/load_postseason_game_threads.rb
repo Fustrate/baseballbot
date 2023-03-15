@@ -2,7 +2,7 @@
 
 require_relative 'default_bot'
 
-# Load all postseason game threads for /r/baseball - team subs will load normally via load_game_threads.rb
+# Load all postseason game threads for /r/baseball
 class PostseasonGameLoader < DefaultBot
   R_BASEBALL = 15
 
