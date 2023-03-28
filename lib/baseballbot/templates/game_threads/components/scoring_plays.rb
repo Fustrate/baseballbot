@@ -36,11 +36,14 @@ class Baseballbot
           def scoring_play_ids = @game_thread.feed.plays['scoringPlays']
 
           def format_play(play)
+            about = play['about']
+            modal_link = "https://www.mlb.com/gameday/#{@game_thread.game_pk}/play/#{about['atBatIndex']}"
+
             {
-              side: play['about']['halfInning'] == 'top' ? 'T' : 'B',
-              team: play['about']['halfInning'] == 'top' ? @game_thread.opponent : @game_thread.team,
-              inning: play['about']['inning'],
-              event: play['result']['description'],
+              side: about['halfInning'] == 'top' ? 'T' : 'B',
+              team: about['halfInning'] == 'top' ? @game_thread.opponent : @game_thread.team,
+              inning: about['inning'],
+              event: "[#{play['result']['description']}](#{modal_link})",
               score: [play['result']['homeScore'], play['result']['awayScore']]
             }
           end
