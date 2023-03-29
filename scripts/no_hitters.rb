@@ -14,7 +14,7 @@ class NoHitters < DefaultBot
   def initialize
     super(purpose: 'No Hitter Bot')
 
-    use_account name_to_subreddit(SUBREDDIT_NAME).account.name
+    use_account subreddit.account.name
   end
 
   def post_no_hitters!
