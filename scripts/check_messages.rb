@@ -36,6 +36,8 @@ class CheckMessages < DefaultBot
 
     return unless submission
 
+    Honeybadger.context(post_id:)
+
     subreddit_id = name_to_subreddit(submission.subreddit.display_name.downcase).id
 
     game_pk = Regexp.last_match[1] if submission.selftext =~ GAME_PK
