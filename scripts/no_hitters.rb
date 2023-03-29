@@ -29,7 +29,8 @@ class NoHitters < DefaultBot
       sportId: 1
     )
 
-    schedule.dig('dates', 0, 'games').each { process_game(_1) }
+    # Days with no games don't even have an empty array
+    schedule.dig('dates', 0, 'games')&.each { process_game(_1) }
 
     redis.set 'next_no_hitter_check', @next_check.min.strftime('%F %T')
   end
