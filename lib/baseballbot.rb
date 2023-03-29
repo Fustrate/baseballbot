@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'erb'
-require 'honeybadger/ruby'
 require 'logger'
 require 'mlb_stats_api'
 require 'open-uri'
@@ -9,6 +8,9 @@ require 'pg'
 require 'redd'
 require 'redis'
 require 'tzinfo'
+
+# Require honeybadger after other gems in case there are integrations it can detect.
+require 'honeybadger'
 
 loader = Zeitwerk::Loader.new
 loader.push_dir(__dir__)
