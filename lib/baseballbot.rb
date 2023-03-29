@@ -24,28 +24,8 @@ class Baseballbot
   include Sidebars
   include Subreddits
 
-  IGNORED_EXCEPTIONS = [::Redd::Errors::ServerError, ::OpenURI::HTTPError, ::HTTP::TimeoutError].freeze
-
   def initialize(**options)
     @options = options
-
-    configure_honeybadger
-  end
-
-  def configure_honeybadger
-    api_key = ENV.fetch('HONEYBADGER_API_KEY', nil)
-
-    return unless api_key
-
-    Honeybadger.configure do |config|
-      # For some reason, this isn't getting pulled from ENV. Do some research.
-      config.api_key = api_key
-
-      config.breadcrumbs.enabled = true
-      config.env = 'bot'
-
-      config.before_notify { _1.halt! if IGNORED_EXCEPTIONS.any?(_1.exception) }
-    end
   end
 
   def api
