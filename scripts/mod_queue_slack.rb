@@ -74,6 +74,9 @@ class ModQueueSlack < DefaultBot
   protected
 
   def process_item(item)
+    # Only send submissions to slack
+    return unless item.is_a?(Redd::Models::Submission)
+
     return if redis.hget('dodgers_mod_queue', item.name)
 
     send_to_slack slack_message(item)
@@ -96,8 +99,8 @@ class ModQueueSlack < DefaultBot
 
   def body_attachment(item)
     {
-      text: item_body(item),
-      title: item_title(item),
+      text: item.selftext[0..255],
+      title: item.title,
       title_link: "https://www.reddit.com#{item.permalink}"
     }
   end
@@ -122,8 +125,4 @@ class ModQueueSlack < DefaultBot
 
     raise 'Uh oh!' unless response.code.to_i == 200
   end
-
-  def item_body(item) = item.is_a?(Redd::Models::Submission) ? item.selftext[0..255] : item.body
-
-  def item_title(item) = item.is_a?(Redd::Models::Submission) ? item.title : 'Comment'
 end
