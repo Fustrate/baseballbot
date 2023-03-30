@@ -12,12 +12,14 @@ class Baseballbot
       def bot = @subreddit.bot
 
       def update_flair(flair_id)
-        return unless flair_id
+        return unless flair_id && subreddit.moderator?
 
         with_reddit_account { subreddit.subreddit.set_flair_template(submission, flair_id) }
       end
 
       def update_sticky(sticky)
+        return unless subreddit.moderator?
+
         with_reddit_account do
           if submission.stickied?
             submission.remove_sticky if sticky == false
@@ -28,7 +30,7 @@ class Baseballbot
       end
 
       def update_suggested_sort(sort = '')
-        return if sort == ''
+        return if sort == '' || !subreddit.moderator?
 
         with_reddit_account { submission.set_suggested_sort sort }
       end
@@ -38,7 +40,7 @@ class Baseballbot
 
         with_reddit_account do
           comment = submission.reply text
-          comment.distinguish(:sticky) if sticky
+          comment.distinguish(:sticky) if sticky && subreddit.moderator?
         end
       end
 

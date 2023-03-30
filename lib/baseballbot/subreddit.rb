@@ -10,6 +10,7 @@ class Baseballbot
       @id = row['id'].to_i
       @name = row['name']
       @team_id = row['team_id']
+      @moderators = row['moderators']
       @account = account
 
       @submissions = {}
@@ -46,7 +47,10 @@ class Baseballbot
     # Miscellaneous
     # --------------------------------------------------------------------------
 
-    def sticky_game_threads? = @options.dig('game_threads', 'sticky') != false
+    # If the bot isn't a moderator of the subreddit, it can't perform some actions
+    def moderator? = @moderators.include?(account.name.downcase)
+
+    def sticky_game_threads? = moderator? && @options.dig('game_threads', 'sticky') != false
 
     def subreddit
       @subreddit ||= @bot.session.subreddit(@name)
