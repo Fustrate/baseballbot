@@ -10,42 +10,6 @@ require 'json'
 SLACK_HOOK_ID = ENV.fetch('DODGERS_SLACK_HOOK_ID')
 
 class ModQueueSlack < DefaultBot
-  ACTIONS = [
-    {
-      name: 'queue_action',
-      text: 'Approve',
-      style: 'primary',
-      type: 'button',
-      value: 'approve'
-    },
-    {
-      name: 'queue_action',
-      text: 'Remove',
-      style: 'danger',
-      type: 'button',
-      value: 'remove',
-      confirm: {
-        title: 'Confirm Removal',
-        text: 'Are you sure you want to remove this item?',
-        ok_text: 'Yes',
-        dismiss_text: 'No'
-      }
-    },
-    {
-      name: 'queue_action',
-      text: 'Mark as Spam',
-      style: 'danger',
-      type: 'button',
-      value: 'spam',
-      confirm: {
-        title: 'Confirm Spam',
-        text: 'Are you sure you want to mark this item as spam?',
-        ok_text: 'Yes',
-        dismiss_text: 'No'
-      }
-    }
-  ].freeze
-
   def initialize
     super(purpose: 'Mod Queue', account: 'DodgerBot')
 
@@ -111,7 +75,6 @@ class ModQueueSlack < DefaultBot
 
     {
       text: reports.any? ? "Reports: #{reasons.join(', ')}" : 'Spam?',
-      actions: ACTIONS,
       callback_id: item.name,
       fallback: 'Uh oh! Something went wrong.'
     }
