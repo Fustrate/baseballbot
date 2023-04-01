@@ -4,7 +4,7 @@ require_relative 'default_bot'
 
 class CheckMessages < DefaultBot
   TITLE = /(?:game ?(?:thread|chat|day)|gdt)/i
-  LINK = %r{(?:redd\.it|/comments|reddit\.com)/([a-z0-9]{6})}i
+  LINK = %r{(?:redd\.it|/comments|reddit\.com)/([a-z0-9]{7})}i
   GAME_PK = %r{(?:gamePk=|gameday/)(\d{6,})}i
 
   def initialize = super(purpose: 'Messages', account: 'BaseballBot')
@@ -35,8 +35,6 @@ class CheckMessages < DefaultBot
     submission = session.from_ids("t3_#{post_id}")&.first
 
     return unless submission
-
-    Honeybadger.context(post_id:)
 
     subreddit_id = name_to_subreddit(submission.subreddit.display_name.downcase).id
 
