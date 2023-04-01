@@ -96,7 +96,7 @@ class Baseballbot
             @game_thread.game_data.dig('players', "ID#{player['person']['id']}", 'boxscoreName')
         end
 
-        def no_hitter_flag = @game_thread.flag if @game_thread.is_a?(Templates::NoHitter)
+        def no_hitter_flag = (@game_thread.flag if @game_thread.is_a?(Templates::NoHitter))
 
         def no_hitter_pitchers = no_hitter_flag == 'home' ? home_pitchers : away_pitchers
       end
