@@ -67,6 +67,10 @@ class CLI < Thor
 
     RefreshTokens.new(accounts: parse_array(options.accounts)).run
   end
+
+  protected
+
+  def parse_array(input) = input&.split(/[,+]/) || []
 end
 
 CLI.start
