@@ -98,7 +98,11 @@ class Baseballbot
 
         def no_hitter_flag = (@game_thread.flag if @game_thread.is_a?(Templates::NoHitter))
 
-        def no_hitter_pitchers = no_hitter_flag == 'home' ? home_pitchers : away_pitchers
+        def no_hitter_pitchers
+          no_hitter_team = boxscore.dig('teams', no_hitter_flag)
+
+          no_hitter_team['pitchers'].map { player_name(no_hitter_team.dig('players', "ID#{_1}")) }.join(', ')
+        end
       end
     end
   end
