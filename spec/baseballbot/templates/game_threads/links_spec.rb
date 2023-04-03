@@ -38,7 +38,7 @@ RSpec.describe Baseballbot::Templates::GameThreads::Links do
     end
 
     it 'uses a custom discord link if set' do
-      template.instance_variable_get(:@subreddit).options[:discord_invite] = 'https://discordapp.com/invite/abc123'
+      template.instance_variable_get(:@subreddit).options['discord_invite'] = 'https://discordapp.com/invite/abc123'
 
       expect(template.discord_link).to eq 'https://discordapp.com/invite/abc123'
     end
