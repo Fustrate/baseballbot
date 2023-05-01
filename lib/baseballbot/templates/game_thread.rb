@@ -19,7 +19,7 @@ class Baseballbot
         @type = type
       end
 
-      def formatted_title = GameThreads::Title.new(self, @title).to_s
+      def formatted_title = GameThreads::Title.new(@title, game_thread: self).to_s
 
       def content
         @content ||= @subreddit.bot.api.content @game_pk

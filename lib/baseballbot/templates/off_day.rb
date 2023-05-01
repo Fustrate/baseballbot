@@ -11,9 +11,7 @@ class Baseballbot
 
       def inspect = %(#<#{self.class.name}>)
 
-      def formatted_title
-        @formatted_title ||= @subreddit.today.strftime @title
-      end
+      def formatted_title = Title.new(@title, date: @subreddit.today).to_s
     end
   end
 end

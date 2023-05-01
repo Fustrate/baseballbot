@@ -1,41 +1,15 @@
 # frozen_string_literal: true
 
-require 'mustache'
-
 class Baseballbot
   module Templates
     module GameThreads
-      class Title < Mustache
-        def initialize(template, title)
-          super()
+      class Title < Templates::Title
+        # Mustache uses the @template variable so we'll call it @game_thread
+        def initialize(title, game_thread:)
+          super(title, date: game_thread.start_time_local)
 
-          self.template = title
-
-          # Mustache uses the @template variable
-          @game_thread = template
+          @game_thread = game_thread
         end
-
-        def to_s
-          @to_s ||= @game_thread.start_time_local.strftime(render)
-        end
-
-        def year = @game_thread.start_time_local.year
-
-        def month = @game_thread.start_time_local.month
-
-        def day = @game_thread.start_time_local.day
-
-        def month_name = @game_thread.start_time_local.strftime('%B')
-
-        def short_month = @game_thread.start_time_local.strftime('%b')
-
-        def day_of_week = @game_thread.start_time_local.strftime('%A')
-
-        def short_day_of_week = @game_thread.start_time_local.strftime('%a')
-
-        def short_year = @game_thread.start_time_local.strftime('%y')
-
-        def start_time = @game_thread.start_time_local.strftime('%-I:%M %p')
 
         def start_time_et = @game_thread.start_time_et.strftime('%-I:%M %p ET')
 
