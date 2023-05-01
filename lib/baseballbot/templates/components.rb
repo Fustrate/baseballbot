@@ -21,6 +21,10 @@ class Baseballbot
 
       def spring_standings = SpringStandings.new(@subreddit)
 
+      def team_stats
+        @team_stats ||= Standings.new(@subreddit).team_stats
+      end
+
       protected
 
       def schedule

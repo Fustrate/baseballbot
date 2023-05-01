@@ -25,10 +25,6 @@ class Baseballbot
         def updated_with_link
           "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}".strip
         end
-
-        def team_stats
-          @team_stats ||= Standings.new(@subreddit).team_stats
-        end
       end
     end
   end
