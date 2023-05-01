@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Baseballbot::Templates::Sidebars::Components::LeagueStandings do
+RSpec.describe Baseballbot::Templates::Components::LeagueStandings do
   let(:bot) { Baseballbot.new(user_agent: 'Baseballbot Tests') }
   let(:subreddit) do
     Baseballbot::Subreddit.new(

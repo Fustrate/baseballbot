@@ -4,7 +4,7 @@ class Baseballbot
   module Templates
     module Sidebars
       module Components
-        class SpringStandings < Standings
+        class SpringStandings < Templates::Components::Standings
           include MarkdownHelpers
           include Enumerable
           include Mustache::Enumerable

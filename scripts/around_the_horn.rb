@@ -20,7 +20,7 @@ class AroundTheHorn < DefaultBot
     def initialize(subreddit:) = super(body: TODAYS_GAMES, subreddit:)
 
     def todays_games_section
-      @todays_games = Baseballbot::Templates::Sidebars::Components::TodaysGames.new(@subreddit, links: :direct).to_a
+      @todays_games = Baseballbot::Templates::Components::TodaysGames.new(@subreddit, links: :direct).to_a
 
       return '' if @todays_games.none?
 
