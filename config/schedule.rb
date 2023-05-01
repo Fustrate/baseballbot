@@ -2,8 +2,8 @@
 
 set :output, '/home/baseballbot/apps/baseballbot/shared/log/whenever.log'
 
-SCRIPTS_DIR = '/home/baseballbot/apps/baseballbot/current/scripts'
-BUNDLE_EXEC = 'bundle exec'
+# We have to run in the root directory or the Honeybadger config file won't be picked up
+ROOT_DIR = '/home/baseballbot/apps/baseballbot/current'
 
 def step_minutes_by(step, except: [], &block)
   every "#{(0.step(59, step).to_a - Array(except)).join(',')} * * * *", &block
@@ -18,7 +18,7 @@ end
 def cli(*command, **kwargs)
   cli_args = [*command, *kwargs.map { |k, v| process_kwarg(k, v) }].join(' ')
 
-  command "cd #{SCRIPTS_DIR} && #{BUNDLE_EXEC} ruby cli.rb #{cli_args}"
+  command "cd #{ROOT_DIR} && bundle exec ruby scripts/cli.rb #{cli_args}"
 end
 
 every :minute do
