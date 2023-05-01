@@ -2,7 +2,7 @@
 
 class Baseballbot
   module Templates
-    class General < Template
+    class OffDay < Template
       def initialize(body:, subreddit:, title: '')
         super(body:, subreddit:)
 
