@@ -6,8 +6,6 @@ class Baseballbot
       module Components
         def postseason_series_section = Postseason.new(@subreddit)
 
-        def todays_games(date = nil) = TodaysGames.new(@subreddit, date:, links: :code)
-
         def hitter_stats(...) = Leaders.new(@subreddit).hitter_stats(...)
 
         def pitcher_stats(...) = Leaders.new(@subreddit).pitcher_stats(...)
@@ -17,22 +15,6 @@ class Baseballbot
         def pitcher_stats_table(...) = Leaders.new(@subreddit).pitcher_stats_table(...)
 
         def calendar = Calendar.new(@subreddit)
-
-        def month_games = schedule.month_games
-
-        def previous_games(...) = schedule.previous_games(...)
-
-        def upcoming_games(...) = schedule.upcoming_games(...)
-
-        def next_game_str(...) = schedule.next_game_str(...)
-
-        def last_game_str(...) = schedule.last_game_str(...)
-
-        def division_standings = DivisionStandings.new(@subreddit)
-
-        def league_standings = LeagueStandings.new(@subreddit)
-
-        def spring_standings = SpringStandings.new(@subreddit)
 
         # Allows /r/baseball to show both spring leagues
         def cactus_league_standings = SpringStandings.new(@subreddit, league: :cactus)
@@ -46,12 +28,6 @@ class Baseballbot
 
         def team_stats
           @team_stats ||= Standings.new(@subreddit).team_stats
-        end
-
-        protected
-
-        def schedule
-          @schedule ||= Schedule.new(@subreddit)
         end
       end
     end

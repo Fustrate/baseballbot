@@ -10,6 +10,8 @@ class Baseballbot
   class Template < Mustache
     include MarkdownHelpers
 
+    include Templates::Components
+
     DELIMITER = '[](/baseballbot)'
 
     attr_reader :subreddit
