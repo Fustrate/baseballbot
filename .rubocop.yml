@@ -38,4 +38,4 @@ Style/CaseLikeIf:
 
 Metrics/ClassLength:
   Exclude:
-    - lib/baseballbot/templates/sidebars/components/todays_games.rb
+    - lib/baseballbot/templates/components/todays_games.rb
