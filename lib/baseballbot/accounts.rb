@@ -11,7 +11,7 @@ class Baseballbot
 
       yield
     rescue Redd::Errors::InvalidAccess
-      @bot.refresh_access!
+      refresh_access!
 
       # We *should* only get an invalid access error once, but let's be safe.
       retry if (tries += 1) < 1
