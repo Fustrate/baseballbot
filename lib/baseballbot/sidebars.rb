@@ -37,6 +37,8 @@ class Baseballbot
         .replace_in CGI.unescapeHTML(subreddit.settings[:description])
     end
 
-    def sidebar_present?(subreddit) = subreddit.settings[:description] && !subreddit.settings[:description].strip.empty?
+    def sidebar_present?(subreddit)
+      subreddit.settings && subreddit.settings[:description] && !subreddit.settings[:description].strip.empty?
+    end
   end
 end
