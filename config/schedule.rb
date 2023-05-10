@@ -23,7 +23,8 @@ end
 
 every :minute do
   cli :no_hitters
-  cli :slack
+  # Getting tons of errors from reddit when this runs - I think it might be time for it to end
+  # cli :slack
 end
 
 every 1.hour do
