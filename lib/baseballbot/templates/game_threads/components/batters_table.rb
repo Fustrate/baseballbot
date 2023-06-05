@@ -63,9 +63,7 @@ class Baseballbot
             @stats.map { BATTER_COLUMNS[_1].call(batter, today) }
           end
 
-          def batting_order(batter)
-            batter['battingOrder']&.to_i || game_stats(batter).dig('batting', 'battingOrder').to_i
-          end
+          def batting_order(batter) = (batter['battingOrder'] || game_stats(batter).dig('batting', 'battingOrder')).to_i
 
           def game_stats(player) = (player['gameStats'] || player['stats'] || {})
         end
