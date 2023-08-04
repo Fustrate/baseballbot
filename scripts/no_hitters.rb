@@ -78,7 +78,7 @@ class NoHitters < DefaultBot
 
   # Check the away team if it's after the top of the target inning or later
   def away_team_being_no_hit?(game, inning, half)
-    return unless game.dig('linescore', 'teams', 'away', 'hits').zero?
+    return false unless game.dig('linescore', 'teams', 'away', 'hits').zero?
 
     return true if inning > MIN_INNINGS || (inning == MIN_INNINGS && half != 'Top')
 
@@ -89,7 +89,7 @@ class NoHitters < DefaultBot
 
   # Check the home team if it's the end of the target inning or later
   def home_team_being_no_hit?(game, inning, half)
-    return unless game.dig('linescore', 'teams', 'home', 'hits').zero?
+    return false unless game.dig('linescore', 'teams', 'home', 'hits').zero?
 
     return true if inning > MIN_INNINGS || (inning == MIN_INNINGS && half == 'End')
 

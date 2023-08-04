@@ -37,7 +37,7 @@ class Baseballbot
 
       def inspect = %(#<#{self.class.name} @game_pk="#{@game_pk}">)
 
-      def postponed? = nil
+      def postponed? = false
 
       protected
 
