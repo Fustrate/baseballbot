@@ -28,7 +28,7 @@ class Baseballbot
 
       off_day_check_was_run!(subreddit)
 
-      Baseballbot::Posts::OffDay.new(subreddit:).create! if subreddit.off_today?
+      Baseballbot::Posts::OffDay.new(subreddit:).create! if off_today?(subreddit)
     rescue => e
       Honeybadger.notify(e)
     end
@@ -37,6 +37,20 @@ class Baseballbot
       subreddit.options['off_day']['last_run_at'] = Time.now.strftime('%F %T')
 
       db.exec_params 'UPDATE subreddits SET options = $1 WHERE id = $2', [JSON.dump(subreddit.options), subreddit.id]
+    end
+
+    protected
+
+    def off_today?(subreddit)
+      date = Baseballbot::Utility.parse_time(Time.now.utc, in_time_zone: subreddit.timezone).strftime('%m/%d/%Y')
+
+      api.schedule(
+        sportId: 1,
+        teamId: subreddit.team_id,
+        date:,
+        eventTypes: 'primary',
+        scheduleTypes: 'games'
+      )['totalGames'].zero?
     end
   end
 end

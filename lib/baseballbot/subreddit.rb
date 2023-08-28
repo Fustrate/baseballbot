@@ -33,16 +33,6 @@ class Baseballbot
       @today ||= now.to_date
     end
 
-    def off_today?
-      @bot.api.schedule(
-        sportId: 1,
-        teamId: @team_id,
-        date: today.strftime('%m/%d/%Y'),
-        eventTypes: 'primary',
-        scheduleTypes: 'games'
-      )['totalGames'].zero?
-    end
-
     # --------------------------------------------------------------------------
     # Miscellaneous
     # --------------------------------------------------------------------------
