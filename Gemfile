@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby file: '.ruby-version'
+ruby file: "#{File.expand_path(__dir__)}/.ruby-version"
 
 # App Monitoring [https://github.com/honeybadger-io/honeybadger-ruby]
 gem 'honeybadger', '~> 5.0'
