@@ -64,6 +64,6 @@ every :saturday do
   cli :game_threads, :load_sunday
 end
 
-# every '30 4 * 9,10,11 *' do
-#   cli :game_threads, :load_postseason
-# end
+every '30 4 * 9,10,11 *' do
+  cli :game_threads, :load_postseason
+end
