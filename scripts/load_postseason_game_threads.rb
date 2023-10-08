@@ -72,7 +72,8 @@ class PostseasonGameLoader < DefaultBot
     !game.dig('status', 'startTimeTBD') &&
       game.dig('teams', 'away', 'team', 'division') &&
       game.dig('teams', 'home', 'team', 'division') &&
-      !game.dig('seriesStatus', 'isOver')
+      !game.dig('seriesStatus', 'isOver') &&
+      game['ifNecessary'] != 'Y'
   end
 
   def insert_game(game, starts_at, post_at, title, subreddit_id)
