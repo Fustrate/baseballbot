@@ -40,7 +40,7 @@ class SundayGameThreadLoader < DefaultBot
       sportId: 1,
       date: date.strftime('%m/%d/%Y'),
       hydrate: 'game(content(media(epg)))'
-    ).dig('dates', 0, 'games')
+    ).dig('dates', 0, 'games') || []
   end
 
   def espn_game?(game)
