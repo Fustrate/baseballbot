@@ -19,6 +19,9 @@ gem 'redd', '>= 0.9.0.pre.3', github: 'Fustrate/redd'
 # A more slim redis client [https://github.com/redis/redis-rb]
 gem 'redis', '~> 5.0'
 
+# Use an ORM instead of interacting with pg directly [https://github.com/jeremyevans/sequel]
+gem 'sequel', '~> 5.71'
+
 # Cron jobs
 gem 'whenever', '~> 1.0'
 

@@ -9,6 +9,8 @@ require 'mustache'
 
 Dir.glob(File.join(__dir__, 'support/*.rb')).each { require_relative _1 }
 
+ENV['BASEBALLBOT_PG_DATABASE'] = "#{ENV.fetch('BASEBALLBOT_PG_DATABASE')}_test"
+
 require_relative '../lib/baseballbot'
 
 class Baseballbot
@@ -26,6 +28,10 @@ class Baseballbot
 end
 
 RSpec.configure do |config|
+  config.around do |example|
+    DB.transaction(rollback: :always, auto_savepoint: true) { example.run }
+  end
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end

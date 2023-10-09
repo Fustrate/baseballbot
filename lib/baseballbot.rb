@@ -17,6 +17,8 @@ loader.push_dir(__dir__)
 loader.setup
 
 class Baseballbot
+  include Database
+
   include Accounts
   include GameThreads
   include OffDay
