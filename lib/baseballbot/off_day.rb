@@ -46,7 +46,7 @@ class Baseballbot
 
       api.schedule(
         sportId: 1,
-        teamId: subreddit.team_id,
+        teamId: subreddit.team.id,
         date:,
         eventTypes: 'primary',
         scheduleTypes: 'games'
