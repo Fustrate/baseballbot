@@ -100,7 +100,7 @@ class Baseballbot
 
           def skip_game?(game)
             !['Final', 'Preview', 'In Progress', 'Live'].include?(game.dig('status', 'abstractGameState')) ||
-              game['ifNecessary'] == 'Y'
+              game['ifNecessary'] == 'Y' || ['TBD', 'NL Stadium', 'AL Stadium'].include?(game.dig('venue', 'name'))
           end
         end
       end
