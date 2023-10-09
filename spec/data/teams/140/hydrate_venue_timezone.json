@@ -1,0 +1,60 @@
+{
+    "copyright": "Copyright 2023 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+    "teams": [
+        {
+            "springLeague": {
+                "id": 114,
+                "name": "Cactus League",
+                "link": "/api/v1/league/114",
+                "abbreviation": "CL"
+            },
+            "allStarStatus": "N",
+            "id": 140,
+            "name": "Texas Rangers",
+            "link": "/api/v1/teams/140",
+            "season": 2023,
+            "venue": {
+                "id": 5325,
+                "name": "Globe Life Field",
+                "link": "/api/v1/venues/5325",
+                "timeZone": {
+                    "id": "America/Chicago",
+                    "offset": -5,
+                    "offsetAtGameTime": -5,
+                    "tz": "CDT"
+                },
+                "active": true,
+                "season": "2023"
+            },
+            "springVenue": {
+                "id": 2603,
+                "link": "/api/v1/venues/2603"
+            },
+            "teamCode": "tex",
+            "fileCode": "tex",
+            "abbreviation": "TEX",
+            "teamName": "Rangers",
+            "locationName": "Arlington",
+            "firstYearOfPlay": "1961",
+            "league": {
+                "id": 103,
+                "name": "American League",
+                "link": "/api/v1/league/103"
+            },
+            "division": {
+                "id": 200,
+                "name": "American League West",
+                "link": "/api/v1/divisions/200"
+            },
+            "sport": {
+                "id": 1,
+                "link": "/api/v1/sports/1",
+                "name": "Major League Baseball"
+            },
+            "shortName": "Texas",
+            "franchiseName": "Texas",
+            "clubName": "Rangers",
+            "active": true
+        }
+    ]
+}

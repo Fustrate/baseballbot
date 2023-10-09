@@ -1,0 +1,60 @@
+{
+    "copyright": "Copyright 2023 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+    "teams": [
+        {
+            "springLeague": {
+                "id": 114,
+                "name": "Cactus League",
+                "link": "/api/v1/league/114",
+                "abbreviation": "CL"
+            },
+            "allStarStatus": "N",
+            "id": 158,
+            "name": "Milwaukee Brewers",
+            "link": "/api/v1/teams/158",
+            "season": 2023,
+            "venue": {
+                "id": 32,
+                "name": "American Family Field",
+                "link": "/api/v1/venues/32",
+                "timeZone": {
+                    "id": "America/Chicago",
+                    "offset": -5,
+                    "offsetAtGameTime": -5,
+                    "tz": "CDT"
+                },
+                "active": true,
+                "season": "2023"
+            },
+            "springVenue": {
+                "id": 2518,
+                "link": "/api/v1/venues/2518"
+            },
+            "teamCode": "mil",
+            "fileCode": "mil",
+            "abbreviation": "MIL",
+            "teamName": "Brewers",
+            "locationName": "Milwaukee",
+            "firstYearOfPlay": "1968",
+            "league": {
+                "id": 104,
+                "name": "National League",
+                "link": "/api/v1/league/104"
+            },
+            "division": {
+                "id": 205,
+                "name": "National League Central",
+                "link": "/api/v1/divisions/205"
+            },
+            "sport": {
+                "id": 1,
+                "link": "/api/v1/sports/1",
+                "name": "Major League Baseball"
+            },
+            "shortName": "Milwaukee",
+            "franchiseName": "Milwaukee",
+            "clubName": "Brewers",
+            "active": true
+        }
+    ]
+}

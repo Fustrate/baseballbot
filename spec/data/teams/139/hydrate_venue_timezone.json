@@ -1,0 +1,60 @@
+{
+    "copyright": "Copyright 2023 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+    "teams": [
+        {
+            "springLeague": {
+                "id": 115,
+                "name": "Grapefruit League",
+                "link": "/api/v1/league/115",
+                "abbreviation": "GL"
+            },
+            "allStarStatus": "N",
+            "id": 139,
+            "name": "Tampa Bay Rays",
+            "link": "/api/v1/teams/139",
+            "season": 2023,
+            "venue": {
+                "id": 12,
+                "name": "Tropicana Field",
+                "link": "/api/v1/venues/12",
+                "timeZone": {
+                    "id": "America/New_York",
+                    "offset": -4,
+                    "offsetAtGameTime": -4,
+                    "tz": "EDT"
+                },
+                "active": true,
+                "season": "2023"
+            },
+            "springVenue": {
+                "id": 2534,
+                "link": "/api/v1/venues/2534"
+            },
+            "teamCode": "tba",
+            "fileCode": "tb",
+            "abbreviation": "TB",
+            "teamName": "Rays",
+            "locationName": "St. Petersburg",
+            "firstYearOfPlay": "1996",
+            "league": {
+                "id": 103,
+                "name": "American League",
+                "link": "/api/v1/league/103"
+            },
+            "division": {
+                "id": 201,
+                "name": "American League East",
+                "link": "/api/v1/divisions/201"
+            },
+            "sport": {
+                "id": 1,
+                "link": "/api/v1/sports/1",
+                "name": "Major League Baseball"
+            },
+            "shortName": "Tampa Bay",
+            "franchiseName": "Tampa Bay",
+            "clubName": "Rays",
+            "active": true
+        }
+    ]
+}

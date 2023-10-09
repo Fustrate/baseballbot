@@ -1,0 +1,60 @@
+{
+    "copyright": "Copyright 2023 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+    "teams": [
+        {
+            "springLeague": {
+                "id": 115,
+                "name": "Grapefruit League",
+                "link": "/api/v1/league/115",
+                "abbreviation": "GL"
+            },
+            "allStarStatus": "N",
+            "id": 141,
+            "name": "Toronto Blue Jays",
+            "link": "/api/v1/teams/141",
+            "season": 2023,
+            "venue": {
+                "id": 14,
+                "name": "Rogers Centre",
+                "link": "/api/v1/venues/14",
+                "timeZone": {
+                    "id": "America/Toronto",
+                    "offset": -4,
+                    "offsetAtGameTime": -4,
+                    "tz": "EDT"
+                },
+                "active": true,
+                "season": "2023"
+            },
+            "springVenue": {
+                "id": 2536,
+                "link": "/api/v1/venues/2536"
+            },
+            "teamCode": "tor",
+            "fileCode": "tor",
+            "abbreviation": "TOR",
+            "teamName": "Blue Jays",
+            "locationName": "Toronto",
+            "firstYearOfPlay": "1977",
+            "league": {
+                "id": 103,
+                "name": "American League",
+                "link": "/api/v1/league/103"
+            },
+            "division": {
+                "id": 201,
+                "name": "American League East",
+                "link": "/api/v1/divisions/201"
+            },
+            "sport": {
+                "id": 1,
+                "link": "/api/v1/sports/1",
+                "name": "Major League Baseball"
+            },
+            "shortName": "Toronto",
+            "franchiseName": "Toronto",
+            "clubName": "Blue Jays",
+            "active": true
+        }
+    ]
+}
