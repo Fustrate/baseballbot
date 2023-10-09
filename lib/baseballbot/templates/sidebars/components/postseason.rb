@@ -84,7 +84,7 @@ class Baseballbot
           def series_name(series)
             return 'World Series' if series.start_with?('World Series')
 
-            POSTSEASON_SERIES_NAMES[series.split('-').first.strip]
+            POSTSEASON_SERIES_NAMES[series.split('-').first.strip.gsub(/ '[AB]'\z/, '')]
           end
 
           def process_game(game)
