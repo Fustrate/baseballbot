@@ -65,7 +65,7 @@ class Baseballbot
 
           def batting_order(batter) = (batter['battingOrder'] || game_stats(batter).dig('batting', 'battingOrder')).to_i
 
-          def game_stats(player) = (player['gameStats'] || player['stats'] || {})
+          def game_stats(player) = player['gameStats'] || player['stats'] || {}
         end
       end
     end

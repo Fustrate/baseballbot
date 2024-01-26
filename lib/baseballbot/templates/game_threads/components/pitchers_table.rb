@@ -55,7 +55,7 @@ class Baseballbot
               pitcher.dig('person', 'id') == @game_thread.game_data.dig('probablePitchers', 'away', 'id')
           end
 
-          def game_stats(player) = (player['gameStats'] || player['stats'] || {})
+          def game_stats(player) = player['gameStats'] || player['stats'] || {}
 
           def bill_james_game_score(game)
             [
