@@ -4,6 +4,8 @@ require_relative 'default_bot'
 
 # A bot to iterate over pages of flairs
 class FlairBot < DefaultBot
+  BATCH_SIZE = 50
+
   def initialize(purpose:, subreddit:)
     super(purpose:)
 
@@ -31,7 +33,7 @@ class FlairBot < DefaultBot
     response[:users].each do |flair|
       process_flair(flair)
 
-      send_batch if @updates.length > 90
+      send_batch if @updates.length > self.class::BATCH_SIZE
     end
 
     return unless response[:next]
