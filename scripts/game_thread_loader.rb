@@ -76,7 +76,8 @@ class GameThreadLoader < DefaultBot
       endDate: (Date.new(@date.year, @date.month + 1, 1) - 1).strftime('%F'),
       eventTypes: 'primary',
       scheduleTypes: 'games',
-      hydrate: 'team'
+      hydrate: 'team',
+      gameType: 'R'
     )
   end
 
