@@ -21,47 +21,47 @@ def cli(*command, **kwargs)
   command "cd #{ROOT_DIR} && bundle exec ruby scripts/cli.rb #{cli_args}"
 end
 
-# every :minute do
-#   cli :no_hitters
-# end
+every :minute do
+  cli :no_hitters
+end
 
-# every 1.hour do
-#   cli :sidebars, :update
-#   cli :game_threads, :off_day
-# end
+every 1.hour do
+  cli :sidebars, :update
+  cli :game_threads, :off_day
+end
 
-# every 15.minutes do
-#   cli :check_messages
-#   cli :game_threads, :pregame
-# end
+every 15.minutes do
+  cli :check_messages
+  cli :game_threads, :pregame
+end
 
 every 5.minutes do
-  # cli :game_threads, :post
+  cli :game_threads, :post
   cli :around_the_horn
 end
 
 # So we don't run twice on the hour
-# step_minutes_by(5, except: 0) do
-#   cli :sidebars, :update, subreddits: :baseball
-# end
+step_minutes_by(5, except: 0) do
+  cli :sidebars, :update, subreddits: :baseball
+end
 
-# step_minutes_by(2, except: [0, 30]) do
-#   cli :game_threads, :update, live: true
-# end
+step_minutes_by(2, except: [0, 30]) do
+  cli :game_threads, :update, live: true
+end
 
-# step_minutes_by(30) do
-#   cli :game_threads, :update
-# end
+step_minutes_by(30) do
+  cli :game_threads, :update
+end
 
 every :day do
-  # cli :game_threads, :load
+  cli :game_threads, :load
   cli :sync_moderators
 end
 
-# every :saturday do
-#   cli :game_threads, :load_sunday
-# end
+every :saturday do
+  cli :game_threads, :load_sunday
+end
 
-# every '30 4 * 9,10,11 *' do
-#   cli :game_threads, :load_postseason
-# end
+every '30 4 * 9,10,11 *' do
+  cli :game_threads, :load_postseason
+end
