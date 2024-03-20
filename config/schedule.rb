@@ -55,6 +55,8 @@ end
 
 every :day do
   cli :game_threads, :load
+  cli :game_threads, :load_r_baseball
+  cli :game_threads, :load_r_albeast
   cli :sync_moderators
 end
 

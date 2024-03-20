@@ -2,10 +2,9 @@
 
 require_relative 'game_thread_loader'
 
-# Add all AL East interdivision games to /r/albeast's schedule
-class ALEastGameThreadLoader < GameThreadLoader
-  SUBREDDIT_ID = 35
-  DIVISION_ID = 201
+# /r/baseball is running a game thread for all games this season... for now.
+class BaseballGameThreadLoader < GameThreadLoader
+  SUBREDDIT_ID = 15
 
   POST_AT_QUERY = <<~SQL.freeze
     SELECT options#>>'{game_threads,post_at}' AS post_at
@@ -14,13 +13,7 @@ class ALEastGameThreadLoader < GameThreadLoader
   SQL
 
   def initialize
-    super(date: Date.new(Date.today.year, Date.today.month, 1), subreddits: [])
-  end
-
-  def add_game?(game)
-    super(game) &&
-      game.dig('teams', 'away', 'team', 'division', 'id') == DIVISION_ID &&
-      game.dig('teams', 'home', 'team', 'division', 'id') == DIVISION_ID
+    super(date: Date.new(Date.today.year, Date.today.month, 1))
   end
 
   def add_game(game)

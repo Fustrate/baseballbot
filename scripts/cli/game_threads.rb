@@ -20,6 +20,20 @@ class GameThreads < Subcommand
     puts "Added #{results[:created]}, Updated #{results[:updated]}"
   end
 
+  desc 'load_r_baseball', ''
+  def load_r_baseball
+    require_relative '../load_baseball_game_threads'
+
+    BaseballGameThreadLoader.new.run
+  end
+
+  desc 'load_r_albeast', ''
+  def load_r_albeast
+    require_relative '../load_albeast_game_threads'
+
+    ALEastGameThreadLoader.new.run
+  end
+
   desc 'load_postseason', ''
   def load_postseason
     require_relative '../load_postseason_game_threads'
