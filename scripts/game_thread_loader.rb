@@ -24,11 +24,11 @@ class GameThreadLoader < DefaultBot
     AND options['game_threads']['enabled']::boolean IS TRUE
   SQL
 
-  def initialize(date:, subreddits: [])
+  def initialize(date: nil, subreddits: [])
     super(purpose: 'Game Thread Loader', account: 'BaseballBot')
 
     @created = @updated = 0
-    @date = date
+    @date = date || Date.today
 
     process_subreddit_names(subreddits.map(&:downcase))
 
@@ -73,7 +73,7 @@ class GameThreadLoader < DefaultBot
   def month_schedule
     api.schedule(
       startDate: @date.strftime('%F'),
-      endDate: (Date.new(@date.year, @date.month + 1, 1) - 1).strftime('%F'),
+      endDate: (@date + 30).strftime('%F'),
       eventTypes: 'primary',
       scheduleTypes: 'games',
       hydrate: 'team',

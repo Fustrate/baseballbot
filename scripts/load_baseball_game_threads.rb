@@ -13,7 +13,7 @@ class BaseballGameThreadLoader < GameThreadLoader
   SQL
 
   def initialize
-    super(date: Date.new(Date.today.year, Date.today.month, 1))
+    super(date: Date.today)
   end
 
   def add_game(game)
