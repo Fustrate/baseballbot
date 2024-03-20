@@ -7,7 +7,7 @@ class Baseballbot
         class Highlights
           include MarkdownHelpers
 
-          TABLE_HEADERS = %w[Description Length Video].freeze
+          TABLE_HEADERS = %w[Description Length].freeze
 
           def initialize(game_thread)
             @game_thread = game_thread
@@ -25,7 +25,7 @@ class Baseballbot
 
           protected
 
-          def table_rows = highlights.map { [_1[:blurb], _1[:duration], "[Video](#{_1[:hd]})"] }
+          def table_rows = highlights.map { ["[#{_1[:blurb]}](#{_1[:hd]})", _1[:duration]] }
 
           def highlights
             @highlights ||= (fetch_highlights if @game_thread.started?) || []
