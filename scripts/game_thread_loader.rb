@@ -30,6 +30,9 @@ class GameThreadLoader < DefaultBot
     @created = @updated = 0
     @date = date || Date.today
 
+    # Don't load games that aren't at least from today
+    @start_date = Date.today.strftime('%F')
+
     process_subreddit_names(subreddits.map(&:downcase))
 
     @utc_offset = Time.now.utc_offset
@@ -37,6 +40,8 @@ class GameThreadLoader < DefaultBot
 
   def run
     month_schedule['dates'].each do |date|
+      next if date['date'] < @start_date
+
       date['games'].each do |game|
         add_game(game) if add_game?(game)
       end
