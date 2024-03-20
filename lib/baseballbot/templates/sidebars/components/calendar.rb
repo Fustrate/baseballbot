@@ -7,13 +7,17 @@ class Baseballbot
         class Calendar
           include MarkdownHelpers
 
+          attr_reader :subreddit
+
           def initialize(subreddit)
             @subreddit = subreddit
+
+            @cell_method = method(subreddit.name == 'buccos' ? :buccos_cell : :cell)
           end
 
           def to_s
             cells = month_schedule.map do |_, day|
-              cell(day[:date].day, day[:games])
+              @cell_method.call(day[:date].day, day[:games])
             end
 
             markdown_calendar(cells, month_schedule)
@@ -39,6 +43,20 @@ class Baseballbot
             return "**#{num} #{link}**" if games[0].home_team?
 
             "*#{num} #{link}*"
+          end
+
+          def buccos_cell(date, games)
+            return "#{format('%02d', date)} [](/offday)[](/offdaybar)" if games.empty?
+
+            game = games.first
+
+            format(
+              '%<date>02d [%<time>s](/r/%<subreddit>s)[](/%<flag>s)',
+              date:,
+              time: game.date.strftime('%-I:%M'),
+              subreddit: @subreddit.code_to_subreddit_name(game.opponent.code),
+              flag: game.home_team? ? 'Home' : 'Away'
+            )
           end
 
           # This allows us to generate a schedule for a team other than the one belonging to the subreddit.
