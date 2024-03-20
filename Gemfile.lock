@@ -164,7 +164,7 @@ DEPENDENCIES
   capistrano (~> 3.17)
   capistrano-bundler (~> 2.1)
   capistrano-rbenv (~> 2.2)
-  csv
+  csv (~> 3.2)
   honeybadger (~> 5.0)
   mlb_stats_api (~> 0.3)!
   mock_redis (~> 0.32)
