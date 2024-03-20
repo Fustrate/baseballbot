@@ -40,6 +40,9 @@ gem 'mustache'
 # Command line options for scripts
 gem 'thor'
 
+# Generate CSV files for flair lists
+gem 'csv', '~> 3.2'
+
 group :development do
   # Deploy with Capistrano [https://github.com/capistrano/capistrano]
   gem 'capistrano', '~> 3.17', require: false
