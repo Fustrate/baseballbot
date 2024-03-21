@@ -51,7 +51,7 @@ class Baseballbot
             game = games.first
 
             format(
-              '%<date>02d [%<time>s](/r/%<subreddit>s)[](/%<flag>s "%<status>s")',
+              '%<date>02d [%<time>s](/r/%<subreddit>s "%<status>s")[](/%<flag>s)',
               date:,
               time: game.date.strftime('%-I:%M'),
               subreddit: @subreddit.code_to_subreddit_name(game.opponent.code),
