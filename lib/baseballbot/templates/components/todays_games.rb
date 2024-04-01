@@ -110,9 +110,9 @@ class Baseballbot
 
           post_id = @game_threads[game['gamePk'].to_i][team_sub.downcase]
 
-          return "[^★](/#{post_id} \"team-#{abbreviation.downcase}\")" if post_id
+          return "[#{abbreviation} ^★](/#{post_id} \"team-#{abbreviation.downcase}\")" if post_id
 
-          @links == :code ? "[][#{abbreviation}]" : "[](/r/#{team_sub})"
+          @links == :code ? "[][#{abbreviation}]" : "[#{abbreviation}](/r/#{team_sub})"
         end
 
         def team_abbreviation(game, team) = find_team(game, team)['abbreviation']
