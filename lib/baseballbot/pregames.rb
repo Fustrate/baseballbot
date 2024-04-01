@@ -7,12 +7,12 @@ class Baseballbot
       FROM game_threads
       JOIN subreddits ON (subreddits.id = subreddit_id)
       WHERE status = 'Future'
-        AND options['pregame']['enabled']::boolean IS TRUE
+        AND subreddits.options['pregame']['enabled']::boolean IS TRUE
         AND (
-          CASE WHEN substr(options#>>'{pregame,post_at}', 1, 1) = '-' THEN
-            (starts_at::timestamp + (CONCAT(options#>>'{pregame,post_at}', ' hours'))::interval) < NOW()
+          CASE WHEN substr(subreddits.options#>>'{pregame,post_at}', 1, 1) = '-' THEN
+            (starts_at::timestamp + (CONCAT(subreddits.options#>>'{pregame,post_at}', ' hours'))::interval) < NOW()
           ELSE
-            (DATE(starts_at) + (options#>>'{pregame,post_at}')::interval) < NOW() AT TIME ZONE (options->>'timezone')
+            (DATE(starts_at) + (subreddits.options#>>'{pregame,post_at}')::interval) < NOW() AT TIME ZONE (subreddits.options->>'timezone')
           END)
       ORDER BY post_at ASC, game_pk ASC
     SQL

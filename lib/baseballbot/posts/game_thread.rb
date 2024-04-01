@@ -123,8 +123,6 @@ class Baseballbot
 
       # Create a postgame thread if the subreddit is set to have them
       #
-      # @param game_pk [String] the MLB game ID
-      #
       # @return [Redd::Models::Submission] the postgame thread
       def post_postgame!
         return unless subreddit.options.dig('postgame', 'enabled') && @type == 'game_thread' && !postgame_posted?
