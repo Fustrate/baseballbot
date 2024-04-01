@@ -42,7 +42,7 @@ class CheckMessages < DefaultBot
 
     add_game_thread!(game_pk, submission, subreddit_id, post_id)
 
-    message.mark_as_read
+    message.delete
   end
 
   def extract_post_id(message) = (Regexp.last_match[1] if message.subject =~ TITLE && message.body =~ LINK)
