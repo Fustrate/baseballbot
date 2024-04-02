@@ -52,24 +52,22 @@ class AroundTheHorn < DefaultBot
 
     def todays_games_row(game)
       [
-        team_link(game, :away),
+        team_link(game[:away]),
         game[:away][:score],
-        team_link(game, :home),
+        team_link(game[:home]),
         game[:home][:score],
         game[:status],
         game[:national] || ' ',
         (game[:neutral][:post_id] ? "[GDT](/#{game[:neutral][:post_id]})" : '')
       ]
     end
-  end
 
-  def team_link(game, flag)
     # abbreviation:, subreddit:, post_id:, link:, score:
-    team = game[flag]
+    def team_link(team)
+      return "[#{team[:abbreviation]}](/#{team[:post_id]} \"team-#{team[:abbreviation].downcase}\")" if team[:post_id]
 
-    return "[#{team[:abbreviation]}](/#{team[:post_id]} \"team-#{team[:abbreviation].downcase}\")" if team[:post_id]
-
-    "[#{team[:abbreviation]}](/r/#{team[:subreddit]})"
+      "[#{team[:abbreviation]}](/r/#{team[:subreddit]})"
+    end
   end
 
   def initialize
