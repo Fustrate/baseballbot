@@ -37,7 +37,7 @@ class AroundTheHorn < DefaultBot
 
     def ath_games_table
       table(
-        headers: ['Away', ['Score', :center], 'Home', ['Score', :center], ['Status', :center], 'National'],
+        headers: ['Away', ['Score', :center], 'Home', ['Score', :center], ['Status', :center], 'National', 'GDT'],
         rows: @todays_games.map { todays_games_row(_1) }
       )
     end
@@ -52,14 +52,24 @@ class AroundTheHorn < DefaultBot
 
     def todays_games_row(game)
       [
-        game[:away][:link],
+        team_link(game, :away),
         game[:away][:score],
-        game[:home][:link],
+        team_link(game, :home),
         game[:home][:score],
         game[:status],
-        game[:national] || ' '
+        game[:national] || ' ',
+        (game[:neutral][:post_id] ? "[GDT](/#{game[:neutral][:post_id]})" : '')
       ]
     end
+  end
+
+  def team_link(game, flag)
+    # abbreviation:, subreddit:, post_id:, link:, score:
+    team = game[flag]
+
+    return "[#{team[:abbreviation]}](/#{team[:post_id]} \"team-#{team[:abbreviation].downcase}\")" if team[:post_id]
+
+    "[#{team[:abbreviation]}](/r/#{team[:subreddit]})"
   end
 
   def initialize
