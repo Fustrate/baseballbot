@@ -62,12 +62,18 @@ class AroundTheHorn < DefaultBot
       ]
     end
 
-    # abbreviation:, subreddit:, post_id:, link:, score:
-    def team_link(team)
-      return "[#{team[:abbreviation]}](/#{team[:post_id]} \"team-#{team[:abbreviation].downcase}\")" if team[:post_id]
-
-      "[#{team[:abbreviation]}](/r/#{team[:subreddit]})"
+    def gdt_links(game)
+      [
+        gdt_link(game[:away]),
+        gdt_link(game[:home]),
+        gdt_link(game[:neutral], name: 'Neutral')
+      ].compact.join(', ')
     end
+
+    def gdt_link(team, name: nil) = ("[#{name || team[:abbreviation]}](/r/#{team[:post_id]})" if team[:post_id])
+
+    # abbreviation:, subreddit:, post_id:, link:, score:
+    def team_link(team) = "[#{team[:abbreviation]}](/r/#{team[:subreddit]})"
   end
 
   def initialize
