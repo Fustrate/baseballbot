@@ -37,7 +37,7 @@ class AroundTheHorn < DefaultBot
 
     def ath_games_table
       table(
-        headers: ['Away', ['Score', :center], 'Home', ['Score', :center], ['Status', :center], 'National', 'GDT'],
+        headers: ['Away', ['Score', :center], 'Home', ['Score', :center], ['Status', :center], 'National', 'GDTs'],
         rows: @todays_games.map { todays_games_row(_1) }
       )
     end
@@ -52,13 +52,13 @@ class AroundTheHorn < DefaultBot
 
     def todays_games_row(game)
       [
-        team_link(game[:away]),
+        "[#{game[:away][:abbreviation]}](/r/#{game[:away][:subreddit]})",
         game[:away][:score],
-        team_link(game[:home]),
+        "[#{game[:home][:abbreviation]}](/r/#{game[:home][:subreddit]})",
         game[:home][:score],
         game[:status],
         game[:national] || ' ',
-        (game[:neutral][:post_id] ? "[GDT](/#{game[:neutral][:post_id]})" : '')
+        gdt_links(game)
       ]
     end
 
@@ -70,10 +70,8 @@ class AroundTheHorn < DefaultBot
       ].compact.join(', ')
     end
 
-    def gdt_link(team, name: nil) = ("[#{name || team[:abbreviation]}](/r/#{team[:post_id]})" if team[:post_id])
-
     # abbreviation:, subreddit:, post_id:, link:, score:
-    def team_link(team) = "[#{team[:abbreviation]}](/r/#{team[:subreddit]})"
+    def gdt_link(team, name: nil) = ("[#{name || team[:abbreviation]}](/r/#{team[:post_id]})" if team[:post_id])
   end
 
   def initialize
