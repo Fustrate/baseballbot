@@ -67,6 +67,7 @@ class Baseballbot
           {
             home: team_data(game, 'home', started),
             away: team_data(game, 'away', started),
+            neutral: { post_id: subreddit_post_id(game:, subreddit: 'baseball') },
             raw_status:,
             status: gameday_link(game_status(game), game['gamePk']),
             national: national_status(game)
@@ -86,7 +87,12 @@ class Baseballbot
         def team_data(game, flag, started)
           team = game.dig('teams', flag)
 
-          { link: team_link(game:, team:), score: (started && team['score'] ? team['score'].to_i : '') }
+          abbreviation = team_abbreviation(game, team)
+          subreddit = @subreddit.bot.default_subreddit(abbreviation)
+          post_id = subreddit_post_id(game:, subreddit:)
+          link = team_link(post_id:, subreddit:, abbreviation:)
+
+          { abbreviation:, subreddit:, link:, post_id:, score: started && team['score'] ? team['score'].to_i : '' }
         end
 
         def mark_winner_and_loser(data)
@@ -104,15 +110,12 @@ class Baseballbot
 
         def winner_loser_flags(data) = data[:home][:score] > data[:away][:score] ? %i[home away] : %i[away home]
 
-        def team_link(game:, team:)
-          abbreviation = team_abbreviation(game, team)
-          team_sub = @subreddit.bot.default_subreddit(abbreviation)
+        def subreddit_post_id(game:, subreddit:) = @game_threads[game['gamePk'].to_i][subreddit.downcase]
 
-          post_id = @game_threads[game['gamePk'].to_i][team_sub.downcase]
-
+        def team_link(post_id:, subreddit:, abbreviation:)
           return "[#{abbreviation} ^★](/#{post_id} \"team-#{abbreviation.downcase}\")" if post_id
 
-          @links == :code ? "[][#{abbreviation}]" : "[#{abbreviation}](/r/#{team_sub})"
+          @links == :code ? "[][#{abbreviation}]" : "[#{abbreviation}](/r/#{subreddit})"
         end
 
         def team_abbreviation(game, team) = find_team(game, team)['abbreviation']
