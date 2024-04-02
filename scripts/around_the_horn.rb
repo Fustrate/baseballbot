@@ -29,7 +29,7 @@ class AroundTheHorn < DefaultBot
 
         #{ath_games_table}
 
-        ^(★)Team Subreddit Game Thread. All game times are Eastern. #{updated_with_link}
+        All game times are Eastern. #{updated_with_link}
       MARKDOWN
     end
 
