@@ -71,7 +71,7 @@ class AroundTheHorn < DefaultBot
     end
 
     # abbreviation:, subreddit:, post_id:, link:, score:
-    def gdt_link(team, name: nil) = ("[#{name || team[:abbreviation]}](/r/#{team[:post_id]})" if team[:post_id])
+    def gdt_link(team, name: nil) = ("[#{name || team[:abbreviation]}](/#{team[:post_id]})" if team[:post_id])
   end
 
   def initialize
