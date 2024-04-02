@@ -5,8 +5,8 @@ set :output, '/home/baseballbot/apps/baseballbot/shared/log/whenever.log'
 # We have to run in the root directory or the Honeybadger config file won't be picked up
 ROOT_DIR = '/home/baseballbot/apps/baseballbot/current'
 
-def step_minutes_by(step, except: [], &block)
-  every "#{(0.step(59, step).to_a - Array(except)).join(',')} * * * *", &block
+def step_minutes_by(step, except: [], &)
+  every("#{(0.step(59, step).to_a - Array(except)).join(',')} * * * *", &)
 end
 
 def process_kwarg(key, value)
