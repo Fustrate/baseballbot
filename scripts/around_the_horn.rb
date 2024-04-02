@@ -108,7 +108,7 @@ class AroundTheHorn < DefaultBot
 
   def todays_submission_id = redis.hget('around_the_horn', @date.strftime('%F'))
 
-  def post_title = @date.strftime('[General Discussion] Around the Horn - %-m/%-d/%y')
+  def post_title = @date.strftime('[General Discussion] Around the Horn & Game Thread Index - %-m/%-d/%y')
 
   def initial_body = @subreddit.subreddit.wiki_page('ath').content_md.split(/\r?\n-{3,}\r?\n/)[1].strip
 
