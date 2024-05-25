@@ -18,7 +18,7 @@ class ALEastGameThreadLoader < GameThreadLoader
   end
 
   def add_game?(game)
-    super(game) &&
+    super &&
       game.dig('teams', 'away', 'team', 'division', 'id') == DIVISION_ID &&
       game.dig('teams', 'home', 'team', 'division', 'id') == DIVISION_ID
   end
