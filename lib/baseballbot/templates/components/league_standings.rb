@@ -54,18 +54,20 @@ class Baseballbot
           protected
 
           def team_cell(team)
-            return "[**#{team.wins}-#{team.losses}**]#{team_link(team)}" if team.division_champ?
+            return "#{team_link(team)} **#{team.wins}-#{team.losses}**" if team.division_champ?
 
-            return "[*#{team.wins}-#{team.losses}*]#{team_link(team)}" if team.wildcard_champ?
+            return "#{team_link(team)} *#{team.wins}-#{team.losses}*" if team.wildcard_champ?
 
-            "[#{team.wins}-#{team.losses}]#{team_link(team)}"
+            "#{team_link(team)} #{team.wins}-#{team.losses}"
           end
 
           def team_link(team)
-            return "[#{team.abbreviation}]" unless team.wildcard_position
+            return "[#{team.abbreviation}][#{team.abbreviation}]" unless team.wildcard_position
 
-            "(/r/#{@subreddit.code_to_subreddit_name(team.abbreviation)} \"WC#{team.wildcard_position}\")"
+            "[#{team.abbreviation}](/r/#{subreddit_name(team)} \"WC#{team.wildcard_position}\")"
           end
+
+          def subreddit_name(team) = @subreddit.code_to_subreddit_name(team.abbreviation)
 
           # @!group Wildcards
 
