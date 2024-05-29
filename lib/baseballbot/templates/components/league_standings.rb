@@ -54,11 +54,11 @@ class Baseballbot
           protected
 
           def team_cell(team)
-            return "#{team_link(team)} **#{team.wins}-#{team.losses}**" if team.division_champ?
+            return "#{team_link(team)} [**#{team.wins}-#{team.losses}**][#{team.abbreviation}]" if team.division_champ?
 
-            return "#{team_link(team)} *#{team.wins}-#{team.losses}*" if team.wildcard_champ?
+            return "#{team_link(team)} [*#{team.wins}-#{team.losses}*][#{team.abbreviation}]" if team.wildcard_champ?
 
-            "#{team_link(team)} #{team.wins}-#{team.losses}"
+            "#{team_link(team)} [#{team.wins}-#{team.losses}][#{team.abbreviation}]"
           end
 
           def team_link(team)
