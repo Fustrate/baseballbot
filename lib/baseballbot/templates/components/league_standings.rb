@@ -45,7 +45,7 @@ class Baseballbot
           def to_s
             rows = %w[West Central East].map do |division|
               @teams.select { _1.team.dig('division', 'name')[division] }
-                .map { "#{team_link(_1)} [#{team_record(_1)}]](/r/#{subreddit_name(_1)})]" }
+                .map { "#{team_link(_1)} [#{team_record(_1)}](/r/#{subreddit_name(_1)})" }
             end.transpose
 
             table(headers: [['West', :center], ['Central', :center], ['East', :center]], rows:)
