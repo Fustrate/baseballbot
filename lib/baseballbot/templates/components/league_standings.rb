@@ -45,7 +45,7 @@ class Baseballbot
           def to_s
             rows = %w[West Central East].map do |division|
               @teams.select { _1.team.dig('division', 'name')[division] }
-                .map { team_cell(_1) }
+                .map { "#{team_link(_1)} [#{team_record(_1)}]](/r/#{subreddit_name(_1)})]" }
             end.transpose
 
             table(headers: [['West', :center], ['Central', :center], ['East', :center]], rows:)
@@ -53,18 +53,21 @@ class Baseballbot
 
           protected
 
-          def team_cell(team)
-            return "#{team_link(team)} [**#{team.wins}-#{team.losses}**][#{team.abbreviation}]" if team.division_champ?
-
-            return "#{team_link(team)} [*#{team.wins}-#{team.losses}*][#{team.abbreviation}]" if team.wildcard_champ?
-
-            "#{team_link(team)} [#{team.wins}-#{team.losses}][#{team.abbreviation}]"
-          end
+          def team_cell(team) = "#{team_link(team)} #{team_record(team)}"
 
           def team_link(team)
             return "[#{team.abbreviation}][#{team.abbreviation}]" unless team.wildcard_position
 
             "[#{team.abbreviation}](/r/#{subreddit_name(team)} \"WC#{team.wildcard_position}\")"
+          end
+
+          # We have to use a direct link instead of [][ABBR] because those links have #flair
+          def team_record(team)
+            return "**#{team.wins}-#{team.losses}**" if team.division_champ?
+
+            return "*#{team.wins}-#{team.losses}*" if team.wildcard_champ?
+
+            "#{team.wins}-#{team.losses}"
           end
 
           def subreddit_name(team) = @subreddit.code_to_subreddit_name(team.abbreviation)
