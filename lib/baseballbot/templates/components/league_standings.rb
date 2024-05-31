@@ -58,7 +58,7 @@ class Baseballbot
           def team_link(team)
             return "[#{team.abbreviation}][#{team.abbreviation}]" unless team.wildcard_position
 
-            "[#{team.abbreviation}](/r/#{subreddit_name(team)} \"WC#{team.wildcard_position}\")"
+            "[#{team.abbreviation}](/r/#{subreddit_name(team)}#flair \"WC#{team.wildcard_position}\")"
           end
 
           # We have to use a direct link instead of [][ABBR] because those links have #flair
