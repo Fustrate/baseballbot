@@ -8,7 +8,7 @@ class Baseballbot
           <<~MARKDOWN.strip
             ### #{away_team.name} (#{away_record}) @ #{home_team.name} (#{home_record}) #{thumbnail}
 
-            **First Pitch**: #{start_time_local.strftime('%-I:%M %p')} at #{venue_name}
+            #{first_pitch}
           MARKDOWN
         end
 
@@ -19,7 +19,13 @@ class Baseballbot
             "#{home_team.name} #{linescore.dig('teams', 'home', 'runs')}"
         end
 
+        def matchups = Matchups.new(self)
+
+        def media = Media.new(self)
+
         def probables_and_media = ProbablesAndMedia.new(self)
+
+        def probable_starters = ProbableStarters.new(self)
 
         def box_score_section = BoxScore.new(self)
 
