@@ -15,6 +15,10 @@ class Baseballbot
 
         def opponent_name = @game_thread.opponent.name
 
+        def game_number
+          @game_thread.game_data.dig('teams', @game_thread.home? ? 'home' : 'away', 'record', 'gamesPlayed') + 1
+        end
+
         def away_full_name = @game_thread.away_team.full_name
 
         def away_name = @game_thread.away_team.name

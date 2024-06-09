@@ -43,6 +43,12 @@ RSpec.describe Baseballbot::Templates::GameThreads::Title do
       expect(template.formatted_title).to eq 'Hello Gray, Js White, M World'
     end
 
+    it 'shows the game number' do
+      template = game_thread_template(:preview, title: 'Game number {{game_number}}')
+
+      expect(template.formatted_title).to eq 'Game number 96'
+    end
+
     it 'interpolates team records' do
       template = game_thread_template(:preview, title: 'Hello {{away_record}} {{home_record}} World')
 
