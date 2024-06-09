@@ -154,8 +154,8 @@ RSpec.describe Baseballbot::Templates::Sidebar do
         |Name|HR||Name|RBI|
         |-|-|-|-|-|
         |M Betts|22||T Turner|69|
-        |T Turner|15||F Freeman|62|
-        |F Freeman|15||J Turner|53|
+        |F Freeman|15||F Freeman|62|
+        |T Turner|15||J Turner|53|
 
         ## Pitching
 
