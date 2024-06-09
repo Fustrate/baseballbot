@@ -7,8 +7,8 @@ class Baseballbot
         class Matchups
           include MarkdownHelpers
 
-          BASE_URL = 'https://bdfed.stitch.mlbinfra.com/bdfed/matchup/%<game_pk>s?statList=avg&statList=atBats' \
-                     '&statList=homeRuns&statList=rbi&statList=ops&statList=strikeOuts'
+          BASE_URL = 'https://bdfed.stitch.mlbinfra.com/bdfed/matchup/%<game_pk>s' \
+                     '?statList=avg,atBats,homeRuns,rbi,ops,strikeOuts'
 
           HEADERS = %w[AVG OPS AB HR RBI K].freeze
 
@@ -40,10 +40,10 @@ class Baseballbot
             )
           end
 
-          def player_row(player)
+          def player_stats(player)
             return ['-'] * 6 unless player['stats']
 
-            player['stats'].values_at('avg', 'ops', 'atBats', 'homeRuns', 'rbi', 'strikeOuts')
+            player['stats'].values_at('avg', 'ops', 'atBats', 'homeRuns', 'rbi', 'strikeOuts').map { _1 || '-' }
           end
 
           def data
