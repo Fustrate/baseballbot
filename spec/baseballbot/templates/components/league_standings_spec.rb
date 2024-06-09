@@ -23,21 +23,21 @@ RSpec.describe Baseballbot::Templates::Components::LeagueStandings do
 
         |West|Central|East|
         |:-:|:-:|:-:|
-        |[**111-51**][LAD]|[**93-69**][STL]|[**101-61**][ATL]|
-        |[89-73](/r/Padres "WC2")|[86-76][MIL]|[101-61](/r/NewYorkMets "WC1")|
-        |[81-81][SF]|[74-88][CHC]|[87-75](/r/Phillies "WC3")|
-        |[74-88][AZ]|[62-100][CIN]|[69-93][MIA]|
-        |[68-94][COL]|[62-100][PIT]|[55-107][WSH]|
+        |[LAD][LAD] [**111-51**](/r/Dodgers)|[STL][STL] [**93-69**](/r/Cardinals)|[ATL][ATL] [**101-61**](/r/Braves)|
+        |[SD](/r/Padres#flair "WC2") [89-73](/r/Padres)|[MIL][MIL] [86-76](/r/Brewers)|[NYM](/r/NewYorkMets#flair "WC1") [101-61](/r/NewYorkMets)|
+        |[SF][SF] [81-81](/r/SFGiants)|[CHC][CHC] [74-88](/r/CHICubs)|[PHI](/r/Phillies#flair "WC3") [87-75](/r/Phillies)|
+        |[AZ][AZ] [74-88](/r/azdiamondbacks)|[CIN][CIN] [62-100](/r/Reds)|[MIA][MIA] [69-93](/r/MiamiMarlins)|
+        |[COL][COL] [68-94](/r/ColoradoRockies)|[PIT][PIT] [62-100](/r/Buccos)|[WSH][WSH] [55-107](/r/Nationals)|
 
         ## American League
 
         |West|Central|East|
         |:-:|:-:|:-:|
-        |[**106-56**][HOU]|[**92-70**][CLE]|[**99-63**][NYY]|
-        |[90-72](/r/Mariners "WC2")|[81-81][CWS]|[92-70](/r/TorontoBlueJays "WC1")|
-        |[73-89][LAA]|[78-84][MIN]|[86-76](/r/TampaBayRays "WC3")|
-        |[68-94][TEX]|[66-96][DET]|[83-79][BAL]|
-        |[60-102][OAK]|[65-97][KC]|[78-84][BOS]|
+        |[HOU][HOU] [**106-56**](/r/Astros)|[CLE][CLE] [**92-70**](/r/ClevelandGuardians)|[NYY][NYY] [**99-63**](/r/NYYankees)|
+        |[SEA](/r/Mariners#flair "WC2") [90-72](/r/Mariners)|[CWS][CWS] [81-81](/r/WhiteSox)|[TOR](/r/TorontoBlueJays#flair "WC1") [92-70](/r/TorontoBlueJays)|
+        |[LAA][LAA] [73-89](/r/AngelsBaseball)|[MIN][MIN] [78-84](/r/MinnesotaTwins)|[TB](/r/TampaBayRays#flair "WC3") [86-76](/r/TampaBayRays)|
+        |[TEX][TEX] [68-94](/r/TexasRangers)|[DET][DET] [66-96](/r/MotorCityKitties)|[BAL][BAL] [83-79](/r/Orioles)|
+        |[OAK][OAK] [60-102](/r/OaklandAthletics)|[KC][KC] [65-97](/r/KCRoyals)|[BOS][BOS] [78-84](/r/RedSox)|
       MARKDOWN
     end
   end
