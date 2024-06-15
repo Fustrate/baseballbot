@@ -5,8 +5,8 @@ RSpec.describe Baseballbot::Templates::GameThreads::Components::Matchups do
     stub_requests! with_response: true
   end
 
-  describe '#box_score_section' do
-    it 'generates a box score' do
+  describe '#matchups_section' do
+    it 'generates a matchups section' do
       expect(described_class.new(game_thread_template(:preview)).to_s).to eq <<~MARKDOWN.strip
         |LAD vs. Gray|AVG|OPS|AB|HR|RBI|K|
         |-|-|-|-|-|-|-|
