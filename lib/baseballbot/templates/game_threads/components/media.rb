@@ -4,7 +4,7 @@ class Baseballbot
   module Templates
     module GameThreads
       module Components
-        class ProbablesAndMedia
+        class Media
           include MarkdownHelpers
 
           HOME_FEED_TYPES = %w[HOME NATIONAL].freeze
