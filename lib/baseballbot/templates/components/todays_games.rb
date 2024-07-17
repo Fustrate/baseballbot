@@ -6,7 +6,7 @@ class Baseballbot
       class TodaysGames
         include MarkdownHelpers
 
-        TODAYS_GAMES_HYDRATE = 'game(content(summary)),linescore,flags,team'
+        TODAYS_GAMES_HYDRATE = 'game(content(media(epg),summary)),linescore,flags,team'
 
         TODAYS_GAMES_SQL = <<~SQL
           SELECT post_id, game_pk, name
