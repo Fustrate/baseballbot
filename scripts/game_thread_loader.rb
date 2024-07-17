@@ -81,7 +81,7 @@ class GameThreadLoader < DefaultBot
       endDate: (@date + 30).strftime('%F'),
       eventTypes: 'primary',
       scheduleTypes: 'games',
-      hydrate: 'team',
+      hydrate: 'team,game(content(media(epg)))',
       gameType: 'R'
     )
   end

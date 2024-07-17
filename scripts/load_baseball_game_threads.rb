@@ -17,6 +17,8 @@ class BaseballGameThreadLoader < GameThreadLoader
   end
 
   def add_game(game)
+    return unless game.dig('content', 'media', 'freeGame')
+
     starts_at = Time.parse(game['gameDate']) + @utc_offset
 
     insert_game(SUBREDDIT_ID, game, post_at.call(starts_at), starts_at)
