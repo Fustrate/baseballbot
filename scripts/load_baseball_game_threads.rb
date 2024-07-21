@@ -9,6 +9,8 @@ class BaseballGameThreadLoader < GameThreadLoader
   TITLE = '%<type>s Game of the Day {{month}}/{{day}} ⚾ {{away_name}} ({{away_record}}) @ {{home_name}} ' \
           '({{home_record}}) {{start_time_et}}'
 
+  NATIONAL_CALLSIGNS = ['ESPN'].freeze
+
   POST_AT_QUERY = <<~SQL.freeze
     SELECT options#>>'{game_threads,post_at}' AS post_at
     FROM subreddits
@@ -34,7 +36,7 @@ class BaseballGameThreadLoader < GameThreadLoader
   end
 
   def national_game_title(game)
-    national_broadcast = game['broadcasts'].find { _1['isNational'] }
+    national_broadcast = game['broadcasts'].find { _1['isNational'] && NATIONAL_CALLSIGNS.include?(_1['callSign']) }
 
     return format(TITLE, type: national_broadcast['callSign']) if national_broadcast
 
