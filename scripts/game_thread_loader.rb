@@ -4,13 +4,13 @@ require_relative 'default_bot'
 
 class GameThreadLoader < DefaultBot
   INSERT_GAME_THREAD = <<~SQL
-    INSERT INTO game_threads (post_at, starts_at, subreddit_id, game_pk, status)
-    VALUES ($1, $2, $3, $4, 'Future')
+    INSERT INTO game_threads (post_at, starts_at, subreddit_id, game_pk, status, title)
+    VALUES ($1, $2, $3, $4, 'Future', $5)
   SQL
 
   UPDATE_GAME_THREAD = <<~SQL
     UPDATE game_threads
-    SET post_at = $1, starts_at = $2, updated_at = $3
+    SET post_at = $1, starts_at = $2, updated_at = $3, title = $6
     WHERE subreddit_id = $4
       AND game_pk = $5
       AND (starts_at != $2 OR post_at != $1)
@@ -81,7 +81,7 @@ class GameThreadLoader < DefaultBot
       endDate: (@date + 30).strftime('%F'),
       eventTypes: 'primary',
       scheduleTypes: 'games',
-      hydrate: 'team,game(content(media(epg)))',
+      hydrate: 'team,game(content(media(epg))),broadcasts(all)',
       gameType: 'R'
     )
   end
@@ -96,29 +96,33 @@ class GameThreadLoader < DefaultBot
     end
   end
 
-  def insert_game(subreddit_id, game, post_at, starts_at)
-    data = row_data(game, starts_at, post_at, subreddit_id)
+  def insert_game(subreddit_id, game, post_at, starts_at, title = '')
+    data = row_data(game, starts_at, post_at, subreddit_id, title)
 
-    db.exec_params INSERT_GAME_THREAD, data.values_at(:post_at, :starts_at, :subreddit_id, :game_pk)
+    db.exec_params INSERT_GAME_THREAD, data.values_at(:post_at, :starts_at, :subreddit_id, :game_pk, :title)
 
     @created += 1
   rescue PG::UniqueViolation
     update_game(data)
   end
 
-  def row_data(game, starts_at, post_at, subreddit_id)
+  def row_data(game, starts_at, post_at, subreddit_id, title)
     {
       post_at: post_at.strftime('%F %T'),
       starts_at: starts_at.strftime('%F %T'),
       updated_at: Time.now.strftime('%F %T'),
       subreddit_id:,
-      game_pk: game['gamePk'].to_i
+      game_pk: game['gamePk'].to_i,
+      title:
     }
   end
 
   def update_game(data)
     @updated += db
-      .exec_params(UPDATE_GAME_THREAD, data.values_at(:post_at, :starts_at, :updated_at, :subreddit_id, :game_pk))
+      .exec_params(
+        UPDATE_GAME_THREAD,
+        data.values_at(:post_at, :starts_at, :updated_at, :subreddit_id, :game_pk, :title)
+      )
       .cmd_tuples
   end
 end

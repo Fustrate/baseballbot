@@ -41,13 +41,6 @@ class GameThreads < Subcommand
     PostseasonGameLoader.new.run
   end
 
-  desc 'load_sunday', ''
-  def load_sunday
-    require_relative '../load_sunday_game_threads'
-
-    SundayGameThreadLoader.new.run
-  end
-
   desc 'off_day', 'Post daily off-day threads'
   method_option :subreddits, type: :string, aliases: '-s'
   def off_day

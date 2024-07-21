@@ -2,9 +2,12 @@
 
 require_relative 'game_thread_loader'
 
-# /r/baseball is running a game thread for all games this season... for now.
+# /r/baseball runs game threads for national broadcasts and MLB.TV's free game of the day.
 class BaseballGameThreadLoader < GameThreadLoader
   SUBREDDIT_ID = 15
+
+  TITLE = '%<type>s Game of the Day {{month}}/{{day}} ⚾ {{away_name}} ({{away_record}}) @ {{home_name}} ' \
+          '({{home_record}}) {{start_time_et}}'
 
   POST_AT_QUERY = <<~SQL.freeze
     SELECT options#>>'{game_threads,post_at}' AS post_at
@@ -17,14 +20,26 @@ class BaseballGameThreadLoader < GameThreadLoader
   end
 
   def add_game(game)
-    return unless game.dig('content', 'media', 'freeGame')
+    title = national_game_title(game)
+
+    return unless title
 
     starts_at = Time.parse(game['gameDate']) + @utc_offset
 
-    insert_game(SUBREDDIT_ID, game, post_at.call(starts_at), starts_at)
+    insert_game(SUBREDDIT_ID, game, post_at.call(starts_at), starts_at, title)
   end
 
   def post_at
     @post_at ||= Baseballbot::Utility.adjust_time_proc(db.exec(POST_AT_QUERY)[0]['post_at'])
+  end
+
+  def national_game_title(game)
+    national_broadcast = game['broadcasts'].find { _1['isNational'] }
+
+    return format(TITLE, type: national_broadcast['callSign']) if national_broadcast
+
+    return unless game['broadcasts'].any? { _1['freeGame'] }
+
+    format(TITLE, type: 'Free')
   end
 end
