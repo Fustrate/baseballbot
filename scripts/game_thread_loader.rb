@@ -96,7 +96,7 @@ class GameThreadLoader < DefaultBot
     end
   end
 
-  def insert_game(subreddit_id, game, post_at, starts_at, title = '')
+  def insert_game(subreddit_id, game, post_at, starts_at, title = nil)
     data = row_data(game, starts_at, post_at, subreddit_id, title)
 
     db.exec_params INSERT_GAME_THREAD, data.values_at(:post_at, :starts_at, :subreddit_id, :game_pk, :title)
