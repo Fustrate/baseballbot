@@ -60,7 +60,7 @@ group :development do
   gem 'rubocop-performance', '~> 1.14', require: false
 
   # Rubocop - rspec cops [https://github.com/rubocop/rubocop-rspec]
-  gem 'rubocop-rspec', '~> 2.12', require: false
+  gem 'rubocop-rspec', '~> 3.0', require: false
 end
 
 group :test do
