@@ -6,7 +6,7 @@ class Baseballbot
       module Components
         def header
           <<~MARKDOWN.strip
-            ### #{away_team.name} (#{away_record}) @ #{home_team.name} (#{home_record}) #{thumbnail}
+            ### #{away_team.name} (#{away_record}) @ #{home_team.name} (#{home_record})
 
             #{first_pitch}
           MARKDOWN

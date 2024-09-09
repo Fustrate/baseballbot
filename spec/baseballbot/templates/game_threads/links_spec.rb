@@ -27,8 +27,8 @@ RSpec.describe Baseballbot::Templates::GameThreads::Links do
   end
 
   describe '#thumbnail' do
-    it 'generates a thumbnail markdown link' do
-      expect(template.thumbnail).to eq '[](http://mlb.mlb.com/images/2017_ipad/684/wasla_684.jpg)'
+    it 'no longer generates a thumbnail markdown link' do
+      expect(template.thumbnail).to eq '' # '[](http://mlb.mlb.com/images/2017_ipad/684/wasla_684.jpg)'
     end
   end
 

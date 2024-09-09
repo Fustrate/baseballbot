@@ -16,8 +16,6 @@ RSpec.describe Baseballbot::Templates::GameThread do
 
     it 'adds a few blocks' do
       template = game_thread_template(:preview, body: <<~BODY.strip)
-        {{thumbnail}}
-
         [{{home_team.name}} ({{home_record}})](/r/{{home_subreddit}}#home)|[{{away_team.name}} ({{away_record}})](/r/{{away_subreddit}}#away)
         :-:|:-:
 
@@ -41,8 +39,6 @@ RSpec.describe Baseballbot::Templates::GameThread do
       BODY
 
       expect(template.evaluated_body).to eq <<~MARKDOWN.strip
-        [](http://mlb.mlb.com/images/2017_ipad/684/wasla_684.jpg)
-
         [Dodgers (111-51)](/r/Dodgers#home)|[Nationals (55-107)](/r/Nationals#away)
         :-:|:-:
 

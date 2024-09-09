@@ -13,6 +13,7 @@ class Baseballbot
 
         def savant_feed_link = "https://baseballsavant.mlb.com/gamefeed?gamePk=#{game_pk}"
 
+        # MLB removed these images from their servers
         def thumbnail
           # "[](http://mlb.mlb.com/images/2017_ipad/684/#{away_team.file_code}#{home_team.file_code}_684.jpg)"
           ''
