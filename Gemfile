@@ -73,3 +73,14 @@ group :test do
   # Mock HTTP requests instead of hitting external servers
   gem 'webmock', '~> 3.14'
 end
+
+# Gems loaded from the standard library, that will no longer be part of the default gems starting from Ruby 3.5.0
+
+# This is a dependency of reline
+gem 'logger', '~> 1.6'
+
+# This is a dependency of json
+gem 'ostruct', '~> 0.6'
+
+# This is a dependency of honeybadger
+gem 'fiddle', '~> 1.1'
