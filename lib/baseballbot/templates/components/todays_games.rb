@@ -113,7 +113,7 @@ class Baseballbot
         def subreddit_post_id(game:, subreddit:) = @game_threads[game['gamePk'].to_i][subreddit.downcase]
 
         def team_link(post_id:, subreddit:, abbreviation:)
-          return "[#{abbreviation} ^★](/#{post_id} \"team-#{abbreviation.downcase}\")" if post_id
+          return "[#{abbreviation} ^★](/comments/#{post_id} \"team-#{abbreviation.downcase}\")" if post_id
 
           @links == :code ? "[][#{abbreviation}]" : "[#{abbreviation}](/r/#{subreddit})"
         end
