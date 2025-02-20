@@ -23,7 +23,7 @@ class Baseballbot
   end
 
   def logger
-    @logger ||= Logger.new('/dev/null')
+    @logger ||= Logger.new(File::NULL)
   end
 end
 
