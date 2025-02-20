@@ -61,6 +61,9 @@ group :development do
 
   # Rubocop - rspec cops [https://github.com/rubocop/rubocop-rspec]
   gem 'rubocop-rspec', '~> 3.0', require: false
+
+  # Rubocop - sequel cops [https://github.com/rubocop/rubocop-sequel]
+  gem 'rubocop-sequel', '~> 0.3', require: false
 end
 
 group :test do
