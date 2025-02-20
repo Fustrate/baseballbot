@@ -82,7 +82,7 @@ class GameThreadLoader < DefaultBot
       eventTypes: 'primary',
       scheduleTypes: 'games',
       hydrate: 'team,game(content(media(epg))),broadcasts(all)',
-      gameType: 'R'
+      gameType: 'R,S'
     )
   end
 
