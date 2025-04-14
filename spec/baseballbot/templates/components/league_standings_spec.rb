@@ -37,7 +37,7 @@ RSpec.describe Baseballbot::Templates::Components::LeagueStandings do
         |[SEA](/r/Mariners#flair "WC2") [90-72](/r/Mariners)|[CWS][CWS] [81-81](/r/WhiteSox)|[TOR](/r/TorontoBlueJays#flair "WC1") [92-70](/r/TorontoBlueJays)|
         |[LAA][LAA] [73-89](/r/AngelsBaseball)|[MIN][MIN] [78-84](/r/MinnesotaTwins)|[TB](/r/TampaBayRays#flair "WC3") [86-76](/r/TampaBayRays)|
         |[TEX][TEX] [68-94](/r/TexasRangers)|[DET][DET] [66-96](/r/MotorCityKitties)|[BAL][BAL] [83-79](/r/Orioles)|
-        |[OAK][OAK] [60-102](/r/OaklandAthletics)|[KC][KC] [65-97](/r/KCRoyals)|[BOS][BOS] [78-84](/r/RedSox)|
+        |[OAK][OAK] [60-102](/r/Athletics)|[KC][KC] [65-97](/r/KCRoyals)|[BOS][BOS] [78-84](/r/RedSox)|
       MARKDOWN
     end
   end
