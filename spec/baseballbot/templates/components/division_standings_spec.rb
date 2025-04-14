@@ -18,7 +18,7 @@ RSpec.describe Baseballbot::Templates::Components::DivisionStandings do
         "|[][#{team.abbreviation}]|#{team.wins}|#{team.losses}|#{team.percent}|#{team.games_back}|#{team.last_ten}|"
       end
 
-      expect(described_class.new(subreddit).map { standings_row(_1) }.join("\n")).to eq(<<~MARKDOWN.strip)
+      expect(described_class.new(subreddit).map { standings_row(it) }.join("\n")).to eq(<<~MARKDOWN.strip)
         |[][LAD]|111|51|.685|-|6-4|
         |[][SD]|89|73|.549|22|5-5|
         |[][SF]|81|81|.500|30|7-3|

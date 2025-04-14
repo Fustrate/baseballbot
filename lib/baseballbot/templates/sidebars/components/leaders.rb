@@ -52,14 +52,14 @@ class Baseballbot
           def hitter_stats_table(stats: [])
             table(
               headers: %w[Stat Player Total],
-              rows: stats.map { [_1.upcase, *(hitter_stats[_1].first&.values || ['', ''])] }
+              rows: stats.map { [it.upcase, *(hitter_stats[it].first&.values || ['', ''])] }
             )
           end
 
           def pitcher_stats_table(stats: [])
             table(
               headers: %w[Stat Player Total],
-              rows: stats.map { [_1.upcase, *(pitcher_stats[_1].first&.values || ['', ''])] }
+              rows: stats.map { [it.upcase, *(pitcher_stats[it].first&.values || ['', ''])] }
             )
           end
 
@@ -70,8 +70,8 @@ class Baseballbot
             qualifying = load_stats(group: 'hitting', year:, type:, pool: 'QUALIFIED')
 
             {
-              **(%w[h xbh hr rbi bb sb r].to_h { [_1, list_of(_1, all_hitters, :desc, count, :integer)] }),
-              **(%w[avg obp slg ops].to_h { [_1, list_of(_1, qualifying, :desc, count, :float)] })
+              **(%w[h xbh hr rbi bb sb r].to_h { [it, list_of(it, all_hitters, :desc, count, :integer)] }),
+              **(%w[avg obp slg ops].to_h { [it, list_of(it, qualifying, :desc, count, :float)] })
             }
           end
 
@@ -81,8 +81,8 @@ class Baseballbot
 
             {
               'ip' => list_of('ip', all_pitchers, :desc, count),
-              **(%w[w sv hld so].to_h { [_1, list_of(_1, all_pitchers, :desc, count, :integer)] }),
-              **(%w[whip era avg].to_h { [_1, list_of(_1, qualifying, :asc, count, :float)] })
+              **(%w[w sv hld so].to_h { [it, list_of(it, all_pitchers, :desc, count, :integer)] }),
+              **(%w[whip era avg].to_h { [it, list_of(it, qualifying, :asc, count, :float)] })
             }
           end
 
@@ -91,8 +91,8 @@ class Baseballbot
             return NO_QUALIFIED_PLAYERS unless players&.any?
 
             players
-              .map { _1.values_at('playerInitLastName', COLUMN_ALIASES[key] || key) }
-              .sort_by { _1[1].to_f }
+              .map { it.values_at('playerInitLastName', COLUMN_ALIASES[key] || key) }
+              .sort_by { it[1].to_f }
               .send(direction == :desc ? :reverse : :itself)
               .first(count)
               .map { |(name, value)| { name:, value: cast_value(value, type) } }

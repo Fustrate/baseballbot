@@ -18,8 +18,8 @@ class DefaultBot < Baseballbot
   protected
 
   def log_location
-    return $stdout if ARGV.any? { _1.match?(/\Alog=(?:1|stdout)\z/i) }
+    return $stdout if ARGV.any? { it.match?(/\Alog=(?:1|stdout)\z/i) }
 
-    File.expand_path('../log/baseballbot.log', __dir__).tap { FileUtils.touch(_1) }
+    File.expand_path('../log/baseballbot.log', __dir__).tap { FileUtils.touch(it) }
   end
 end

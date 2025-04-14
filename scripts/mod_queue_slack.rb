@@ -22,7 +22,7 @@ class ModQueueSlack < DefaultBot
   end
 
   def run!(retry_on_failure: true)
-    @subreddit.modqueue(limit: 10).each { process_item(_1) }
+    @subreddit.modqueue(limit: 10).each { process_item(it) }
   rescue Redd::Errors::APIError
     return unless retry_on_failure
 

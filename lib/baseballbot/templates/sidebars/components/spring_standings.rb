@@ -22,7 +22,7 @@ class Baseballbot
 
           protected
 
-          def teams_in_league = @all_teams.select { _1.team.dig('springLeague', 'id') == @spring_id }
+          def teams_in_league = @all_teams.select { it.team.dig('springLeague', 'id') == @spring_id }
 
           def standings_data
             @subreddit.bot.api.load('spring_standings_hydrate_team', expires: 300) do

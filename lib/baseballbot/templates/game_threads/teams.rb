@@ -42,7 +42,7 @@ class Baseballbot
           @standings_by_team_id ||= @subreddit.bot.api
             .standings(leagues: %i[al nl], season: @subreddit.today.year)['records']
             .flat_map do |division|
-              division['teamRecords'].map { [_1.dig('team', 'id'), _1.values_at('wins', 'losses').join('-')] }
+              division['teamRecords'].map { [it.dig('team', 'id'), it.values_at('wins', 'losses').join('-')] }
             end
             .to_h
         end

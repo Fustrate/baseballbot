@@ -22,7 +22,7 @@ class ConsolidateFlairs < DefaultBot
 
     res = client.get('/r/baseball/api/flairlist', after:, limit: 1000).body
 
-    res[:users].each { process_flair(_1) }
+    res[:users].each { process_flair(it) }
 
     return unless res[:next]
 

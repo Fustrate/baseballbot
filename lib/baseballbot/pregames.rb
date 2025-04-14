@@ -21,7 +21,7 @@ class Baseballbot
       names = names.map(&:downcase)
 
       db.exec(UNPOSTED_PREGAMES_QUERY)
-        .each { post_pregame_thread!(_1) if names.empty? || names.include?(_1['name'].downcase) }
+        .each { post_pregame_thread!(it) if names.empty? || names.include?(it['name'].downcase) }
     end
 
     def post_pregame_thread!(row)

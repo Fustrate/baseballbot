@@ -38,7 +38,7 @@ class AroundTheHorn < DefaultBot
     def ath_games_table
       table(
         headers: ['Away', ['Score', :center], 'Home', ['Score', :center], ['Status', :center], 'National', 'GDTs'],
-        rows: @todays_games.map { todays_games_row(_1) }
+        rows: @todays_games.map { todays_games_row(it) }
       )
     end
 

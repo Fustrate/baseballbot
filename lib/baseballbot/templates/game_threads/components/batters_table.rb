@@ -27,7 +27,7 @@ class Baseballbot
           def to_s
             return '' unless @game_thread.started? && @game_thread.boxscore && batters.any?
 
-            table(headers: table_header, rows: batters.map { batter_row(_1) })
+            table(headers: table_header, rows: batters.map { batter_row(it) })
           end
 
           protected
@@ -37,11 +37,11 @@ class Baseballbot
               .find { |_, v| v.dig('team', 'id') == @team.id }
               .dig(1, 'players')
               .values
-              .select { batting_order(_1).positive? }
-              .sort_by { batting_order(_1) }
+              .select { batting_order(it).positive? }
+              .sort_by { batting_order(it) }
           end
 
-          def table_header = ["**#{@team.code}**", ' ', *(@stats.map { [_1.to_s.upcase, :center] })]
+          def table_header = ["**#{@team.code}**", ' ', *(@stats.map { [it.to_s.upcase, :center] })]
 
           def batter_row(batter)
             # Batting order shows as [1-9]00 for the starter, and adds 1 for each substitution (e.g. 400 -> 401 -> 402)
@@ -60,7 +60,7 @@ class Baseballbot
           def batter_stats(batter)
             today = game_stats(batter)['batting']
 
-            @stats.map { BATTER_COLUMNS[_1].call(batter, today) }
+            @stats.map { BATTER_COLUMNS[it].call(batter, today) }
           end
 
           def batting_order(batter) = (batter['battingOrder'] || game_stats(batter).dig('batting', 'battingOrder')).to_i

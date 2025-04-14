@@ -22,7 +22,7 @@ class Baseballbot
       <<~MARKDOWN.strip
         |#{header_cells.join('|')}|
         |#{alignment_cells.join('|')}|
-        |#{rows.map { _1.join('|') }.join("|\n|")}|
+        |#{rows.map { it.join('|') }.join("|\n|")}|
       MARKDOWN
     end
 
@@ -35,7 +35,7 @@ class Baseballbot
     end
 
     def markdown_calendar(cells, dates)
-      table(headers: 'SMTWTFS'.chars.map { [_1, :center] }, rows: calendar_rows(cells, dates))
+      table(headers: 'SMTWTFS'.chars.map { [it, :center] }, rows: calendar_rows(cells, dates))
     end
 
     protected

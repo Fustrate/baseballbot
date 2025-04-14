@@ -4,7 +4,7 @@ require_relative 'flair_bot'
 
 class Chaos < FlairBot
   def initialize(teams:)
-    @remove_flairs = teams.map { "#{_1}-wagon" }
+    @remove_flairs = teams.map { "#{it}-wagon" }
 
     super(purpose: 'Chaos Flairs', subreddit: 'baseball')
 

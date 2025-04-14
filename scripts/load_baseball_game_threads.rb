@@ -36,11 +36,11 @@ class BaseballGameThreadLoader < GameThreadLoader
   end
 
   def national_game_title(game)
-    national_broadcast = game['broadcasts'].find { _1['isNational'] && NATIONAL_CALLSIGNS.include?(_1['callSign']) }
+    national_broadcast = game['broadcasts'].find { it['isNational'] && NATIONAL_CALLSIGNS.include?(it['callSign']) }
 
     return format(TITLE, type: national_broadcast['callSign']) if national_broadcast
 
-    return unless game['broadcasts'].any? { _1['freeGame'] }
+    return unless game['broadcasts'].any? { it['freeGame'] }
 
     format(TITLE, type: 'Free')
   end

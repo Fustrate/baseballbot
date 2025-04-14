@@ -26,7 +26,7 @@ class Baseballbot
                 "#{data.dig('probables', 'homeAbbreviation')} vs. #{data.dig('probables', 'awayProbableLastName')}",
                 *HEADERS
               ],
-              rows: data['home'].map { [_1['boxscoreName'], *player_stats(_1)] }
+              rows: data['home'].map { [it['boxscoreName'], *player_stats(it)] }
             )
           end
 
@@ -36,14 +36,14 @@ class Baseballbot
                 "#{data.dig('probables', 'awayAbbreviation')} vs. #{data.dig('probables', 'homeProbableLastName')}",
                 *HEADERS
               ],
-              rows: data['away'].map { [_1['boxscoreName'], *player_stats(_1)] }
+              rows: data['away'].map { [it['boxscoreName'], *player_stats(it)] }
             )
           end
 
           def player_stats(player)
             return ['-'] * 6 unless player['stats']
 
-            player['stats'].values_at('avg', 'ops', 'atBats', 'homeRuns', 'rbi', 'strikeOuts').map { _1 || '-' }
+            player['stats'].values_at('avg', 'ops', 'atBats', 'homeRuns', 'rbi', 'strikeOuts').map { it || '-' }
           end
 
           def data

@@ -27,7 +27,7 @@ class Baseballbot
           def to_s
             return '' unless @game_thread.started? && @game_thread.boxscore && pitchers.any?
 
-            table(headers: table_header, rows: pitchers.map { pitcher_row(_1) })
+            table(headers: table_header, rows: pitchers.map { pitcher_row(it) })
           end
 
           protected
@@ -36,18 +36,18 @@ class Baseballbot
             @pitchers ||= begin
               team_info = @game_thread.boxscore['teams'].find { |_, v| v.dig('team', 'id') == @team.id }[1]
 
-              team_info['pitchers'].map { team_info.dig('players', "ID#{_1}") }
+              team_info['pitchers'].map { team_info.dig('players', "ID#{it}") }
             end
           end
 
-          def table_header = ["**#{@team.code}**", *(@stats.map { [_1.to_s.upcase, :center] })]
+          def table_header = ["**#{@team.code}**", *(@stats.map { [it.to_s.upcase, :center] })]
 
           def pitcher_row(pitcher)
             game = game_stats(pitcher)['pitching']
 
             title = starting_pitcher?(pitcher) ? "Game Score: #{tom_tango_game_score(game)}" : nil
 
-            [player_link(pitcher, title:), *(@stats.map { PITCHER_COLUMNS[_1].call(pitcher, game) })]
+            [player_link(pitcher, title:), *(@stats.map { PITCHER_COLUMNS[it].call(pitcher, game) })]
           end
 
           def starting_pitcher?(pitcher)

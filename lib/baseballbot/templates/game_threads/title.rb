@@ -79,7 +79,7 @@ class Baseballbot
         def no_hitter_pitchers
           no_hitter_team = @game_thread.boxscore.dig('teams', no_hitter_flag)
 
-          no_hitter_team['pitchers'].map { player_name(no_hitter_team.dig('players', "ID#{_1}")) }
+          no_hitter_team['pitchers'].map { player_name(no_hitter_team.dig('players', "ID#{it}")) }
         end
       end
     end

@@ -41,14 +41,14 @@ class Baseballbot
 
           def load_series
             @subreddit.bot.api.schedule(type: :postseason)['dates'].each do |date|
-              date['games'].each { process_game(_1) }
+              date['games'].each { process_game(it) }
             end
           end
 
           def postseason_series_tables
             @postseason_series
               .group_by { |series, _| series_name(series) }
-              .transform_values { |matchup_games| matchup_games.map { series_row(_1[1].last) } }
+              .transform_values { |matchup_games| matchup_games.map { series_row(it[1].last) } }
               .sort_by { |series, _| POSTSEASON_SERIES_ORDER.index(series) }
               .map { |series, rows| postseason_series_table(series, rows) }
           end

@@ -37,7 +37,7 @@ class Baseballbot
         def umpires
           @umpires ||= feed
             .dig('liveData', 'boxscore', 'officials')
-            .to_h { [UMPIRE_POSITIONS[_1['officialType']], _1['official']['fullName']] }
+            .to_h { [UMPIRE_POSITIONS[it['officialType']], it['official']['fullName']] }
         end
 
         def venue_name = game_data.dig('venue', 'name')

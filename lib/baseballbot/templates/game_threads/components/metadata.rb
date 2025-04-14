@@ -22,7 +22,7 @@ class Baseballbot
           protected
 
           def umpires_table
-            ump_positions, ump_names = @game_thread.umpires.transform_keys { [_1, :center] }.to_a.transpose
+            ump_positions, ump_names = @game_thread.umpires.transform_keys { [it, :center] }.to_a.transpose
 
             return '' unless ump_positions
 

@@ -25,7 +25,7 @@ class Baseballbot
 
           protected
 
-          def table_rows = highlights.map { ["[#{_1[:blurb]}](#{_1[:hd]})", _1[:duration]] }
+          def table_rows = highlights.map { ["[#{it[:blurb]}](#{it[:hd]})", it[:duration]] }
 
           def highlights
             @highlights ||= (fetch_highlights if @game_thread.started?) || []
@@ -33,8 +33,8 @@ class Baseballbot
 
           def fetch_highlights
             @game_thread.content.dig('highlights', 'highlights', 'items')
-              &.sort_by { _1['date'] }
-              &.map { process_media(_1) }
+              &.sort_by { it['date'] }
+              &.map { process_media(it) }
               &.compact
           end
 
@@ -55,7 +55,7 @@ class Baseballbot
 
           def media_duration(media) = media['duration']&.strip&.gsub(/^00:0?/, '') || ''
 
-          def hd_playback_url(media) = media['playbacks'].find { _1['name'] == 'mp4Avc' }&.dig('url')
+          def hd_playback_url(media) = media['playbacks'].find { it['name'] == 'mp4Avc' }&.dig('url')
 
           def media_team_code(media) = media.dig('image', 'title')&.match(/^\d+([a-z]+)/i)&.captures&.first
         end

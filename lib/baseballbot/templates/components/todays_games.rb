@@ -36,7 +36,7 @@ class Baseballbot
           MARKDOWN
         end
 
-        def to_a = scheduled_games.map { game_hash(_1) }
+        def to_a = scheduled_games.map { game_hash(it) }
 
         protected
 
@@ -71,7 +71,7 @@ class Baseballbot
             raw_status:,
             status: gameday_link(game_status(game), game['gamePk']),
             national: national_status(game)
-          }.tap { mark_winner_and_loser(_1) }
+          }.tap { mark_winner_and_loser(it) }
         end
 
         # The Apple logo doesn't appear correctly on Windows, so just show the text for everything.
@@ -80,8 +80,8 @@ class Baseballbot
         # Postponed games won't have media
         def national_feeds(game)
           (game.dig('content', 'media', 'epg') || [{ 'title' => 'MLBTV', 'items' => [] }])
-            .find { _1['title'] == 'MLBTV' }['items']
-            .filter_map { _1['callLetters'] if _1['mediaFeedType'] == 'NATIONAL' }
+            .find { it['title'] == 'MLBTV' }['items']
+            .filter_map { it['callLetters'] if it['mediaFeedType'] == 'NATIONAL' }
         end
 
         def team_data(game, flag, started)

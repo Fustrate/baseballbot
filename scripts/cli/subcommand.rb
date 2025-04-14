@@ -9,7 +9,7 @@ class Subcommand < Thor
   end
 
   def self.subcommand_prefix
-    name.gsub(/.*::/, '').gsub(/^[A-Z]/, &:downcase).gsub(/[A-Z]/) { "_#{_1[0].downcase}" }
+    name.gsub(/.*::/, '').gsub(/^[A-Z]/, &:downcase).gsub(/[A-Z]/) { "_#{it[0].downcase}" }
   end
 
   protected

@@ -12,7 +12,7 @@ class RefreshTokens < DefaultBot
     @account_names = accounts.map(&:downcase)
   end
 
-  def run = accounts.each_value { process_account(_1) }
+  def run = accounts.each_value { process_account(it) }
 
   protected
 

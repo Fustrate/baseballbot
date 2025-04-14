@@ -29,9 +29,9 @@ class Baseballbot
             @scoring_plays ||= @game_thread.started? && @game_thread.feed.plays ? formatted_plays : []
           end
 
-          def table_rows = scoring_plays.map { ["#{_1[:side]}#{_1[:inning]}", _1[:event], event_score(_1)] }
+          def table_rows = scoring_plays.map { ["#{it[:side]}#{it[:inning]}", it[:event], event_score(it)] }
 
-          def formatted_plays = @game_thread.feed.plays['allPlays'].values_at(*scoring_play_ids).map { format_play(_1) }
+          def formatted_plays = @game_thread.feed.plays['allPlays'].values_at(*scoring_play_ids).map { format_play(it) }
 
           def scoring_play_ids = @game_thread.feed.plays['scoringPlays']
 

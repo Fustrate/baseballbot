@@ -24,7 +24,7 @@ class Baseballbot
         protected
 
         def league_table(name)
-          LeagueStandingsTable.new(@subreddit, @all_teams.select { _1.team.dig('league', 'name') == name })
+          LeagueStandingsTable.new(@subreddit, @all_teams.select { it.team.dig('league', 'name') == name })
         end
 
         class LeagueStandingsTable
@@ -44,8 +44,8 @@ class Baseballbot
           # I like them positioned like a map because it makes sense. East coast bias can suck it!
           def to_s
             rows = %w[West Central East].map do |division|
-              @teams.select { _1.team.dig('division', 'name')[division] }
-                .map { "#{team_link(_1)} [#{team_record(_1)}](/r/#{subreddit_name(_1)})" }
+              @teams.select { it.team.dig('division', 'name')[division] }
+                .map { "#{team_link(it)} [#{team_record(it)}](/r/#{subreddit_name(it)})" }
             end.transpose
 
             table(headers: [['West', :center], ['Central', :center], ['East', :center]], rows:)
@@ -97,8 +97,8 @@ class Baseballbot
           # wildcard_rank is different for two teams in the same position
           def mark_wildcards(target, position)
             @teams
-              .select { !_1.division_leader? && _1.league_games_back == target.league_games_back }
-              .each { _1.wildcard_position = position }
+              .select { !it.division_leader? && it.league_games_back == target.league_games_back }
+              .each { it.wildcard_position = position }
               .count
           end
 

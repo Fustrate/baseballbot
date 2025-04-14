@@ -15,7 +15,7 @@ class Baseballbot
 
         protected
 
-        def teams_in_division(division_id) = @all_teams.select { _1.team.dig('division', 'id') == division_id }
+        def teams_in_division(division_id) = @all_teams.select { it.team.dig('division', 'id') == division_id }
 
         # class Table
         #   def initialize(teams, **options)

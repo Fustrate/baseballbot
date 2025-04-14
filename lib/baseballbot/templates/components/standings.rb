@@ -14,7 +14,7 @@ class Baseballbot
 
         # The API returns an empty set if Spring Training hasn't started yet. This is used by the BOS & NYM sidebars.
         def team_stats
-          @team_stats ||= @all_teams.find { _1.team['id'] == @subreddit.team.id } || {}
+          @team_stats ||= @all_teams.find { it.team['id'] == @subreddit.team.id } || {}
         end
 
         def in_draft_order
@@ -25,7 +25,7 @@ class Baseballbot
 
         def load_standings_data
           @all_teams = standings_data['records'].flat_map do |division|
-            division['teamRecords'].map { StandingsTeam.new(_1, @subreddit) }
+            division['teamRecords'].map { StandingsTeam.new(it, @subreddit) }
           end
 
           @all_teams.sort_by!(&:sort_order)
@@ -117,7 +117,7 @@ class Baseballbot
         protected
 
         def records
-          @records ||= @row.dig('records', 'splitRecords').to_h { [_1['type'], [_1['wins'], _1['losses']]] }
+          @records ||= @row.dig('records', 'splitRecords').to_h { [it['type'], [it['wins'], it['losses']]] }
         end
       end
     end

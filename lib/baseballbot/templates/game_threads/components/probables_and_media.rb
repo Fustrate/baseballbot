@@ -33,28 +33,28 @@ class Baseballbot
 
           def tv_feeds(flag)
             television_feeds
-              .select { (flag == :home ? HOME_FEED_TYPES : AWAY_FEED_TYPES).include?(_1['mediaFeedType']) }
-              .map { _1['callLetters'] }
+              .select { (flag == :home ? HOME_FEED_TYPES : AWAY_FEED_TYPES).include?(it['mediaFeedType']) }
+              .map { it['callLetters'] }
               .join(', ')
           end
 
           def radio_feeds(flag)
             audio_feeds
-              .select { (flag == :home ? HOME_FEED_TYPES : AWAY_FEED_TYPES).include?(_1['type']) }
-              .sort_by { _1['language'] == 'en' ? 0 : 1 }
-              .map { _1['language'] == 'en' ? _1['callLetters'] : "#{_1['callLetters']} (#{_1['language'].upcase})" }
+              .select { (flag == :home ? HOME_FEED_TYPES : AWAY_FEED_TYPES).include?(it['type']) }
+              .sort_by { it['language'] == 'en' ? 0 : 1 }
+              .map { it['language'] == 'en' ? it['callLetters'] : "#{it['callLetters']} (#{it['language'].upcase})" }
               .join(', ')
           end
 
           def television_feeds
             @television_feeds ||= @game_thread.content.dig('media', 'epg')
-              &.detect { _1['title'] == 'MLBTV' }
+              &.detect { it['title'] == 'MLBTV' }
               &.fetch('items') || []
           end
 
           def audio_feeds
             @audio_feeds ||= @game_thread.content.dig('media', 'epg')
-              &.detect { _1['title'] == 'Audio' }
+              &.detect { it['title'] == 'Audio' }
               &.fetch('items') || []
           end
 

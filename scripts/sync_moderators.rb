@@ -11,7 +11,7 @@ class SyncModerators < DefaultBot
     @subreddit_names = subreddits.map(&:downcase)
   end
 
-  def run = subreddits.each_value { process_subreddit(_1) }
+  def run = subreddits.each_value { process_subreddit(it) }
 
   protected
 
@@ -37,7 +37,7 @@ class SyncModerators < DefaultBot
 
   def moderator_names
     # This can be filtered on :mod_permissions as well if necessary
-    @subreddit.subreddit.moderators.map { _1[:name].downcase }
+    @subreddit.subreddit.moderators.map { it[:name].downcase }
   end
 
   def reset_moderator_names
@@ -62,19 +62,19 @@ class SyncModerators < DefaultBot
 
   def user_ids_to_remove
     existing_relations[@subreddit.id]
-      .reject { @mod_names.include?(_1['username']) }
-      .map { _1['user_id'].to_i }
+      .reject { @mod_names.include?(it['username']) }
+      .map { it['user_id'].to_i }
   end
 
   def add_modded_users
-    mod_user_ids = db.exec_params(<<~SQL, [@subreddit.id, *@mod_names]).to_a.map { _1['id'] }
+    mod_user_ids = db.exec_params(<<~SQL, [@subreddit.id, *@mod_names]).to_a.map { it['id'] }
       SELECT id
       FROM users
         LEFT JOIN subreddits_users ON (subreddit_id = $1 AND user_id = users.id)
       WHERE user_id IS NULL AND username IN ($#{(2...(2 + @mod_names.length)).to_a.join(', $')})
     SQL
 
-    mod_user_ids.each { add_modded_user(_1) }
+    mod_user_ids.each { add_modded_user(it) }
   end
 
   def add_modded_user(user_id)
@@ -93,7 +93,7 @@ class SyncModerators < DefaultBot
         LEFT JOIN users ON (users.id = user_id)
       SQL
 
-      rows.group_by { _1['subreddit_id'].to_i }.tap { _1.default = [] }
+      rows.group_by { it['subreddit_id'].to_i }.tap { it.default = [] }
     end
   end
 end

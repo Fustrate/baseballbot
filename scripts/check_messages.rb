@@ -10,7 +10,7 @@ class CheckMessages < DefaultBot
   def initialize = super(purpose: 'Messages', account: 'BaseballBot')
 
   def run(retry_on_failure: true)
-    unread_messages.each { process_message(_1) if _1.is_a? Redd::Models::PrivateMessage }
+    unread_messages.each { process_message(it) if it.is_a? Redd::Models::PrivateMessage }
   rescue Redd::Errors::APIError
     return unless retry_on_failure
 

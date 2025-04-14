@@ -18,7 +18,7 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components::SpringStandings do
         "|[][#{team.abbreviation}]|#{team.wins}|#{team.losses}|#{team.percent}|#{team.games_back}|#{team.last_ten}|"
       end
 
-      expect(described_class.new(subreddit).map { standings_row(_1) }.join("\n")).to eq(<<~MARKDOWN.strip)
+      expect(described_class.new(subreddit).map { standings_row(it) }.join("\n")).to eq(<<~MARKDOWN.strip)
         |[][LAA]|11|6|.647|-|7-3|
         |[][TEX]|10|6|.625|-|5-4|
         |[][CHC]|11|7|.611|-|7-3|

@@ -144,7 +144,7 @@ class Baseballbot
           end
 
           def build_date_hash(start_date, end_date)
-            start_date.upto(end_date).to_h { [_1.strftime('%F'), { date: _1, games: [] }] }
+            start_date.upto(end_date).to_h { [it.strftime('%F'), { date: it, games: [] }] }
           end
 
           def calendar_dates(start_date, end_date)
@@ -220,7 +220,7 @@ class Baseballbot
             return '' unless @data['broadcasts']
 
             @tv_stations ||= @data['broadcasts']
-              .filter_map { _1['callSign'] if _1['type'] == 'TV' && _1['language'] == 'en' && _1['homeAway'] == flag }
+              .filter_map { it['callSign'] if it['type'] == 'TV' && it['language'] == 'en' && it['homeAway'] == flag }
               .join(', ')
           end
 

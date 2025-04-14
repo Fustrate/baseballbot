@@ -61,7 +61,7 @@ class Baseballbot
 
       return posted_game_threads if names.include?('posted')
 
-      active_game_threads.select { names.empty? || names.include?(_1['name'].downcase) }
+      active_game_threads.select { names.empty? || names.include?(it['name'].downcase) }
     end
 
     def active_game_threads = db.exec(ACTIVE_GAME_THREADS_QUERY)
@@ -72,7 +72,7 @@ class Baseballbot
       names = names.map(&:downcase)
 
       db.exec(UNPOSTED_GAME_THREADS_QUERY)
-        .select { names.empty? || names.include?(_1['name'].downcase) }
+        .select { names.empty? || names.include?(it['name'].downcase) }
     end
   end
 end

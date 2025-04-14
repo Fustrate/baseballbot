@@ -27,7 +27,7 @@ module WebmockHelpers
   def stub_requests!(with_response: false)
     return WebMock.stub_request(:any, /mlb(?:infra)?\.com/) unless with_response
 
-    WebMock.stub_request(:any, /mlb(?:infra)?\.com/).to_return { stubbed_get_response(_1) }
+    WebMock.stub_request(:any, /mlb(?:infra)?\.com/).to_return { stubbed_get_response(it) }
   end
 
   def underscore_query(query)

@@ -24,7 +24,7 @@ class Baseballbot
 
           protected
 
-          def table_headers = [' ', *[*line_score_inning_numbers, 'R', 'H', 'E', 'LOB'].map { [_1, :center] }]
+          def table_headers = [' ', *[*line_score_inning_numbers, 'R', 'H', 'E', 'LOB'].map { [it, :center] }]
 
           def table_rows = [line_score_team(:away), line_score_team(:home)]
 
@@ -47,7 +47,7 @@ class Baseballbot
           def team_inning_scores(flag) = [*played_inning_runs(flag), *([' '] * 9)].first(innings)
 
           def played_inning_runs(flag)
-            @game_thread.linescore['innings'].sort_by { _1['num'] }.map { _1.dig(flag, 'runs') }
+            @game_thread.linescore['innings'].sort_by { it['num'] }.map { it.dig(flag, 'runs') }
           end
 
           def innings = [9, @game_thread.linescore['innings'].count].max
@@ -77,11 +77,11 @@ class Baseballbot
           def lob(flag)
             return '-' unless @game_thread.started?
 
-            batting_info = @game_thread.boxscore.dig('teams', flag.to_s, 'info')&.find { _1['title'] == 'BATTING' }
+            batting_info = @game_thread.boxscore.dig('teams', flag.to_s, 'info')&.find { it['title'] == 'BATTING' }
 
             return '-' unless batting_info
 
-            lob_info = batting_info['fieldList'].find { _1['label'] == 'Team LOB' }
+            lob_info = batting_info['fieldList'].find { it['label'] == 'Team LOB' }
 
             lob_info ? lob_info['value'].to_i : 0
           end

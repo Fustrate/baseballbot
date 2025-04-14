@@ -7,7 +7,7 @@ require 'fileutils'
 require 'mock_redis'
 require 'mustache'
 
-Dir.glob(File.join(__dir__, 'support/*.rb')).each { require_relative _1 }
+Dir.glob(File.join(__dir__, 'support/*.rb')).each { require_relative it }
 
 ENV['BASEBALLBOT_PG_DATABASE'] = "#{ENV.fetch('BASEBALLBOT_PG_DATABASE')}_test"
 
