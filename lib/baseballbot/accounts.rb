@@ -4,12 +4,12 @@ class Baseballbot
   module Accounts
     attr_reader :accounts, :current_account
 
-    def with_reddit_account(name)
+    def with_reddit_account(name, &)
       tries ||= 0
 
       use_account(name)
 
-      yield
+      Honeybadger.context(account_name: name, &)
     rescue Redd::Errors::InvalidAccess
       refresh_access!
 
