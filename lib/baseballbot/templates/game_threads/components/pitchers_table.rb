@@ -40,14 +40,14 @@ class Baseballbot
             end
           end
 
-          def table_header = ["**#{@team.code}**", *(@stats.map { [it.to_s.upcase, :center] })]
+          def table_header = ["**#{@team.code}**", *@stats.map { [it.to_s.upcase, :center] }]
 
           def pitcher_row(pitcher)
             game = game_stats(pitcher)['pitching']
 
             title = starting_pitcher?(pitcher) ? "Game Score: #{tom_tango_game_score(game)}" : nil
 
-            [player_link(pitcher, title:), *(@stats.map { PITCHER_COLUMNS[it].call(pitcher, game) })]
+            [player_link(pitcher, title:), *@stats.map { PITCHER_COLUMNS[it].call(pitcher, game) }]
           end
 
           def starting_pitcher?(pitcher)

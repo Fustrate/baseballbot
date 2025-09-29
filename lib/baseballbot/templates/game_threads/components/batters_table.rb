@@ -41,7 +41,7 @@ class Baseballbot
               .sort_by { batting_order(it) }
           end
 
-          def table_header = ["**#{@team.code}**", ' ', *(@stats.map { [it.to_s.upcase, :center] })]
+          def table_header = ["**#{@team.code}**", ' ', *@stats.map { [it.to_s.upcase, :center] }]
 
           def batter_row(batter)
             # Batting order shows as [1-9]00 for the starter, and adds 1 for each substitution (e.g. 400 -> 401 -> 402)

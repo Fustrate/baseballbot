@@ -70,8 +70,8 @@ class Baseballbot
             qualifying = load_stats(group: 'hitting', year:, type:, pool: 'QUALIFIED')
 
             {
-              **(%w[h xbh hr rbi bb sb r].to_h { [it, list_of(it, all_hitters, :desc, count, :integer)] }),
-              **(%w[avg obp slg ops].to_h { [it, list_of(it, qualifying, :desc, count, :float)] })
+              **%w[h xbh hr rbi bb sb r].to_h { [it, list_of(it, all_hitters, :desc, count, :integer)] },
+              **%w[avg obp slg ops].to_h { [it, list_of(it, qualifying, :desc, count, :float)] }
             }
           end
 
@@ -81,8 +81,8 @@ class Baseballbot
 
             {
               'ip' => list_of('ip', all_pitchers, :desc, count),
-              **(%w[w sv hld so].to_h { [it, list_of(it, all_pitchers, :desc, count, :integer)] }),
-              **(%w[whip era avg].to_h { [it, list_of(it, qualifying, :asc, count, :float)] })
+              **%w[w sv hld so].to_h { [it, list_of(it, all_pitchers, :desc, count, :integer)] },
+              **%w[whip era avg].to_h { [it, list_of(it, qualifying, :asc, count, :float)] }
             }
           end
 

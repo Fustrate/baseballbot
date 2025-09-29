@@ -26,7 +26,7 @@ class FlairBot < DefaultBot
   protected
 
   def load_flair_page(after:)
-    puts "Loading flairs#{after ? " after #{after}" : ''}"
+    puts "Loading flairs#{" after #{after}" if after}"
 
     response = client.get("/r/#{@name}/api/flairlist", after:, limit: 1000).body
 

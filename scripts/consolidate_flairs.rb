@@ -18,7 +18,7 @@ class ConsolidateFlairs < DefaultBot
   protected
 
   def load_flairs(after: nil)
-    puts "Loading flairs#{after ? " after #{after}" : ''}"
+    puts "Loading flairs#{" after #{after}" if after}"
 
     res = client.get('/r/baseball/api/flairlist', after:, limit: 1000).body
 
