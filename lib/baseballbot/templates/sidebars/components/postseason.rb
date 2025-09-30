@@ -18,7 +18,8 @@ class Baseballbot
 
           POSTSEASON_SERIES_ORDER = [
             'World Series', 'AL Championship Series', 'NL Championship Series', 'AL Division Series',
-            'NL Division Series', 'AL Wild Card', 'NL Wild Card'
+            'NL Division Series', "AL Wild Card 'A'", "NL Wild Card 'A'", "AL Wild Card 'B'", "NL Wild Card 'B'",
+            'AL Wild Card', 'NL Wild Card'
           ].freeze
 
           def initialize(subreddit)
