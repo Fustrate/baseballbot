@@ -73,6 +73,8 @@ class Baseballbot
 
         def division_leader? = @row['divisionLeader']
 
+        def division_rank = @row['divisionRank']
+
         def elim = @row['eliminationNumber']
 
         def games_back = @row['divisionGamesBack'].gsub(/\.0$/, '')
@@ -110,6 +112,7 @@ class Baseballbot
             1.0 - @row['leagueRecord']['pct'].to_f,
             162 - wins,
             losses,
+            @row['divisionRank'].to_i,
             abbreviation
           ]
         end
