@@ -8,18 +8,17 @@ class Baseballbot
           include MarkdownHelpers
 
           POSTSEASON_SERIES_NAMES = {
-            'AL Wild Card Series' => 'AL Wild Card',
+            'AL Wild Card' => 'AL Wild Card',
             'ALCS' => 'AL Championship Series',
             'ALDS' => 'AL Division Series',
-            'NL Wild Card Series' => 'NL Wild Card',
+            'NL Wild Card' => 'NL Wild Card',
             'NLCS' => 'NL Championship Series',
             'NLDS' => 'NL Division Series'
           }.freeze
 
           POSTSEASON_SERIES_ORDER = [
             'World Series', 'AL Championship Series', 'NL Championship Series', 'AL Division Series',
-            'NL Division Series', "AL Wild Card 'A'", "NL Wild Card 'A'", "AL Wild Card 'B'", "NL Wild Card 'B'",
-            'AL Wild Card', 'NL Wild Card'
+            'NL Division Series', 'AL Wild Card', 'NL Wild Card'
           ].freeze
 
           def initialize(subreddit)
@@ -85,7 +84,7 @@ class Baseballbot
           def series_name(series)
             return 'World Series' if series.start_with?('World Series')
 
-            POSTSEASON_SERIES_NAMES[series.split('-').first.strip.gsub(/ '[AB]'\z/, '')]
+            POSTSEASON_SERIES_NAMES[series.split('-').first.strip.gsub(/ '[AB]'\z/, '')] || series.split('-').first
           end
 
           def process_game(game)
