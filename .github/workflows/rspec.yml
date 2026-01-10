@@ -17,21 +17,20 @@ env:
 
 jobs:
   test:
-    # services:
-    #   postgres:
-    #     image: postgres:latest
-    #     env:
-    #       POSTGRES_DB: $BASEBALLBOT_PG_DATABASE
-    #       POSTGRES_PASSWORD: $BASEBALLBOT_PG_PASSWORD
-    #       POSTGRES_PORT: 5432
-    #       POSTGRES_USER: $BASEBALLBOT_PG_USERNAME
-    #     ports:
-    #       - 5432:5432
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: baseballbot_test
+          POSTGRES_PASSWORD: password
+          POSTGRES_USER: baseballbot
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     strategy:
       fail-fast: false
@@ -41,16 +40,6 @@ jobs:
 
     runs-on: ${{ matrix.os }}-latest
     continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' }}
-
-    # - name: Install PostgreSQL client
-    #   run: |
-    #     apt-get update
-    #     apt-get install --yes postgresql-client
-
-    # - name: Restore database data
-    #   run: |
-    #     sudo -u postgres pg_restore --create --clean -d $BASEBALLBOT_PG_DATABASE --verbose < database.sql
-    #   working-directory: spec
 
     steps:
     - uses: actions/checkout@v3
@@ -63,6 +52,9 @@ jobs:
 
     - name: Install dependencies
       run: bundle install
+
+    - name: Set up database
+      run: PGPASSWORD=password psql -h localhost -U baseballbot -d baseballbot_test -f spec/database.sql
 
     - name: Run tests
       run:  bundle exec rake
