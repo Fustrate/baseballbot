@@ -47,6 +47,7 @@ class Baseballbot
 
   def db
     @db ||= PG::Connection.new(
+      host: ENV.fetch('BASEBALLBOT_PG_HOST', nil),
       user: ENV.fetch('BASEBALLBOT_PG_USERNAME'),
       dbname: ENV.fetch('BASEBALLBOT_PG_DATABASE'),
       password: ENV.fetch('BASEBALLBOT_PG_PASSWORD')

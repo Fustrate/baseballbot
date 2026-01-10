@@ -7,6 +7,7 @@ Sequel.extension :pg_json_ops
 # Connect to the database immediately so that model classes can be created.
 DB = Sequel.connect(
   adapter: :postgres,
+  host: ENV.fetch('BASEBALLBOT_PG_HOST', nil),
   database: ENV.fetch('BASEBALLBOT_PG_DATABASE'),
   password: ENV.fetch('BASEBALLBOT_PG_PASSWORD'),
   user: ENV.fetch('BASEBALLBOT_PG_USERNAME')
