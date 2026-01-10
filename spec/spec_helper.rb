@@ -9,8 +9,6 @@ require 'mustache'
 
 Dir.glob(File.join(__dir__, 'support/*.rb')).each { require_relative it }
 
-ENV['BASEBALLBOT_PG_DATABASE'] = "#{ENV.fetch('BASEBALLBOT_PG_DATABASE')}_test"
-
 require_relative '../lib/baseballbot'
 
 class Baseballbot
