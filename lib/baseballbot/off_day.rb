@@ -48,8 +48,8 @@ class Baseballbot
         sportId: 1,
         teamId: subreddit.team.id,
         date:,
-        eventTypes: 'primary',
-        scheduleTypes: 'games'
+        calendarTypes: 'PRIMARY',
+        scheduleTypes: 'GAMESCHEDULE'
       )['totalGames'].zero?
     end
   end

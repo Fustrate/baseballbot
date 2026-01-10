@@ -79,8 +79,8 @@ class GameThreadLoader < DefaultBot
     api.schedule(
       startDate: @date.strftime('%F'),
       endDate: (@date + 30).strftime('%F'),
-      eventTypes: 'primary',
-      scheduleTypes: 'games',
+      calendarTypes: 'PRIMARY',
+      scheduleTypes: 'GAMESCHEDULE',
       hydrate: 'team,game(content(media(epg))),broadcasts(all)',
       gameType: 'R,S'
     )

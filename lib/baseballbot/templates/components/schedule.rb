@@ -153,8 +153,8 @@ class Baseballbot
               startDate: start_date.strftime('%m/%d/%Y'),
               endDate: end_date.strftime('%m/%d/%Y'),
               sportId: 1,
-              eventTypes: 'primary',
-              scheduleTypes: 'games',
+              eventTypes: 'PRIMARY',
+              scheduleTypes: 'GAMESCHEDULE',
               hydrate: SCHEDULE_HYDRATION
             )['dates']
           end
