@@ -11,7 +11,7 @@ class FlairBot < DefaultBot
 
     @name = subreddit
 
-    use_account name_to_subreddit(subreddit).account.name
+    use_bot name_to_subreddit(subreddit).bot.name
 
     @updates = []
   end

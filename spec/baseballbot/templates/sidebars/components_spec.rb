@@ -15,7 +15,7 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components do
     Baseballbot::Subreddit.new(
       { 'name' => 'dodgers', 'team_code' => 'LAD', 'team_id' => 119, 'options' => '{}' },
       bot:,
-      account: (Baseballbot::Account.new bot:, name: 'RSpecTestBot', access: '')
+      bot_account: Baseballbot::Bot.new(bot:, name: 'RSpecTestBot', access: '')
     )
   end
 

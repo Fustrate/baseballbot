@@ -2,7 +2,7 @@
 
 class Baseballbot
   module Models
-    class Account < Sequel::Model(:accounts)
+    class Bot < Sequel::Model(:bots)
       one_to_many :subreddits
 
       def access

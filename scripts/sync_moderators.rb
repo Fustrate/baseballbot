@@ -6,7 +6,7 @@ class SyncModerators < DefaultBot
   def initialize(subreddits: [])
     super(purpose: 'Sync Moderators')
 
-    use_account 'BaseballBot'
+    use_bot 'BaseballBot'
 
     @subreddit_names = subreddits.map(&:downcase)
   end

@@ -6,13 +6,13 @@ require 'fileutils'
 
 # The bare basics of most of these scripts
 class DefaultBot < Baseballbot
-  def initialize(purpose: nil, account: nil)
+  def initialize(purpose: nil, bot: nil)
     super(
       user_agent: ['Baseballbot by /u/Fustrate', purpose].compact.join(' - '),
       logger: Logger.new(log_location)
     )
 
-    use_account(account) if account
+    use_bot(bot) if bot
   end
 
   protected

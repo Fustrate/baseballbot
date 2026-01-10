@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Baseballbot
-  class Account
+  class Bot
     attr_reader :access, :name
 
     def initialize(bot:, name:, access:)

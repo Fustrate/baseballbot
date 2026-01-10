@@ -14,7 +14,7 @@ class Baseballbot
       protected
 
       def post_thread!
-        bot.with_reddit_account(@subreddit.account.name) do
+        bot.with_reddit_bot(@subreddit.bot.name) do
           @submission = @subreddit.submit(
             title: template.formatted_title,
             text: template.evaluated_body,

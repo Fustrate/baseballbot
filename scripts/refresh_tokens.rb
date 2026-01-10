@@ -29,7 +29,7 @@ class RefreshTokens < DefaultBot
   def refresh!(account_name)
     puts "Refreshing #{account_name}"
 
-    use_account account_name
+    use_bot account_name
   rescue Redd::Errors::APIError => e
     puts "\tError: #{e.class}"
   end

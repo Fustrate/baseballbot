@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class Baseballbot
-  module Accounts
-    attr_reader :accounts, :current_account
+  module Bots
+    attr_reader :bots, :current_bot
 
-    def with_reddit_account(name, &)
+    def with_reddit_bot(bot_name, &)
       tries ||= 0
 
-      use_account(name)
+      use_bot(bot_name)
 
-      Honeybadger.context(account_name: name, &)
+      Honeybadger.context(bot_name:, &)
     rescue Redd::Errors::InvalidAccess
       refresh_access!
 
@@ -17,14 +17,14 @@ class Baseballbot
       retry if (tries += 1) < 1
     end
 
-    def use_account(name)
-      unless @current_account&.name == name
-        @current_account = accounts.values.find { it.name == name }
+    def use_bot(bot_name)
+      unless @current_bot&.name == bot_name
+        @current_bot = bots.values.find { it.name == bot_name }
 
-        client.access = @current_account.access
+        client.access = @current_bot.access
       end
 
-      refresh_access! if @current_account.access.expired?
+      refresh_access! if @current_bot.access.expired?
     end
 
     def refresh_access!
@@ -43,7 +43,7 @@ class Baseballbot
 
     def update_token_expiration!(new_expiration)
       db.exec_params(
-        'UPDATE accounts SET access_token = $1, expires_at = $2 WHERE refresh_token = $3',
+        'UPDATE bots SET access_token = $1, expires_at = $2 WHERE refresh_token = $3',
         [
           client.access.access_token,
           new_expiration.strftime('%F %T'),
@@ -52,9 +52,9 @@ class Baseballbot
       )
     end
 
-    def load_accounts = db.exec('SELECT * FROM accounts').to_h { [it['id'], process_account_row(it)] }
+    def load_bots = db.exec('SELECT * FROM bots').to_h { [it['id'], process_bot_row(it)] }
 
-    def process_account_row(row) = Account.new(bot: self, name: row['name'], access: account_access(row))
+    def process_bot_row(row) = Bot.new(bot: self, name: row['name'], access: account_access(row))
 
     def account_access(row)
       expires_at = Time.parse row['expires_at']

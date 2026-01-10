@@ -5,7 +5,7 @@ class Baseballbot
     BOT_SUBREDDITS_QUERY = <<~SQL
       SELECT subreddits.*
       FROM subreddits
-      LEFT JOIN accounts ON (account_id = accounts.id)
+      LEFT JOIN bots ON (bot_id = bots.id)
     SQL
 
     # The default subreddits for each team, as used by /r/baseball. These can be overridden on a team-by-team basis
@@ -55,6 +55,6 @@ class Baseballbot
       db.exec(BOT_SUBREDDITS_QUERY).to_h { [it['name'].downcase, process_subreddit_row(it)] }
     end
 
-    def process_subreddit_row(row) = Subreddit.new(row, bot: self, account: accounts[row['account_id']])
+    def process_subreddit_row(row) = Subreddit.new(row, bot: self, bot_account: accounts[row['bot_id']])
   end
 end

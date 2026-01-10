@@ -5,7 +5,7 @@ class Baseballbot
     class Subreddit < Sequel::Model(:subreddits)
       one_to_many :game_threads
       one_to_many :templates
-      many_to_one :account
+      many_to_one :bot
 
       dataset_module do
         def with_sidebar_enabled = where(Sequel.lit("options['sidebar']['enabled']::boolean IS TRUE"))
@@ -28,7 +28,7 @@ class Baseballbot
       end
 
       # If the bot isn't a moderator of the subreddit, it can't perform some actions
-      def moderator? = moderators.include?(account.name.downcase)
+      def moderator? = moderators.include?(bot.name.downcase)
 
       def sticky_game_threads? = moderator? && options.dig('game_threads', 'sticky') != false
 

@@ -2,16 +2,16 @@
 
 class Baseballbot
   class Subreddit
-    attr_reader :id, :account, :name, :timezone, :options, :bot
+    attr_reader :id, :bot_account, :name, :timezone, :options, :bot
 
-    def initialize(row, bot:, account:)
+    def initialize(row, bot:, bot_account:)
       @bot = bot
+      @bot_account = bot_account
 
       @id = row['id'].to_i
       @name = row['name']
       @team_id = row['team_id']
       @moderators = row['moderators']
-      @account = account
 
       @submissions = {}
       @options = JSON.parse(row['options'])
@@ -38,7 +38,7 @@ class Baseballbot
     # --------------------------------------------------------------------------
 
     # If the bot isn't a moderator of the subreddit, it can't perform some actions
-    def moderator? = @moderators.include?(account.name.downcase)
+    def moderator? = @moderators.include?(@bot_account.name.downcase)
 
     def sticky_game_threads? = moderator? && @options.dig('game_threads', 'sticky') != false
 
@@ -55,7 +55,7 @@ class Baseballbot
     def settings
       return @settings if @settings
 
-      @bot.with_reddit_account(@account.name) do
+      @bot.with_reddit_bot(@bot_account.name) do
         @settings = subreddit.settings
       end
     end
@@ -66,7 +66,7 @@ class Baseballbot
     def modify_settings(**new_settings)
       raise 'Sidebar is blank.' if new_settings.key?(:description) && new_settings[:description].strip.empty?
 
-      @bot.with_reddit_account(@account.name) do
+      @bot.with_reddit_bot(@bot_account.name) do
         response = subreddit.modify_settings(**new_settings)
 
         log_errors response.body.dig(:json, :errors), new_settings
@@ -85,13 +85,13 @@ class Baseballbot
     #
     # @todo Restore ability to pass captcha
     def submit(title:, text:, flair_id: nil)
-      @bot.with_reddit_account(@account.name) do
+      @bot.with_reddit_bot(@bot_account.name) do
         subreddit.submit title, text:, flair_id:, sendreplies: false
       end
     end
 
     def edit(id:, body: nil)
-      @bot.with_reddit_account(@account.name) do
+      @bot.with_reddit_bot(@bot_account.name) do
         load_submission(id:).edit(body)
       end
     end
@@ -106,7 +106,7 @@ class Baseballbot
     def load_submission(id:)
       return @submissions[id] if @submissions[id]
 
-      @bot.with_reddit_account(@account.name) do
+      @bot.with_reddit_bot(@bot_account.name) do
         submission = @bot.session.from_ids("t3_#{id}")&.first
 
         raise "Unable to load post #{id}." unless submission

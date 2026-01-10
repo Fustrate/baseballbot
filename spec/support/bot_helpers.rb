@@ -15,7 +15,7 @@ module BotHelpers
     @default_subreddit ||= Baseballbot::Subreddit.new(
       { 'name' => 'dodgers', 'team_code' => 'LAD', 'team_id' => 119, 'options' => '{}' },
       bot: default_bot,
-      account: (Baseballbot::Account.new bot: default_bot, name: 'RSpecTestBot', access: '')
+      bot_account: Baseballbot::Bot.new(bot: default_bot, name: 'RSpecTestBot', access: '')
     )
   end
 

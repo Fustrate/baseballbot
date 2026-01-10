@@ -11,7 +11,7 @@ SLACK_HOOK_ID = ENV.fetch('DODGERS_SLACK_HOOK_ID')
 
 class ModQueueSlack < DefaultBot
   def initialize
-    super(purpose: 'Mod Queue', account: 'DodgerBot')
+    super(purpose: 'Mod Queue', bot: 'DodgerBot')
 
     @subreddit = session.subreddit('Dodgers')
 

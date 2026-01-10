@@ -7,7 +7,7 @@ class CheckMessages < DefaultBot
   LINK = %r{(?:redd\.it|/comments|reddit\.com)/([a-z0-9]{7})}i
   GAME_PK = %r{(?:gamePk=|gameday/)(\d{6,})}i
 
-  def initialize = super(purpose: 'Messages', account: 'BaseballBot')
+  def initialize = super(purpose: 'Messages', bot: 'BaseballBot')
 
   def run(retry_on_failure: true)
     unread_messages.each { process_message(it) if it.is_a? Redd::Models::PrivateMessage }

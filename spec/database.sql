@@ -35,10 +35,10 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: accounts; Type: TABLE; Schema: public; Owner: baseballbot
+-- Name: bots; Type: TABLE; Schema: public; Owner: baseballbot
 --
 
-CREATE TABLE public.accounts (
+CREATE TABLE public.bots (
     id integer NOT NULL,
     name character varying,
     access_token character varying,
@@ -48,13 +48,13 @@ CREATE TABLE public.accounts (
 );
 
 
-ALTER TABLE public.accounts OWNER TO baseballbot;
+ALTER TABLE public.bots OWNER TO baseballbot;
 
 --
--- Name: accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: baseballbot
+-- Name: bots_id_seq; Type: SEQUENCE; Schema: public; Owner: baseballbot
 --
 
-CREATE SEQUENCE public.accounts_id_seq
+CREATE SEQUENCE public.bots_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -63,13 +63,13 @@ CREATE SEQUENCE public.accounts_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.accounts_id_seq OWNER TO baseballbot;
+ALTER TABLE public.bots_id_seq OWNER TO baseballbot;
 
 --
--- Name: accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
+-- Name: bots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
 --
 
-ALTER SEQUENCE public.accounts_id_seq OWNED BY public.accounts.id;
+ALTER SEQUENCE public.bots_id_seq OWNED BY public.bots.id;
 
 
 --
@@ -309,7 +309,7 @@ CREATE TABLE public.subreddits (
     id integer NOT NULL,
     name character varying,
     team_code character varying,
-    account_id integer,
+    bot_id integer,
     options jsonb,
     team_id integer,
     slack_id character varying,
@@ -471,10 +471,10 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: accounts id; Type: DEFAULT; Schema: public; Owner: baseballbot
+-- Name: bots id; Type: DEFAULT; Schema: public; Owner: baseballbot
 --
 
-ALTER TABLE ONLY public.accounts ALTER COLUMN id SET DEFAULT nextval('public.accounts_id_seq'::regclass);
+ALTER TABLE ONLY public.bots ALTER COLUMN id SET DEFAULT nextval('public.bots_id_seq'::regclass);
 
 
 --
@@ -541,10 +541,10 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- Data for Name: accounts; Type: TABLE DATA; Schema: public; Owner: baseballbot
+-- Data for Name: bots; Type: TABLE DATA; Schema: public; Owner: baseballbot
 --
 
-COPY public.accounts (id, name, access_token, refresh_token, scope, expires_at) FROM stdin;
+COPY public.bots (id, name, access_token, refresh_token, scope, expires_at) FROM stdin;
 1	BaseballBot	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread,flair}	2025-12-31 13:59:59
 2	DodgerBot	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread,flair}	2025-12-31 23:59:59
 3	sfgbot	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread}	2025-12-31 23:59:59
@@ -592,7 +592,7 @@ COPY public.game_threads (id, post_at, starts_at, status, title, post_id, create
 -- Data for Name: subreddits; Type: TABLE DATA; Schema: public; Owner: baseballbot
 --
 
-COPY public.subreddits (id, name, team_code, account_id, options, team_id, slack_id, moderators) FROM stdin;
+COPY public.subreddits (id, name, team_code, bot_id, options, team_id, slack_id, moderators) FROM stdin;
 1	dodgers	LAD	2	{"sidebar": {"enabled": true}, "postgame": {"title": {"default": "Postgame Thread ⚾ %<away_name>s %<away_runs>s @ %<home_name>s %<home_runs>s"}, "enabled": true, "flair_id": {"won": "4dc1dd68-cb69-11e2-a81b-12313d14782d", "lost": "50e93978-cb69-11e2-8793-12313d14782d"}}, "timezone": "America/Los_Angeles", "game_threads": {"title": {"default": "Game Chat %-m/%-d - %<away_name>s (%<away_record>s) @ %<home_name>s (%<home_record>s) %<start_time>s", "postseason": "Game Chat %-m/%-d - %<series_game>s - %<away_name>s (%<away_wins>d) @ %<home_name>s (%<home_wins>d) %<start_time>s"}, "enabled": true, "post_at": "-1", "flair_id": {"default": "19b177de-0766-11e3-ab63-12313b08e221"}}}	119	T0TQRUB6J	{Fustrate}
 2	sfgiants	SF	3	{"sidebar": {"enabled": true}, "postgame": {"title": {"default": "POSTGAME THREAD: %<away_name>s @ %<home_name>s, %-m/%-d. Join the Giants game / baseball discussion and social thread!", "postseason": "POSTGAME THREAD: %<series_game>s - %<away_name>s @ %<home_name>s, %-m/%-d. Join the Giants game / baseball discussion and social thread!"}, "enabled": true}, "timezone": "America/Los_Angeles", "game_threads": {"title": {"default": "Gameday Thread %-m/%-d/%y %<away_name>s (%<away_pitcher>s) @ %<home_name>s (%<home_pitcher>s) %<start_time>s", "postseason": "Gameday Thread %-m/%-d/%y - %<series_game>s - %<away_name>s (%<away_pitcher>s) @ %<home_name>s (%<home_pitcher>s) %<start_time>s"}, "enabled": true, "post_at": "4am"}}	137	\N	{}
 3	texasrangers	TEX	4	{"sidebar": {"enabled": true}, "timezone": "America/Chicago", "game_threads": {"title": {"default": "Game Chat: %-m/%-d %<away_name>s (%<away_record>s) @ %<home_name>s (%<home_record>s) %<start_time>s"}, "enabled": true, "post_at": "-12", "flair_id": {"won": "051fb5f6-a339-11e2-951f-12313d164929", "lost": "55f74ba8-a337-11e2-8e9c-12313d1841d1", "default": "468158ca-b431-11e2-afa3-12313d169640"}}}	140	\N	{}
@@ -638,10 +638,10 @@ COPY public.system_users (id, username, description, created_at, updated_at) FRO
 
 
 --
--- Name: accounts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
+-- Name: bots_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
 --
 
-SELECT pg_catalog.setval('public.accounts_id_seq', 31, false);
+SELECT pg_catalog.setval('public.bots_id_seq', 31, false);
 
 
 --
@@ -666,11 +666,11 @@ SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 
 --
--- Name: accounts accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: baseballbot
+-- Name: bots bots_pkey; Type: CONSTRAINT; Schema: public; Owner: baseballbot
 --
 
-ALTER TABLE ONLY public.accounts
-    ADD CONSTRAINT accounts_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.bots
+    ADD CONSTRAINT bots_pkey PRIMARY KEY (id);
 
 
 --
@@ -850,7 +850,7 @@ CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (usernam
 --
 
 ALTER TABLE ONLY public.subreddits
-    ADD CONSTRAINT fk_rails_5c51af90f1 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+    ADD CONSTRAINT fk_rails_5c51af90f1 FOREIGN KEY (bot_id) REFERENCES public.bots(id);
 
 
 --

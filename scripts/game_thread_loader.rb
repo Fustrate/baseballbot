@@ -25,7 +25,7 @@ class GameThreadLoader < DefaultBot
   SQL
 
   def initialize(date: nil, subreddits: [])
-    super(purpose: 'Game Thread Loader', account: 'BaseballBot')
+    super(purpose: 'Game Thread Loader', bot: 'BaseballBot')
 
     @created = @updated = 0
     @date = date || Date.today

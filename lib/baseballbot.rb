@@ -19,7 +19,7 @@ loader.setup
 class Baseballbot
   include Database
 
-  include Accounts
+  include Bots
   include GameThreads
   include OffDay
   include Pregames
@@ -76,8 +76,8 @@ class Baseballbot
 
   def inspect = %(#<#{self.class.name}>)
 
-  def accounts
-    @accounts ||= load_accounts
+  def bots
+    @bots ||= load_bots
   end
 
   def subreddits
