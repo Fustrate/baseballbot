@@ -49,7 +49,7 @@ class Baseballbot
             @postseason_series
               .group_by { |series, _| series_name(series) }
               .transform_values { |matchup_games| matchup_games.map { series_row(it[1].last) } }
-              .sort_by { |series, _| POSTSEASON_SERIES_ORDER.index(series) }
+              .sort_by { |series, _| POSTSEASON_SERIES_ORDER.index(series) || 99 }
               .map { |series, rows| postseason_series_table(series, rows) }
           end
 

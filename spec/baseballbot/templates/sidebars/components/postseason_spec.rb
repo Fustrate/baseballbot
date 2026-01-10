@@ -22,13 +22,13 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components::Postseason do
         |[Braves][ATL]|0-1|[Phillies][PHI]|
         |[Dodgers][LAD]|0-1|[D-backs][AZ]|
 
-        ## AL Wild Card
+        ## AL Wild Card Series
         | | | |
         |:-:|:-:|:-:|
         |[Rangers][TEX]|**2**-0|[Rays][TB]|
         |[Blue Jays][TOR]|0-**2**|[Twins][MIN]|
 
-        ## NL Wild Card
+        ## NL Wild Card Series
         | | | |
         |:-:|:-:|:-:|
         |[D-backs][AZ]|**2**-0|[Brewers][MIL]|

@@ -56,7 +56,7 @@ RSpec.describe AroundTheHorn do
   #     |[][SEA]|**8**|[][SD]|*2*|[F](https://www.mlb.com/gameday/662270)| |
   #     |[][STL]|*3*|[][ATL]|**6**|[F](https://www.mlb.com/gameday/661511)| |
   #     |[][MIN]|**6**|[][CWS]|*3*|[F/10](https://www.mlb.com/gameday/661452)| |
-  #     |[][TOR]|*1*|[][OAK]|**5**|[F](https://www.mlb.com/gameday/662355)| |
+  #     |[][TOR]|*1*|[][ATH]|**5**|[F](https://www.mlb.com/gameday/662355)| |
   #     |[][COL]|*3*|[][LAD]|**5**|[F](https://www.mlb.com/gameday/662732)| |
   #
   #     ^(★)Game Thread. All game times are Eastern. [Updated](https://baseballbot.io) 7/4 at 5:28 AM

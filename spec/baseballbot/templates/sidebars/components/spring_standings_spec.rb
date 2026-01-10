@@ -33,7 +33,7 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components::SpringStandings do
         |[][SD]|7|9|.438|-|5-5|
         |[][CLE]|7|12|.368|-|2-8|
         |[][LAD]|5|9|.357|-|4-6|
-        |[][OAK]|5|10|.333|-|3-5|
+        |[][ATH]|5|10|.333|-|3-5|
       MARKDOWN
     end
   end
