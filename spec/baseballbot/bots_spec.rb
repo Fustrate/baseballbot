@@ -278,13 +278,6 @@ RSpec.describe Baseballbot::Bots do
       bot.with_reddit_bot(bot_name) { 'test' }
     end
 
-    it 'executes the block' do
-      result = nil
-      bot.with_reddit_bot(bot_name) { result = 'executed' }
-
-      expect(result).to eq('executed')
-    end
-
     it 'returns the result of the block' do
       result = bot.with_reddit_bot(bot_name) { 'return_value' }
 
