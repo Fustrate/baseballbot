@@ -66,7 +66,7 @@ class Baseballbot
       Redd::Models::Access.new(
         access_token: row['access_token'],
         refresh_token: row['refresh_token'],
-        scope: row['scope'][1..-2].split(','),
+        scope: row['scope'][1..-2].split(',').join(' '),
         # Remove 60 seconds so we don't run into invalid credentials
         expires_at: expires_at - 60,
         expires_in: expires_at - Time.now
