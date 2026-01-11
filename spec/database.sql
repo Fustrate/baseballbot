@@ -2,12 +2,15 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.5 (Homebrew)
--- Dumped by pg_dump version 14.5 (Homebrew)
+\restrict erjlnljBPc1z3XPlHH4zcv0y8PMANJgjp8poDtoFhXslMxCmUMcTEXrcTyht0es
+
+-- Dumped from database version 17.7 (Homebrew)
+-- Dumped by pg_dump version 17.7 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -15,6 +18,79 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+ALTER TABLE IF EXISTS ONLY public.subreddits_users DROP CONSTRAINT IF EXISTS fk_rails_ecc7abde1b;
+ALTER TABLE IF EXISTS ONLY public.templates DROP CONSTRAINT IF EXISTS fk_rails_d1983f5278;
+ALTER TABLE IF EXISTS ONLY public.subreddits_users DROP CONSTRAINT IF EXISTS fk_rails_ccb5722fde;
+ALTER TABLE IF EXISTS ONLY public.game_threads DROP CONSTRAINT IF EXISTS fk_rails_73eaa02464;
+ALTER TABLE IF EXISTS ONLY public.scheduled_posts DROP CONSTRAINT IF EXISTS fk_rails_6bce9e4887;
+DROP INDEX IF EXISTS public.index_users_on_username;
+DROP INDEX IF EXISTS public.index_users_on_remember_me_token;
+DROP INDEX IF EXISTS public.index_users_on_last_logout_at_and_last_activity_at;
+DROP INDEX IF EXISTS public.index_subreddits_users_on_user_id;
+DROP INDEX IF EXISTS public.index_subreddits_users_on_subreddit_id;
+DROP INDEX IF EXISTS public.index_game_threads_on_game_pk_subreddit_date_unique;
+DROP INDEX IF EXISTS public.index_game_threads_on_game_pk_subreddit_date_type_unique;
+DROP INDEX IF EXISTS public.index_events_on_user_type_and_user_id;
+DROP INDEX IF EXISTS public.index_events_on_eventable_type_and_eventable_id;
+DROP INDEX IF EXISTS public.index_edits_on_user;
+DROP INDEX IF EXISTS public.index_edits_on_editable;
+DROP INDEX IF EXISTS public.index_bot_actions_on_subject_type_and_subject_id;
+ALTER TABLE IF EXISTS ONLY public.users DROP CONSTRAINT IF EXISTS users_pkey;
+ALTER TABLE IF EXISTS ONLY public.templates DROP CONSTRAINT IF EXISTS templates_pkey;
+ALTER TABLE IF EXISTS ONLY public.system_users DROP CONSTRAINT IF EXISTS system_users_pkey;
+ALTER TABLE IF EXISTS ONLY public.subreddits DROP CONSTRAINT IF EXISTS subreddits_pkey;
+ALTER TABLE IF EXISTS ONLY public.schema_migrations DROP CONSTRAINT IF EXISTS schema_migrations_pkey;
+ALTER TABLE IF EXISTS ONLY public.scheduled_posts DROP CONSTRAINT IF EXISTS scheduled_posts_pkey;
+ALTER TABLE IF EXISTS ONLY public.game_threads DROP CONSTRAINT IF EXISTS game_threads_pkey;
+ALTER TABLE IF EXISTS ONLY public.events DROP CONSTRAINT IF EXISTS events_pkey;
+ALTER TABLE IF EXISTS ONLY public.edits DROP CONSTRAINT IF EXISTS edits_pkey;
+ALTER TABLE IF EXISTS ONLY public.bots DROP CONSTRAINT IF EXISTS bots_pkey;
+ALTER TABLE IF EXISTS ONLY public.bot_actions DROP CONSTRAINT IF EXISTS bot_actions_pkey;
+ALTER TABLE IF EXISTS ONLY public.ar_internal_metadata DROP CONSTRAINT IF EXISTS ar_internal_metadata_pkey;
+ALTER TABLE IF EXISTS public.users ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.templates ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.system_users ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.subreddits ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.scheduled_posts ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.game_threads ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.events ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.edits ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.bots ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.bot_actions ALTER COLUMN id DROP DEFAULT;
+DROP SEQUENCE IF EXISTS public.users_id_seq;
+DROP TABLE IF EXISTS public.users;
+DROP SEQUENCE IF EXISTS public.templates_id_seq;
+DROP TABLE IF EXISTS public.templates;
+DROP SEQUENCE IF EXISTS public.system_users_id_seq;
+DROP TABLE IF EXISTS public.system_users;
+DROP TABLE IF EXISTS public.subreddits_users;
+DROP SEQUENCE IF EXISTS public.subreddits_id_seq;
+DROP TABLE IF EXISTS public.subreddits;
+DROP TABLE IF EXISTS public.schema_migrations;
+DROP SEQUENCE IF EXISTS public.scheduled_posts_id_seq;
+DROP TABLE IF EXISTS public.scheduled_posts;
+DROP SEQUENCE IF EXISTS public.game_threads_id_seq;
+DROP TABLE IF EXISTS public.game_threads;
+DROP SEQUENCE IF EXISTS public.events_id_seq;
+DROP TABLE IF EXISTS public.events;
+DROP SEQUENCE IF EXISTS public.edits_id_seq;
+DROP TABLE IF EXISTS public.edits;
+DROP SEQUENCE IF EXISTS public.bots_id_seq;
+DROP TABLE IF EXISTS public.bots;
+DROP SEQUENCE IF EXISTS public.bot_actions_id_seq;
+DROP TABLE IF EXISTS public.bot_actions;
+DROP TABLE IF EXISTS public.ar_internal_metadata;
+DROP EXTENSION IF EXISTS citext;
+-- *not* dropping schema, since initdb creates it
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO postgres;
 
 --
 -- Name: citext; Type: EXTENSION; Schema: -; Owner: -
@@ -33,44 +109,6 @@ COMMENT ON EXTENSION citext IS 'data type for case-insensitive character strings
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
-
---
--- Name: bots; Type: TABLE; Schema: public; Owner: baseballbot
---
-
-CREATE TABLE public.bots (
-    id integer NOT NULL,
-    name character varying,
-    access_token character varying,
-    refresh_token character varying,
-    scope character varying[] DEFAULT '{}'::character varying[],
-    expires_at timestamp(6) without time zone
-);
-
-
-ALTER TABLE public.bots OWNER TO baseballbot;
-
---
--- Name: bots_id_seq; Type: SEQUENCE; Schema: public; Owner: baseballbot
---
-
-CREATE SEQUENCE public.bots_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.bots_id_seq OWNER TO baseballbot;
-
---
--- Name: bots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
---
-
-ALTER SEQUENCE public.bots_id_seq OWNED BY public.bots.id;
-
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: baseballbot
@@ -115,13 +153,51 @@ CREATE SEQUENCE public.bot_actions_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.bot_actions_id_seq OWNER TO baseballbot;
+ALTER SEQUENCE public.bot_actions_id_seq OWNER TO baseballbot;
 
 --
 -- Name: bot_actions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
 --
 
 ALTER SEQUENCE public.bot_actions_id_seq OWNED BY public.bot_actions.id;
+
+
+--
+-- Name: bots; Type: TABLE; Schema: public; Owner: baseballbot
+--
+
+CREATE TABLE public.bots (
+    id integer NOT NULL,
+    name character varying,
+    access_token character varying,
+    refresh_token character varying,
+    scope character varying[] DEFAULT '{}'::character varying[],
+    expires_at timestamp(6) without time zone
+);
+
+
+ALTER TABLE public.bots OWNER TO baseballbot;
+
+--
+-- Name: bots_id_seq; Type: SEQUENCE; Schema: public; Owner: baseballbot
+--
+
+CREATE SEQUENCE public.bots_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.bots_id_seq OWNER TO baseballbot;
+
+--
+-- Name: bots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
+--
+
+ALTER SEQUENCE public.bots_id_seq OWNED BY public.bots.id;
 
 
 --
@@ -157,7 +233,7 @@ CREATE SEQUENCE public.edits_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.edits_id_seq OWNER TO baseballbot;
+ALTER SEQUENCE public.edits_id_seq OWNER TO baseballbot;
 
 --
 -- Name: edits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
@@ -198,7 +274,7 @@ CREATE SEQUENCE public.events_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.events_id_seq OWNER TO baseballbot;
+ALTER SEQUENCE public.events_id_seq OWNER TO baseballbot;
 
 --
 -- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
@@ -243,7 +319,7 @@ CREATE SEQUENCE public.game_threads_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.game_threads_id_seq OWNER TO baseballbot;
+ALTER SEQUENCE public.game_threads_id_seq OWNER TO baseballbot;
 
 --
 -- Name: game_threads_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
@@ -281,7 +357,7 @@ CREATE SEQUENCE public.scheduled_posts_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.scheduled_posts_id_seq OWNER TO baseballbot;
+ALTER SEQUENCE public.scheduled_posts_id_seq OWNER TO baseballbot;
 
 --
 -- Name: scheduled_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
@@ -332,7 +408,7 @@ CREATE SEQUENCE public.subreddits_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.subreddits_id_seq OWNER TO baseballbot;
+ALTER SEQUENCE public.subreddits_id_seq OWNER TO baseballbot;
 
 --
 -- Name: subreddits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
@@ -380,7 +456,7 @@ CREATE SEQUENCE public.system_users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.system_users_id_seq OWNER TO baseballbot;
+ALTER SEQUENCE public.system_users_id_seq OWNER TO baseballbot;
 
 --
 -- Name: system_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
@@ -419,7 +495,7 @@ CREATE SEQUENCE public.templates_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.templates_id_seq OWNER TO baseballbot;
+ALTER SEQUENCE public.templates_id_seq OWNER TO baseballbot;
 
 --
 -- Name: templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
@@ -462,7 +538,7 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO baseballbot;
+ALTER SEQUENCE public.users_id_seq OWNER TO baseballbot;
 
 --
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
@@ -472,17 +548,17 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: bots id; Type: DEFAULT; Schema: public; Owner: baseballbot
---
-
-ALTER TABLE ONLY public.bots ALTER COLUMN id SET DEFAULT nextval('public.bots_id_seq'::regclass);
-
-
---
 -- Name: bot_actions id; Type: DEFAULT; Schema: public; Owner: baseballbot
 --
 
 ALTER TABLE ONLY public.bot_actions ALTER COLUMN id SET DEFAULT nextval('public.bot_actions_id_seq'::regclass);
+
+
+--
+-- Name: bots id; Type: DEFAULT; Schema: public; Owner: baseballbot
+--
+
+ALTER TABLE ONLY public.bots ALTER COLUMN id SET DEFAULT nextval('public.bots_id_seq'::regclass);
 
 
 --
@@ -542,6 +618,22 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: baseballbot
+--
+
+COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: bot_actions; Type: TABLE DATA; Schema: public; Owner: baseballbot
+--
+
+COPY public.bot_actions (id, subject_type, subject_id, action, note, data, date) FROM stdin;
+\.
+
+
+--
 -- Data for Name: bots; Type: TABLE DATA; Schema: public; Owner: baseballbot
 --
 
@@ -578,6 +670,22 @@ COPY public.bots (id, name, access_token, refresh_token, scope, expires_at) FROM
 
 
 --
+-- Data for Name: edits; Type: TABLE DATA; Schema: public; Owner: baseballbot
+--
+
+COPY public.edits (id, editable_type, editable_id, user_type, user_id, note, reason, pretty_changes, raw_changes, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: baseballbot
+--
+
+COPY public.events (id, eventable_type, eventable_id, type, note, created_at, updated_at, user_type, user_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: game_threads; Type: TABLE DATA; Schema: public; Owner: baseballbot
 --
 
@@ -586,6 +694,22 @@ COPY public.game_threads (id, post_at, starts_at, status, title, post_id, create
 2	2022-05-17 13:40:00	2022-05-17 15:40:00	Future	\N	\N	2022-05-15 11:16:18.46372	2022-05-15 11:16:18.467421	15	662053	\N	\N	\N
 3	2022-05-15 12:10:00	2022-05-15 13:10:00	Future	\N	\N	2022-05-15 11:17:41.533325	2022-05-15 11:17:41.535708	1	662696	\N	\N	\N
 4	2022-05-15 10:10:00	2022-05-15 11:10:00	Future	Test %<one>d two three	\N	2022-05-15 11:45:47.11991	2022-05-15 11:45:47.124299	24	661732	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: scheduled_posts; Type: TABLE DATA; Schema: public; Owner: baseballbot
+--
+
+COPY public.scheduled_posts (id, next_post_at, title, body, subreddit_id, options) FROM stdin;
+\.
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: baseballbot
+--
+
+COPY public.schema_migrations (version) FROM stdin;
 \.
 
 
@@ -630,12 +754,43 @@ COPY public.subreddits (id, name, team_code, bot_id, options, team_id, slack_id,
 
 
 --
+-- Data for Name: subreddits_users; Type: TABLE DATA; Schema: public; Owner: baseballbot
+--
+
+COPY public.subreddits_users (subreddit_id, user_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: system_users; Type: TABLE DATA; Schema: public; Owner: baseballbot
 --
 
 COPY public.system_users (id, username, description, created_at, updated_at) FROM stdin;
 1	BaseballBot	\N	2022-05-06 10:15:07.03258	2022-05-06 10:15:07.03258
 \.
+
+
+--
+-- Data for Name: templates; Type: TABLE DATA; Schema: public; Owner: baseballbot
+--
+
+COPY public.templates (id, body, type, subreddit_id, blocks, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: baseballbot
+--
+
+COPY public.users (id, username, crypted_password, salt, last_activity_at, last_login_at, last_logout_at, last_login_from_ip_address, remember_me_token_expires_at, remember_me_token, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: bot_actions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
+--
+
+SELECT pg_catalog.setval('public.bot_actions_id_seq', 1, false);
 
 
 --
@@ -646,10 +801,31 @@ SELECT pg_catalog.setval('public.bots_id_seq', 31, false);
 
 
 --
+-- Name: edits_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
+--
+
+SELECT pg_catalog.setval('public.edits_id_seq', 1, false);
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
+--
+
+SELECT pg_catalog.setval('public.events_id_seq', 1, false);
+
+
+--
 -- Name: game_threads_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
 --
 
 SELECT pg_catalog.setval('public.game_threads_id_seq', 5, true);
+
+
+--
+-- Name: scheduled_posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
+--
+
+SELECT pg_catalog.setval('public.scheduled_posts_id_seq', 1, false);
 
 
 --
@@ -660,18 +836,24 @@ SELECT pg_catalog.setval('public.subreddits_id_seq', 34, false);
 
 
 --
+-- Name: system_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
+--
+
+SELECT pg_catalog.setval('public.system_users_id_seq', 1, false);
+
+
+--
+-- Name: templates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
+--
+
+SELECT pg_catalog.setval('public.templates_id_seq', 1, false);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 2, true);
-
-
---
--- Name: bots bots_pkey; Type: CONSTRAINT; Schema: public; Owner: baseballbot
---
-
-ALTER TABLE ONLY public.bots
-    ADD CONSTRAINT bots_pkey PRIMARY KEY (id);
 
 
 --
@@ -688,6 +870,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.bot_actions
     ADD CONSTRAINT bot_actions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: bots bots_pkey; Type: CONSTRAINT; Schema: public; Owner: baseballbot
+--
+
+ALTER TABLE ONLY public.bots
+    ADD CONSTRAINT bots_pkey PRIMARY KEY (id);
 
 
 --
@@ -847,14 +1037,6 @@ CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (usernam
 
 
 --
--- Name: subreddits fk_rails_5c51af90f1; Type: FK CONSTRAINT; Schema: public; Owner: baseballbot
---
-
-ALTER TABLE ONLY public.subreddits
-    ADD CONSTRAINT fk_rails_5c51af90f1 FOREIGN KEY (bot_id) REFERENCES public.bots(id);
-
-
---
 -- Name: scheduled_posts fk_rails_6bce9e4887; Type: FK CONSTRAINT; Schema: public; Owner: baseballbot
 --
 
@@ -895,6 +1077,16 @@ ALTER TABLE ONLY public.subreddits_users
 
 
 --
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE USAGE ON SCHEMA public FROM PUBLIC;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
 -- PostgreSQL database dump complete
 --
+
+\unrestrict erjlnljBPc1z3XPlHH4zcv0y8PMANJgjp8poDtoFhXslMxCmUMcTEXrcTyht0es
 
