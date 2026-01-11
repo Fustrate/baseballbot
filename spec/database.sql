@@ -561,7 +561,7 @@ COPY public.bots (id, name, access_token, refresh_token, scope, expires_at) FROM
 14	HeltonsGoatee	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread}	2025-12-31 23:59:59
 16	ChiCubsbot	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread}	2025-12-31 23:59:59
 17	RedsModerator	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread,flair}	2025-12-31 23:59:59
-18	Fustrateaaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread,flair}	2025-12-31 23:59:59
+18	Fustrate	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread,flair}	2025-12-31 23:59:59
 19	SnakeBot	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread}	2025-12-31 23:59:59
 20	OsGameThreads	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread}	2025-12-31 23:59:59
 21	Yankeebot	aaaa	zzzz	{identity,edit,modconfig,modflair,modposts,read,submit,wikiread,flair}	2025-12-31 23:59:59
