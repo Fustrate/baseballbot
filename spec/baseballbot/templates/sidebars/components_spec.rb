@@ -82,7 +82,7 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components do
   describe '#updated_with_link' do
     it 'outputs a timestamp' do
       expect(SidebarComponents.new(subreddit).updated_with_link)
-        .to eq '[Updated](https://baseballbot.io) 7/4 at 2:28 AM PDT'
+        .to eq '[Updated](https://baseballbot.io) 7/4 at 9:28 AM PDT'
     end
   end
 end

@@ -63,7 +63,7 @@ RSpec.describe Baseballbot::Templates::GameThread do
 
         ### Box Score
 
-        *Posted at 2:28 AM.* *Updates start at game time.*
+        *Posted at 9:28 AM.* *Updates start at game time.*
         [](/baseballbot)
 
         Remember to **sort by new** to keep up!
