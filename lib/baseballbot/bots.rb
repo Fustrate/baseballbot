@@ -14,11 +14,9 @@ class Baseballbot
       refresh_access!
 
       # We *should* only get an invalid access error once, but let's be safe.
-      if (tries += 1) < 2
-        retry
-      else
-        raise
-      end
+      raise unless (tries += 1) < 2
+
+      retry
     end
 
     def use_bot(bot_name)

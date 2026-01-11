@@ -292,7 +292,7 @@ RSpec.describe Baseballbot::Bots do
     end
 
     context 'when InvalidAccess error is raised' do
-      let(:error_response) { double('Response', raw_body: 'Invalid access') }
+      let(:error_response) { instance_double(Redd::Client::Response, raw_body: 'Invalid access') }
       let(:invalid_access_error) { Redd::Errors::InvalidAccess.new(error_response) }
 
       it 'refreshes access and retries once' do

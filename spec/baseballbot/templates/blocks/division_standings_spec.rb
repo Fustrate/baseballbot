@@ -95,14 +95,16 @@ RSpec.describe Baseballbot::Templates::Blocks::DivisionStandings do
       standings = described_class.new(subreddit, template:)
       headers = standings.send(:table_headers)
 
-      expect(headers).to eq([
-        ['Team', :left],
-        ['W', :center],
-        ['L', :center],
-        ['PCT', :center],
-        ['GB', :center],
-        ['L10', :center]
-      ])
+      expect(headers).to eq(
+        [
+          ['Team', :left],
+          ['W', :center],
+          ['L', :center],
+          ['PCT', :center],
+          ['GB', :center],
+          ['L10', :center]
+        ]
+      )
     end
 
     it 'returns proper headers for custom columns' do
@@ -113,11 +115,13 @@ RSpec.describe Baseballbot::Templates::Blocks::DivisionStandings do
       )
       headers = standings.send(:table_headers)
 
-      expect(headers).to eq([
-        ['Team', :left],
-        ['STRK', :center],
-        ['RD', :center]
-      ])
+      expect(headers).to eq(
+        [
+          ['Team', :left],
+          ['STRK', :center],
+          ['RD', :center]
+        ]
+      )
     end
   end
 

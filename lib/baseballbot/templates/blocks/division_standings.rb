@@ -62,7 +62,7 @@ class Baseballbot
               when 'road_record'
                 team.road_record
               when 'run_diff'
-                team.run_diff > 0 ? "+#{team.run_diff}" : team.run_diff.to_s
+                team.run_diff.positive? ? "+#{team.run_diff}" : team.run_diff.to_s
               else
                 team.respond_to?(column) ? team.send(column) : ''
               end
