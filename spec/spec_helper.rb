@@ -52,7 +52,7 @@ RSpec.configure do |config|
   config.include BotHelpers
 
   config.before do
-    allow(Time).to receive(:now).and_return(Time.utc(2022, 7, 4, 9, 28, 41))
+    allow(Time).to receive(:now).and_return(Time.parse('2022-07-04 09:28:41'))
   end
 end
 
