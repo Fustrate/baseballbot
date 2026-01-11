@@ -21,6 +21,8 @@ class Baseballbot
           @in_draft_order ||= @all_teams.sort_by(&:sort_order).reverse
         end
 
+        def teams_in_division(division_id) = @all_teams.select { it.team.dig('division', 'id') == division_id }
+
         protected
 
         def load_standings_data

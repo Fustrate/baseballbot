@@ -398,6 +398,7 @@ CREATE TABLE public.templates (
     body text,
     type character varying,
     subreddit_id integer,
+    blocks json,
     created_at timestamp(6) without time zone,
     updated_at timestamp(6) without time zone
 );
