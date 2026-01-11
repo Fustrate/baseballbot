@@ -59,10 +59,13 @@ class Baseballbot
   end
 
   def log_action(subject_type:, subject_id:, action:, note: nil, data: {})
-    db.exec_params(<<~SQL, [subject_type, subject_id, action, note, data])
-      INSERT INTO bot_actions (subject_type, subject_id, action, note, data)
-      VALUES ($1, $2, $3, $4, $5)
-    SQL
+    sequel[:bot_actions].insert(
+      subject_type:,
+      subject_id:,
+      action:,
+      note:,
+      data: Sequel.pg_jsonb(data)
+    )
   end
 
   def redis

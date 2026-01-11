@@ -19,6 +19,7 @@ DB.wrap_json_primitives = true
 
 class Baseballbot
   module Database
-    def db = DB
+    # TODO: Rename this to `db` once all database queries are updated to use Sequel
+    def sequel = DB
   end
 end

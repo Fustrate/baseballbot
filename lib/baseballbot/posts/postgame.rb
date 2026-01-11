@@ -28,7 +28,7 @@ class Baseballbot
       def post_process
         update_sticky @subreddit.sticky_game_threads?
 
-        bot.db.exec_params 'UPDATE game_threads SET post_game_post_id = $1 WHERE id = $2', [@submission.id, @id]
+        bot.sequel[:game_threads].where(id: @id).update(post_game_post_id: @submission.id)
 
         post_sticky_comment
       end
