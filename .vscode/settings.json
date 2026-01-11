@@ -8,5 +8,33 @@
         "editor.rulers": [120]
     },
     "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "rubyLsp.enabledFeatures": {
+        "codeActions": true,
+        "diagnostics": true,
+        "documentHighlights": true,
+        "documentLink": true,
+        "documentSymbols": true,
+        "foldingRanges": true,
+        "formatting": true,
+        "hover": true,
+        "inlayHint": true,
+        "onTypeFormatting": true,
+        "selectionRanges": true,
+        "semanticHighlighting": true,
+        "completion": true,
+        "codeLens": true,
+        "definition": true,
+        "workspaceSymbol": true,
+        "signatureHelp": true,
+        "typeHierarchy": true
+    },
+    "rubyLsp.featuresConfiguration": {
+        "inlayHint": {
+            "enableAll": true
+        }
+    },
+    "rubyLsp.testTimeout": 60,
+    // Disable Biome integration since this is a plain Ruby project
+    "biome.enabled": false
 }
