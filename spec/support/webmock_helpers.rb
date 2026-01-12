@@ -37,7 +37,7 @@ module WebmockHelpers
   end
 
   def download_file_to_path(url, path)
-    puts "Download file #{url} to #{path}"
+    # puts "Download file #{url} to #{path}"
 
     WebMock.disable!
 

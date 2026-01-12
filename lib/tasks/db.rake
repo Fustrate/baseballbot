@@ -49,7 +49,7 @@ namespace :test do
 
       result = system(db_env_vars(include_dbname: true), "psql -f #{sql_file} -q")
 
-      if !result
+      unless result
         puts "\n⚠️  Warning: psql command encountered errors."
       end
 

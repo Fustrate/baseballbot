@@ -18,3 +18,7 @@ RSpec/MultipleExpectations:
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+
+# This cop is causing issues with the Ruby LSP
+RSpec/AlignLeftLetBrace:
+  Enabled: false
