@@ -32,7 +32,7 @@ RSpec.describe Baseballbot::Bots do
       bots = bot.send(:load_bots)
 
       expect(bots).to be_a(Hash)
-      expect(bots.size).to eq(30)
+      expect(bots.size).to eq(28)
       expect(bots.values).to all(be_a(Baseballbot::Bot))
     end
 
