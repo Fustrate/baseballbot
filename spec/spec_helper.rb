@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+ENV['BASEBALLBOT_PG_DATABASE'] = 'baseballbot_test'
+
 require 'webmock/rspec'
 require 'mlb_stats_api'
 require 'open-uri'

@@ -8,19 +8,19 @@ namespace :test do
         'PGUSER' => ENV.fetch('BASEBALLBOT_PG_USERNAME'),
         'PGPASSWORD' => ENV.fetch('BASEBALLBOT_PG_PASSWORD')
       }
-      vars['PGDATABASE'] = ENV.fetch('BASEBALLBOT_PG_DATABASE') if include_dbname
+
+      vars['PGDATABASE'] = 'baseballbot_test' if include_dbname
+
       vars.compact
     end
 
     desc 'Drop the test database'
     task :drop do
-      dbname = ENV.fetch('BASEBALLBOT_PG_DATABASE')
-
-      puts "Dropping database #{dbname}..."
-      result = system(db_env_vars, "dropdb --if-exists #{dbname}")
+      puts "Dropping database baseballbot_test..."
+      result = system(db_env_vars, "dropdb --if-exists baseballbot_test")
 
       if result
-        puts "Database #{dbname} dropped successfully"
+        puts "Database baseballbot_test dropped successfully"
       else
         abort 'Failed to drop database'
       end
@@ -28,13 +28,11 @@ namespace :test do
 
     desc 'Create the test database'
     task :create do
-      dbname = ENV.fetch('BASEBALLBOT_PG_DATABASE')
-
-      puts "Creating database #{dbname}..."
-      result = system(db_env_vars, "createdb #{dbname}")
+      puts "Creating database baseballbot_test..."
+      result = system(db_env_vars, "createdb baseballbot_test")
 
       if result
-        puts "Database #{dbname} created successfully"
+        puts "Database baseballbot_test created successfully"
       else
         abort 'Failed to create database'
       end
@@ -47,7 +45,7 @@ namespace :test do
       Rake::Task['test:db:create'].invoke
 
       puts 'Loading schema and data from spec/database.sql...'
-      sql_file = File.join(__dir__, 'spec', 'database.sql')
+      sql_file = File.join(__dir__, '../../spec/database.sql')
 
       result = system(db_env_vars(include_dbname: true), "psql -f #{sql_file} -q")
 
@@ -60,7 +58,7 @@ namespace :test do
 
     desc 'Dump the current database to spec/database.sql'
     task :dump do
-      sql_file = File.join(__dir__, 'spec', 'database.sql')
+      sql_file = File.join(__dir__, '../../spec/database.sql')
 
       puts 'Dumping database to spec/database.sql...'
 
