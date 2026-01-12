@@ -55,7 +55,7 @@ jobs:
       run: bundle install
 
     - name: Set up database
-      run: PGPASSWORD=password psql -h localhost -U baseballbot -d baseballbot_test -f spec/database.sql
+      run: bundle exec rake test:db:reset
 
     - name: Run tests
-      run:  bundle exec rake
+      run: bundle exec rake
