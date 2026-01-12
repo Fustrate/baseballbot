@@ -87,3 +87,5 @@ gem 'ostruct', '~> 0.6'
 
 # This is a dependency of honeybadger
 gem 'fiddle', '~> 1.1'
+
+gem 'irb', '~> 1.6'

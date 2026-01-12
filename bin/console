@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+bundle exec irb -r './scripts/default_bot'
