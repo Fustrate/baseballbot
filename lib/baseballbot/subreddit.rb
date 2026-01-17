@@ -14,7 +14,7 @@ class Baseballbot
       @moderators = row[:moderators]
 
       @submissions = {}
-      @options = JSON.parse(row[:options])
+      @options = row[:options].to_h
 
       @timezone = Baseballbot::Utility.parse_time_zone options['timezone']
     end
