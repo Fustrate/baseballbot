@@ -4,7 +4,6 @@ require 'erb'
 require 'logger'
 require 'mlb_stats_api'
 require 'open-uri'
-require 'pg'
 require 'redd'
 require 'redis'
 require 'tzinfo'
@@ -43,15 +42,6 @@ class Baseballbot
     raise 'Baseballbot was not initialized with :user_agent.' unless @options[:user_agent]
 
     @client ||= Redd::APIClient.new redd_auth_strategy, limit_time: 5
-  end
-
-  def db
-    @db ||= PG::Connection.new(
-      host: ENV.fetch('BASEBALLBOT_PG_HOST', nil),
-      user: ENV.fetch('BASEBALLBOT_PG_USERNAME'),
-      dbname: ENV.fetch('BASEBALLBOT_PG_DATABASE'),
-      password: ENV.fetch('BASEBALLBOT_PG_PASSWORD')
-    )
   end
 
   def logger

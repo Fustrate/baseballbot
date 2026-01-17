@@ -10,9 +10,6 @@ gem 'honeybadger', '~> 5.0'
 # Fetch data from the MLB Stats API [https://github.com/Fustrate/mlb_stats_api]
 gem 'mlb_stats_api', '~> 0.3', github: 'Fustrate/mlb_stats_api'
 
-# Postgres database [https://github.com/ged/ruby-pg]
-gem 'pg', '~> 1.4'
-
 # Reddit interaction [https://github.com/Fustrate/redd]
 gem 'redd', '>= 0.9.0.pre.3', github: 'Fustrate/redd'
 
@@ -21,6 +18,9 @@ gem 'redis', '~> 5.0'
 
 # Use an ORM instead of interacting with pg directly [https://github.com/jeremyevans/sequel]
 gem 'sequel', '~> 5.71'
+
+# Postgres database, required by Sequel [https://github.com/ged/ruby-pg]
+gem 'pg', '~> 1.4'
 
 # Cron jobs
 gem 'whenever', '~> 1.0'
