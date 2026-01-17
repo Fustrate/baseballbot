@@ -4,7 +4,7 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components::Calendar do
   let(:bot) { Baseballbot.new(user_agent: 'Baseballbot Tests') }
   let(:subreddit) do
     Baseballbot::Subreddit.new(
-      { 'name' => 'dodgers', 'team_code' => 'LAD', 'team_id' => 119, 'options' => '{}' },
+      { name: 'dodgers', team_code: 'LAD', team_id: 119, options: {} },
       bot:,
       bot_account: Baseballbot::Bot.new(bot:, name: 'RSpecTestBot', access: '')
     )

@@ -83,7 +83,7 @@ class SyncModerators < DefaultBot
     @existing_relations ||= begin
       rows = sequel[:subreddits_users]
         .join(:subreddits, id: :subreddit_id)
-        .join(:users, id: Sequel.lit('subreddits_users.user_id'))
+        .join(:users, id: Sequel[:subreddits_users][:user_id])
         .select(:subreddit_id, :user_id, Sequel.function(:lower, :username).as(:username))
         .all
 

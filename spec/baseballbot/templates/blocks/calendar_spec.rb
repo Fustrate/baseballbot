@@ -7,7 +7,7 @@ RSpec.describe Baseballbot::Templates::Blocks::Calendar do
   let(:bot) { Baseballbot.new(user_agent: 'Baseballbot Tests') }
   let(:subreddit) do
     Baseballbot::Subreddit.new(
-      { 'name' => 'dodgers', 'team_code' => 'LAD', 'team_id' => 119, 'options' => '{}' },
+      { name: 'dodgers', team_code: 'LAD', team_id: 119, options: {} },
       bot:,
       bot_account: Baseballbot::Bot.new(bot:, name: 'RSpecTestBot', access: '')
     )
@@ -62,7 +62,7 @@ RSpec.describe Baseballbot::Templates::Blocks::Calendar do
     context 'with the buccos subreddit' do
       let(:buccos_subreddit) do
         Baseballbot::Subreddit.new(
-          { 'name' => 'buccos', 'team_code' => 'PIT', 'team_id' => 134, 'options' => '{}' },
+          { name: 'buccos', team_code: 'PIT', team_id: 134, options: {} },
           bot:,
           bot_account: Baseballbot::Bot.new(bot:, name: 'RSpecTestBot', access: '')
         )
@@ -148,7 +148,7 @@ RSpec.describe Baseballbot::Templates::Blocks::Calendar do
   describe '#buccos_cell' do
     let(:buccos_subreddit) do
       Baseballbot::Subreddit.new(
-        { 'name' => 'buccos', 'team_code' => 'PIT', 'team_id' => 134, 'options' => '{}' },
+        { name: 'buccos', team_code: 'PIT', team_id: 134, options: {} },
         bot:,
         bot_account: Baseballbot::Bot.new(bot:, name: 'RSpecTestBot', access: '')
       )
