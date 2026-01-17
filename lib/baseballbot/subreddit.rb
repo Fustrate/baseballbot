@@ -8,13 +8,13 @@ class Baseballbot
       @bot = bot
       @bot_account = bot_account
 
-      @id = row['id'].to_i
-      @name = row['name']
-      @team_id = row['team_id']
-      @moderators = row['moderators']
+      @id = row[:id]
+      @name = row[:name]
+      @team_id = row[:team_id]
+      @moderators = row[:moderators]
 
       @submissions = {}
-      @options = JSON.parse(row['options'])
+      @options = JSON.parse(row[:options])
 
       @timezone = Baseballbot::Utility.parse_time_zone options['timezone']
     end
@@ -116,15 +116,11 @@ class Baseballbot
     end
 
     def template_for(type)
-      rows = @bot.db.exec_params(<<~SQL, [@id, type])
-        SELECT body
-        FROM templates
-        WHERE subreddit_id = $1 AND type = $2
-      SQL
+      template = @bot.sequel[:templates].where(subreddit_id: @id, type: type).first
 
-      raise "/r/#{@name} does not have a #{type} template." if rows.count < 1
+      raise "/r/#{@name} does not have a #{type} template." unless template
 
-      rows[0]['body']
+      template[:body]
     end
 
     # --------------------------------------------------------------------------

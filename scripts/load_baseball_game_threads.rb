@@ -11,12 +11,6 @@ class BaseballGameThreadLoader < GameThreadLoader
 
   NATIONAL_CALLSIGNS = ['ESPN'].freeze
 
-  POST_AT_QUERY = <<~SQL.freeze
-    SELECT options#>>'{game_threads,post_at}' AS post_at
-    FROM subreddits
-    WHERE id = #{SUBREDDIT_ID}
-  SQL
-
   def initialize
     super(date: Date.today)
   end
@@ -32,7 +26,12 @@ class BaseballGameThreadLoader < GameThreadLoader
   end
 
   def post_at
-    @post_at ||= Baseballbot::Utility.adjust_time_proc(db.exec(POST_AT_QUERY)[0]['post_at'])
+    @post_at ||= Baseballbot::Utility.adjust_time_proc(
+      sequel[:subreddits]
+        .where(id: SUBREDDIT_ID)
+        .select(Sequel.as('options#>>\'{game_threads,post_at}\'', :post_at))
+        .first[:post_at]
+    )
   end
 
   def national_game_title(game)

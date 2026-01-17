@@ -111,23 +111,19 @@ class NoHitters < DefaultBot
   end
 
   def already_posted?(game_pk)
-    db.exec_params(<<~SQL, [subreddit.id, game_pk, 'no_hitter']).any?
-      SELECT 1 FROM game_threads WHERE subreddit_id = $1 AND game_pk = $2 AND type = $3
-    SQL
+    sequel[:game_threads].where(subreddit_id: subreddit.id, game_pk:, type: 'no_hitter').any?
   end
 
   def insert_game_thread!(submission, game)
-    data = [
-      Time.now.strftime('%F %T'),
-      subreddit.id,
-      game['gamePk'],
-      submission.id,
-      submission.title
-    ]
-
-    db.exec_params(<<~SQL, data)
-      INSERT INTO game_threads (post_at, starts_at, subreddit_id, game_pk, post_id, title, status, type)
-      VALUES ($1, $1, $2, $3, $4, $5, 'Posted', 'no_hitter')
-    SQL
+    sequel[:game_threads].insert(
+      post_at: Time.now,
+      starts_at: Time.now,
+      subreddit_id: subreddit.id,
+      game_pk: game['gamePk'],
+      post_id: submission.id,
+      title: submission.title,
+      status: 'Posted',
+      type: 'no_hitter'
+    )
   end
 end

@@ -10,11 +10,11 @@ class Baseballbot
 
         @row = row
 
-        @id = row['id']
-        @game_pk = row['game_pk']
-        @post_id = row['post_id']
-        @type = row['type'] || 'game_thread'
-        @title = row['title']
+        @id = row[:id]
+        @game_pk = row[:game_pk]
+        @post_id = row[:post_id]
+        @type = row[:type] || 'game_thread'
+        @title = row[:title]
       end
 
       def create!
@@ -69,9 +69,7 @@ class Baseballbot
       def change_status(status)
         attrs = updated_attributes(status)
 
-        fields = attrs.keys.map.with_index { |col, i| "#{col} = $#{i + 2}" }
-
-        bot.db.exec_params "UPDATE game_threads SET #{fields.join(', ')} WHERE id = $1", [@id] + attrs.values
+        bot.sequel[:game_threads].where(id: @id).update(attrs)
       end
 
       def updated_attributes(status)
@@ -137,9 +135,9 @@ class Baseballbot
       # When there are lots of threads running at the same time, the updates may take so long that it's still running
       # when the next update triggers. Make sure there hasn't been a postgame thread ID set since we loaded this round.
       def postgame_posted?
-        result = bot.db.exec_params('SELECT post_game_post_id FROM game_threads WHERE id = $1', [@id])[0]
+        result = bot.sequel[:game_threads].where(id: @id).first
 
-        !result['post_game_post_id'].nil?
+        result && result[:post_game_post_id]
       end
 
       def post_sticky_comment = post_comment(text: subreddit.options.dig('game_threads', 'sticky_comment'))

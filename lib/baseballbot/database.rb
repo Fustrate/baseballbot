@@ -2,8 +2,6 @@
 
 require 'sequel'
 
-Sequel.extension :pg_json_ops
-
 # Connect to the database immediately so that model classes can be created.
 DB = Sequel.connect(
   adapter: :postgres,
@@ -16,6 +14,9 @@ DB = Sequel.connect(
 DB.extension :pg_array
 DB.extension :pg_json
 DB.wrap_json_primitives = true
+
+Sequel.extension :pg_array_ops
+Sequel.extension :pg_json_ops
 
 class Baseballbot
   module Database

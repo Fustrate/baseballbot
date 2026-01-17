@@ -41,11 +41,9 @@ class SyncModerators < DefaultBot
   end
 
   def reset_moderator_names
-    names_sql_array = %({"#{@mod_names.join('","')}"})
-
-    db.exec_params(<<~SQL, [names_sql_array, @subreddit.id])
-      UPDATE subreddits SET moderators = $1 WHERE id = $2
-    SQL
+    sequel[:subreddits]
+      .where(id: @subreddit.id)
+      .update(moderators: Sequel.pg_array(@mod_names))
   end
 
   def remove_unmodded_users
@@ -53,47 +51,43 @@ class SyncModerators < DefaultBot
 
     return if remove_ids.none?
 
-    db.exec_params(<<~SQL, [@subreddit.id, *remove_ids])
-      DELETE FROM subreddits_users
-      WHERE subreddit_id = $1
-        AND user_id IN ($#{(2...(2 + remove_ids.length)).to_a.join(', $')})
-    SQL
+    sequel[:subreddits_users]
+      .where(subreddit_id: @subreddit.id)
+      .where(user_id: remove_ids)
+      .delete
   end
 
   def user_ids_to_remove
     existing_relations[@subreddit.id]
-      .reject { @mod_names.include?(it['username']) }
-      .map { it['user_id'].to_i }
+      .reject { @mod_names.include?(it[:username]) }
+      .map { it[:user_id].to_i }
   end
 
   def add_modded_users
-    mod_user_ids = db.exec_params(<<~SQL, [@subreddit.id, *@mod_names]).to_a.map { it['id'] }
-      SELECT id
-      FROM users
-        LEFT JOIN subreddits_users ON (subreddit_id = $1 AND user_id = users.id)
-      WHERE user_id IS NULL AND username IN ($#{(2...(2 + @mod_names.length)).to_a.join(', $')})
-    SQL
+    mod_user_ids = sequel[:users]
+      .left_join(:subreddits_users, subreddit_id: @subreddit.id, user_id: :id)
+      .where(subreddits_users__user_id: nil)
+      .where(username: @mod_names)
+      .select(:id)
+      .all
+      .map { it[:id] }
 
     mod_user_ids.each { add_modded_user(it) }
   end
 
   def add_modded_user(user_id)
-    db.exec_params(<<~SQL, [@subreddit.id, user_id.to_i])
-      INSERT INTO subreddits_users (subreddit_id, user_id)
-      VALUES ($1, $2)
-    SQL
+    sequel[:subreddits_users].insert(subreddit_id: @subreddit.id, user_id: user_id.to_i)
   end
 
   def existing_relations
     @existing_relations ||= begin
-      rows = db.exec_params(<<~SQL).to_a
-        SELECT subreddit_id, user_id, LOWER(users.username) AS username
-        FROM subreddits_users
-        LEFT JOIN subreddits ON (subreddits.id = subreddit_id)
-        LEFT JOIN users ON (users.id = user_id)
-      SQL
+      rows = sequel[:subreddits_users]
+        .join(:subreddits, id: :subreddit_id)
+        .join(:users, id: Sequel.lit('subreddits_users.user_id'))
+        .select(:subreddit_id, :user_id, Sequel.function(:lower, :username).as(:username))
+        .all
 
-      rows.group_by { it['subreddit_id'].to_i }.tap { it.default = [] }
+      rows.group_by { it[:subreddit_id].to_i }.tap { it.default = [] }
     end
   end
 end

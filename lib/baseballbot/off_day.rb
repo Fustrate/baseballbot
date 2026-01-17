@@ -2,23 +2,23 @@
 
 class Baseballbot
   module OffDay
-    UNPOSTED_OFF_DAY_QUERY = <<~SQL
-      SELECT name
-      FROM subreddits
-      WHERE options['off_day']['enabled']::boolean IS TRUE
-      AND (options['off_day']['last_run_at'] IS NULL OR DATE(options['off_day']['last_run_at']::text) < CURRENT_DATE)
-      AND ((CURRENT_DATE + options['off_day']['post_at']::text::interval) < NOW() AT TIME ZONE (options->>'timezone'))
-      ORDER BY name ASC
-    SQL
-
     def post_off_day_threads!(names: [])
       names = names.map(&:downcase)
 
-      db.exec(UNPOSTED_OFF_DAY_QUERY).each do |row|
-        next unless names.empty? || names.include?(row['name'].downcase)
+      unposted_subreddits.each do |row|
+        next unless names.empty? || names.include?(row[:name].downcase)
 
-        post_off_day_thread! name: row['name']
+        post_off_day_thread! name: row[:name]
       end
+    end
+
+    def unposted_subreddits
+      sequel[:subreddits]
+        .where(Sequel.lit("options['off_day']['enabled']::boolean IS TRUE"))
+        .where(Sequel.lit("options['off_day']['last_run_at'] IS NULL OR DATE(options['off_day']['last_run_at']::text) < CURRENT_DATE"))
+        .where(Sequel.lit("(CURRENT_DATE + options['off_day']['post_at']::text::interval) < NOW() AT TIME ZONE (options->>'timezone')"))
+        .order(:name)
+        .all
     end
 
     def post_off_day_thread!(name:)
@@ -34,9 +34,11 @@ class Baseballbot
     end
 
     def off_day_check_was_run!(subreddit)
-      subreddit.options['off_day']['last_run_at'] = Time.now.strftime('%F %T')
-
-      db.exec_params 'UPDATE subreddits SET options = $1 WHERE id = $2', [JSON.dump(subreddit.options), subreddit.id]
+      # Why yes, calling json function via the Sequel gem is super easy and didn't take 27 tries to figure out.
+      sequel[:subreddits].where(id: subreddit.id).update(
+        options: Sequel.pg_jsonb_op(:options)
+          .set(%w[off_day last_run_at], Sequel.lit(%('"#{Time.now.strftime('%F %T')}"'::jsonb)))
+      )
     end
 
     protected

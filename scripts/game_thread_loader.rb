@@ -3,27 +3,6 @@
 require_relative 'default_bot'
 
 class GameThreadLoader < DefaultBot
-  INSERT_GAME_THREAD = <<~SQL
-    INSERT INTO game_threads (post_at, starts_at, subreddit_id, game_pk, status, title)
-    VALUES ($1, $2, $3, $4, 'Future', $5)
-  SQL
-
-  UPDATE_GAME_THREAD = <<~SQL
-    UPDATE game_threads
-    SET post_at = $1, starts_at = $2, updated_at = $3, title = $6
-    WHERE subreddit_id = $4
-      AND game_pk = $5
-      AND (starts_at != $2 OR post_at != $1)
-      AND date_trunc('day', starts_at) = date_trunc('day', $2)
-  SQL
-
-  ENABLED_SUBREDDITS = <<~SQL
-    SELECT id, name, team_id, options#>>'{game_threads,post_at}' AS post_at
-    FROM subreddits
-    WHERE team_id IS NOT NULL
-    AND options['game_threads']['enabled']::boolean IS TRUE
-  SQL
-
   def initialize(date: nil, subreddits: [])
     super(purpose: 'Game Thread Loader', bot: 'BaseballBot')
 
@@ -61,14 +40,20 @@ class GameThreadLoader < DefaultBot
     # There could be multiple subreddits for a single team, so a normal hash isn't useful
     @subs_to_add = Hash.new { |h, k| h[k] = [] }
 
-    db.exec(ENABLED_SUBREDDITS).each do |row|
-      next unless include_subreddit?(row['name'])
+    enabled_subreddits.each do |row|
+      next unless include_subreddit?(row[:name])
 
-      @subs_to_add[row['team_id'].to_i] << {
-        id: row['id'].to_i,
-        post_at: Baseballbot::Utility.adjust_time_proc(row['post_at'])
+      @subs_to_add[row[:team_id].to_i] << {
+        id: row[:id].to_i,
+        post_at: Baseballbot::Utility.adjust_time_proc(row[:post_at])
       }
     end
+  end
+
+  def enabled_subreddits
+    sequel[:subreddits]
+      .where(Sequel.lit("team_id IS NOT NULL AND options['game_threads']['enabled']::boolean IS TRUE"))
+      .select(:id, :name, :team_id, Sequel.as(Sequel.lit("options#>>'{game_threads,post_at}'"), :post_at))
   end
 
   def add_game?(game) = !game.dig('status', 'startTimeTBD')
@@ -99,10 +84,10 @@ class GameThreadLoader < DefaultBot
   def insert_game(subreddit_id, game, post_at, starts_at, title = nil)
     data = row_data(game, starts_at, post_at, subreddit_id, title)
 
-    db.exec_params INSERT_GAME_THREAD, data.values_at(:post_at, :starts_at, :subreddit_id, :game_pk, :title)
+    sequel[:game_threads].insert(data)
 
     @created += 1
-  rescue PG::UniqueViolation
+  rescue PG::UniqueViolation, Sequel::UniqueConstraintViolation
     update_game(data)
   end
 
@@ -118,11 +103,13 @@ class GameThreadLoader < DefaultBot
   end
 
   def update_game(data)
-    @updated += db
-      .exec_params(
-        UPDATE_GAME_THREAD,
-        data.values_at(:post_at, :starts_at, :updated_at, :subreddit_id, :game_pk, :title)
+    @updated += sequel[:game_threads]
+      .where(
+        subreddit_id: data[:subreddit_id],
+        game_pk: data[:game_pk]
       )
-      .cmd_tuples
+      .where(Sequel.lit('starts_at != ? OR post_at != ?', data[:starts_at], data[:post_at]))
+      .where(Sequel.lit("date_trunc('day', starts_at) = date_trunc('day', ?)", data[:starts_at]))
+      .update(data.slice(:post_at, :starts_at, :updated_at, :title))
   end
 end

@@ -40,17 +40,17 @@ class PostseasonGameLoader < DefaultBot
   end
 
   def team_subreddits
-    @team_subreddits ||= team_subreddits_data.group_by { it['team_id'] }
+    @team_subreddits ||= team_subreddits_data.group_by { it[:team_id] }
   end
 
   def team_subreddits_data
-    db.exec(<<~SQL)
-      SELECT id, team_id, options#>>'{game_threads,post_at}' AS post_at,
-        COALESCE(options#>>'{game_threads,title,postseason}', options#>>'{game_threads,title,default}') AS title
-      FROM subreddits
-      WHERE options['game_threads']['enabled']::boolean IS TRUE
-        AND team_id IS NOT NULL
-    SQL
+    sequel[:subreddits].select(
+      :id,
+      :team_id,
+      Sequel.as("options#>>'{game_threads,post_at}'", :post_at),
+      Sequel.as("COALESCE(options#>>'{game_threads,title,postseason}', options#>>'{game_threads,title,default}')", :title)
+    )
+      .where(Sequel.lit("options['game_threads']['enabled']::boolean IS TRUE AND team_id IS NOT NULL")).all
   end
 
   def insert_team_game(game, starts_at)
@@ -60,9 +60,9 @@ class PostseasonGameLoader < DefaultBot
       next unless subreddits
 
       subreddits.each do |row|
-        post_at = Baseballbot::Utility.adjust_time_proc(row['post_at']).call starts_at
+        post_at = Baseballbot::Utility.adjust_time_proc(row[:post_at]).call starts_at
 
-        insert_game game, starts_at, post_at, row['title'], row['id']
+        insert_game game, starts_at, post_at, row[:title], row[:id]
       end
     end
   end
@@ -79,12 +79,7 @@ class PostseasonGameLoader < DefaultBot
   def insert_game(game, starts_at, post_at, title, subreddit_id)
     @attempts += 1
 
-    data = row_data(game, starts_at, post_at, title, subreddit_id)
-
-    db.exec_params(<<~SQL, data.values)
-      INSERT INTO game_threads (#{data.keys.join(', ')})
-      VALUES (#{(1..data.size).map { "$#{it}" }.join(', ')})
-    SQL
+    sequel[:game_threads].insert(row_data(game, starts_at, post_at, title, subreddit_id))
   rescue PG::UniqueViolation
     @failures += 1
   end
@@ -92,8 +87,8 @@ class PostseasonGameLoader < DefaultBot
   def row_data(game, starts_at, post_at, title, subreddit_id)
     {
       game_pk: game['gamePk'],
-      post_at: post_at.strftime('%F %T'),
-      starts_at: starts_at.strftime('%F %T'),
+      post_at:,
+      starts_at:,
       subreddit_id:,
       status: 'Future',
       title:
@@ -101,11 +96,9 @@ class PostseasonGameLoader < DefaultBot
   end
 
   def baseball_subreddit_title
-    @baseball_subreddit_title ||= db.exec(<<~SQL).first['title']
-      SELECT
-        options#>>'{game_threads,title,postseason}' AS title
-      FROM subreddits
-      WHERE id = #{R_BASEBALL}
-    SQL
+    @baseball_subreddit_title ||= sequel[:subreddits]
+      .where(id: R_BASEBALL)
+      .select(Sequel.as("options#>>'{game_threads,title,postseason}'", :title))
+      .first[:title]
   end
 end

@@ -20,14 +20,14 @@ class Baseballbot
     def post_pregame_threads!(names: [])
       names = names.map(&:downcase)
 
-      db.exec(UNPOSTED_PREGAMES_QUERY)
-        .each { post_pregame_thread!(it) if names.empty? || names.include?(it['name'].downcase) }
+      sequel[UNPOSTED_PREGAMES_QUERY]
+        .each { post_pregame_thread!(it) if names.empty? || names.include?(it[:name].downcase) }
     end
 
     def post_pregame_thread!(row)
       Honeybadger.context(row)
 
-      Baseballbot::Posts::Pregame.new(row, subreddit: name_to_subreddit(row['name'])).create!
+      Baseballbot::Posts::Pregame.new(row, subreddit: name_to_subreddit(row[:name])).create!
     rescue => e
       Honeybadger.notify(e)
     end

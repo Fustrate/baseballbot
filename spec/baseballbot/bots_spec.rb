@@ -48,12 +48,12 @@ RSpec.describe Baseballbot::Bots do
   describe '#process_bot_row' do
     let(:row) do
       {
-        'id' => 1,
-        'name' => 'DodgerBot',
-        'access_token' => access_token,
-        'refresh_token' => refresh_token,
-        'scope' => "{#{scope.join(',')}}",
-        'expires_at' => expires_at.strftime('%Y-%m-%d %H:%M:%S')
+        id: 1,
+        name: 'DodgerBot',
+        access_token:,
+        refresh_token:,
+        scope:,
+        expires_at:
       }
     end
 
@@ -68,10 +68,10 @@ RSpec.describe Baseballbot::Bots do
   describe '#account_access' do
     let(:row) do
       {
-        'access_token' => access_token,
-        'refresh_token' => refresh_token,
-        'scope' => "{#{scope.join(',')}}",
-        'expires_at' => expires_at.strftime('%Y-%m-%d %H:%M:%S')
+        access_token:,
+        refresh_token:,
+        scope:,
+        expires_at:
       }
     end
 

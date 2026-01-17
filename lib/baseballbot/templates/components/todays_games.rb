@@ -159,9 +159,13 @@ class Baseballbot
         def load_known_game_threads
           @game_threads = Hash.new { |h, k| h[k] = {} }
 
-          @subreddit.bot.db.exec_params(TODAYS_GAMES_SQL, [@date.strftime('%F')]).each do |row|
-            @game_threads[row['game_pk'].to_i][row['name']] = row['post_id']
+          todays_games.each do |row|
+            @game_threads[row[:game_pk]][row[:name]] = row[:post_id]
           end
+        end
+
+        def todays_games
+          @subreddit.bot.sequel[:game_threads].where(Sequel.lit('starts_at::date = ?', @date))
         end
       end
     end

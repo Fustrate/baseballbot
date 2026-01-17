@@ -62,12 +62,7 @@ class CheckMessages < DefaultBot
   def add_game_thread!(game_pk, submission, subreddit_id, post_id)
     return unless game_pk && submission && subreddit_id && post_id
 
-    data = game_thread_data(game_pk, submission, subreddit_id, post_id)
-
-    db.exec_params(<<~SQL, data.values)
-      INSERT INTO game_threads (#{data.keys.join(', ')})
-      VALUES ($#{(1..data.size).to_a.join(', $')})
-    SQL
+    sequel[:game_threads].insert(game_thread_data(game_pk, submission, subreddit_id, post_id))
   rescue PG::UniqueViolation
     # Do nothing
   end
