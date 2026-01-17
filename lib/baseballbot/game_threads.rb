@@ -2,6 +2,8 @@
 
 class Baseballbot
   module GameThreads
+    GAME_THREADS_ENABLED = Sequel.lit("subreddits.options['game_threads']['enabled']::boolean IS TRUE")
+
     def post_game_threads!(names: [])
       unposted_game_threads(names).each do |row|
         build_game_thread(row).create!
@@ -61,7 +63,7 @@ class Baseballbot
         .join(:subreddits, id: :subreddit_id)
         .where(status: %w[Pregame Future])
         .where { post_at <= Sequel.lit('NOW()') }
-        .where(Sequel.lit("subreddits.options['game_threads']['enabled']::boolean IS TRUE"))
+        .where(GAME_THREADS_ENABLED)
         .order(:post_at, :game_pk)
         .all
         .select { names.empty? || names.include?(it[:name].downcase) }

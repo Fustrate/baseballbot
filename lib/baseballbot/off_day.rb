@@ -2,6 +2,12 @@
 
 class Baseballbot
   module OffDay
+    UNPOSTED_CONDITIONS = <<~SQL
+      options['off_day']['enabled']::boolean IS TRUE
+        AND (options['off_day']['last_run_at'] IS NULL OR DATE(options['off_day']['last_run_at']::text) < CURRENT_DATE)
+        AND (CURRENT_DATE + options['off_day']['post_at']::text::interval) < NOW() AT TIME ZONE (options->>'timezone')
+    SQL
+
     def post_off_day_threads!(names: [])
       names = names.map(&:downcase)
 
@@ -14,9 +20,7 @@ class Baseballbot
 
     def unposted_subreddits
       sequel[:subreddits]
-        .where(Sequel.lit("options['off_day']['enabled']::boolean IS TRUE"))
-        .where(Sequel.lit("options['off_day']['last_run_at'] IS NULL OR DATE(options['off_day']['last_run_at']::text) < CURRENT_DATE"))
-        .where(Sequel.lit("(CURRENT_DATE + options['off_day']['post_at']::text::interval) < NOW() AT TIME ZONE (options->>'timezone')"))
+        .where(Sequel.lit(UNPOSTED_CONDITIONS))
         .order(:name)
         .all
     end

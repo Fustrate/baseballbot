@@ -16,11 +16,11 @@ namespace :test do
 
     desc 'Drop the test database'
     task :drop do
-      puts "Dropping database baseballbot_test..."
-      result = system(db_env_vars, "dropdb --if-exists baseballbot_test")
+      puts 'Dropping database baseballbot_test...'
+      result = system(db_env_vars, 'dropdb --if-exists baseballbot_test')
 
       if result
-        puts "Database baseballbot_test dropped successfully"
+        puts 'Database baseballbot_test dropped successfully'
       else
         abort 'Failed to drop database'
       end
@@ -28,11 +28,11 @@ namespace :test do
 
     desc 'Create the test database'
     task :create do
-      puts "Creating database baseballbot_test..."
-      result = system(db_env_vars, "createdb baseballbot_test")
+      puts 'Creating database baseballbot_test...'
+      result = system(db_env_vars, 'createdb baseballbot_test')
 
       if result
-        puts "Database baseballbot_test created successfully"
+        puts 'Database baseballbot_test created successfully'
       else
         abort 'Failed to create database'
       end
@@ -49,9 +49,7 @@ namespace :test do
 
       result = system(db_env_vars(include_dbname: true), "psql -f #{sql_file} -q")
 
-      unless result
-        puts "\n⚠️  Warning: psql command encountered errors."
-      end
+      puts "\n⚠️  Warning: psql command encountered errors." unless result
 
       puts "\nDatabase reset complete!"
     end

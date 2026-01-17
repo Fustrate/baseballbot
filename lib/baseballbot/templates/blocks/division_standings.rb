@@ -41,28 +41,17 @@ class Baseballbot
           division_standings.map do |team|
             columns.map do |column|
               case column
-              when 'team_logo'
-                team_logo(team)
-              when 'team_name'
-                team.name
-              when 'wins'
-                team.wins
-              when 'losses'
-                team.losses
-              when 'percent'
-                team.percent
-              when 'games_back'
-                team.games_back
-              when 'last_ten'
-                team.last_ten
-              when 'streak'
-                team.streak
-              when 'home_record'
-                team.home_record
-              when 'road_record'
-                team.road_record
-              when 'run_diff'
-                team.run_diff.positive? ? "+#{team.run_diff}" : team.run_diff.to_s
+              when 'team_logo' then team_logo(team)
+              when 'team_name' then team.name
+              when 'wins' then team.wins
+              when 'losses' then team.losses
+              when 'percent' then team.percent
+              when 'games_back' then team.games_back
+              when 'last_ten' then team.last_ten
+              when 'streak' then team.streak
+              when 'home_record' then team.home_record
+              when 'road_record' then team.road_record
+              when 'run_diff' then team.run_diff.positive? ? "+#{team.run_diff}" : team.run_diff.to_s
               else
                 team.respond_to?(column) ? team.send(column) : ''
               end
@@ -88,9 +77,7 @@ class Baseballbot
           @columns ||= attributes['columns'] || default_columns
         end
 
-        def default_columns
-          %w[team_logo wins losses percent games_back last_ten]
-        end
+        def default_columns = %w[team_logo wins losses percent games_back last_ten]
       end
     end
   end
