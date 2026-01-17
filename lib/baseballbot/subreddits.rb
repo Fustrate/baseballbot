@@ -46,9 +46,7 @@ class Baseballbot
     protected
 
     def load_subreddits
-      sequel[:subreddits]
-        .left_join(:bots, id: :bot_id)
-        .to_h { [it[:name].downcase, Subreddit.new(it, bot: self, bot_account: accounts[it[:bot_id]])] }
+      sequel[:subreddits].to_h { [it[:name].downcase, Subreddit.new(it, bot: self, bot_account: bots[it[:bot_id]])] }
     end
   end
 end
