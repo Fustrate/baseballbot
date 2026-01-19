@@ -19,8 +19,8 @@ module BotHelpers
     )
   end
 
-  def game_thread_template(status, title: 'Test', type: 'game_thread', body: '')
-    allow(default_subreddit).to receive(:template_for).with('game_thread').and_return body
+  def game_thread_template(status, title: 'Test', type: 'game_thread', body: '', blocks: nil)
+    allow(default_subreddit).to receive(:template_for).with('game_thread').and_return({ body:, blocks: })
 
     Baseballbot::Templates::GameThread.new(subreddit: default_subreddit, game_pk: GAME_PKS[status], title:, type:)
   end

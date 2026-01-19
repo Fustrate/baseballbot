@@ -11,7 +11,7 @@ class Baseballbot
       attr_reader :post_id, :game_pk
 
       def initialize(type:, subreddit:, game_pk:, title: nil, post_id: nil)
-        super(body: subreddit.template_for(type), subreddit:)
+        super(**subreddit.template_for(type), subreddit:)
 
         @game_pk = game_pk
         @title = title || default_title

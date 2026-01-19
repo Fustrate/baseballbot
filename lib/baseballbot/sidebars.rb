@@ -26,7 +26,7 @@ class Baseballbot
       raise Baseballbot::Error::NoSidebarText unless sidebar_present?(subreddit)
 
       Templates::Sidebar
-        .new(body: subreddit.template_for('sidebar'), subreddit:)
+        .new(**subreddit.template_for('sidebar'), subreddit:)
         .replace_in CGI.unescapeHTML(subreddit.settings[:description])
     end
 

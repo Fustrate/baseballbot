@@ -16,10 +16,11 @@ class Baseballbot
 
     attr_reader :subreddit
 
-    def initialize(body:, subreddit:)
+    def initialize(body:, subreddit:, blocks: nil)
       super()
 
       self.template = body
+      @blocks = blocks
 
       @subreddit = subreddit
     end

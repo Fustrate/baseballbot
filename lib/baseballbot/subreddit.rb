@@ -120,7 +120,7 @@ class Baseballbot
 
       raise "/r/#{@name} does not have a #{type} template." unless template
 
-      template[:body]
+      template.slice(:body, :blocks)
     end
 
     # --------------------------------------------------------------------------
