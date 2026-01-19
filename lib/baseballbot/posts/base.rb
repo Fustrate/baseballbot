@@ -24,7 +24,7 @@ class Baseballbot
           if submission.stickied?
             submission.remove_sticky if sticky == false
           elsif sticky
-            submission.make_sticky(slot: subreddit.options['sticky_slot'])
+            submission.make_sticky(slot: subreddit.options[:sticky_slot])
           end
         end
       end

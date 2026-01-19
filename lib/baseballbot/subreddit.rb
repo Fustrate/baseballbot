@@ -16,7 +16,7 @@ class Baseballbot
       @submissions = {}
       @options = row[:options].to_h
 
-      @timezone = Baseballbot::Utility.parse_time_zone options['timezone']
+      @timezone = Baseballbot::Utility.parse_time_zone options[:timezone]
     end
 
     def team
