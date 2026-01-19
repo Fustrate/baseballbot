@@ -5,7 +5,7 @@ class Baseballbot
     def update_sidebars!(names: [])
       names = names.map(&:downcase)
 
-      sequel[:subreddits].where(Sequel.lit("options['sidebar']['enabled']::boolean IS TRUE")).order(:id).each do |row|
+      Baseballbot::Models::Subreddit.with_sidebar_enabled.order(:id).each do |row|
         next unless names.empty? || names.include?(row[:name].downcase)
 
         update_sidebar! name_to_subreddit(subreddits[row[:name]])
