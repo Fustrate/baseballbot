@@ -48,7 +48,7 @@ class Baseballbot
 
       def info(message) = subreddit.bot.logger.info(message)
 
-      def with_reddit_bot(&) = subreddit.bot.with_reddit_bot(subreddit.bot.name, &)
+      def with_reddit_bot(&) = subreddit.bot.with_reddit_bot(subreddit.bot_account.name, &)
     end
   end
 end
