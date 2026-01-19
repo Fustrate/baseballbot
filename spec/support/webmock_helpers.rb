@@ -4,20 +4,24 @@ require 'fileutils'
 
 module WebmockHelpers
   def stubbed_get_response(request)
-    query = underscore_query request.uri.query
+    path = path_for_request(request:, query: underscore_query(request.uri.query))
 
-    path = [request.uri.path.gsub(%r{/?api/v[\d.]+/?}, ''), query].reject(&:empty?)
+    unless File.exist?(path)
+      raise "Could not locate #{path} (stubbing #{request.uri})" unless ENV.fetch('DOWNLOAD', '0') == '1'
 
-    data_file = File.expand_path "../data/#{path.join('/')}.json", __dir__
-
-    # download_file_to_path(request.uri, data_file) unless File.exist?(data_file)
-
-    raise "Could not locate #{data_file} (stubbing #{request.uri} )" unless File.exist?(data_file)
+      download_file_to_path(request.uri, path)
+    end
 
     {
-      body: File.new(data_file),
+      body: File.new(path),
       status: 200
     }
+  end
+
+  def path_for_request(request:, query:)
+    path = [request.uri.path.gsub(%r{/?api/v[\d.]+/?}, ''), query].reject(&:empty?)
+
+    File.expand_path "../data/#{path.join('/')}.json", __dir__
   end
 
   def a_get_request(endpoint, query = {})
