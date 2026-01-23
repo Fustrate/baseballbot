@@ -34,14 +34,15 @@ class Baseballbot
       end
 
       def flair_id
-        flair = @subreddit.options.dig('postgame', 'flair_id')
+        if template.won? && @subreddit.options.dig('postgame', 'flair_id.won')
+          return @subreddit.options.dig('postgame', 'flair_id.won')
+        end
 
-        return unless flair
+        if template.lost? && @subreddit.options.dig('postgame', 'flair_id.lost')
+          return @subreddit.options.dig('postgame', 'flair_id.lost')
+        end
 
-        return flair['won'] if flair['won'] && template.won?
-        return flair['lost'] if flair['lost'] && template.lost?
-
-        flair['default']
+        @subreddit.options.dig('postgame', 'flair_id')
       end
 
       def post_sticky_comment = post_comment(text: subreddit.options.dig('postgame', 'sticky_comment'))

@@ -128,7 +128,9 @@ class Baseballbot
         Baseballbot::Posts::Postgame.new(@row, subreddit:).create!
       end
 
-      def game_thread_flair(type) = subreddit.options.dig('game_threads', 'flair_id', type)
+      def game_thread_flair(type)
+        subreddit.options.dig('game_threads', "flair_id.#{type}") || subreddit.options.dig('game_threads', 'flair_id')
+      end
 
       def post_template(type) = Templates::GameThread.new(subreddit:, game_pk:, post_id: @post_id, type:, title:)
 
