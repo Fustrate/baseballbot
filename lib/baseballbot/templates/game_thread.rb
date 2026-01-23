@@ -42,13 +42,13 @@ class Baseballbot
       protected
 
       def default_title
-        titles = @subreddit.options.dig('game_threads', 'title')
-
-        return titles if titles.is_a?(String)
-
         playoffs = %w[F D L W].include? game_data.dig('game', 'type')
 
-        titles[playoffs ? 'postseason' : 'default'] || titles.values.first
+        if playoffs && @subreddit.options.dig('game_threads', 'title.postseason')
+          return @subreddit.options.dig('game_threads', 'title.postseason')
+        end
+
+        @subreddit.options.dig('game_threads', 'title')
       end
     end
   end

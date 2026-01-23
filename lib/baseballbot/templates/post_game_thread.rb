@@ -6,24 +6,22 @@ class Baseballbot
       protected
 
       def default_title
-        titles = @subreddit.options.dig('postgame', 'title')
-
-        return titles if titles.is_a?(String)
-
-        titles[title_key] || titles['default'] || titles.values.first
+        @subreddit.options.dig('postgame', title_key)
 
         # # Spring training games can end in a tie.
         # titles['tie'] || titles
       end
 
       def title_key
-        return 'won' if won?
+        return 'title.won' if won? && @subreddit.options.dig('postgame', 'title.won')
 
-        return 'lost' if lost?
+        return 'title.lost' if lost? && @subreddit.options.dig('postgame', 'title.lost')
 
-        return 'playoffs' if %w[F D L W].include? game_data.dig('game', 'type')
+        if %w[F D L W].include?(game_data.dig('game', 'type')) && @subreddit.options.dig('postgame', 'title.playoffs')
+          return 'title.playoffs'
+        end
 
-        'default'
+        'title'
       end
     end
   end
