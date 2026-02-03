@@ -3,8 +3,8 @@
 class Baseballbot
   module Templates
     class OffDay < Template
-      def initialize(body:, subreddit:, title: '')
-        super(body:, subreddit:)
+      def initialize(body:, subreddit:, title: '', blocks: nil)
+        super(body:, subreddit:, blocks:)
 
         @title = title
       end
