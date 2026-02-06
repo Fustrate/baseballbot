@@ -2,8 +2,6 @@
 
 class Baseballbot
   module GameThreads
-    GAME_THREADS_ENABLED = Sequel.lit("subreddits.options['game_threads']['enabled']::boolean IS TRUE")
-
     def post_game_threads!(names: [])
       unposted_game_threads(names).each do |row|
         build_game_thread(row).create!
@@ -25,9 +23,9 @@ class Baseballbot
     end
 
     def build_game_thread(row)
-      Honeybadger.context(subreddit: row[:name])
+      Honeybadger.context(game_thread_id: row.id, subreddit: row.subreddit.name)
 
-      Baseballbot::Posts::GameThread.new(row, subreddit: name_to_subreddit(row[:name]))
+      Baseballbot::Posts::GameThread.new(row, subreddit: name_to_subreddit(row.subreddit.name))
     end
 
     # Every 10 minutes, update every game thread no matter what.
@@ -40,18 +38,18 @@ class Baseballbot
     end
 
     def active_game_threads
-      sequel[:game_threads]
-        .join(:subreddits, id: :subreddit_id)
-        .where(status: 'Posted')
-        .where { starts_at <= Sequel.lit('NOW()') }
+      Baseballbot::Models::GameThread
+        .with_subreddit_name
+        .posted
+        .started
         .order(:post_id)
         .all
     end
 
     def posted_game_threads
-      sequel[:game_threads]
-        .join(:subreddits, id: :subreddit_id)
-        .where(status: 'Posted')
+      Baseballbot::Models::GameThread
+        .with_subreddit_name
+        .posted
         .order(:post_id)
         .all
     end
@@ -59,11 +57,11 @@ class Baseballbot
     def unposted_game_threads(names)
       names = names.map(&:downcase)
 
-      sequel[:game_threads]
-        .join(:subreddits, id: :subreddit_id)
-        .where(status: %w[Pregame Future])
-        .where { post_at <= Sequel.lit('NOW()') }
-        .where(GAME_THREADS_ENABLED)
+      Baseballbot::Models::GameThread
+        .with_subreddit_name
+        .unposted
+        .postable
+        .with_game_threads_enabled
         .order(:post_at, :game_pk)
         .all
         .select { names.empty? || names.include?(it[:name].downcase) }
