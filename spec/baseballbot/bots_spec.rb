@@ -47,14 +47,15 @@ RSpec.describe Baseballbot::Bots do
 
   describe '#process_bot_row' do
     let(:row) do
-      {
+      instance_double(
+        Baseballbot::Models::Bot,
         id: 1,
         name: 'DodgerBot',
         access_token:,
         refresh_token:,
         scope:,
         expires_at:
-      }
+      )
     end
 
     it 'creates a Bot object from a database row' do
@@ -67,12 +68,13 @@ RSpec.describe Baseballbot::Bots do
 
   describe '#account_access' do
     let(:row) do
-      {
+      instance_double(
+        Baseballbot::Models::Bot,
         access_token:,
         refresh_token:,
         scope:,
         expires_at:
-      }
+      )
     end
 
     it 'creates an Access object from a database row' do
