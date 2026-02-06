@@ -23,7 +23,6 @@ ALTER TABLE IF EXISTS ONLY public.subreddits_users DROP CONSTRAINT IF EXISTS fk_
 ALTER TABLE IF EXISTS ONLY public.templates DROP CONSTRAINT IF EXISTS fk_rails_d1983f5278;
 ALTER TABLE IF EXISTS ONLY public.subreddits_users DROP CONSTRAINT IF EXISTS fk_rails_ccb5722fde;
 ALTER TABLE IF EXISTS ONLY public.game_threads DROP CONSTRAINT IF EXISTS fk_rails_73eaa02464;
-ALTER TABLE IF EXISTS ONLY public.scheduled_posts DROP CONSTRAINT IF EXISTS fk_rails_6bce9e4887;
 DROP INDEX IF EXISTS public.index_users_on_username;
 DROP INDEX IF EXISTS public.index_users_on_remember_me_token;
 DROP INDEX IF EXISTS public.index_users_on_last_logout_at_and_last_activity_at;
@@ -41,7 +40,6 @@ ALTER TABLE IF EXISTS ONLY public.templates DROP CONSTRAINT IF EXISTS templates_
 ALTER TABLE IF EXISTS ONLY public.system_users DROP CONSTRAINT IF EXISTS system_users_pkey;
 ALTER TABLE IF EXISTS ONLY public.subreddits DROP CONSTRAINT IF EXISTS subreddits_pkey;
 ALTER TABLE IF EXISTS ONLY public.schema_migrations DROP CONSTRAINT IF EXISTS schema_migrations_pkey;
-ALTER TABLE IF EXISTS ONLY public.scheduled_posts DROP CONSTRAINT IF EXISTS scheduled_posts_pkey;
 ALTER TABLE IF EXISTS ONLY public.game_threads DROP CONSTRAINT IF EXISTS game_threads_pkey;
 ALTER TABLE IF EXISTS ONLY public.events DROP CONSTRAINT IF EXISTS events_pkey;
 ALTER TABLE IF EXISTS ONLY public.edits DROP CONSTRAINT IF EXISTS edits_pkey;
@@ -52,7 +50,6 @@ ALTER TABLE IF EXISTS public.users ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.templates ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.system_users ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.subreddits ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.scheduled_posts ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.game_threads ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.events ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.edits ALTER COLUMN id DROP DEFAULT;
@@ -68,8 +65,6 @@ DROP TABLE IF EXISTS public.subreddits_users;
 DROP SEQUENCE IF EXISTS public.subreddits_id_seq;
 DROP TABLE IF EXISTS public.subreddits;
 DROP TABLE IF EXISTS public.schema_migrations;
-DROP SEQUENCE IF EXISTS public.scheduled_posts_id_seq;
-DROP TABLE IF EXISTS public.scheduled_posts;
 DROP SEQUENCE IF EXISTS public.game_threads_id_seq;
 DROP TABLE IF EXISTS public.game_threads;
 DROP SEQUENCE IF EXISTS public.events_id_seq;
@@ -329,44 +324,6 @@ ALTER SEQUENCE public.game_threads_id_seq OWNED BY public.game_threads.id;
 
 
 --
--- Name: scheduled_posts; Type: TABLE; Schema: public; Owner: baseballbot
---
-
-CREATE TABLE public.scheduled_posts (
-    id integer NOT NULL,
-    next_post_at timestamp(6) without time zone,
-    title character varying,
-    body text,
-    subreddit_id integer NOT NULL,
-    options jsonb
-);
-
-
-ALTER TABLE public.scheduled_posts OWNER TO baseballbot;
-
---
--- Name: scheduled_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: baseballbot
---
-
-CREATE SEQUENCE public.scheduled_posts_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public.scheduled_posts_id_seq OWNER TO baseballbot;
-
---
--- Name: scheduled_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: baseballbot
---
-
-ALTER SEQUENCE public.scheduled_posts_id_seq OWNED BY public.scheduled_posts.id;
-
-
---
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: baseballbot
 --
 
@@ -583,13 +540,6 @@ ALTER TABLE ONLY public.game_threads ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- Name: scheduled_posts id; Type: DEFAULT; Schema: public; Owner: baseballbot
---
-
-ALTER TABLE ONLY public.scheduled_posts ALTER COLUMN id SET DEFAULT nextval('public.scheduled_posts_id_seq'::regclass);
-
-
---
 -- Name: subreddits id; Type: DEFAULT; Schema: public; Owner: baseballbot
 --
 
@@ -694,14 +644,6 @@ COPY public.game_threads (id, post_at, starts_at, status, title, post_id, create
 2	2022-05-17 13:40:00	2022-05-17 15:40:00	Future	\N	\N	2022-05-15 11:16:18.46372	2022-05-15 11:16:18.467421	15	662053	\N	\N	\N
 3	2022-05-15 12:10:00	2022-05-15 13:10:00	Future	\N	\N	2022-05-15 11:17:41.533325	2022-05-15 11:17:41.535708	1	662696	\N	\N	\N
 4	2022-05-15 10:10:00	2022-05-15 11:10:00	Future	Test %<one>d two three	\N	2022-05-15 11:45:47.11991	2022-05-15 11:45:47.124299	24	661732	\N	\N	\N
-\.
-
-
---
--- Data for Name: scheduled_posts; Type: TABLE DATA; Schema: public; Owner: baseballbot
---
-
-COPY public.scheduled_posts (id, next_post_at, title, body, subreddit_id, options) FROM stdin;
 \.
 
 
@@ -822,13 +764,6 @@ SELECT pg_catalog.setval('public.game_threads_id_seq', 5, true);
 
 
 --
--- Name: scheduled_posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
---
-
-SELECT pg_catalog.setval('public.scheduled_posts_id_seq', 1, false);
-
-
---
 -- Name: subreddits_id_seq; Type: SEQUENCE SET; Schema: public; Owner: baseballbot
 --
 
@@ -902,14 +837,6 @@ ALTER TABLE ONLY public.events
 
 ALTER TABLE ONLY public.game_threads
     ADD CONSTRAINT game_threads_pkey PRIMARY KEY (id);
-
-
---
--- Name: scheduled_posts scheduled_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: baseballbot
---
-
-ALTER TABLE ONLY public.scheduled_posts
-    ADD CONSTRAINT scheduled_posts_pkey PRIMARY KEY (id);
 
 
 --
@@ -1034,14 +961,6 @@ CREATE INDEX index_users_on_remember_me_token ON public.users USING btree (remem
 --
 
 CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (username);
-
-
---
--- Name: scheduled_posts fk_rails_6bce9e4887; Type: FK CONSTRAINT; Schema: public; Owner: baseballbot
---
-
-ALTER TABLE ONLY public.scheduled_posts
-    ADD CONSTRAINT fk_rails_6bce9e4887 FOREIGN KEY (subreddit_id) REFERENCES public.subreddits(id);
 
 
 --

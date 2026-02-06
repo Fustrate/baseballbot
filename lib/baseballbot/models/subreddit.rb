@@ -5,7 +5,6 @@ class Baseballbot
     class Subreddit < Sequel::Model(:subreddits)
       one_to_many :edits, key: :editable_id, reciprocal: :subreddit
       one_to_many :game_threads
-      one_to_many :scheduled_posts
       one_to_many :subreddits_users
       one_to_many :templates
       many_to_many :users, join_table: :subreddits_users, left_key: :subreddit_id, right_key: :user_id
