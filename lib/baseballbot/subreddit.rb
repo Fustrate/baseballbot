@@ -123,7 +123,7 @@ class Baseballbot
 
       raise "/r/#{@name} does not have a #{type} template." unless template
 
-      { id: template.id, body: template.body, blocks: template.blocks }
+      { body: template.body, blocks: template.blocks }
     end
 
     # --------------------------------------------------------------------------
