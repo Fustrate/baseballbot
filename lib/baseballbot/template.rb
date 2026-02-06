@@ -19,7 +19,7 @@ class Baseballbot
     def initialize(body:, subreddit:, blocks: nil)
       super()
 
-      self.template = body
+      self.template = body || ''
       @blocks = blocks
 
       @subreddit = subreddit
