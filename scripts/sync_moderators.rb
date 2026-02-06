@@ -41,7 +41,7 @@ class SyncModerators < DefaultBot
   end
 
   def reset_moderator_names
-    sequel[:subreddits]
+    Baseballbot::Models::Subreddit
       .where(id: @subreddit.id)
       .update(moderators: Sequel.pg_array(@mod_names))
   end
@@ -51,7 +51,7 @@ class SyncModerators < DefaultBot
 
     return if remove_ids.none?
 
-    sequel[:subreddits_users]
+    Baseballbot::Models::SubredditsUser
       .where(subreddit_id: @subreddit.id)
       .where(user_id: remove_ids)
       .delete
@@ -64,7 +64,7 @@ class SyncModerators < DefaultBot
   end
 
   def add_modded_users
-    mod_user_ids = sequel[:users]
+    mod_user_ids = Baseballbot::Models::User
       .left_join(:subreddits_users, subreddit_id: @subreddit.id, user_id: :id)
       .where(subreddits_users__user_id: nil)
       .where(username: @mod_names)
@@ -76,12 +76,12 @@ class SyncModerators < DefaultBot
   end
 
   def add_modded_user(user_id)
-    sequel[:subreddits_users].insert(subreddit_id: @subreddit.id, user_id: user_id.to_i)
+    Baseballbot::Models::SubredditsUser.insert(subreddit_id: @subreddit.id, user_id: user_id.to_i)
   end
 
   def existing_relations
     @existing_relations ||= begin
-      rows = sequel[:subreddits_users]
+      rows = Baseballbot::Models::SubredditsUser
         .join(:subreddits, id: :subreddit_id)
         .join(:users, id: Sequel[:subreddits_users][:user_id])
         .select(:subreddit_id, :user_id, Sequel.function(:lower, :username).as(:username))

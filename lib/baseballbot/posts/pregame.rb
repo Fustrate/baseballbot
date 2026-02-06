@@ -38,7 +38,7 @@ class Baseballbot
 
         update_sticky @subreddit.sticky_game_threads?
 
-        bot.sequel[:game_threads].where(id: @id).update(pre_game_post_id: @submission.id)
+        Baseballbot::Models::GameThread.where(id: @id).update(pre_game_post_id: @submission.id)
 
         post_sticky_comment
       end

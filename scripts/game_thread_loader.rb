@@ -51,7 +51,7 @@ class GameThreadLoader < DefaultBot
   end
 
   def enabled_subreddits
-    sequel[:subreddits]
+    Baseballbot::Models::Subreddit
       .where(Sequel.lit("team_id IS NOT NULL AND options['game_threads']['enabled']::boolean IS TRUE"))
       .select(:id, :name, :team_id, Sequel.as(Sequel.lit("options#>>'{game_threads,post_at}'"), :post_at))
   end
@@ -84,7 +84,7 @@ class GameThreadLoader < DefaultBot
   def insert_game(subreddit_id, game, post_at, starts_at, title = nil)
     data = row_data(game, starts_at, post_at, subreddit_id, title)
 
-    sequel[:game_threads].insert(data)
+    Baseballbot::Models::GameThread.insert(data)
 
     @created += 1
   rescue PG::UniqueViolation, Sequel::UniqueConstraintViolation
@@ -103,7 +103,7 @@ class GameThreadLoader < DefaultBot
   end
 
   def update_game(data)
-    @updated += sequel[:game_threads]
+    @updated += Baseballbot::Models::GameThread
       .where(
         subreddit_id: data[:subreddit_id],
         game_pk: data[:game_pk]

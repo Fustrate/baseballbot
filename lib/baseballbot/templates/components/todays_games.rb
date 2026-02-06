@@ -165,7 +165,9 @@ class Baseballbot
         end
 
         def todays_games
-          @subreddit.bot.sequel[:game_threads].where(Sequel.lit('starts_at::date = ?', @date))
+          Baseballbot::Models::GameThread
+            .with_subreddit_name
+            .where(Sequel.lit('starts_at::date = ?', @date))
         end
       end
     end

@@ -111,11 +111,11 @@ class NoHitters < DefaultBot
   end
 
   def already_posted?(game_pk)
-    sequel[:game_threads].where(subreddit_id: subreddit.id, game_pk:, type: 'no_hitter').any?
+    Baseballbot::Models::GameThread.where(subreddit_id: subreddit.id, game_pk:, type: 'no_hitter').any?
   end
 
   def insert_game_thread!(submission, game)
-    sequel[:game_threads].insert(
+    Baseballbot::Models::GameThread.insert(
       post_at: Time.now,
       starts_at: Time.now,
       subreddit_id: subreddit.id,

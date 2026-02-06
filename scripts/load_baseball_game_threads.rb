@@ -27,7 +27,7 @@ class BaseballGameThreadLoader < GameThreadLoader
 
   def post_at
     @post_at ||= Baseballbot::Utility.adjust_time_proc(
-      sequel[:subreddits]
+      Baseballbot::Models::Subreddit
         .where(id: SUBREDDIT_ID)
         .select(Sequel.as('options#>>\'{game_threads,post_at}\'', :post_at))
         .first[:post_at]

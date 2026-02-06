@@ -3,6 +3,7 @@
 class Baseballbot
   module Models
     class GameThread < Sequel::Model(:game_threads)
+      one_to_many :edits, key: :editable_id, reciprocal: :game_thread
       many_to_one :subreddit
 
       dataset_module do

@@ -5,6 +5,10 @@ class Baseballbot
     class Bot < Sequel::Model(:bots)
       one_to_many :subreddits
 
+      dataset_module do
+        def named(name) = where(name:)
+      end
+
       def access
         Redd::Models::Access.new(
           access_token:,

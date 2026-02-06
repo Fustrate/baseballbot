@@ -17,10 +17,3 @@ DB.wrap_json_primitives = true
 
 Sequel.extension :pg_array_ops
 Sequel.extension :pg_json_ops
-
-class Baseballbot
-  module Database
-    # TODO: Rename this to `db` once all database queries are updated to use Sequel
-    def sequel = DB
-  end
-end

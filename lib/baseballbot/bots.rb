@@ -44,23 +44,23 @@ class Baseballbot
     protected
 
     def update_token_expiration!(new_expiration)
-      sequel[:bots]
+      Baseballbot::Models::Bot
         .where(refresh_token: client.access.refresh_token)
         .update(access_token: client.access.access_token, expires_at: new_expiration.strftime('%F %T'))
     end
 
-    def load_bots = sequel[:bots].all.to_h { [it[:id], process_bot_row(it)] }
+    def load_bots = Baseballbot::Models::Bot.all.to_h { [it.id, process_bot_row(it)] }
 
-    def process_bot_row(row) = Bot.new(bot: self, name: row[:name], access: account_access(row))
+    def process_bot_row(row) = Bot.new(bot: self, name: row.name, access: account_access(row))
 
     def account_access(row)
       Redd::Models::Access.new(
-        access_token: row[:access_token],
-        refresh_token: row[:refresh_token],
-        scope: row[:scope].join(' '),
+        access_token: row.access_token,
+        refresh_token: row.refresh_token,
+        scope: row.scope.join(' '),
         # Remove 60 seconds so we don't run into invalid credentials
-        expires_at: row[:expires_at] - 60,
-        expires_in: row[:expires_at] - Time.now
+        expires_at: row.expires_at - 60,
+        expires_in: row.expires_at - Time.now
       )
     end
   end

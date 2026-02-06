@@ -6,6 +6,7 @@ require 'mlb_stats_api'
 require 'open-uri'
 require 'redd'
 require 'redis'
+require 'sequel'
 require 'tzinfo'
 
 # Require honeybadger after other gems in case there are integrations it can detect.
@@ -15,9 +16,23 @@ loader = Zeitwerk::Loader.new
 loader.push_dir(__dir__)
 loader.setup
 
-class Baseballbot
-  include Database
+# Connect to the database immediately so that model classes can be created.
+DB = Sequel.connect(
+  adapter: :postgres,
+  host: ENV.fetch('BASEBALLBOT_PG_HOST', nil),
+  database: ENV.fetch('BASEBALLBOT_PG_DATABASE'),
+  password: ENV.fetch('BASEBALLBOT_PG_PASSWORD'),
+  user: ENV.fetch('BASEBALLBOT_PG_USERNAME')
+)
 
+DB.extension :pg_array
+DB.extension :pg_json
+DB.wrap_json_primitives = true
+
+Sequel.extension :pg_array_ops
+Sequel.extension :pg_json_ops
+
+class Baseballbot
   include Bots
   include GameThreads
   include OffDay
@@ -49,7 +64,7 @@ class Baseballbot
   end
 
   def log_action(subject_type:, subject_id:, action:, note: nil, data: {})
-    sequel[:bot_actions].insert(
+    Baseballbot::Models::BotAction.create(
       subject_type:,
       subject_id:,
       action:,

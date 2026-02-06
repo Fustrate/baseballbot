@@ -23,7 +23,7 @@ RSpec.describe Baseballbot::Bots do
   end
 
   before do
-    allow(bot).to receive_messages(client:, sequel: DB)
+    allow(bot).to receive_messages(client:)
     allow(client).to receive(:access=)
   end
 
@@ -217,13 +217,13 @@ RSpec.describe Baseballbot::Bots do
   describe '#update_token_expiration!' do
     let(:new_expiration) { Time.now + 3600 }
     let(:bot_id) do
-      DB[:bots].insert(
+      Baseballbot::Models::Bot.create(
         name: 'UpdateBot',
         access_token:,
         refresh_token:,
-        scope: Sequel.pg_array(scope),
+        scope:,
         expires_at: expires_at.strftime('%F %T')
-      )
+      ).id
     end
 
     before do
@@ -234,18 +234,18 @@ RSpec.describe Baseballbot::Bots do
     it 'updates the access token in the database' do
       bot.send(:update_token_expiration!, new_expiration)
 
-      updated_bot = DB[:bots].where(refresh_token:).first
-      expect(updated_bot[:access_token]).to eq(access_token)
+      updated_bot = Baseballbot::Models::Bot.where(refresh_token:).first
+      expect(updated_bot.access_token).to eq(access_token)
     end
 
     it 'updates the expires_at in the database' do
       bot.send(:update_token_expiration!, new_expiration)
 
-      updated_bot = DB[:bots].where(refresh_token:).first
+      updated_bot = Baseballbot::Models::Bot.where(refresh_token:).first
       # PostgreSQL's timestamp without time zone stores the time as-is,
       # but Sequel returns it interpreted in the local timezone.
       # Convert both to UTC for comparison.
-      expect(updated_bot[:expires_at].utc.to_i).to be_within(1).of(new_expiration.utc.to_i)
+      expect(updated_bot.expires_at.utc.to_i).to be_within(1).of(new_expiration.utc.to_i)
     end
   end
 

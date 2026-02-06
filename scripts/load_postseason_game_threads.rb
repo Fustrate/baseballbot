@@ -44,7 +44,7 @@ class PostseasonGameLoader < DefaultBot
   end
 
   def team_subreddits_data
-    sequel[:subreddits].select(
+    Baseballbot::Models::Subreddit.select(
       :id,
       :team_id,
       Sequel.as("options#>>'{game_threads,post_at}'", :post_at),
@@ -79,7 +79,7 @@ class PostseasonGameLoader < DefaultBot
   def insert_game(game, starts_at, post_at, title, subreddit_id)
     @attempts += 1
 
-    sequel[:game_threads].insert(row_data(game, starts_at, post_at, title, subreddit_id))
+    Baseballbot::Models::GameThread.insert(row_data(game, starts_at, post_at, title, subreddit_id))
   rescue PG::UniqueViolation
     @failures += 1
   end
@@ -96,7 +96,7 @@ class PostseasonGameLoader < DefaultBot
   end
 
   def baseball_subreddit_title
-    @baseball_subreddit_title ||= sequel[:subreddits]
+    @baseball_subreddit_title ||= Baseballbot::Models::Subreddit
       .where(id: R_BASEBALL)
       .select(Sequel.as("options#>>'{game_threads,title,postseason}'", :title))
       .first[:title]

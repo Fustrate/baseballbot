@@ -46,7 +46,9 @@ class Baseballbot
     protected
 
     def load_subreddits
-      sequel[:subreddits].to_h { [it[:name].downcase, Subreddit.new(it, bot: self, bot_account: bots[it[:bot_id]])] }
+      Baseballbot::Models::Subreddit.all.to_h do |row|
+        [row.name.downcase, Subreddit.new(row, bot: self, bot_account: bots[row.bot_id])]
+      end
     end
   end
 end

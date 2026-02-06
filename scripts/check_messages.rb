@@ -62,7 +62,7 @@ class CheckMessages < DefaultBot
   def add_game_thread!(game_pk, submission, subreddit_id, post_id)
     return unless game_pk && submission && subreddit_id && post_id
 
-    sequel[:game_threads].insert(game_thread_data(game_pk, submission, subreddit_id, post_id))
+    Baseballbot::Models::GameThread.insert(game_thread_data(game_pk, submission, subreddit_id, post_id))
   rescue PG::UniqueViolation
     # Do nothing
   end

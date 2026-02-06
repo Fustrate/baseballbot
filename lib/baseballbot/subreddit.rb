@@ -116,11 +116,14 @@ class Baseballbot
     end
 
     def template_for(type)
-      template = @bot.sequel[:templates].where(subreddit_id: @id, type: type).first
+      template = Baseballbot::Models::Template
+        .for_subreddit(@id)
+        .of_type(type)
+        .first
 
       raise "/r/#{@name} does not have a #{type} template." unless template
 
-      template.slice(:body, :blocks)
+      { id: template.id, blocks: template.blocks }
     end
 
     # --------------------------------------------------------------------------

@@ -19,8 +19,8 @@ class Baseballbot
     end
 
     def unposted_subreddits
-      sequel[:subreddits]
-        .where(Sequel.lit(UNPOSTED_CONDITIONS))
+      Baseballbot::Models::Subreddit
+        .with_unposted_off_day_thread
         .order(:name)
         .all
     end
@@ -39,7 +39,7 @@ class Baseballbot
 
     def off_day_check_was_run!(subreddit)
       # Why yes, calling json function via the Sequel gem is super easy and didn't take 27 tries to figure out.
-      sequel[:subreddits].where(id: subreddit.id).update(
+      Baseballbot::Models::Subreddit.where(id: subreddit.id).update(
         options: Sequel.pg_jsonb_op(:options)
           .set(%w[off_day last_run_at], Sequel.lit(%('"#{Time.now.strftime('%F %T')}"'::jsonb)))
       )

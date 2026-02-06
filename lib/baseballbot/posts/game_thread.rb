@@ -69,7 +69,7 @@ class Baseballbot
       def change_status(status)
         attrs = updated_attributes(status)
 
-        bot.sequel[:game_threads].where(id: @id).update(attrs)
+        Baseballbot::Models::GameThread.where(id: @id).update(attrs)
       end
 
       def updated_attributes(status)
@@ -137,7 +137,7 @@ class Baseballbot
       # When there are lots of threads running at the same time, the updates may take so long that it's still running
       # when the next update triggers. Make sure there hasn't been a postgame thread ID set since we loaded this round.
       def postgame_posted?
-        result = bot.sequel[:game_threads].where(id: @id).first
+        result = Baseballbot::Models::GameThread.where(id: @id).first
 
         result && result[:post_game_post_id]
       end
