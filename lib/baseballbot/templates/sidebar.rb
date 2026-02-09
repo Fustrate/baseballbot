@@ -10,6 +10,7 @@ class Baseballbot
 
         @blocks
           .map { block_for(it) }
+          .append(updated_with_link)
           .join("\n\n")
       end
 
@@ -23,6 +24,8 @@ class Baseballbot
           block['content']
         end
       end
+
+      def updated_with_link = "[Updated](https://baseballbot.io) #{@subreddit.now.strftime('%-m/%-d at %-I:%M %p %Z')}"
     end
   end
 end
