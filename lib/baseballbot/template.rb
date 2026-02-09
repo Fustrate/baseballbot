@@ -25,6 +25,8 @@ class Baseballbot
       @subreddit = subreddit
     end
 
+    def instance_variables_to_inspect = %i[@subreddit]
+
     def evaluated_body
       # Allow both Mustache and ERB until all templates are converted, then rip out ERB.
       ERB.new(render, trim_mode: '<>').result(binding)

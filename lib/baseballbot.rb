@@ -83,7 +83,7 @@ class Baseballbot
     @session ||= Redd::Models::Session.new client
   end
 
-  def inspect = %(#<#{self.class.name}>)
+  def instance_variables_to_inspect = []
 
   def bots
     @bots ||= load_bots

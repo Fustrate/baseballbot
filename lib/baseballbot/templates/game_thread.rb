@@ -35,7 +35,7 @@ class Baseballbot
 
       def game_data = feed.game_data
 
-      def inspect = %(#<#{self.class.name} @game_pk="#{@game_pk}">)
+      def instance_variables_to_inspect = %i[@subreddit @game_pk @post_id @type]
 
       def postponed? = false
 

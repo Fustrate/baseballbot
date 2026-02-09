@@ -9,8 +9,6 @@ class Baseballbot
         @title = title
       end
 
-      def inspect = %(#<#{self.class.name}>)
-
       def formatted_title = Title.new(@title, date: @subreddit.today).to_s
     end
   end

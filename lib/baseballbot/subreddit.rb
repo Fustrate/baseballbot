@@ -19,6 +19,8 @@ class Baseballbot
       @timezone = Baseballbot::Utility.parse_time_zone options[:timezone]
     end
 
+    def instance_variables_to_inspect = %i[@id @name @team_id]
+
     def team
       @team ||= @bot.api.team(@team_id) if @team_id
     end

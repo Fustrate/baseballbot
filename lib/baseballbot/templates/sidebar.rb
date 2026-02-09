@@ -5,8 +5,6 @@ class Baseballbot
     class Sidebar < Template
       include Sidebars::Components
 
-      def inspect = %(#<#{self.class.name} @subreddit="#{@subreddit.name}">)
-
       def evaluated_body
         return super unless @blocks && !@blocks.empty?
 

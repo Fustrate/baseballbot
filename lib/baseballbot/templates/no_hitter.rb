@@ -16,7 +16,7 @@ class Baseballbot
         super(subreddit:, game_pk:, title: TITLE_FORMAT, type: 'no_hitter')
       end
 
-      def inspect = %(#<#{self.class.name} @game_pk="#{@game_pk}" @flag="#{@flag}">)
+      def instance_variables_to_inspect = super + %i[@flag]
     end
   end
 end
