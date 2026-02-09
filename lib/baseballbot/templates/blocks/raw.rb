@@ -15,22 +15,22 @@ end
 
 # [
 #   {
-#     type: "division_standings",
-#     title: "## {{year}} NL West Standings",
-#     columns: ["team_logo", "wins", "losses", "percent", "last_ten"]
+#     "type": "division_standings",
+#     "title": "## {{year}} NL West Standings",
+#     "columns": ["team_logo", "wins", "losses", "percent", "last_ten"]
 #   },
 #   {
-#     type: "calendar",
-#     title: "## {{month_name}} Schedule"
+#     "type": "calendar",
+#     "title": "## {{month_name}} Schedule"
 #   },
 #   {
-#     type: "batting_leaders",
-#     title: "## {{year}} Batting Leaders",
-#     stats: ["h","xbh","hr","rbi","bb","sb","avg","obp","slg","ops"]
+#     "type": "batting_leaders",
+#     "title": "## {{year}} Batting Leaders",
+#     "stats": ["h","xbh","hr","rbi","bb","sb","avg","obp","slg","ops"]
 #   },
 #   {
-#     type: "pitching_leaders",
-#     title: "## {{year}} Pitching Leaders",
-#     stats: ["w","sv","hld","ip","so","avg","whip","era"]
+#     "type": "pitching_leaders",
+#     "title": "## {{year}} Pitching Leaders",
+#     "stats": ["w","sv","hld","ip","so","avg","whip","era"]
 #   }
 # ]
