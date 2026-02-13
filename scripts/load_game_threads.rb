@@ -110,7 +110,7 @@ class LoadGameThreads < DefaultBot
         game_pk: data[:game_pk]
       )
       .where(Sequel.lit('starts_at != ? OR post_at != ?', data[:starts_at], data[:post_at]))
-      .where(Sequel.lit("date_trunc('day', starts_at) = date_trunc('day', ?)", data[:starts_at]))
+      .where(Sequel.lit("date_trunc('day', starts_at) = ?", data[:starts_at][..10]))
       .update(data.slice(:post_at, :starts_at, :updated_at, :title))
   end
 end
