@@ -98,7 +98,8 @@ class LoadGameThreads < DefaultBot
       updated_at: Time.now.strftime('%F %T'),
       subreddit_id:,
       game_pk: game['gamePk'].to_i,
-      title:
+      title:,
+      status: 'Future'
     }
   end
 
