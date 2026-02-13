@@ -9,5 +9,7 @@ class Baseballbot
       @name = name
       @access = access
     end
+
+    def instance_variables_to_inspect = %i[@name]
   end
 end
