@@ -3,7 +3,7 @@
 require_relative 'default_bot'
 
 # Load all postseason game threads for /r/baseball
-class PostseasonGameLoader < DefaultBot
+class LoadPostseasonGameThreads < DefaultBot
   R_BASEBALL = 15
 
   # TODO: This is a bad fix - figure it out the right way

@@ -2,7 +2,7 @@
 
 require_relative 'default_bot'
 
-class GameThreadLoader < DefaultBot
+class LoadGameThreads < DefaultBot
   def initialize(date: nil, subreddits: [])
     super(purpose: 'Game Thread Loader', bot: 'BaseballBot')
 

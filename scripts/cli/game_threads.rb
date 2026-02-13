@@ -10,9 +10,9 @@ class GameThreads < Subcommand
   method_option :month, type: :string, aliases: '-m'
   method_option :subreddits, type: :string, aliases: '-s'
   def load
-    require_relative '../game_thread_loader'
+    require_relative '../load_game_threads'
 
-    results = GameThreadLoader.new(
+    results = LoadGameThreads.new(
       date: month_to_date(options.month),
       subreddits: parse_array(options.subreddits)
     ).run
@@ -24,14 +24,14 @@ class GameThreads < Subcommand
   def load_r_baseball
     require_relative '../load_baseball_game_threads'
 
-    BaseballGameThreadLoader.new.run
+    LoadBaseballGameThreads.new.run
   end
 
   desc 'load_postseason', ''
   def load_postseason
     require_relative '../load_postseason_game_threads'
 
-    PostseasonGameLoader.new.run
+    LoadPostseasonGameThreads.new.run
   end
 
   desc 'off_day', 'Post daily off-day threads'

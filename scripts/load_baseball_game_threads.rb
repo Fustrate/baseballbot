@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'game_thread_loader'
+require_relative 'load_game_threads'
 
 # /r/baseball runs game threads for national broadcasts and MLB.TV's free game of the day.
-class BaseballGameThreadLoader < GameThreadLoader
+class LoadBaseballGameThreads < LoadGameThreads
   SUBREDDIT_ID = 15
 
   TITLE = '%<type>s Game of the Day {{month}}/{{day}} ⚾ {{away_name}} ({{away_record}}) @ {{home_name}} ' \
