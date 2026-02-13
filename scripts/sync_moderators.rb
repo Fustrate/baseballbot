@@ -3,7 +3,10 @@
 require_relative 'default_bot'
 
 class SyncModerators < DefaultBot
-  EXCLUDE_BOTS = %w[automoderator floodassistant comment-nuke trendingtattler modmailtodiscord].freeze
+  EXCLUDE_BOTS = %w[
+    automoderator baseballflair botdefense comment-nuke discord-send duplicatedestroyer floodassistant modmail-userinfo
+    modmailtodiscord repostsleuthbot trendingtattler
+  ].freeze
 
   def initialize(subreddits: [])
     super(purpose: 'Sync Moderators')
