@@ -22,15 +22,6 @@ class CLI < Thor
     AroundTheHorn.new.run
   end
 
-  desc 'chaos', 'Burn the wagons!'
-  method_option :teams, type: :string, required: true
-  method_option :after, type: :string
-  def chaos
-    require_relative 'chaos'
-
-    Chaos.new(teams: options.teams.split(/[,+]/)).run(after: options.after)
-  end
-
   desc 'check_messages', 'Check for messages from other bots'
   def check_messages
     require_relative 'check_messages'
