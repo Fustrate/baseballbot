@@ -3,6 +3,8 @@
 require_relative 'default_bot'
 
 class SyncModerators < DefaultBot
+  EXCLUDE_BOTS = %w[automoderator floodassistant comment-nuke trendingtattler modmailtodiscord].freeze
+
   def initialize(subreddits: [])
     super(purpose: 'Sync Moderators')
 
@@ -18,76 +20,25 @@ class SyncModerators < DefaultBot
   def skip_subreddit?(name) = @subreddit_names.any? && !@subreddit_names.include?(name.downcase)
 
   def process_subreddit(subreddit)
-    return if skip_subreddit?(subreddit.name)
-
-    @subreddit = subreddit
-    @mod_names = moderator_names
-
-    reset_moderator_names
-
-    remove_unmodded_users
-
-    add_modded_users
+    reset_moderator_names(subreddit)
 
     sleep 3
   rescue Redd::Errors::Forbidden
-    # BaseballBot can't access /r/troxellophilus
+    # BaseballBot can't access this subreddit, likely because it's private.
     nil
   end
 
-  def moderator_names
-    # This can be filtered on :mod_permissions as well if necessary
-    @subreddit.subreddit.moderators.map { it[:name].downcase }
-  end
+  def reset_moderator_names(subreddit)
+    return if skip_subreddit?(subreddit.name)
 
-  def reset_moderator_names
+    # If you have posts and/or config permissions, you're likely allowed to administrate this subreddit's game threads.
+    moderator_names = subreddit.subreddit.moderators
+      .filter { it[:mod_permissions].intersect?(%w[all posts config]) }
+      .map { it[:name].downcase }
+      .reject { EXCLUDE_BOTS.include?(it) }
+
     Baseballbot::Models::Subreddit
-      .where(id: @subreddit.id)
-      .update(moderators: Sequel.pg_array(@mod_names))
-  end
-
-  def remove_unmodded_users
-    remove_ids = user_ids_to_remove
-
-    return if remove_ids.none?
-
-    Baseballbot::Models::SubredditsUser
-      .where(subreddit_id: @subreddit.id)
-      .where(user_id: remove_ids)
-      .delete
-  end
-
-  def user_ids_to_remove
-    existing_relations[@subreddit.id]
-      .reject { @mod_names.include?(it[:username]) }
-      .map { it[:user_id].to_i }
-  end
-
-  def add_modded_users
-    mod_user_ids = Baseballbot::Models::User
-      .left_join(:subreddits_users, subreddit_id: @subreddit.id, user_id: :id)
-      .where(subreddits_users__user_id: nil)
-      .where(username: @mod_names)
-      .select(:id)
-      .all
-      .map { it[:id] }
-
-    mod_user_ids.each { add_modded_user(it) }
-  end
-
-  def add_modded_user(user_id)
-    Baseballbot::Models::SubredditsUser.insert(subreddit_id: @subreddit.id, user_id: user_id.to_i)
-  end
-
-  def existing_relations
-    @existing_relations ||= begin
-      rows = Baseballbot::Models::SubredditsUser
-        .join(:subreddits, id: :subreddit_id)
-        .join(:users, id: Sequel[:subreddits_users][:user_id])
-        .select(:subreddit_id, :user_id, Sequel.function(:lower, :username).as(:username))
-        .all
-
-      rows.group_by { it[:subreddit_id].to_i }.tap { it.default = [] }
-    end
+      .where(id: subreddit.id)
+      .update(moderators: Sequel.pg_array(moderator_names))
   end
 end
