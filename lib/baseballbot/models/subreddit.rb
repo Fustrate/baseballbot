@@ -39,7 +39,7 @@ class Baseballbot
 
       def today = now.to_date
 
-      def timezone = options[:timezone] || 'America/Los_Angeles'
+      def timezone = options['timezone'] || 'America/Los_Angeles'
     end
   end
 end
