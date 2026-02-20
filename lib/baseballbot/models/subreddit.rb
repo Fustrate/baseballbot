@@ -33,7 +33,7 @@ class Baseballbot
       # If the bot isn't a moderator of the subreddit, it can't perform some actions
       def moderator? = moderators.include?(bot.name.downcase)
 
-      def sticky_game_threads? = moderator? && options.dig(:game_threads, :sticky) != false
+      def sticky_game_threads? = moderator? && options.dig('game_threads', 'sticky') != false
 
       def now = Baseballbot::Utility.parse_time(Time.now.utc, in_time_zone: timezone)
 
