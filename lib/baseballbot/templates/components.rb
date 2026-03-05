@@ -3,7 +3,9 @@
 class Baseballbot
   module Templates
     module Components
-      def todays_games(sport_id: 1) = TodaysGames.new(@subreddit, links: :code, sport_id:)
+      def todays_games = TodaysGames.new(@subreddit, links: :code, sport_id: 1)
+
+      def todays_wbc_games = TodaysGames.new(@subreddit, links: :code, sport_id: 51)
 
       def month_games = schedule.month_games
 

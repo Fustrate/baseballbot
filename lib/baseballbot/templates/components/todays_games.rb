@@ -29,7 +29,7 @@ class Baseballbot
 
         def to_s
           <<~MARKDOWN.strip
-            ## #{(@subreddit.now - 10_800).strftime('%A')}'s Games
+            ## #{(@subreddit.now - 10_800).strftime('%A')}'s #{@sport_id == 1 ? 'Games' : 'WBC Games'}
 
             #{table(headers: [' ', [' ', :center], [' ', :center]] * 2, rows: game_rows)}
 
@@ -160,12 +160,12 @@ class Baseballbot
         def load_known_game_threads
           @game_threads = Hash.new { |h, k| h[k] = {} }
 
-          todays_games.each do |row|
+          todays_game_threads.each do |row|
             @game_threads[row[:game_pk]][row[:name]] = row[:post_id]
           end
         end
 
-        def todays_games
+        def todays_game_threads
           Baseballbot::Models::GameThread
             .with_subreddit_name
             .where(Sequel.lit('starts_at::date = ?', @date))
