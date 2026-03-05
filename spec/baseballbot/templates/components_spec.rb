@@ -22,18 +22,9 @@ RSpec.describe Baseballbot::Templates::Components do
   describe '#todays_games' do
     it 'creates a Today\'s Games table' do
       expect(Baseballbot::Templates::Components::TodaysGames)
-        .to receive(:new).with(subreddit, date: nil, links: :code)
+        .to receive(:new).with(subreddit, links: :code, sport_id: 1)
 
       TemplateComponents.new(subreddit).todays_games
-    end
-
-    it 'creates a Today\'s Games table for a specific date' do
-      date = subreddit.today - 3
-
-      expect(Baseballbot::Templates::Components::TodaysGames)
-        .to receive(:new).with(subreddit, date:, links: :code)
-
-      TemplateComponents.new(subreddit).todays_games(date)
     end
   end
 

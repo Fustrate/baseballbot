@@ -16,12 +16,13 @@ class Baseballbot
         SQL
 
         # This table can also be shown in the daily ATH thread, where [][LAD] links aren't set up.
-        def initialize(subreddit, links:, date: nil)
+        def initialize(subreddit, links:, sport_id: 1)
           @subreddit = subreddit
 
           # Default to 3 hours ago so that late west coast games show for a while after midnight.
-          @date = date || (subreddit.now - 10_800)
+          @date = subreddit.now - 10_800
           @links = links
+          @sport_id = sport_id
 
           load_known_game_threads
         end
@@ -55,7 +56,7 @@ class Baseballbot
         end
 
         def scheduled_games
-          @subreddit.bot.api.schedule(sportId: 1, date: @date.strftime('%m/%d/%Y'), hydrate: TODAYS_GAMES_HYDRATE)
+          @subreddit.bot.api.schedule(sportId: @sport_id, date: @date.strftime('%m/%d/%Y'), hydrate: TODAYS_GAMES_HYDRATE)
             .dig('dates', 0, 'games') || []
         end
 
