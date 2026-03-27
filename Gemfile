@@ -44,6 +44,9 @@ gem 'thor'
 gem 'csv', '~> 3.2'
 
 group :development do
+  # Ruby LSP RSpec test integration for VS Code Testing tab
+  gem 'ruby-lsp-rspec', require: false
+
   # Deploy with Capistrano [https://github.com/capistrano/capistrano]
   gem 'capistrano', '~> 3.17', require: false
 
