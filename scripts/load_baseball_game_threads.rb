@@ -6,7 +6,7 @@ require_relative 'load_game_threads'
 class LoadBaseballGameThreads < LoadGameThreads
   SUBREDDIT_ID = 15
 
-  TITLE = '%<type>s Game of the Day {{month}}/{{day}} ⚾ {{away_name}} ({{away_record}}) @ {{home_name}} ' \
+  TITLE = '%<call_sign>s Game of the Day {{month}}/{{day}} ⚾ {{away_name}} ({{away_record}}) @ {{home_name}} ' \
           '({{home_record}}) {{start_time_et}}'
 
   NATIONAL_CALLSIGNS = ['ESPN'].freeze
@@ -35,12 +35,12 @@ class LoadBaseballGameThreads < LoadGameThreads
   end
 
   def national_game_title(game)
-    national_broadcast = game['broadcasts']&.find { it['isNational'] && NATIONAL_CALLSIGNS.include?(it['callSign']) }
+    national_broadcast = game['broadcasts']&.find { it.dig('availability', 'availabilityCode' == 'national') }
 
-    return format(TITLE, type: national_broadcast['callSign']) if national_broadcast
+    return format(TITLE, call_sign: national_broadcast['callSign']) if national_broadcast
 
     return unless game['broadcasts']&.any? { it['freeGame'] }
 
-    format(TITLE, type: 'Free')
+    format(TITLE, call_sign: 'Free')
   end
 end
