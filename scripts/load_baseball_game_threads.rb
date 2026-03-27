@@ -9,8 +9,6 @@ class LoadBaseballGameThreads < LoadGameThreads
   TITLE = '%<call_sign>s Game of the Day {{month}}/{{day}} ⚾ {{away_name}} ({{away_record}}) @ {{home_name}} ' \
           '({{home_record}}) {{start_time_et}}'
 
-  NATIONAL_CALLSIGNS = ['ESPN'].freeze
-
   def initialize
     super(date: Date.today)
   end
@@ -35,7 +33,7 @@ class LoadBaseballGameThreads < LoadGameThreads
   end
 
   def national_game_title(game)
-    national_broadcast = game['broadcasts']&.find { it.dig('availability', 'availabilityCode' == 'national') }
+    national_broadcast = game['broadcasts']&.find { it.dig('availability', 'availabilityCode') == 'national' }
 
     return format(TITLE, call_sign: national_broadcast['callSign']) if national_broadcast
 
