@@ -2,6 +2,8 @@
 
 class Baseballbot
   module Utility
+    SUBTRACT_THREE_HOURS = -> { it - 10_800 }
+
     def self.parse_time_zone(name)
       TZInfo::Timezone.get name
     rescue TZInfo::InvalidTimezoneIdentifier
@@ -20,18 +22,15 @@ class Baseballbot
     end
 
     def self.adjust_time_proc(post_at)
-      if post_at =~ /\A-?\d{1,2}\z/
-        ->(time) { time - (Regexp.last_match[0].to_i.abs * 3600) }
-      elsif post_at =~ /(1[012]|0?\d):(\d\d)/i
-        constant_time(Regexp.last_match)
+      case post_at
+      when /\A-\d{1,2}\z/
+        -> { it + (post_at.to_i * 3600) }
+      when /(1[012]|0?\d):(\d\d)/i
+        -> { Time.new(it.year, it.month, it.day, Regexp.last_match[1].to_i, Regexp.last_match[2].to_i, 0) }
       else
         # Default to 3 hours before game time
-        ->(time) { time - (3 * 3600) }
+        SUBTRACT_THREE_HOURS
       end
-    end
-
-    def self.constant_time(match_data)
-      -> { Time.new(it.year, it.month, it.day, match_data[1].to_i, (match_data[2] || '00').to_i, 0) }
     end
   end
 end
