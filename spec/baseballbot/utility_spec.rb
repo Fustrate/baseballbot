@@ -29,8 +29,7 @@ RSpec.describe Baseballbot::Utility do
 
       results = {
         '-3' => '2019-04-09T09:00:00 PDT',
-        '3' => '2019-04-09T09:00:00 PDT',
-        '1' => '2019-04-09T11:00:00 PDT'
+        '-1' => '2019-04-09T11:00:00 PDT'
       }
 
       results.each do |offset, target|
@@ -40,10 +39,10 @@ RSpec.describe Baseballbot::Utility do
 
     # The absolute time is tested in its own method - just make sure it's called
     it 'adjust with an absolute time' do
-      expect(described_class).to receive(:constant_time).twice
+      start = Time.parse('2019-04-09T12:00:00 PDT')
 
-      described_class.adjust_time_proc('7am')
-      described_class.adjust_time_proc('6:45 AM')
+      expect(described_class.adjust_time_proc('7:00').call(start)).to eq Time.parse('2019-04-09T07:00:00 PDT')
+      expect(described_class.adjust_time_proc('6:45').call(start)).to eq Time.parse('2019-04-09T06:45:00 PDT')
     end
 
     it 'defaults to 3 hours' do
@@ -52,21 +51,6 @@ RSpec.describe Baseballbot::Utility do
 
       ['', nil].each do |offset|
         expect(described_class.adjust_time_proc(offset).call(start)).to eq target
-      end
-    end
-  end
-
-  describe '#constant_time' do
-    it 'does a thing' do
-      start = Time.parse('2019-04-09T12:34:56 PDT')
-
-      results = {
-        [nil, '7', nil, 'am'] => '2019-04-09T07:00:00 PDT',
-        [nil, '6', ':45', 'AM'] => '2019-04-09T06:45:00 PDT'
-      }
-
-      results.each do |match_data, target|
-        expect(described_class.constant_time(match_data).call(start)).to eq Time.parse(target)
       end
     end
   end
