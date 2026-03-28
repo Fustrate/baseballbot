@@ -31,12 +31,7 @@ class Baseballbot
     end
 
     def self.constant_time(match_data)
-      lambda do |time|
-        hours = match_data[1].to_i
-        minutes = (match_data[2] || ':00')[1..2].to_i
-
-        Time.new(time.year, time.month, time.day, hours, minutes, 0)
-      end
+      -> { Time.new(it.year, it.month, it.day, match_data[1].to_i, (match_data[2] || '00').to_i, 0) }
     end
   end
 end
