@@ -2,8 +2,8 @@
 
 class Baseballbot
   module Templates
-    module Components
-      class PickTheStick
+    module Blocks
+      class PickTheStick < Block
         BASE_URL = 'https://www.pick-the-stick.com/api/standings?api_token=%<token>s&team=%<team_code>s&sort=desc'
 
         include MarkdownHelpers
@@ -16,11 +16,7 @@ class Baseballbot
           ['Position Change', :center]
         ]
 
-        def initialize(subreddit)
-          @subreddit = subreddit
-        end
-
-        def to_s
+        def render
           return '[](/pickthestick "Team not configured")' unless @subreddit.team&.code
 
           table(headers: TABLE_HEADERS, rows:)
