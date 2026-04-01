@@ -41,14 +41,14 @@ class Baseballbot
         end
 
         def pick_the_stick_data
-          api_token = ENV.fetch('BASEBALLBOT_PTS_TOKEN', nil)
+          token = ENV.fetch('BASEBALLBOT_PTS_TOKEN', nil)
           team_code = @subreddit.team.code
 
-          raise 'API token is required' unless api_token && !api_token.empty?
+          raise 'API token is required' unless token && !token.empty?
 
           raise 'Team code is required' if team_code.nil? || team_code.empty?
 
-          JSON.parse(URI.parse(format(BASE_URL, api_token:, team_code:)).open.read)
+          JSON.parse(URI.parse(format(BASE_URL, token:, team_code:)).open.read)
         end
       end
     end
