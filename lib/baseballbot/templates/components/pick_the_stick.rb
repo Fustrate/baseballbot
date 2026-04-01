@@ -42,6 +42,7 @@ class Baseballbot
 
         def pick_the_stick_data
           api_token = ENV.fetch('BASEBALLBOT_PTS_TOKEN', nil)
+          team_code = @subreddit.team.code
 
           raise 'API token is required' unless api_token && !api_token.empty?
 
