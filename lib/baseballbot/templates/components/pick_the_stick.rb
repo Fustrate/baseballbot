@@ -24,7 +24,10 @@ class Baseballbot
           return '[](/pickthestick "Team not configured")' unless @subreddit.team&.code
 
           <<~MARKDOWN
-            # Pick the Stick Standings
+            # Pick-The-Stick Top 10
+
+            Sign up at [Pick-The-Stick.com](https://www.pick-the-stick.com). Be sure to get your picks in before the
+            first pitch.
 
             #{table(headers: TABLE_HEADERS, rows:)}
           MARKDOWN
