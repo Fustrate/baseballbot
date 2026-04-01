@@ -4,7 +4,7 @@ class Baseballbot
   module Templates
     module Components
       class PickTheStick
-        BASE_URL = 'https://www.pick-the-stick.com/api/standings?api_token=%<token>s&team=%<team_code>s&sort=desc'
+        BASE_URL = 'https://www.pick-the-stick.com/api/standings?api_token=%<token>s&team=%<team_code>s&sort=asc'
 
         include MarkdownHelpers
 
@@ -23,7 +23,11 @@ class Baseballbot
         def to_s
           return '[](/pickthestick "Team not configured")' unless @subreddit.team&.code
 
-          table(headers: TABLE_HEADERS, rows:)
+          <<~MARKDOWN
+            # Pick the Stick Standings
+
+            #{table(headers: TABLE_HEADERS, rows:)}
+          MARKDOWN
         end
 
         protected
