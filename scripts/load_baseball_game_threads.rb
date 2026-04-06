@@ -33,7 +33,8 @@ class LoadBaseballGameThreads < LoadGameThreads
   end
 
   def national_game_title(game)
-    national_broadcast = game['broadcasts']&.find { it.dig('availability', 'availabilityCode') == 'national' }
+    national_broadcast = game['broadcasts']
+      &.find { %w[national exclusive].include?(it.dig('availability', 'availabilityCode')) }
 
     return format(TITLE, call_sign: national_broadcast['callSign']) if national_broadcast
 
