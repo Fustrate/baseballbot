@@ -15,7 +15,9 @@ class Baseballbot
       headers.each do |column|
         header, alignment = Array(column)
 
-        header_cells << header.to_s
+        header_text = header.to_s.strip
+
+        header_cells << (header_text.empty? ? '&nbsp;' : header_text)
         alignment_cells << ALIGNMENT.fetch(alignment, ALIGNMENT[:left])
       end
 
