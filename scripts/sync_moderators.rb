@@ -11,7 +11,7 @@ class SyncModerators < DefaultBot
   def initialize(subreddits: [])
     super(purpose: 'Sync Moderators')
 
-    use_bot 'BaseballBot'
+    use_bot 'DodgerBot'
 
     @subreddit_names = subreddits.map(&:downcase)
   end
@@ -27,7 +27,7 @@ class SyncModerators < DefaultBot
 
     sleep 3
   rescue Redd::Errors::Forbidden
-    # BaseballBot can't access this subreddit, likely because it's private.
+    # DodgerBot can't access this subreddit, likely because it's private.
     nil
   end
 

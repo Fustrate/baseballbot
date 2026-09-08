@@ -75,7 +75,7 @@ class AroundTheHorn < DefaultBot
   end
 
   def initialize
-    super(purpose: 'Around the Horn', bot: 'BaseballBot')
+    super(purpose: 'Around the Horn', bot: 'DodgerBot')
 
     @subreddit = name_to_subreddit(ATH_SUBREDDIT)
 

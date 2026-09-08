@@ -8,7 +8,7 @@ class ConsolidateFlairs < DefaultBot
   }.freeze
 
   def initialize
-    super(purpose: 'Merge Flairs', bot: 'BaseballBot')
+    super(purpose: 'Merge Flairs', bot: 'DodgerBot')
 
     @subreddit = session.subreddit('baseball')
   end

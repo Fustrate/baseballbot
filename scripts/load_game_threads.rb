@@ -4,7 +4,7 @@ require_relative 'default_bot'
 
 class LoadGameThreads < DefaultBot
   def initialize(date: nil, subreddits: [])
-    super(purpose: 'Game Thread Loader', bot: 'BaseballBot')
+    super(purpose: 'Game Thread Loader', bot: 'DodgerBot')
 
     @created = @updated = 0
     @date = date || Date.today
