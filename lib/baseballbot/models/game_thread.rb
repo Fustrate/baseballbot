@@ -19,13 +19,7 @@ class Baseballbot
 
         def unposted = where(status: %w[Pregame Future])
 
-        def postable = where { post_at <= Sequel.lit('NOW()') }
-
         def started = where { starts_at <= Sequel.lit('NOW()') }
-
-        def with_game_threads_enabled
-          where(Sequel.lit("subreddits.options['game_threads']['enabled']::boolean IS TRUE"))
-        end
       end
     end
   end
