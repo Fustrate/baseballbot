@@ -22,13 +22,6 @@ class CLI < Thor
     AroundTheHorn.new.run
   end
 
-  desc 'slack', 'Send new mod queue items to Slack'
-  def slack
-    require_relative 'mod_queue_slack'
-
-    ModQueueSlack.new.run!
-  end
-
   desc 'tokens', 'Refresh reddit account tokens'
   method_option :bots, type: :string
   def tokens
