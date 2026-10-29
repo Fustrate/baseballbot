@@ -6,9 +6,11 @@ class Baseballbot
       class Calendar < Block
         def render
           <<~MARKDOWN
+            [](/baseballbot#calendar)
             #{interpolate(attributes['title'] || '## {{month_name}} Schedule')}
 
             #{render_calendar}
+            [](/baseballbot#calendar)
           MARKDOWN
         end
 

@@ -3,8 +3,6 @@
 class Baseballbot
   module Templates
     module Components
-      def todays_wbc_games = TodaysGames.new(@subreddit, links: :code, sport_id: 51)
-
       def month_games = schedule.month_games
 
       def previous_games(...) = schedule.previous_games(...)
@@ -15,7 +13,13 @@ class Baseballbot
 
       def last_game_str(...) = schedule.last_game_str(...)
 
-      def division_standings = DivisionStandings.new(@subreddit)
+      def division_standings
+        <<~MARKDOWN
+          [](/baseballbot#standings)
+          #{DivisionStandings.new(@subreddit)}
+          [](/baseballbot#standings)
+        MARKDOWN
+      end
 
       def pick_the_stick = PickTheStick.new(@subreddit)
 

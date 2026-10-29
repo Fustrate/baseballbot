@@ -6,9 +6,11 @@ class Baseballbot
       class DivisionStandings < Block
         def render
           <<~MARKDOWN
+            [](/baseballbot#standings)
             #{interpolate(attributes['title'] || '## {{year}} Division Standings')}
 
             #{render_standings_table}
+            [](/baseballbot#standings)
           MARKDOWN
         end
 
