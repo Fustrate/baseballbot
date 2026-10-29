@@ -22,14 +22,6 @@ class CLI < Thor
     AroundTheHorn.new.run
   end
 
-  desc 'sync_moderators', 'Sync moderator names from reddit'
-  method_option :subreddits, type: :string, aliases: '-s'
-  def sync_moderators
-    require_relative 'sync_moderators'
-
-    SyncModerators.new(subreddits: parse_array(options.subreddits)).run
-  end
-
   desc 'no_hitters', 'Post game threads for no-hitters in progress'
   def no_hitters
     require_relative 'no_hitters'
