@@ -67,11 +67,7 @@ class Baseballbot
       raise 'Sidebar is blank.' if new_settings.key?(:description) && new_settings[:description].strip.empty?
 
       @bot.with_reddit_bot(@bot_account.name) do
-        response = subreddit.modify_settings(**new_settings)
-
-        log_errors response.body.dig(:json, :errors), new_settings
-
-        log_action 'Updated settings', data: new_settings
+        subreddit.modify_settings(**new_settings)
       end
     end
 
@@ -124,32 +120,6 @@ class Baseballbot
       raise "/r/#{@name} does not have a #{type} template." unless template
 
       { body: template.body, blocks: template.blocks }
-    end
-
-    # --------------------------------------------------------------------------
-    # Logging
-    # --------------------------------------------------------------------------
-
-    def log_errors(errors, _new_settings)
-      return unless errors&.count&.positive?
-
-      errors.each do |error|
-        log_action 'Sidebar update error', data: { error: }
-
-        # if error[0] == 'TOO_LONG' && error[1] =~ /max: \d+/
-        #   # TODO: Message the moderators of the subreddit to tell them their sidebar is X characters too long.
-        # end
-      end
-    end
-
-    def log_action(action, note: '', data: {})
-      @bot.log_action(
-        subject_type: 'Subreddit',
-        subject_id: @id,
-        action:,
-        note:,
-        data:
-      )
     end
   end
 end

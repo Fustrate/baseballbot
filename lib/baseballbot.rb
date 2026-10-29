@@ -46,11 +46,6 @@ class Baseballbot
     @api ||= MLBStatsAPI::Client.new logger:, cache: redis
   end
 
-  # Returns one of 'postseason', 'regular_season', 'offseason', 'preseason'
-  def season_state
-    @season_state ||= @api.leagues(sportId: 1).dig('leagues', 0, 'seasonState')
-  end
-
   def client
     raise 'Baseballbot was not initialized with :user_agent.' unless @options[:user_agent]
 
@@ -59,16 +54,6 @@ class Baseballbot
 
   def logger
     @logger ||= @options[:logger] || Logger.new($stdout)
-  end
-
-  def log_action(subject_type:, subject_id:, action:, note: nil, data: {})
-    Baseballbot::Models::BotAction.create(
-      subject_type:,
-      subject_id:,
-      action:,
-      note:,
-      data: Sequel.pg_jsonb(data)
-    )
   end
 
   def redis
