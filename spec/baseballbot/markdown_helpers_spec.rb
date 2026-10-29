@@ -52,18 +52,6 @@ RSpec.describe Baseballbot::MarkdownHelpers do
     end
   end
 
-  describe '#player_link' do
-    it 'generates a markdown link to a normal player hash' do
-      expect(template.player_link({ 'boxscoreName' => 'Smith, W.D.', 'id' => 420 }))
-        .to eq '[Smith, W.D.](https://www.mlb.com/player/420)'
-    end
-
-    it 'generates a markdown link to a player with a complicated hash' do
-      expect(template.player_link({ 'name' => { 'boxscore' => 'Smith, W.D.' }, 'person' => { 'id' => 420 } }))
-        .to eq '[Smith, W.D.](https://www.mlb.com/player/420)'
-    end
-  end
-
   describe '#markdown_calendar' do
     it 'generates a calendar table' do
       dates = {
@@ -76,28 +64,6 @@ RSpec.describe Baseballbot::MarkdownHelpers do
 
       expect(result).to include('|S|M|T|W|T|F|S|')
       expect(result).to include('|:-:|:-:|:-:|:-:|:-:|:-:|:-:|')
-    end
-  end
-
-  describe '#player_name' do
-    it 'returns TBA when player is nil' do
-      expect(template.send(:player_name, nil)).to eq 'TBA'
-    end
-
-    it 'returns boxscoreName when available' do
-      player = { 'boxscoreName' => 'Smith, W.D.' }
-      expect(template.send(:player_name, player)).to eq 'Smith, W.D.'
-    end
-
-    it 'returns name.boxscore when boxscoreName is not available' do
-      player = { 'name' => { 'boxscore' => 'Smith, W.D.' } }
-      expect(template.send(:player_name, player)).to eq 'Smith, W.D.'
-    end
-  end
-
-  describe '#player_url' do
-    it 'generates a URL for a player ID' do
-      expect(template.send(:player_url, 420)).to eq 'https://www.mlb.com/player/420'
     end
   end
 
