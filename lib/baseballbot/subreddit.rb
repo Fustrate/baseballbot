@@ -42,8 +42,6 @@ class Baseballbot
     # If the bot isn't a moderator of the subreddit, it can't perform some actions
     def moderator? = @moderators.include?(@bot_account.name.downcase)
 
-    def sticky_game_threads? = moderator? && @options.dig('game_threads', 'sticky') != false
-
     def subreddit
       @subreddit ||= @bot.session.subreddit(@name)
     end
