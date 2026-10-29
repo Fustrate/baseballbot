@@ -41,9 +41,6 @@ class Baseballbot
       end
 
       class StandingsTeam
-        # This is based off of other teams' data as well, so it can't be calculated inside this class.
-        attr_accessor :wildcard_position
-
         attr_reader :subreddit, :current
 
         def initialize(row, subreddit)
@@ -71,8 +68,6 @@ class Baseballbot
 
         def streak = @row.dig('streak', 'streakCode') || '-'
 
-        def division_champ? = @row['divisionChamp']
-
         def division_leader? = @row['divisionLeader']
 
         def division_rank = @row['divisionRank']
@@ -96,16 +91,6 @@ class Baseballbot
         def road_wins = records.dig('away', 0) || 0
 
         def road_losses = records.dig('away', 1) || 0
-
-        def elim_wildcard = row['wildCardEliminationNumber'].to_i
-
-        def wildcard_champ? = false
-
-        def wildcard_gb = @row['wildCardGamesBack']
-
-        def wildcard_rank = @row['wildCardRank'].to_i
-
-        def wildcard? = @row['hasWildcard'] && !division_leader?
 
         # MLB seems to use the following order: Lowest losing %, most wins, least losses, and then fall back to three
         # letter code
