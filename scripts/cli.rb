@@ -22,13 +22,6 @@ class CLI < Thor
     AroundTheHorn.new.run
   end
 
-  desc 'check_messages', 'Check for messages from other bots'
-  def check_messages
-    require_relative 'check_messages'
-
-    CheckMessages.new.run
-  end
-
   desc 'sync_moderators', 'Sync moderator names from reddit'
   method_option :subreddits, type: :string, aliases: '-s'
   def sync_moderators

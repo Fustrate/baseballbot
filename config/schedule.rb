@@ -26,10 +26,6 @@ every 1.hour do
   cli :game_threads, :off_day
 end
 
-every 15.minutes do
-  cli :check_messages
-end
-
 every 5.minutes do
   cli :around_the_horn
 end
