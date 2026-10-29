@@ -62,8 +62,6 @@ class Baseballbot
 
           # This allows us to generate a schedule for a team other than the one belonging to the subreddit.
           class SubredditSchedule
-            SCHEDULE_HYDRATION = 'team(venue(timezone)),game(content(summary)),linescore,broadcasts(all)'
-
             def initialize(subreddit:, team_id:)
               @subreddit = subreddit
               @team_id = team_id
@@ -104,7 +102,7 @@ class Baseballbot
                 sportId: 1,
                 eventTypes: 'PRIMARY',
                 scheduleTypes: 'GAMESCHEDULE',
-                hydrate: SCHEDULE_HYDRATION
+                hydrate: 'team(venue(timezone)),game(content(summary)),linescore,broadcasts(all)'
               )['dates']
             end
 

@@ -13,6 +13,7 @@ class RefreshTokens < DefaultBot
   end
 
   def run = bots.each_value { process_account(it) }
+
   protected
 
   def process_account(bot)
