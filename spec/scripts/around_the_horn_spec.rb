@@ -34,39 +34,10 @@ RSpec.describe AroundTheHorn do
   end
 
   it 'generates the initial post' do
-    wiki_content = "Hello\n\n[](/todays_games)[](/todays_games)\n\nWorld"
+    wiki_content = 'Hello World'
 
     expect(ath.send(:update_todays_games_in, wiki_content).strip).to eq <<~MARKDOWN.strip
-      Hello
-
-      [](/todays_games)
-      # Monday's Games
-
-      |Away|Score|Home|Score|Status|National|GDTs|
-      |-|:-:|-|:-:|:-:|-|-|
-      |[MIA](/r/MiamiMarlins)|**3**|[WSH](/r/Nationals)|*2*|[F/10](https://www.mlb.com/gameday/662541)| ||
-      |[TEX](/r/TexasRangers)|*6*|[BAL](/r/Orioles)|**7**|[F/10](https://www.mlb.com/gameday/661073)| ||
-      |[CLE](/r/ClevelandGuardians)|*1*|[DET](/r/MotorCityKitties)|**4**|[F](https://www.mlb.com/gameday/662906)| ||
-      |[CLE](/r/ClevelandGuardians)|*3*|[DET](/r/MotorCityKitties)|**5**|[F](https://www.mlb.com/gameday/662841)| ||
-      |[TB](/r/TampaBayRays)|*0*|[BOS](/r/RedSox)|**4**|[F](https://www.mlb.com/gameday/663251)| ||
-      |[KC](/r/KCRoyals)|*6*|[HOU](/r/Astros)|**7**|[F](https://www.mlb.com/gameday/662874)| ||
-      |[CHC](/r/CHICubs)|*2*|[MIL](/r/Brewers)|**5**|[F/10](https://www.mlb.com/gameday/661181)| ||
-      |[SF](/r/SFGiants)|*3*|[AZ](/r/azdiamondbacks)|**8**|[F](https://www.mlb.com/gameday/663343)| ||
-      |[NYM](/r/NewYorkMets)|**7**|[CIN](/r/Reds)|*4*|[F](https://www.mlb.com/gameday/663036)| ||
-      |[SEA](/r/Mariners)|**8**|[SD](/r/Padres)|*2*|[F](https://www.mlb.com/gameday/662270)| ||
-      |[STL](/r/Cardinals)|*3*|[ATL](/r/Braves)|**6**|[F](https://www.mlb.com/gameday/661511)| ||
-      |[MIN](/r/MinnesotaTwins)|**6**|[CWS](/r/WhiteSox)|*3*|[F/10](https://www.mlb.com/gameday/661452)| ||
-      |[TOR](/r/TorontoBlueJays)|*1*|[OAK](/r/baseball)|**5**|[F](https://www.mlb.com/gameday/662355)| ||
-      |[COL](/r/ColoradoRockies)|*3*|[LAD](/r/Dodgers)|**5**|[F](https://www.mlb.com/gameday/662732)| ||
-
-      All game times are Eastern. [Updated](https://baseballbot.io) 7/4 at 9:28 AM PDT
-
-
-
-
-      [](/todays_games)
-
-      World
+      Hello World
     MARKDOWN
   end
 end

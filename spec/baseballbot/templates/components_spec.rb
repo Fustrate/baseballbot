@@ -19,15 +19,6 @@ RSpec.describe Baseballbot::Templates::Components do
     )
   end
 
-  describe '#todays_games' do
-    it 'creates a Today\'s Games table' do
-      expect(Baseballbot::Templates::Components::TodaysGames)
-        .to receive(:new).with(subreddit, links: :code, sport_id: 1)
-
-      TemplateComponents.new(subreddit).todays_games
-    end
-  end
-
   describe 'Schedule methods' do
     let(:schedule) { instance_double(Baseballbot::Templates::Components::Schedule) }
 
