@@ -29,8 +29,3 @@ end
 every 5.minutes do
   cli :around_the_horn
 end
-
-# So we don't run twice on the hour
-step_minutes_by(5, except: 0) do
-  cli :sidebars, :update, subreddits: :baseball
-end
