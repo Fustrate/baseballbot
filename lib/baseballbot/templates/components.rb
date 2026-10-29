@@ -17,8 +17,6 @@ class Baseballbot
 
       def division_standings = DivisionStandings.new(@subreddit)
 
-      def league_standings = LeagueStandings.new(@subreddit)
-
       def pick_the_stick = PickTheStick.new(@subreddit)
 
       def team_stats

@@ -19,14 +19,6 @@ RSpec.describe Baseballbot::Templates::Sidebars::Components do
     )
   end
 
-  describe '#postseason_series_section' do
-    it 'creates a postseason section' do
-      expect(Baseballbot::Templates::Sidebars::Components::Postseason).to receive(:new).with(subreddit)
-
-      SidebarComponents.new(subreddit).postseason_series_section
-    end
-  end
-
   describe 'Leaders methods' do
     let(:leaders) { instance_double(Baseballbot::Templates::Sidebars::Components::Leaders) }
 
