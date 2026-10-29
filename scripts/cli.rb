@@ -22,13 +22,6 @@ class CLI < Thor
     AroundTheHorn.new.run
   end
 
-  desc 'no_hitters', 'Post game threads for no-hitters in progress'
-  def no_hitters
-    require_relative 'no_hitters'
-
-    NoHitters.new.post_no_hitters!
-  end
-
   desc 'slack', 'Send new mod queue items to Slack'
   def slack
     require_relative 'mod_queue_slack'
