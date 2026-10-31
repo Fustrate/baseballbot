@@ -36,7 +36,7 @@ class AroundTheHorn < DefaultBot
   def run
     return if todays_submission_id
 
-    submission = @subreddit.submit(title: post_title, text: update_todays_games_in(initial_body))
+    submission = @subreddit.submit(title: post_title, text: initial_body)
 
     submission.make_sticky(slot: 1)
     submission.set_suggested_sort 'new'

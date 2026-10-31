@@ -32,12 +32,4 @@ RSpec.describe AroundTheHorn do
       World
     MARKDOWN
   end
-
-  it 'generates the initial post' do
-    wiki_content = 'Hello World'
-
-    expect(ath.send(:update_todays_games_in, wiki_content).strip).to eq <<~MARKDOWN.strip
-      Hello World
-    MARKDOWN
-  end
 end
