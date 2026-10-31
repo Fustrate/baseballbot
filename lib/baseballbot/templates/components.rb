@@ -13,13 +13,8 @@ class Baseballbot
 
       def last_game_str(...) = schedule.last_game_str(...)
 
-      def division_standings
-        <<~MARKDOWN
-          [](/baseballbot#standings)
-          #{DivisionStandings.new(@subreddit)}
-          [](/baseballbot#standings)
-        MARKDOWN
-      end
+      # Templates iterate over this as a Mustache section, so it can't be wrapped in markers.
+      def division_standings = DivisionStandings.new(@subreddit)
 
       def pick_the_stick = PickTheStick.new(@subreddit)
 
