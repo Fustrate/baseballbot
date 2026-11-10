@@ -23,7 +23,6 @@ end
 
 every 1.hour do
   cli :sidebars, :update
-  cli :game_threads, :off_day
 end
 
 every 5.minutes do

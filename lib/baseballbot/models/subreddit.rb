@@ -12,16 +12,6 @@ class Baseballbot
 
       dataset_module do
         def with_sidebar_enabled = where(Sequel.lit("options['sidebar']['enabled']::boolean IS TRUE"))
-
-        def with_offday_enabled = where(Sequel.lit("options['off_day']['enabled']::boolean IS TRUE"))
-
-        def with_unposted_off_day_thread
-          with_offday_enabled.where(Sequel.lit(<<~SQL))
-            (options['off_day']['last_run_at'] IS NULL OR DATE(options['off_day']['last_run_at']::text) < CURRENT_DATE)
-            AND
-            ((CURRENT_DATE + options['off_day']['post_at']::text::interval) < NOW() AT TIME ZONE (options->>'timezone'))
-          SQL
-        end
       end
 
       # If the bot isn't a moderator of the subreddit, it can't perform some actions

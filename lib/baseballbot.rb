@@ -34,7 +34,6 @@ Sequel.extension :pg_json_ops
 
 class Baseballbot
   include Bots
-  include OffDay
   include Sidebars
   include Subreddits
 
